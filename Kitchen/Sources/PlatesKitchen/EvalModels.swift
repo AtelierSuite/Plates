@@ -82,6 +82,9 @@ struct EvalRun: Identifiable, Codable {
     let recipe: EvalRecipe?
     let checks: [String]
     let error: String?
+    let structuringError: String?
+    let structureDurationSeconds: Double?
+    let structuredByApple: Bool?
     var review: Review
 }
 
@@ -99,13 +102,20 @@ enum RecipeChecks {
         if caseID == "egg-fried-rice" {
             if !ingredients.contains("egg") && !ingredients.contains("卵") { issues.append("Egg absent from ingredients") }
             if !ingredients.contains("rice") && !ingredients.contains("ご飯") && !ingredients.contains("米") { issues.append("Rice absent from ingredients") }
+            if !method.contains("egg") && !method.contains("卵") { issues.append("Egg absent from method") }
+            if !method.contains("rice") && !method.contains("ご飯") && !method.contains("米") { issues.append("Rice absent from method") }
             if tools.contains("wok") || tools.contains("中華鍋") || method.contains("wok") || method.contains("中華鍋") { issues.append("Wok mentioned") }
         }
         if caseID == "tomato-meat-sauce" {
             if !ingredients.contains("celery") && !ingredients.contains("セロリ") { issues.append("Celery absent from ingredients") }
             if !method.contains("celery") && !method.contains("セロリ") { issues.append("Celery absent from method") }
         }
-        if caseID == "grilled-cheese" && recipe.ingredients.count > 6 { issues.append("More than six ingredients for simple grilled cheese") }
+        if caseID == "grilled-cheese" {
+            if !ingredients.contains("bread") && !ingredients.contains("パン") { issues.append("Bread absent from ingredients") }
+            if !ingredients.contains("cheese") && !ingredients.contains("チーズ") { issues.append("Cheese absent from ingredients") }
+            if recipe.steps.count < 2 { issues.append("Method has fewer than two steps") }
+            if recipe.ingredients.count > 6 { issues.append("More than six ingredients for simple grilled cheese") }
+        }
         return issues
     }
 }

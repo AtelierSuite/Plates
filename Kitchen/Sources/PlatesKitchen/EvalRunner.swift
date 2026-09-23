@@ -18,6 +18,9 @@ final class EvalRunner: ObservableObject {
     private var task: Task<Void, Never>?
     private var downloadTask: Task<Void, Never>?
     private let port = 12783
+    private let structurer = AppleRecipeStructurer()
+
+    var appleIntelligenceAvailable: Bool { structurer.isAvailable }
 
     init() {
         if let data = try? Data(contentsOf: Self.sessionURL) {
@@ -85,10 +88,14 @@ final class EvalRunner: ObservableObject {
 
     private func saveSession() {
         let file = Self.sessionURL
-        try? FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        if let data = try? encoder.encode(runs) { try? data.write(to: file, options: .atomic) }
+        do {
+            try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            try encoder.encode(runs).write(to: file, options: .atomic)
+        } catch {
+            status = "Could not save results: \(error.localizedDescription)"
+        }
     }
 
     func setServer(_ url: URL) {
@@ -103,6 +110,10 @@ final class EvalRunner: ObservableObject {
 
     func start() {
         guard !isRunning else { return }
+        guard structurer.isAvailable else {
+            status = "Apple Intelligence is unavailable. Enable it and wait for its model to finish downloading."
+            return
+        }
         guard FileManager.default.isExecutableFile(atPath: serverPath) else {
             status = "Choose an executable llama-server binary."
             return
@@ -111,6 +122,11 @@ final class EvalRunner: ObservableObject {
         guard !candidates.isEmpty else { status = "Select at least one model."; return }
         guard candidates.allSatisfy({ FileManager.default.fileExists(atPath: modelPaths[$0.id] ?? "") }) else {
             status = "Choose a GGUF file for each selected model."
+            return
+        }
+        do { try archiveSessionIfNeeded() }
+        catch {
+            status = "Could not archive the current results: \(error.localizedDescription)"
             return
         }
         runs = []
@@ -134,7 +150,7 @@ final class EvalRunner: ObservableObject {
                     }
                 } catch {
                     status = "\(candidate.name): \(error.localizedDescription)"
-                    runs.append(EvalRun(id: UUID(), modelID: candidate.id, modelFile: modelPaths[candidate.id] ?? "", caseID: "startup", language: .english, repetition: 0, startedAt: .now, durationSeconds: 0, rawText: "", recipe: nil, checks: [], error: error.localizedDescription, review: Review()))
+                    runs.append(EvalRun(id: UUID(), modelID: candidate.id, modelFile: modelPaths[candidate.id] ?? "", caseID: "startup", language: .english, repetition: 0, startedAt: .now, durationSeconds: 0, rawText: "", recipe: nil, checks: [], error: error.localizedDescription, structuringError: nil, structureDurationSeconds: nil, structuredByApple: nil, review: Review()))
                 }
                 stopServer()
             }
@@ -147,6 +163,49 @@ final class EvalRunner: ObservableObject {
     func stop() {
         task?.cancel()
         stopServer()
+    }
+
+    func structureSavedOutputs() {
+        guard !isRunning else { return }
+        guard structurer.isAvailable else {
+            status = "Apple Intelligence is unavailable. Enable it and wait for its model to finish downloading."
+            return
+        }
+        do { try archiveSessionIfNeeded() }
+        catch {
+            status = "Could not archive the current results: \(error.localizedDescription)"
+            return
+        }
+        isRunning = true
+        task = Task {
+            for index in runs.indices where !runs[index].rawText.isEmpty {
+                if Task.isCancelled { break }
+                let old = runs[index]
+                guard let testCase = EvalCase.all.first(where: { $0.id == old.caseID }) else { continue }
+                status = "Structuring saved output \(index + 1) of \(runs.count) with Apple Intelligence..."
+                let result = await structure(old.rawText, for: testCase, language: old.language)
+                runs[index] = EvalRun(
+                    id: old.id, modelID: old.modelID, modelFile: old.modelFile,
+                    caseID: old.caseID, language: old.language, repetition: old.repetition,
+                    startedAt: old.startedAt, durationSeconds: old.durationSeconds,
+                    rawText: old.rawText, recipe: result.recipe, checks: result.checks,
+                    error: nil, structuringError: result.error,
+                    structureDurationSeconds: result.duration, structuredByApple: result.recipe != nil,
+                    review: old.review
+                )
+            }
+            isRunning = false
+            status = Task.isCancelled ? "Structuring stopped. Completed results are saved." : "Finished structuring saved outputs. Review source fidelity and cooking quality."
+            task = nil
+        }
+    }
+
+    private func archiveSessionIfNeeded() throws {
+        guard !runs.isEmpty else { return }
+        let data = try Data(contentsOf: Self.sessionURL)
+        let archive = Self.sessionURL.deletingLastPathComponent()
+            .appendingPathComponent("session-before-\(Int(Date.now.timeIntervalSince1970))-\(UUID().uuidString).json")
+        try data.write(to: archive, options: .atomic)
     }
 
     private func launch(_ candidate: Candidate) async throws {
@@ -186,9 +245,7 @@ final class EvalRunner: ObservableObject {
     private func generate(_ candidate: Candidate, _ testCase: EvalCase, _ language: EvalLanguage, _ repetition: Int) async -> EvalRun {
         let start = Date.now
         var raw = ""
-        var recipe: EvalRecipe?
         var errorText: String?
-        var checks: [String] = []
         do {
             let url = URL(string: "http://127.0.0.1:\(port)/v1/chat/completions")!
             var request = URLRequest(url: url)
@@ -211,18 +268,32 @@ final class EvalRunner: ObservableObject {
             }
             let completion = try JSONDecoder().decode(ChatCompletion.self, from: data)
             raw = completion.choices.first?.message.content ?? ""
-            guard let json = Self.extractJSON(raw).data(using: .utf8) else { throw RunnerError.invalidJSON }
-            recipe = try JSONDecoder().decode(EvalRecipe.self, from: json)
-            checks = RecipeChecks.evaluate(recipe!, caseID: testCase.id)
+            if raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { throw RunnerError.empty }
         } catch {
             errorText = error.localizedDescription
         }
-        return EvalRun(id: UUID(), modelID: candidate.id, modelFile: modelPaths[candidate.id] ?? "", caseID: testCase.id, language: language, repetition: repetition, startedAt: start, durationSeconds: Date.now.timeIntervalSince(start), rawText: raw, recipe: recipe, checks: checks, error: errorText, review: Review())
+        let generationDuration = Date.now.timeIntervalSince(start)
+        let structured = errorText == nil
+            ? await structure(raw, for: testCase, language: language)
+            : (recipe: nil as EvalRecipe?, checks: [String](), error: nil as String?, duration: nil as Double?)
+        return EvalRun(
+            id: UUID(), modelID: candidate.id, modelFile: modelPaths[candidate.id] ?? "",
+            caseID: testCase.id, language: language, repetition: repetition, startedAt: start,
+            durationSeconds: generationDuration, rawText: raw, recipe: structured.recipe,
+            checks: structured.checks, error: errorText, structuringError: structured.error,
+            structureDurationSeconds: structured.duration, structuredByApple: structured.recipe != nil,
+            review: Review()
+        )
     }
 
-    private static func extractJSON(_ text: String) -> String {
-        guard let first = text.firstIndex(of: "{"), let last = text.lastIndex(of: "}"), first <= last else { return text }
-        return String(text[first...last])
+    private func structure(_ raw: String, for testCase: EvalCase, language: EvalLanguage) async -> (recipe: EvalRecipe?, checks: [String], error: String?, duration: Double?) {
+        let start = Date.now
+        do {
+            let recipe = try await structurer.structure(raw, for: testCase, language: language)
+            return (recipe, RecipeChecks.evaluate(recipe, caseID: testCase.id), nil, Date.now.timeIntervalSince(start))
+        } catch {
+            return (nil, [], error.localizedDescription, Date.now.timeIntervalSince(start))
+        }
     }
 
     func export(to url: URL) throws {
@@ -243,14 +314,14 @@ private enum RunnerError: LocalizedError {
     case serverStopped(String)
     case startupTimeout(String)
     case http(String)
-    case invalidJSON
+    case empty
 
     var errorDescription: String? {
         switch self {
         case .serverStopped(let log): "llama-server stopped. See \(log)"
         case .startupTimeout(let log): "Model did not load within two minutes. See \(log)"
         case .http(let response): "Inference request failed: \(response)"
-        case .invalidJSON: "No JSON object in the model output"
+        case .empty: "The model returned an empty recipe"
         }
     }
 }
@@ -273,9 +344,8 @@ private enum Prompt {
             : "Write the entire recipe in plain US English."
         return """
         You are writing a practical home recipe. Follow the cook's request exactly. Keep tools, ingredients, and method consistent. Give safe, workable heat and cooking instructions. \(style)
-        Return only one JSON object, without Markdown, with this shape:
-        {"title":"","time":"minutes as a count","serves":"","ingredients":[{"item":"","amount":""}],"tools":[""],"steps":[{"title":"","points":[""]}],"troubleshooting":[{"problem":"","solution":""}]}
-        Use 2 to 8 steps. Every ingredient must have an amount. Include only tools the cook needs. Do not add an ingredient to a step unless it is in the ingredient list.
+        Write the recipe as plain cookbook text with a title, total time, servings, measured ingredients, tools, and ordered method steps. Add troubleshooting only when useful. Do not write JSON or code.
+        Use 2 to 8 steps. Include only tools the cook needs. Do not use an ingredient in a step unless it is in the ingredient list.
         """
     }
 }

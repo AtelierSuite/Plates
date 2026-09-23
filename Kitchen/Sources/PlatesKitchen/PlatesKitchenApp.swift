@@ -47,12 +47,16 @@ private struct KitchenView: View {
                 Stepper("Runs per case: \(runner.repetitions)", value: $runner.repetitions, in: 1...10)
                 Text("Three dishes in English and Japanese. The same prompt and settings are used for every model.")
                     .font(.caption).foregroundStyle(.secondary)
+                Text(runner.appleIntelligenceAvailable ? "Apple Intelligence is ready to structure recipes." : "Apple Intelligence is unavailable on this Mac.")
+                    .font(.caption).foregroundStyle(runner.appleIntelligenceAvailable ? .green : .orange)
                 HStack {
-                Button("Run eval") { runner.start() }.disabled(runner.isRunning)
+                    Button("Run eval") { runner.start() }.disabled(runner.isRunning || !runner.appleIntelligenceAvailable)
                         .buttonStyle(.borderedProminent)
                     Button("Stop") { runner.stop() }.disabled(!runner.isRunning)
                     Button("Export JSON") { export() }.disabled(runner.runs.isEmpty)
                 }
+                Button("Structure saved outputs") { runner.structureSavedOutputs() }
+                    .disabled(runner.isRunning || !runner.appleIntelligenceAvailable || !runner.runs.contains { !$0.rawText.isEmpty })
                 Text(runner.status).font(.caption).foregroundStyle(.secondary)
                 Spacer()
             }
@@ -64,7 +68,7 @@ private struct KitchenView: View {
                     ForEach(Candidate.all.filter { candidate in runner.runs.contains { $0.modelID == candidate.id } }) { candidate in
                         let modelRuns = runner.runs.filter { $0.modelID == candidate.id && $0.caseID != "startup" }
                         let reviewed = modelRuns.filter { $0.review.reviewed }
-                        Text("\(candidate.name): \(modelRuns.filter { $0.recipe != nil }.count)/\(modelRuns.count) parsed, \(reviewed.filter { $0.review.passes }.count)/\(reviewed.count) passed review")
+                        Text("\(candidate.name): \(modelRuns.filter { $0.structuredByApple == true }.count)/\(modelRuns.count) structured, \(reviewed.filter { $0.review.passes }.count)/\(reviewed.count) passed review")
                             .font(.caption)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -86,8 +90,8 @@ private struct KitchenView: View {
                             Text(Candidate.all.first { $0.id == run.modelID }?.name ?? run.modelID)
                             Spacer()
                             Text("#\(run.repetition)")
-                            Image(systemName: run.error != nil ? "xmark.circle.fill" : run.checks.isEmpty ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
-                                .foregroundStyle(run.error != nil ? .red : run.checks.isEmpty ? .green : .orange)
+                            Image(systemName: run.error != nil || run.structuringError != nil || run.recipe == nil ? "xmark.circle.fill" : run.checks.isEmpty ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
+                                .foregroundStyle(run.error != nil || run.structuringError != nil || run.recipe == nil ? .red : run.checks.isEmpty ? .green : .orange)
                         }
                         .tag(run.id)
                     }
@@ -140,13 +144,22 @@ private struct KitchenView: View {
                     .font(.title2.bold())
                 Text("\(run.durationSeconds.formatted(.number.precision(.fractionLength(1)))) seconds · \(run.modelFile)")
                     .font(.caption).foregroundStyle(.secondary).textSelection(.enabled)
+                if let seconds = run.structureDurationSeconds {
+                    Text("Apple structuring: \(seconds.formatted(.number.precision(.fractionLength(1)))) seconds")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
                 if let error = run.error { Label(error, systemImage: "xmark.circle").foregroundStyle(.red) }
+                if let error = run.structuringError { Label("Apple structuring failed: \(error)", systemImage: "xmark.circle").foregroundStyle(.red) }
                 if !run.checks.isEmpty {
                     GroupBox("Automated flags") {
                         ForEach(run.checks, id: \.self) { Text($0).frame(maxWidth: .infinity, alignment: .leading) }
                     }
                 }
                 if let recipe = run.recipe {
+                    if run.structuredByApple == true {
+                        Text("Apple Intelligence extracted this structure. Compare it with the original before scoring.")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
                     Text(recipe.title).font(.title3.bold())
                     Text("\(recipe.time) · Serves \(recipe.serves)")
                     Text("Ingredients").font(.headline)
@@ -165,7 +178,7 @@ private struct KitchenView: View {
                         }
                     }
                 }
-                DisclosureGroup("Raw model output") {
+                DisclosureGroup("Original model recipe") {
                     Text(run.rawText).font(.system(.caption, design: .monospaced)).textSelection(.enabled)
                 }
                 Divider()

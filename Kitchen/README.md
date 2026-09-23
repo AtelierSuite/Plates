@@ -1,10 +1,10 @@
 # Plates Kitchen
 
-A Mac app for screening small on-device recipe models against the same three cooking requests in English and Japanese. It runs local GGUF weights through `llama-server`, shows every output, records automated flags and human review, and exports the session as JSON.
+A Mac app for screening small on-device recipe models against the same three cooking requests in English and Japanese. Each local GGUF model writes a plain recipe through `llama-server`. Apple Intelligence then uses `@Generable` to extract the recipe into a consistent structure. The original model text stays beside the extracted recipe for review. The app records automated flags and human review, then exports the session as JSON.
 
 ## Build and open
 
-Requires macOS 15 or later, Xcode command line tools, and a recent [llama.cpp](https://github.com/ggml-org/llama.cpp) `llama-server` executable. For example, `brew install llama.cpp` provides the runtime. Build the app with:
+Requires macOS 26 or later on a Mac with Apple Intelligence enabled and ready, Xcode command line tools, and a recent [llama.cpp](https://github.com/ggml-org/llama.cpp) `llama-server` executable. For example, `brew install llama.cpp` provides the runtime. Build the app with:
 
 ```sh
 ./Scripts/build-app.sh
@@ -24,6 +24,8 @@ These files are small enough to be plausible iPhone 15 Pro candidates. GGUF and 
 
 ## Eval protocol
 
-Each selected model receives all three dish requests in both languages, with one shared system prompt, temperature 0.7, seeds 1001 onward, a 4096 token context, and 1400 output tokens. Runs are sequential. Each output is parsed as recipe JSON; automatic checks flag missing fields and dish-specific constraints. Reviewers then mark cookability, constraint adherence, ingredient use, step order, language, and critical failures. Results are saved locally after each change and restored on the next launch. Export saves the raw output, parsed recipe, flags, timing, model file path, and review marks.
+Each selected model receives all three dish requests in both languages, with one shared cookbook prompt, temperature 0.7, seeds 1001 onward, a 4096 token context, and 1400 output tokens. Runs are sequential. Apple Intelligence extracts each plain recipe with `@Generable`, with instructions to preserve omissions and mistakes. Automatic checks flag missing fields and dish-specific constraints. Reviewers compare the extraction with the original, then mark cookability, constraint adherence, ingredient use, step order, language, and critical failures. Results are saved locally after each change and restored on the next launch. Export saves the original model text, Apple structured recipe, separate generation and structuring timings, flags, and review marks.
+
+**Structure saved outputs** applies the Apple pass to an existing session, including earlier runs that tried to produce JSON directly. It archives the session first. A new eval also archives the current session before replacing its runs. The older JSON attempts remain useful to inspect but are a different prompting condition from the new plain recipe runs.
 
 This is a screening test, not the full Plates generator. Plates writes a recipe in several structured passes and runs a review pass. A promising model needs a second eval in that pipeline plus testing on a real iPhone 15 Pro. Recipe quality, latency, and memory should all be measured there before adoption.
