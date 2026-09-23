@@ -16,6 +16,7 @@ final class SVGRunner: ObservableObject {
     private let port = 12784
     private var process: Process?
     private var task: Task<Void, Never>?
+    private let scenePlanner = AppleScenePlanner()
 
     init(outputURL: URL? = nil) {
         recipes = (try? SVGSampleRecipe.load()) ?? []
@@ -29,6 +30,45 @@ final class SVGRunner: ObservableObject {
     }
 
     var assets: [SVGSampleAsset] { recipes.flatMap(\.assets) }
+    var appleSceneAvailable: Bool { scenePlanner.isAvailable }
+
+    func startScenePlan() {
+        guard !isRunning else { return }
+        guard !recipes.isEmpty else { status = "Could not load the SVG sample recipes."; return }
+        guard appleSceneAvailable else { status = "Apple Intelligence is unavailable for scene planning."; return }
+        do { try archiveIfNeeded() }
+        catch { status = "Could not archive SVG results: \(error.localizedDescription)"; return }
+        isRunning = true
+        task = Task {
+            for asset in assets {
+                if Task.isCancelled { break }
+                status = "Apple scene plan: \(asset.id)"
+                let start = Date.now
+                var raw = ""
+                var svg: String?
+                var checks: [String] = []
+                var errorText: String?
+                do {
+                    let plan = try await scenePlanner.plan(for: asset)
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+                    raw = String(decoding: try encoder.encode(plan), as: UTF8.self)
+                    let rendered = try SceneSVGRenderer.render(plan, for: asset)
+                    let svgChecks = SVGChecks.evaluate(rendered, asset: asset)
+                    checks = svgChecks + SceneChecks.evaluate(plan, for: asset)
+                    if svgChecks.isEmpty { svg = rendered }
+                } catch { errorText = error.localizedDescription }
+                runs.append(SVGRun(id: UUID(), modelID: "apple-scene", assetID: asset.id, recipeID: asset.recipeID,
+                                   kind: asset.kind, repetition: 1, startedAt: start,
+                                   durationSeconds: Date.now.timeIntervalSince(start), rawText: raw,
+                                   svg: svg, formatWarning: nil, checks: checks, error: errorText,
+                                   review: SVGReview()))
+            }
+            isRunning = false
+            status = Task.isCancelled ? "Stopped. Completed scene plans are saved." : "Finished Apple scene plans. Review subject and action fidelity."
+            task = nil
+        }
+    }
 
     func start() {
         guard !isRunning else { return }

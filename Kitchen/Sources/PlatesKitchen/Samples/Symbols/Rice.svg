@@ -1,0 +1,6 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bowl of rice">
+  <path d="M13 24a11 8 0 0 1 22 0Z" fill="#ffffff"/>
+  <path d="M9 25h30a15 13 0 0 1-30 0Z" fill="#e6e0d4"/>
+  <rect x="20" y="38" width="8" height="3" rx="1.5" fill="#c8c2b6"/>
+  <g fill="#f0ece4"><ellipse cx="19" cy="20" rx="2" ry="3"/><ellipse cx="27" cy="19" rx="2" ry="3"/></g>
+</svg>

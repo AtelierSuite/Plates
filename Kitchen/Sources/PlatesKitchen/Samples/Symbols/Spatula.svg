@@ -1,0 +1,5 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spatula">
+  <rect x="21" y="6" width="6" height="20" rx="3" fill="#a97142"/>
+  <path d="M14 25h20l-2 13a3 3 0 0 1-3 2h-10a3 3 0 0 1-3-2Z" fill="#cfd6dd"/>
+  <path d="M18 29h12M18 34h12" stroke="#8d939b" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

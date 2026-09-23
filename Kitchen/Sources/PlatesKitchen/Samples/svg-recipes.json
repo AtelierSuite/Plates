@@ -2,40 +2,201 @@
   {
     "id": "egg-fried-rice",
     "title": "Egg Fried Rice",
-    "ingredients": ["cooked rice", "eggs", "spring onion", "soy sauce", "cooking oil"],
-    "tools": ["frying pan", "bowl", "spatula"],
+    "ingredients": [
+      "cooked rice",
+      "eggs",
+      "spring onion",
+      "soy sauce",
+      "cooking oil"
+    ],
+    "tools": [
+      "frying pan",
+      "bowl",
+      "spatula"
+    ],
     "iconSubject": "A mound of egg fried rice with visible egg and spring onion in a simple bowl",
     "steps": [
-      {"title": "Beat the eggs", "action": "Beat two eggs in a bowl until the yolks and whites combine.", "visual": "A bowl of beaten golden eggs with a fork beside it"},
-      {"title": "Cook the eggs", "action": "Scramble the eggs in the frying pan, then move them to one side.", "visual": "Soft scrambled eggs on one side of a single frying pan"},
-      {"title": "Fry the rice", "action": "Add cooked rice to the same pan and stir it with the eggs.", "visual": "White rice and golden egg being stirred together in one frying pan"},
-      {"title": "Season and serve", "action": "Add soy sauce and sliced spring onion, toss, and serve.", "visual": "Finished fried rice with green spring onion in a bowl"}
-    ]
+      {
+        "title": "Beat the eggs",
+        "action": "Beat two eggs in a bowl until the yolks and whites combine.",
+        "visual": "A bowl of beaten golden eggs with a fork beside it",
+        "expectedSymbols": [
+          "Egg",
+          "Bowl"
+        ],
+        "actionType": "mix"
+      },
+      {
+        "title": "Cook the eggs",
+        "action": "Scramble the eggs in the frying pan, then move them to one side.",
+        "visual": "Soft scrambled eggs on one side of a single frying pan",
+        "expectedSymbols": [
+          "Egg",
+          "Pan"
+        ],
+        "actionType": "heat"
+      },
+      {
+        "title": "Fry the rice",
+        "action": "Add cooked rice to the same pan and stir it with the eggs.",
+        "visual": "White rice and golden egg being stirred together in one frying pan",
+        "expectedSymbols": [
+          "Rice",
+          "Egg",
+          "Pan"
+        ],
+        "actionType": "mix"
+      },
+      {
+        "title": "Season and serve",
+        "action": "Add soy sauce and sliced spring onion, toss, and serve.",
+        "visual": "Finished fried rice with green spring onion in a bowl",
+        "expectedSymbols": [
+          "Rice",
+          "SpringOnion",
+          "Bowl"
+        ],
+        "actionType": "serve"
+      }
+    ],
+    "iconExpectedSymbols": [
+      "Rice",
+      "Egg",
+      "SpringOnion"
+    ],
+    "iconAction": "serve"
   },
   {
     "id": "tomato-meat-sauce",
     "title": "Spaghetti with Tomato Meat Sauce",
-    "ingredients": ["spaghetti", "ground beef", "tomatoes", "celery", "onion", "olive oil"],
-    "tools": ["pot", "frying pan", "spoon"],
+    "ingredients": [
+      "spaghetti",
+      "ground beef",
+      "tomatoes",
+      "celery",
+      "onion",
+      "olive oil"
+    ],
+    "tools": [
+      "pot",
+      "frying pan",
+      "spoon"
+    ],
     "iconSubject": "A nest of spaghetti topped with red tomato meat sauce and small pieces of celery",
     "steps": [
-      {"title": "Chop the vegetables", "action": "Dice the onion and celery before heating the pan.", "visual": "Separate small piles of chopped onion and celery on a board"},
-      {"title": "Brown the beef", "action": "Brown ground beef in a frying pan, breaking it into small pieces.", "visual": "Ground beef browning in a frying pan with a spoon"},
-      {"title": "Simmer the sauce", "action": "Add onion, tomatoes, and celery to the beef and simmer.", "visual": "Red tomato and beef sauce with visible celery pieces in a frying pan"},
-      {"title": "Cook and combine", "action": "Boil the spaghetti in a pot, drain it, and toss it with the sauce.", "visual": "Cooked spaghetti being tossed with red meat sauce"}
-    ]
+      {
+        "title": "Chop the vegetables",
+        "action": "Dice the onion and celery before heating the pan.",
+        "visual": "Separate small piles of chopped onion and celery on a board",
+        "expectedSymbols": [
+          "Onion",
+          "Celery",
+          "CuttingBoard"
+        ],
+        "actionType": "chop"
+      },
+      {
+        "title": "Brown the beef",
+        "action": "Brown ground beef in a frying pan, breaking it into small pieces.",
+        "visual": "Ground beef browning in a frying pan with a spoon",
+        "expectedSymbols": [
+          "Beef",
+          "Pan"
+        ],
+        "actionType": "heat"
+      },
+      {
+        "title": "Simmer the sauce",
+        "action": "Add onion, tomatoes, and celery to the beef and simmer.",
+        "visual": "Red tomato and beef sauce with visible celery pieces in a frying pan",
+        "expectedSymbols": [
+          "Tomato",
+          "Beef",
+          "Celery",
+          "Pan"
+        ],
+        "actionType": "heat"
+      },
+      {
+        "title": "Cook and combine",
+        "action": "Boil the spaghetti in a pot, drain it, and toss it with the sauce.",
+        "visual": "Cooked spaghetti being tossed with red meat sauce",
+        "expectedSymbols": [
+          "Spaghetti",
+          "Tomato",
+          "Beef",
+          "Pot"
+        ],
+        "actionType": "serve"
+      }
+    ],
+    "iconExpectedSymbols": [
+      "Spaghetti",
+      "Tomato",
+      "Beef"
+    ],
+    "iconAction": "serve"
   },
   {
     "id": "grilled-cheese",
     "title": "Simple Grilled Cheese",
-    "ingredients": ["bread", "cheese", "butter"],
-    "tools": ["frying pan", "spatula"],
+    "ingredients": [
+      "bread",
+      "cheese",
+      "butter"
+    ],
+    "tools": [
+      "frying pan",
+      "spatula"
+    ],
     "iconSubject": "A golden grilled cheese sandwich cut in half with melted cheese visible",
     "steps": [
-      {"title": "Butter the bread", "action": "Spread butter on the outside of two bread slices.", "visual": "Two slices of bread with butter on their outer faces"},
-      {"title": "Add the cheese", "action": "Place cheese between the bread slices, buttered sides facing out.", "visual": "Cheese between two bread slices with butter on the outside"},
-      {"title": "Toast the first side", "action": "Cook the sandwich in a frying pan until the underside is golden.", "visual": "One sandwich toasting in a frying pan, lower bread turning golden"},
-      {"title": "Flip and serve", "action": "Flip the sandwich, toast the other side, then cut it in half.", "visual": "Golden sandwich halves with melted cheese between the bread"}
-    ]
+      {
+        "title": "Butter the bread",
+        "action": "Spread butter on the outside of two bread slices.",
+        "visual": "Two slices of bread with butter on their outer faces",
+        "expectedSymbols": [
+          "Bread",
+          "Butter"
+        ],
+        "actionType": "assemble"
+      },
+      {
+        "title": "Add the cheese",
+        "action": "Place cheese between the bread slices, buttered sides facing out.",
+        "visual": "Cheese between two bread slices with butter on the outside",
+        "expectedSymbols": [
+          "Bread",
+          "Cheese"
+        ],
+        "actionType": "assemble"
+      },
+      {
+        "title": "Toast the first side",
+        "action": "Cook the sandwich in a frying pan until the underside is golden.",
+        "visual": "One sandwich toasting in a frying pan, lower bread turning golden",
+        "expectedSymbols": [
+          "Bread",
+          "Cheese",
+          "Pan"
+        ],
+        "actionType": "heat"
+      },
+      {
+        "title": "Flip and serve",
+        "action": "Flip the sandwich, toast the other side, then cut it in half.",
+        "visual": "Golden sandwich halves with melted cheese between the bread",
+        "expectedSymbols": [
+          "Bread",
+          "Cheese"
+        ],
+        "actionType": "serve"
+      }
+    ],
+    "iconExpectedSymbols": [
+      "Bread",
+      "Cheese"
+    ],
+    "iconAction": "serve"
   }
 ]

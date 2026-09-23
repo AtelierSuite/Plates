@@ -5,6 +5,10 @@ import SwiftUI
 @MainActor
 enum PlatesKitchenMain {
     static func main() async {
+        if CommandLine.arguments.contains("--headless-scene-eval") {
+            await runScene()
+            return
+        }
         if CommandLine.arguments.contains("--headless-svg-eval") {
             await runSVG()
             return
@@ -48,6 +52,28 @@ enum PlatesKitchenMain {
         let failures = runner.runs.filter { $0.error != nil || $0.structuringError != nil }
         print("Completed \(runner.runs.count) runs; \(runner.runs.filter { $0.recipe != nil }.count) structured; \(failures.count) generation or structuring errors.")
         exit(failures.isEmpty ? 0 : 2)
+    }
+
+    private static func runScene() async {
+        let arguments = CommandLine.arguments
+        let output = URL(fileURLWithPath: value(after: "--output", in: arguments)
+            ?? (FileManager.default.homeDirectoryForCurrentUser.path + "/Library/Application Support/Plates Kitchen/scene-headless-\(Int(Date.now.timeIntervalSince1970)).json"))
+        let runner = SVGRunner(outputURL: output)
+        runner.startScenePlan()
+        guard runner.isRunning else { print("Could not start: \(runner.status)"); exit(1) }
+        print("Saving scene results to \(output.path)")
+        var previousStatus = ""
+        while runner.isRunning {
+            if runner.status != previousStatus {
+                print(runner.status)
+                fflush(stdout)
+                previousStatus = runner.status
+            }
+            try? await Task.sleep(for: .seconds(1))
+        }
+        let sceneRuns = runner.runs.filter { $0.modelID == "apple-scene" }
+        print("Completed \(sceneRuns.count) scene plans; \(sceneRuns.filter { $0.svg != nil }.count) rendered; \(sceneRuns.filter { !$0.checks.isEmpty }.count) semantic or SVG flags.")
+        exit(sceneRuns.contains { $0.error != nil || $0.svg == nil } ? 2 : 0)
     }
 
     private static func runSVG() async {

@@ -10,57 +10,60 @@ struct SVGKitchenView: View {
     private var selectedRunIndex: Int? { runner.runs.firstIndex { $0.id == selectedRunID } }
 
     var body: some View {
-        NavigationSplitView {
-            VStack(alignment: .leading, spacing: 12) {
-                Text("SVG evaluation").font(.headline)
-                Text("Three sample recipes. One icon and every step illustration per recipe.")
-                    .font(.caption).foregroundStyle(.secondary)
-                ForEach(Candidate.all) { candidate in
-                    Toggle(candidate.name, isOn: Binding(
-                        get: { runner.selectedModels.contains(candidate.id) },
-                        set: { selected in
-                            if selected { runner.selectedModels.insert(candidate.id) }
-                            else { runner.selectedModels.remove(candidate.id) }
-                        }
-                    ))
-                }
-                Divider()
-                Stepper("Runs per graphic: \(runner.repetitions)", value: $runner.repetitions, in: 1...10)
-                HStack {
-                    Button("Run SVG eval") { runner.start() }.disabled(runner.isRunning)
-                        .buttonStyle(.borderedProminent)
-                    Button("Stop") { runner.stop() }.disabled(!runner.isRunning)
-                }
-                Button("Import JSON") { importResults() }.disabled(runner.isRunning)
-                Button("Export JSON") { export() }.disabled(runner.runs.isEmpty)
-                Text(runner.status).font(.caption).foregroundStyle(.secondary)
-                Text("Valid SVGs are previewed. Review visual accuracy and style by hand.")
-                    .font(.caption2).foregroundStyle(.secondary)
-                Spacer()
-            }
-            .padding()
-        } content: {
-            List(selection: $selectedAssetID) {
-                ForEach(runner.recipes) { recipe in
-                    Section(recipe.title) {
-                        ForEach(recipe.assets) { asset in
-                            HStack {
-                                Image(systemName: asset.kind == .icon ? "fork.knife.circle" : "square.on.square")
-                                Text(asset.kind == .icon ? "Recipe icon" : recipe.steps[asset.stepIndex!].title)
-                                Spacer()
-                                Text("\(runner.runs.filter { $0.assetID == asset.id && $0.svg != nil }.count)/\(runner.runs.filter { $0.assetID == asset.id }.count)")
-                                    .font(.caption).foregroundStyle(.secondary)
+        VStack(spacing: 0) {
+            HStack(spacing: 10) {
+                Button("Run model SVGs") { runner.start() }.disabled(runner.isRunning)
+                    .buttonStyle(.borderedProminent)
+                Button("Run Apple scene plan") { runner.startScenePlan() }
+                    .disabled(runner.isRunning || !runner.appleSceneAvailable)
+                Button("Stop") { runner.stop() }.disabled(!runner.isRunning)
+                Menu("Settings") {
+                    ForEach(Candidate.all) { candidate in
+                        Toggle(candidate.name, isOn: Binding(
+                            get: { runner.selectedModels.contains(candidate.id) },
+                            set: { selected in
+                                if selected { runner.selectedModels.insert(candidate.id) }
+                                else { runner.selectedModels.remove(candidate.id) }
                             }
-                            .tag(asset.id)
+                        ))
+                    }
+                    Picker("Runs per graphic", selection: $runner.repetitions) {
+                        ForEach(1...10, id: \.self) { count in Text("\(count)").tag(count) }
+                    }
+                }
+                Menu("Results") {
+                    Button("Import JSON") { importResults() }.disabled(runner.isRunning)
+                    Button("Export JSON") { export() }.disabled(runner.runs.isEmpty)
+                }
+                Spacer()
+                Text(runner.status).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+            }
+            .padding(8)
+            Divider()
+            NavigationSplitView {
+                List(selection: $selectedAssetID) {
+                    Label("Gallery", systemImage: "square.grid.2x2").tag("gallery")
+                    ForEach(runner.recipes) { recipe in
+                        Section(recipe.title) {
+                            ForEach(recipe.assets) { asset in
+                                HStack {
+                                    Image(systemName: asset.kind == .icon ? "fork.knife.circle" : "square.on.square")
+                                    Text(asset.kind == .icon ? "Recipe icon" : recipe.steps[asset.stepIndex!].title)
+                                    Spacer()
+                                    Text("\(runner.runs.filter { $0.assetID == asset.id && $0.svg != nil }.count)/\(runner.runs.filter { $0.assetID == asset.id }.count)")
+                                        .font(.caption).foregroundStyle(.secondary)
+                                }
+                                .tag(asset.id)
+                            }
                         }
                     }
                 }
-            }
-        } detail: {
-            if let asset = runner.assets.first(where: { $0.id == selectedAssetID }) {
-                assetDetail(asset)
-            } else {
-                gallery
+            } detail: {
+                if let asset = runner.assets.first(where: { $0.id == selectedAssetID }) {
+                    assetDetail(asset)
+                } else {
+                    gallery
+                }
             }
         }
     }
@@ -71,6 +74,7 @@ struct SVGKitchenView: View {
                 Text("Graphics gallery").font(.title2.bold())
                 Picker("Model", selection: $galleryModelID) {
                     ForEach(Candidate.all) { candidate in Text(candidate.name).tag(candidate.id) }
+                    Text("Apple scene plan").tag("apple-scene")
                 }
                 .frame(maxWidth: 280)
                 ForEach(runner.recipes) { recipe in
@@ -114,7 +118,7 @@ struct SVGKitchenView: View {
                 Picker("Trial", selection: $selectedRunID) {
                     Text("Choose a trial").tag(nil as UUID?)
                     ForEach(runner.runs.filter { $0.assetID == asset.id }) { run in
-                        Text("\(Candidate.all.first { $0.id == run.modelID }?.name ?? run.modelID), run \(run.repetition)")
+                        Text("\(run.modelID == "apple-scene" ? "Apple scene plan" : Candidate.all.first { $0.id == run.modelID }?.name ?? run.modelID), run \(run.repetition)")
                             .tag(run.id as UUID?)
                     }
                 }

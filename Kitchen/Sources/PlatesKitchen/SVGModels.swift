@@ -6,6 +6,8 @@ struct SVGSampleRecipe: Codable, Identifiable {
         let title: String
         let action: String
         let visual: String
+        let expectedSymbols: [String]
+        let actionType: String
     }
 
     let id: String
@@ -13,6 +15,8 @@ struct SVGSampleRecipe: Codable, Identifiable {
     let ingredients: [String]
     let tools: [String]
     let iconSubject: String
+    let iconExpectedSymbols: [String]
+    let iconAction: String
     let steps: [Step]
 
     static func load() throws -> [Self] {
@@ -22,11 +26,13 @@ struct SVGSampleRecipe: Codable, Identifiable {
 
     var assets: [SVGSampleAsset] {
         [.init(id: "\(id)-icon", recipeID: id, recipeTitle: title, kind: .icon,
-               stepIndex: nil, subject: iconSubject, context: ingredients.joined(separator: ", "))]
+               stepIndex: nil, subject: iconSubject, context: ingredients.joined(separator: ", "),
+               expectedSymbols: iconExpectedSymbols, expectedAction: iconAction)]
         + steps.enumerated().map { index, step in
             .init(id: "\(id)-step-\(index + 1)", recipeID: id, recipeTitle: title,
                   kind: .step, stepIndex: index, subject: step.visual,
-                  context: "Step \(index + 1) of \(steps.count): \(step.title). \(step.action). Ingredients: \(ingredients.joined(separator: ", ")). Tools: \(tools.joined(separator: ", ")).")
+                  context: "Step \(index + 1) of \(steps.count): \(step.title). \(step.action). Ingredients: \(ingredients.joined(separator: ", ")). Tools: \(tools.joined(separator: ", ")).",
+                  expectedSymbols: step.expectedSymbols, expectedAction: step.actionType)
         }
     }
 }
@@ -40,6 +46,8 @@ struct SVGSampleAsset: Identifiable {
     let stepIndex: Int?
     let subject: String
     let context: String
+    let expectedSymbols: [String]
+    let expectedAction: String
 
     var size: (width: Int, height: Int) { kind == .icon ? (128, 128) : (200, 150) }
 }

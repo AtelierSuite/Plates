@@ -1,0 +1,6 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cutting board">
+  <path d="M8 13h26a5 5 0 0 1 5 5v14a5 5 0 0 1-5 5H8Z" fill="#c08a54"/>
+  <path d="M8 13h26a5 5 0 0 1 5 5v3H8Z" fill="#d19a63"/>
+  <circle cx="12" cy="17" r="2" fill="#8f5f36"/>
+  <path d="M16 26h18M16 31h13" stroke="#a97142" stroke-width="2" stroke-linecap="round"/>
+</svg>

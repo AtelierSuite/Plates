@@ -53,3 +53,13 @@ After downloading a model on the recipe screen, the SVG eval can also run withou
 ```
 
 The default is one run per graphic. `--repetitions`, `--server`, and `--models-directory` work here too. Use `--model` with one of the candidate IDs to run a single model. Exit status 2 means at least one output failed generation or the static SVG checks. A drawing that passes still needs a human review in the app.
+
+### Scene plan baseline
+
+The **Run Apple scene plan** button tests a second approach. Apple Intelligence uses `@Generable` to select an action and a few objects from 18 existing Plates ingredient and tool icons. The harness assembles those trusted SVG symbols into a fixed layout. It checks the selection against the expected symbols and action in the sample data, then applies the same SVG checks and human review. This evaluates visual content selection separately from SVG path writing. The resulting icon collage is a prototype, not finished step art.
+
+```sh
+"dist/Plates Kitchen.app/Contents/MacOS/PlatesKitchen" --headless-scene-eval --output "$HOME/Library/Application Support/Plates Kitchen/svg-apple-scene.json"
+```
+
+Both approaches write compatible result files. Import them on the SVG screen to compare model drawings and scene plans in the gallery.

@@ -1,0 +1,5 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Onion">
+  <circle cx="24" cy="28" r="13" fill="#f3dfae"/>
+  <path d="M24 15c-6 7-6 19 0 26M24 15c6 7 6 19 0 26" stroke="#e8c66a" stroke-width="2" fill="none"/>
+  <path d="M24 15c-2-4-4-5-6-6M24 15c2-4 4-5 6-6" stroke="#7fb069" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</svg>
