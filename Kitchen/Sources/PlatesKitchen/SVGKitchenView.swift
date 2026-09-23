@@ -40,7 +40,7 @@ struct SVGKitchenView: View {
             }
             .padding(8)
             Divider()
-            NavigationSplitView {
+            HSplitView {
                 List(selection: $selectedAssetID) {
                     Label("Gallery", systemImage: "square.grid.2x2").tag("gallery")
                     ForEach(runner.recipes) { recipe in
@@ -50,7 +50,7 @@ struct SVGKitchenView: View {
                                     Image(systemName: asset.kind == .icon ? "fork.knife.circle" : "square.on.square")
                                     Text(asset.kind == .icon ? "Recipe icon" : recipe.steps[asset.stepIndex!].title)
                                     Spacer()
-                                    Text("\(runner.runs.filter { $0.assetID == asset.id && $0.svg != nil }.count)/\(runner.runs.filter { $0.assetID == asset.id }.count)")
+                                    Text(resultCount(for: asset))
                                         .font(.caption).foregroundStyle(.secondary)
                                 }
                                 .tag(asset.id)
@@ -58,14 +58,23 @@ struct SVGKitchenView: View {
                         }
                     }
                 }
-            } detail: {
-                if let asset = runner.assets.first(where: { $0.id == selectedAssetID }) {
-                    assetDetail(asset)
-                } else {
-                    gallery
+                .listStyle(.sidebar)
+                .frame(width: 280)
+                Group {
+                    if let asset = runner.assets.first(where: { $0.id == selectedAssetID }) {
+                        assetDetail(asset)
+                    } else {
+                        gallery
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+    }
+
+    private func resultCount(for asset: SVGSampleAsset) -> String {
+        let trials = runner.runs.filter { $0.assetID == asset.id }
+        return "\(trials.filter { $0.svg != nil }.count)/\(trials.count)"
     }
 
     private var gallery: some View {

@@ -8,18 +8,21 @@ struct PlatesKitchenApp: App {
 
     var body: some Scene {
         WindowGroup("Plates Kitchen") {
-            VStack(spacing: 0) {
-                Picker("Evaluation", selection: $selectedEval) {
-                    Text("Recipes").tag(0)
-                    Text("SVG graphics").tag(1)
-                }
-                .pickerStyle(.segmented)
-                .frame(width: 250)
-                .padding(8)
+            Group {
                 if selectedEval == 0 {
                     KitchenView().environmentObject(runner)
                 } else {
                     SVGKitchenView(runner: svgRunner)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Picker("Evaluation", selection: $selectedEval) {
+                        Text("Recipes").tag(0)
+                        Text("SVG graphics").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 250)
                 }
             }
         }
