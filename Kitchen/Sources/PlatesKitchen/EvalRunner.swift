@@ -19,11 +19,13 @@ final class EvalRunner: ObservableObject {
     private var downloadTask: Task<Void, Never>?
     private let port = 12783
     private let structurer = AppleRecipeStructurer()
+    private let sessionURL: URL
 
     var appleIntelligenceAvailable: Bool { structurer.isAvailable }
 
-    init() {
-        if let data = try? Data(contentsOf: Self.sessionURL) {
+    init(sessionURL: URL? = nil) {
+        self.sessionURL = sessionURL ?? Self.defaultSessionURL
+        if let data = try? Data(contentsOf: self.sessionURL) {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             runs = (try? decoder.decode([EvalRun].self, from: data)) ?? []
@@ -37,13 +39,13 @@ final class EvalRunner: ObservableObject {
         }
     }
 
-    private static var sessionURL: URL {
+    private static var defaultSessionURL: URL {
         let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         return support.appendingPathComponent("Plates Kitchen/session.json")
     }
 
     private static var modelsDirectory: URL {
-        sessionURL.deletingLastPathComponent().appendingPathComponent("Models")
+        defaultSessionURL.deletingLastPathComponent().appendingPathComponent("Models")
     }
 
     func download(_ candidate: Candidate) {
@@ -87,7 +89,7 @@ final class EvalRunner: ObservableObject {
     }
 
     private func saveSession() {
-        let file = Self.sessionURL
+        let file = sessionURL
         do {
             try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
             let encoder = JSONEncoder()
@@ -202,8 +204,8 @@ final class EvalRunner: ObservableObject {
 
     private func archiveSessionIfNeeded() throws {
         guard !runs.isEmpty else { return }
-        let data = try Data(contentsOf: Self.sessionURL)
-        let archive = Self.sessionURL.deletingLastPathComponent()
+        let data = try Data(contentsOf: sessionURL)
+        let archive = sessionURL.deletingLastPathComponent()
             .appendingPathComponent("session-before-\(Int(Date.now.timeIntervalSince1970))-\(UUID().uuidString).json")
         try data.write(to: archive, options: .atomic)
     }

@@ -1,7 +1,6 @@
 import SwiftUI
 import AppKit
 
-@main
 struct PlatesKitchenApp: App {
     @StateObject private var runner = EvalRunner()
 

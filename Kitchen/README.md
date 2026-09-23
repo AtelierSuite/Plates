@@ -24,6 +24,15 @@ These files are small enough to be plausible iPhone 15 Pro candidates. GGUF and 
 
 ## Eval protocol
 
+To run the complete eval from Terminal without opening or controlling the app window, build the bundle and run:
+
+```sh
+./Scripts/build-app.sh
+"dist/Plates Kitchen.app/Contents/MacOS/PlatesKitchen" --headless-eval --output "$HOME/Library/Application Support/Plates Kitchen/headless-eval.json"
+```
+
+The headless run uses `/opt/homebrew/bin/llama-server` and GGUFs in `~/Library/Application Support/Plates Kitchen/Models` by default. Use `--server`, `--models-directory`, or `--repetitions` to override those values. The output JSON is saved after each run, separately from the app window's `session.json`. Exit status 2 means at least one generation or Apple structuring attempt failed.
+
 Each selected model receives all three dish requests in both languages, with one shared cookbook prompt, temperature 0.7, seeds 1001 onward, a 4096 token context, and 1400 output tokens. Runs are sequential. Apple Intelligence extracts each plain recipe with `@Generable`, with instructions to preserve omissions and mistakes. Automatic checks flag missing fields and dish-specific constraints. Reviewers compare the extraction with the original, then mark cookability, constraint adherence, ingredient use, step order, language, and critical failures. Results are saved locally after each change and restored on the next launch. Export saves the original model text, Apple structured recipe, separate generation and structuring timings, flags, and review marks.
 
 **Structure saved outputs** applies the Apple pass to an existing session, including earlier runs that tried to produce JSON directly. It archives the session first. A new eval also archives the current session before replacing its runs. The older JSON attempts remain useful to inspect but are a different prompting condition from the new plain recipe runs.
