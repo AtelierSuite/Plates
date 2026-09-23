@@ -8,6 +8,8 @@ swift build -c release
 app_dir="$project_dir/dist/Plates Kitchen.app"
 mkdir -p "$app_dir/Contents/MacOS"
 cp "$project_dir/.build/release/PlatesKitchen" "$app_dir/Contents/MacOS/PlatesKitchen"
+mkdir -p "$app_dir/Contents/Resources"
+cp -R "$project_dir/.build/release/PlatesKitchen_PlatesKitchen.bundle" "$app_dir/Contents/Resources/"
 cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

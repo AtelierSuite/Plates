@@ -3,11 +3,25 @@ import AppKit
 
 struct PlatesKitchenApp: App {
     @StateObject private var runner = EvalRunner()
+    @StateObject private var svgRunner = SVGRunner()
+    @State private var selectedEval = 0
 
     var body: some Scene {
         WindowGroup("Plates Kitchen") {
-            KitchenView()
-                .environmentObject(runner)
+            VStack(spacing: 0) {
+                Picker("Evaluation", selection: $selectedEval) {
+                    Text("Recipes").tag(0)
+                    Text("SVG graphics").tag(1)
+                }
+                .pickerStyle(.segmented)
+                .frame(width: 250)
+                .padding(8)
+                if selectedEval == 0 {
+                    KitchenView().environmentObject(runner)
+                } else {
+                    SVGKitchenView(runner: svgRunner)
+                }
+            }
         }
         .defaultSize(width: 1200, height: 800)
     }

@@ -38,3 +38,18 @@ Each selected model receives all three dish requests in both languages, with one
 **Structure saved outputs** applies the Apple pass to an existing session, including earlier runs that tried to produce JSON directly. It archives the session first. A new eval also archives the current session before replacing its runs. The older JSON attempts remain useful to inspect but are a different prompting condition from the new plain recipe runs.
 
 This is a screening test, not the full Plates generator. Plates writes a recipe in several structured passes and runs a review pass. A promising model needs a second eval in that pipeline plus testing on a real iPhone 15 Pro. Recipe quality, latency, and memory should all be measured there before adoption.
+
+## SVG graphics eval
+
+The **SVG graphics** screen tests a square recipe icon and every step illustration for three bundled sample recipes: egg fried rice, spaghetti with tomato meat sauce, and grilled cheese. The editable sample data is in `Sources/PlatesKitchen/Samples/svg-recipes.json`. Each model receives the same subject, cooking action, style rules, and dimensions. The model writes SVG directly; Apple Intelligence does not generate or repair the drawing. The gallery shows a model's icons and step drawings together; selecting a graphic opens its individual trials and review controls.
+
+The harness stores the full model output, generation time, static checks, and human review per graphic in `~/Library/Application Support/Plates Kitchen/svg-session.json`. **Import JSON** merges headless result files for comparison and archives any prior session. A single clean Markdown code fence is removed and recorded as a formatting warning. Only SVGs that pass the static checks are previewed or offered for saving. Checks cover XML syntax and rendering, the required viewBox, allowed SVG elements and attributes, external references, colors, size, and shape count. Human review covers whether the subject and action are depicted, thumbnail readability, and style consistency. Passing static checks does not establish visual quality or cooking accuracy.
+
+After downloading a model on the recipe screen, the SVG eval can also run without controlling the app window:
+
+```sh
+./Scripts/build-app.sh
+"dist/Plates Kitchen.app/Contents/MacOS/PlatesKitchen" --headless-svg-eval --model granite4-1b --output "$HOME/Library/Application Support/Plates Kitchen/svg-granite.json"
+```
+
+The default is one run per graphic. `--repetitions`, `--server`, and `--models-directory` work here too. Use `--model` with one of the candidate IDs to run a single model. Exit status 2 means at least one output failed generation or the static SVG checks. A drawing that passes still needs a human review in the app.
