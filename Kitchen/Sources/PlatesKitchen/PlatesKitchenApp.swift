@@ -8,8 +8,8 @@ struct PlatesKitchenApp: App {
         WindowGroup("Plates Kitchen") {
             KitchenView()
                 .environmentObject(runner)
-                .frame(minWidth: 1050, minHeight: 700)
         }
+        .defaultSize(width: 1200, height: 800)
     }
 }
 
@@ -60,7 +60,6 @@ private struct KitchenView: View {
                 Spacer()
             }
             .padding()
-            .frame(minWidth: 320)
         } content: {
             VStack(spacing: 0) {
                 DisclosureGroup("Results summary") {
@@ -98,7 +97,6 @@ private struct KitchenView: View {
                 Text("Automated checks flag candidates for review. They do not establish cooking safety.")
                     .font(.caption).foregroundStyle(.secondary).padding(8)
             }
-            .frame(minWidth: 320)
         } detail: {
             if let index = selectedRunIndex {
                 runDetail(index)
