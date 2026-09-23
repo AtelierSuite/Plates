@@ -11,7 +11,7 @@ Requires macOS 15 or later, Xcode command line tools, and a recent [llama.cpp](h
 open "dist/Plates Kitchen.app"
 ```
 
-Choose the `llama-server` executable in the app. Download the exact GGUF files from the linked model pages, review each publisher's terms, and choose each file in the model list. The app never downloads weights or sends prompts to a remote model. The server binds to `127.0.0.1`.
+Choose the `llama-server` executable in the app. Use **Download** beside a model to save its GGUF to Application Support, or **Choose** to import an existing copy. For Gemma, open **Source**, accept Google's model access terms yourself, then enter a Hugging Face token for the download. The token remains in memory for the current app session and is not saved. Model downloads come from Hugging Face; recipe prompts go only to the local server at `127.0.0.1`.
 
 | Model | GGUF repository | Selected file | Approximate weight size |
 | --- | --- | --- | ---: |

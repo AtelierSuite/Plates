@@ -5,6 +5,8 @@ final class EvalRunner: ObservableObject {
     @Published var serverPath = UserDefaults.standard.string(forKey: "serverPath") ?? ""
     @Published var modelPaths = UserDefaults.standard.dictionary(forKey: "modelPaths") as? [String: String] ?? [:]
     @Published var selectedModels: Set<String> = ["gemma3-1b", "granite4-1b", "lfm25-12b", "lfm25-jp"]
+    @Published var huggingFaceToken = ""
+    @Published var downloadingModelID: String?
     @Published var repetitions = 3
     @Published var runs: [EvalRun] = [] {
         didSet { saveSession() }
@@ -14,6 +16,7 @@ final class EvalRunner: ObservableObject {
 
     private var process: Process?
     private var task: Task<Void, Never>?
+    private var downloadTask: Task<Void, Never>?
     private let port = 12783
 
     init() {
@@ -23,11 +26,61 @@ final class EvalRunner: ObservableObject {
             runs = (try? decoder.decode([EvalRun].self, from: data)) ?? []
             if !runs.isEmpty { status = "Restored \(runs.count) saved runs." }
         }
+        for candidate in Candidate.all {
+            let path = Self.modelsDirectory.appendingPathComponent(candidate.fileName).path
+            if FileManager.default.fileExists(atPath: path) && modelPaths[candidate.id] == nil {
+                modelPaths[candidate.id] = path
+            }
+        }
     }
 
     private static var sessionURL: URL {
         let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         return support.appendingPathComponent("Plates Kitchen/session.json")
+    }
+
+    private static var modelsDirectory: URL {
+        sessionURL.deletingLastPathComponent().appendingPathComponent("Models")
+    }
+
+    func download(_ candidate: Candidate) {
+        guard downloadingModelID == nil else { return }
+        if candidate.id == "gemma3-1b" && huggingFaceToken.isEmpty {
+            status = "Gemma requires accepted model access and a Hugging Face token. Open Source first."
+            return
+        }
+        downloadingModelID = candidate.id
+        status = "Downloading \(candidate.name) from Hugging Face..."
+        downloadTask = Task {
+            do {
+                let directory = Self.modelsDirectory
+                try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+                let destination = directory.appendingPathComponent(candidate.fileName)
+                if !FileManager.default.fileExists(atPath: destination.path) {
+                    let url = URL(string: "https://huggingface.co/\(candidate.repository)/resolve/main/\(candidate.fileName)")!
+                    var request = URLRequest(url: url)
+                    if !huggingFaceToken.isEmpty {
+                        request.setValue("Bearer \(huggingFaceToken)", forHTTPHeaderField: "Authorization")
+                    }
+                    let (temporary, response) = try await URLSession.shared.download(for: request)
+                    guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+                        throw DownloadError.http((response as? HTTPURLResponse)?.statusCode ?? 0)
+                    }
+                    try Task.checkCancellation()
+                    try FileManager.default.moveItem(at: temporary, to: destination)
+                }
+                setModel(destination, for: candidate)
+                status = "\(candidate.name) is ready."
+            } catch {
+                status = "Download failed for \(candidate.name): \(error.localizedDescription)"
+            }
+            downloadingModelID = nil
+            downloadTask = nil
+        }
+    }
+
+    func cancelDownload() {
+        downloadTask?.cancel()
     }
 
     private func saveSession() {
@@ -198,6 +251,17 @@ private enum RunnerError: LocalizedError {
         case .startupTimeout(let log): "Model did not load within two minutes. See \(log)"
         case .http(let response): "Inference request failed: \(response)"
         case .invalidJSON: "No JSON object in the model output"
+        }
+    }
+}
+
+private enum DownloadError: LocalizedError {
+    case http(Int)
+
+    var errorDescription: String? {
+        switch self {
+        case .http(401), .http(403): "Access denied. Accept the model terms on Hugging Face and check your token."
+        case .http(let code): "Hugging Face returned HTTP \(code)."
         }
     }
 }

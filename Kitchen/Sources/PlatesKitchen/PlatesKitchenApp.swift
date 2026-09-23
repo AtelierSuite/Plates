@@ -29,6 +29,10 @@ private struct KitchenView: View {
                 ForEach(Candidate.all) { candidate in
                     modelRow(candidate)
                 }
+                SecureField("Hugging Face token for Gemma", text: $runner.huggingFaceToken)
+                    .textFieldStyle(.roundedBorder)
+                Text("Accept Gemma access on its Source page first. The token stays in this app session.")
+                    .font(.caption2).foregroundStyle(.secondary)
                 Divider()
                 Text("Runtime").font(.headline)
                 HStack {
@@ -44,7 +48,7 @@ private struct KitchenView: View {
                 Text("Three dishes in English and Japanese. The same prompt and settings are used for every model.")
                     .font(.caption).foregroundStyle(.secondary)
                 HStack {
-                    Button("Run eval") { runner.start() }.disabled(runner.isRunning)
+                Button("Run eval") { runner.start() }.disabled(runner.isRunning)
                         .buttonStyle(.borderedProminent)
                     Button("Stop") { runner.stop() }.disabled(!runner.isRunning)
                     Button("Export JSON") { export() }.disabled(runner.runs.isEmpty)
@@ -116,6 +120,11 @@ private struct KitchenView: View {
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 Button("Choose") { chooseModel(candidate) }.font(.caption)
+                Button(runner.downloadingModelID == candidate.id ? "Downloading" : "Download") {
+                    runner.download(candidate)
+                }
+                .disabled(runner.downloadingModelID != nil)
+                .font(.caption)
                 Link("Source", destination: candidate.modelPage).font(.caption)
             }
             Text("About \(candidate.approximateSizeMB) MB. \(candidate.notes)")
