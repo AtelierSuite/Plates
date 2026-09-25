@@ -4,6 +4,7 @@ import AppKit
 struct PlatesKitchenApp: App {
     @StateObject private var runner = EvalRunner()
     @StateObject private var svgRunner = SVGRunner()
+    @StateObject private var imageRunner = ImageRunner()
     @State private var selectedEval = 0
 
     var body: some Scene {
@@ -11,8 +12,10 @@ struct PlatesKitchenApp: App {
             Group {
                 if selectedEval == 0 {
                     KitchenView().environmentObject(runner)
-                } else {
+                } else if selectedEval == 1 {
                     SVGKitchenView(runner: svgRunner)
+                } else {
+                    ImageKitchenView(runner: imageRunner)
                 }
             }
             .toolbar {
@@ -20,9 +23,10 @@ struct PlatesKitchenApp: App {
                     Picker("Evaluation", selection: $selectedEval) {
                         Text("Recipes").tag(0)
                         Text("SVG graphics").tag(1)
+                        Text("Images").tag(2)
                     }
                     .pickerStyle(.segmented)
-                    .frame(width: 250)
+                    .frame(width: 340)
                 }
             }
         }
@@ -40,43 +44,46 @@ private struct KitchenView: View {
 
     var body: some View {
         NavigationSplitView {
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Models").font(.headline)
-                ForEach(Candidate.all) { candidate in
-                    modelRow(candidate)
-                }
-                SecureField("Hugging Face token for Gemma", text: $runner.huggingFaceToken)
-                    .textFieldStyle(.roundedBorder)
-                Text("Accept Gemma access on its Source page first. The token stays in this app session.")
-                    .font(.caption2).foregroundStyle(.secondary)
-                Divider()
-                Text("Runtime").font(.headline)
-                HStack {
-                    Text(runner.serverPath.isEmpty ? "No llama-server selected" : URL(fileURLWithPath: runner.serverPath).lastPathComponent)
-                        .lineLimit(1)
-                    Spacer()
-                    Button("Choose") { chooseServer() }
-                }
-                Text("Use a current llama.cpp build with GGUF support. The server binds to 127.0.0.1.")
-                    .font(.caption).foregroundStyle(.secondary)
-                Divider()
-                Stepper("Runs per case: \(runner.repetitions)", value: $runner.repetitions, in: 1...10)
-                Text("Three dishes in English and Japanese. The same prompt and settings are used for every model.")
-                    .font(.caption).foregroundStyle(.secondary)
-                Text(runner.appleIntelligenceAvailable ? "Apple Intelligence is ready to structure recipes." : "Apple Intelligence is unavailable on this Mac.")
-                    .font(.caption).foregroundStyle(runner.appleIntelligenceAvailable ? .green : .orange)
-                HStack {
-                    Button("Run eval") { runner.start() }.disabled(runner.isRunning || !runner.appleIntelligenceAvailable)
-                        .buttonStyle(.borderedProminent)
-                    Button("Stop") { runner.stop() }.disabled(!runner.isRunning)
-                    Button("Export JSON") { export() }.disabled(runner.runs.isEmpty)
-                }
-                Button("Structure saved outputs") { runner.structureSavedOutputs() }
+            ScrollView {
+                    VStack(alignment: .leading, spacing: 12) {
+                    Text("Models").font(.headline)
+                    ForEach(Candidate.all) { candidate in
+                        modelRow(candidate)
+                    }
+                    SecureField("Hugging Face token for Gemma", text: $runner.huggingFaceToken)
+                        .textFieldStyle(.roundedBorder)
+                    Text("Accept Gemma access on its Source page first. The token stays in this app session.")
+                        .font(.caption2).foregroundStyle(.secondary)
+                    Divider()
+                    Text("Runtime").font(.headline)
+                    HStack {
+                        Text(runner.serverPath.isEmpty ? "No llama-server selected" : URL(fileURLWithPath: runner.serverPath).lastPathComponent)
+                            .lineLimit(1)
+                        Spacer()
+                        Button("Choose") { chooseServer() }
+                    }
+                    Text("Use a current llama.cpp build with GGUF and Q1_0 support. The server binds to 127.0.0.1.")
+                        .font(.caption).foregroundStyle(.secondary)
+                    Divider()
+                    Stepper("Runs per case: \(runner.repetitions)", value: $runner.repetitions, in: 1...10)
+                    Stepper("Concurrent trials: \(runner.concurrency)", value: $runner.concurrency, in: 1...4)
+                    Text("Three dishes in English and Japanese. The same prompt and settings are used for every model.")
+                        .font(.caption).foregroundStyle(.secondary)
+                    Text(runner.appleIntelligenceAvailable ? "Apple Intelligence is ready to structure recipes." : "Apple Intelligence is unavailable on this Mac.")
+                        .font(.caption).foregroundStyle(runner.appleIntelligenceAvailable ? .green : .orange)
+                    HStack {
+                        Button("Run eval") { runner.start() }.disabled(runner.isRunning || !runner.appleIntelligenceAvailable)
+                            .buttonStyle(.borderedProminent)
+                        Button("Stop") { runner.stop() }.disabled(!runner.isRunning)
+                        Button("Export JSON") { export() }.disabled(runner.runs.isEmpty)
+                    }
+                    Button("Structure saved outputs") { runner.structureSavedOutputs() }
                     .disabled(runner.isRunning || !runner.appleIntelligenceAvailable || !runner.runs.contains { !$0.rawText.isEmpty })
                 Text(runner.status).font(.caption).foregroundStyle(.secondary)
-                Spacer()
+                }
+                .padding()
             }
-            .padding()
+            .navigationSplitViewColumnWidth(min: 340, ideal: 380)
         } content: {
             VStack(spacing: 0) {
                 DisclosureGroup("Results summary") {

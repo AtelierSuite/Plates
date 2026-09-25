@@ -30,6 +30,9 @@ struct SVGKitchenView: View {
                     Picker("Runs per graphic", selection: $runner.repetitions) {
                         ForEach(1...10, id: \.self) { count in Text("\(count)").tag(count) }
                     }
+                    Picker("Concurrent trials", selection: $runner.concurrency) {
+                        ForEach(1...4, id: \.self) { count in Text("\(count)").tag(count) }
+                    }
                 }
                 Menu("Results") {
                     Button("Import JSON") { importResults() }.disabled(runner.isRunning)

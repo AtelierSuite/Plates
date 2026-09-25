@@ -8,6 +8,7 @@ final class EvalRunner: ObservableObject {
     @Published var huggingFaceToken = ""
     @Published var downloadingModelID: String?
     @Published var repetitions = 3
+    @Published var concurrency = 2
     @Published var runs: [EvalRun] = [] {
         didSet { saveSession() }
     }
@@ -17,7 +18,7 @@ final class EvalRunner: ObservableObject {
     private var process: Process?
     private var task: Task<Void, Never>?
     private var downloadTask: Task<Void, Never>?
-    private let port = 12783
+    private var port = 0
     private let structurer = AppleRecipeStructurer()
     private let sessionURL: URL
 
@@ -138,17 +139,18 @@ final class EvalRunner: ObservableObject {
                 if Task.isCancelled { break }
                 do {
                     try await launch(candidate)
-                    for testCase in EvalCase.all {
-                        for language in EvalLanguage.allCases {
-                            for repetition in 1...max(1, min(repetitions, 10)) {
-                                if Task.isCancelled { break }
-                                status = "\(candidate.name): \(testCase.title), \(language.rawValue), run \(repetition)"
-                                let run = await generate(candidate, testCase, language, repetition)
-                                runs.append(run)
+                    let jobs = EvalCase.all.flatMap { testCase in
+                        EvalLanguage.allCases.flatMap { language in
+                            (1...max(1, min(repetitions, 10))).map {
+                                RecipeJob(testCase: testCase, language: language, repetition: $0)
                             }
-                            if Task.isCancelled { break }
                         }
-                        if Task.isCancelled { break }
+                    }
+                    status = "\(candidate.name): running up to \(min(concurrency, 4)) recipes at once"
+                    await EvalConcurrency.run(jobs, limit: concurrency) { job in
+                        await self.generate(candidate, job.testCase, job.language, job.repetition)
+                    } onResult: { run in
+                        self.runs.append(run)
                     }
                 } catch {
                     status = "\(candidate.name): \(error.localizedDescription)"
@@ -180,13 +182,16 @@ final class EvalRunner: ObservableObject {
         }
         isRunning = true
         task = Task {
-            for index in runs.indices where !runs[index].rawText.isEmpty {
-                if Task.isCancelled { break }
-                let old = runs[index]
-                guard let testCase = EvalCase.all.first(where: { $0.id == old.caseID }) else { continue }
-                status = "Structuring saved output \(index + 1) of \(runs.count) with Apple Intelligence..."
-                let result = await structure(old.rawText, for: testCase, language: old.language)
-                runs[index] = EvalRun(
+            let jobs = runs.enumerated().compactMap { index, run -> StructuringJob? in
+                guard !run.rawText.isEmpty,
+                      let testCase = EvalCase.all.first(where: { $0.id == run.caseID }) else { return nil }
+                return StructuringJob(index: index, run: run, testCase: testCase)
+            }
+            status = "Structuring up to \(min(concurrency, 4)) saved recipes at once"
+            await EvalConcurrency.run(jobs, limit: concurrency) { job in
+                let old = job.run
+                let result = await self.structure(old.rawText, for: job.testCase, language: old.language)
+                let updated = EvalRun(
                     id: old.id, modelID: old.modelID, modelFile: old.modelFile,
                     caseID: old.caseID, language: old.language, repetition: old.repetition,
                     startedAt: old.startedAt, durationSeconds: old.durationSeconds,
@@ -195,6 +200,9 @@ final class EvalRunner: ObservableObject {
                     structureDurationSeconds: result.duration, structuredByApple: result.recipe != nil,
                     review: old.review
                 )
+                return (job.index, updated)
+            } onResult: { index, updated in
+                self.runs[index] = updated
             }
             isRunning = false
             status = Task.isCancelled ? "Structuring stopped. Completed results are saved." : "Finished structuring saved outputs. Review source fidelity and cooking quality."
@@ -212,12 +220,15 @@ final class EvalRunner: ObservableObject {
 
     private func launch(_ candidate: Candidate) async throws {
         stopServer()
+        port = try LocalServerPort.available()
         let executable = URL(fileURLWithPath: serverPath)
         let weights = modelPaths[candidate.id]!
         let process = Process()
         process.executableURL = executable
-        process.arguments = ["-m", weights, "--host", "127.0.0.1", "--port", String(port), "-c", "4096", "-ngl", "99"]
-        let log = FileManager.default.temporaryDirectory.appendingPathComponent("plates-kitchen-llama.log")
+        process.arguments = ["-m", weights, "--host", "127.0.0.1", "--port", String(port),
+                             "-c", String(4096 * max(1, min(concurrency, 4))),
+                             "--parallel", String(max(1, min(concurrency, 4))), "-ngl", "99"]
+        let log = FileManager.default.temporaryDirectory.appendingPathComponent("plates-kitchen-llama-\(UUID().uuidString).log")
         FileManager.default.createFile(atPath: log.path, contents: nil)
         let handle = try FileHandle(forWritingTo: log)
         process.standardOutput = handle
@@ -260,7 +271,7 @@ final class EvalRunner: ObservableObject {
                 "seed": 1000 + repetition,
                 "max_tokens": 1400,
                 "messages": [
-                    ["role": "system", "content": Prompt.system(language: language)],
+                    ["role": "system", "content": Prompt.system(language: language) + (candidate.prefersNonThinkingMode ? "\n/no_think" : "")],
                     ["role": "user", "content": testCase.request(in: language)]
                 ]
             ])
@@ -304,6 +315,18 @@ final class EvalRunner: ObservableObject {
         encoder.dateEncodingStrategy = .iso8601
         try encoder.encode(runs).write(to: url, options: .atomic)
     }
+}
+
+private struct RecipeJob: Sendable {
+    let testCase: EvalCase
+    let language: EvalLanguage
+    let repetition: Int
+}
+
+private struct StructuringJob: Sendable {
+    let index: Int
+    let run: EvalRun
+    let testCase: EvalCase
 }
 
 private struct ChatCompletion: Decodable {

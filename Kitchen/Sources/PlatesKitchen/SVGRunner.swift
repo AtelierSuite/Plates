@@ -4,6 +4,8 @@ import Foundation
 final class SVGRunner: ObservableObject {
     @Published var selectedModels: Set<String> = ["granite4-1b"]
     @Published var repetitions = 1
+    @Published var concurrency = 2
+    var assetFilter: Set<String> = []
     @Published var runs: [SVGRun] = [] { didSet { save() } }
     @Published var status = "Ready to evaluate recipe SVGs."
     @Published var isRunning = false
@@ -13,7 +15,7 @@ final class SVGRunner: ObservableObject {
     var modelDirectory = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library/Application Support/Plates Kitchen/Models")
     private let outputURL: URL
-    private let port = 12784
+    private var port = 0
     private var process: Process?
     private var task: Task<Void, Never>?
     private let scenePlanner = AppleScenePlanner()
@@ -35,34 +37,21 @@ final class SVGRunner: ObservableObject {
     func startScenePlan() {
         guard !isRunning else { return }
         guard !recipes.isEmpty else { status = "Could not load the SVG sample recipes."; return }
+        guard assetFilter.isEmpty || assets.contains(where: { assetFilter.contains($0.id) }) else {
+            status = "No sample assets match the filter."
+            return
+        }
         guard appleSceneAvailable else { status = "Apple Intelligence is unavailable for scene planning."; return }
         do { try archiveIfNeeded() }
         catch { status = "Could not archive SVG results: \(error.localizedDescription)"; return }
         isRunning = true
         task = Task {
-            for asset in assets {
-                if Task.isCancelled { break }
-                status = "Apple scene plan: \(asset.id)"
-                let start = Date.now
-                var raw = ""
-                var svg: String?
-                var checks: [String] = []
-                var errorText: String?
-                do {
-                    let plan = try await scenePlanner.plan(for: asset)
-                    let encoder = JSONEncoder()
-                    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-                    raw = String(decoding: try encoder.encode(plan), as: UTF8.self)
-                    let rendered = try SceneSVGRenderer.render(plan, for: asset)
-                    let svgChecks = SVGChecks.evaluate(rendered, asset: asset)
-                    checks = svgChecks + SceneChecks.evaluate(plan, for: asset)
-                    if svgChecks.isEmpty { svg = rendered }
-                } catch { errorText = error.localizedDescription }
-                runs.append(SVGRun(id: UUID(), modelID: "apple-scene", assetID: asset.id, recipeID: asset.recipeID,
-                                   kind: asset.kind, repetition: 1, startedAt: start,
-                                   durationSeconds: Date.now.timeIntervalSince(start), rawText: raw,
-                                   svg: svg, formatWarning: nil, checks: checks, error: errorText,
-                                   review: SVGReview()))
+            status = "Apple scene plan: running up to \(min(concurrency, 4)) scenes at once"
+            let selectedAssets = assets.filter { assetFilter.isEmpty || assetFilter.contains($0.id) }
+            await EvalConcurrency.run(selectedAssets, limit: concurrency) { asset in
+                await self.generateScene(asset)
+            } onResult: { run in
+                self.runs.append(run)
             }
             isRunning = false
             status = Task.isCancelled ? "Stopped. Completed scene plans are saved." : "Finished Apple scene plans. Review subject and action fidelity."
@@ -70,9 +59,36 @@ final class SVGRunner: ObservableObject {
         }
     }
 
+    private func generateScene(_ asset: SVGSampleAsset) async -> SVGRun {
+        let start = Date.now
+        var raw = ""
+        var svg: String?
+        var checks: [String] = []
+        var errorText: String?
+        do {
+            let plan = try await scenePlanner.plan(for: asset)
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+            raw = String(decoding: try encoder.encode(plan), as: UTF8.self)
+            let rendered = try SceneSVGRenderer.render(plan, for: asset)
+            let svgChecks = SVGChecks.evaluate(rendered, asset: asset)
+            checks = svgChecks + SceneChecks.evaluate(plan, for: asset)
+            if svgChecks.isEmpty { svg = rendered }
+        } catch { errorText = error.localizedDescription }
+        return SVGRun(id: UUID(), modelID: "apple-scene", assetID: asset.id, recipeID: asset.recipeID,
+                      kind: asset.kind, repetition: 1, startedAt: start,
+                      durationSeconds: Date.now.timeIntervalSince(start), rawText: raw,
+                      svg: svg, formatWarning: nil, checks: checks, error: errorText,
+                      review: SVGReview())
+    }
+
     func start() {
         guard !isRunning else { return }
         guard !recipes.isEmpty else { status = "Could not load the SVG sample recipes."; return }
+        guard assetFilter.isEmpty || assets.contains(where: { assetFilter.contains($0.id) }) else {
+            status = "No sample assets match the filter."
+            return
+        }
         guard FileManager.default.isExecutableFile(atPath: serverPath) else {
             status = "Choose an executable llama-server binary."
             return
@@ -92,13 +108,15 @@ final class SVGRunner: ObservableObject {
                 if Task.isCancelled { break }
                 do {
                     try await launch(candidate)
-                    for asset in assets {
-                        for repetition in 1...max(1, min(repetitions, 10)) {
-                            if Task.isCancelled { break }
-                            status = "\(candidate.name): \(asset.id), run \(repetition)"
-                            runs.append(await generate(candidate, asset: asset, repetition: repetition))
-                        }
-                        if Task.isCancelled { break }
+                    let selectedAssets = assets.filter { assetFilter.isEmpty || assetFilter.contains($0.id) }
+                    let jobs = selectedAssets.flatMap { asset in
+                        (1...max(1, min(repetitions, 10))).map { SVGJob(asset: asset, repetition: $0) }
+                    }
+                    status = "\(candidate.name): running up to \(min(concurrency, 4)) SVGs at once"
+                    await EvalConcurrency.run(jobs, limit: concurrency) { job in
+                        await self.generate(candidate, asset: job.asset, repetition: job.repetition)
+                    } onResult: { run in
+                        self.runs.append(run)
                     }
                 } catch {
                     status = "\(candidate.name): \(error.localizedDescription)"
@@ -118,11 +136,14 @@ final class SVGRunner: ObservableObject {
 
     private func launch(_ candidate: Candidate) async throws {
         stopServer()
+        port = try LocalServerPort.available()
         let process = Process()
         process.executableURL = URL(fileURLWithPath: serverPath)
         process.arguments = ["-m", modelDirectory.appendingPathComponent(candidate.fileName).path,
-                             "--host", "127.0.0.1", "--port", String(port), "-c", "4096", "-ngl", "99"]
-        let log = FileManager.default.temporaryDirectory.appendingPathComponent("plates-kitchen-svg-llama.log")
+                             "--host", "127.0.0.1", "--port", String(port),
+                             "-c", String(4096 * max(1, min(concurrency, 4))),
+                             "--parallel", String(max(1, min(concurrency, 4))), "-ngl", "99"]
+        let log = FileManager.default.temporaryDirectory.appendingPathComponent("plates-kitchen-svg-llama-\(UUID().uuidString).log")
         FileManager.default.createFile(atPath: log.path, contents: nil)
         let handle = try FileHandle(forWritingTo: log)
         process.standardOutput = handle
@@ -156,10 +177,10 @@ final class SVGRunner: ObservableObject {
             request.timeoutInterval = 180
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONSerialization.data(withJSONObject: [
-                "model": candidate.name, "temperature": 0.4, "seed": 1000 + repetition,
-                "max_tokens": 1600,
+                "model": candidate.name, "temperature": 0, "seed": 1000 + repetition,
+                "max_tokens": 2000,
                 "messages": [
-                    ["role": "system", "content": SVGPrompt.system],
+                    ["role": "system", "content": SVGPrompt.system + (candidate.prefersNonThinkingMode ? "\n/no_think" : "")],
                     ["role": "user", "content": SVGPrompt.user(for: asset)]
                 ]
             ])
@@ -220,19 +241,37 @@ final class SVGRunner: ObservableObject {
     }
 }
 
-private enum SVGPrompt {
+private struct SVGJob: Sendable {
+    let asset: SVGSampleAsset
+    let repetition: Int
+}
+
+enum SVGPrompt {
     static let system = """
-        You draw small flat SVG illustrations for a plain cookbook. Return only the complete SVG element, no Markdown and no explanation. Use a simple, recognizable composition with 5 to 20 shapes. Use a light background, warm food colors, dark outlines, and no text. Use only svg, g, rect, circle, ellipse, path, line, polyline, and polygon. Use literal colors. Do not use defs, CSS, images, external references, scripts, or animation.
+        Compose one recognizable cookbook scene from the supplied SVG symbol shapes. Each symbol uses a 48 by 48 coordinate box. Copy its elements and colors into a separate <g transform="translate(x y) scale(s)">. Scale the main symbol to 2 or more so it fills most of the canvas; use smaller groups for food details. Use different positions for each group and overlap them naturally: food inside a pan or bowl, sauce on noodles, cheese between bread. Never paste unscaled 48-pixel symbols in a corner. Do not redraw symbols as rectangles, invent shapes, or repeat them in a grid. A plain light background is optional.
+        Return only one complete SVG, no Markdown or text. Use only svg, g, rect, circle, ellipse, path, line, polyline, polygon. Use literal #RGB or #RRGGBB colors. No CSS, defs, images, external references, scripts, or animation. Close every tag.
         """
 
     static func user(for asset: SVGSampleAsset) -> String {
         let size = asset.size
+        let objects = asset.expectedSymbols.map { symbol in
+            symbol.replacingOccurrences(of: "([a-z])([A-Z])", with: "$1 $2", options: .regularExpression).lowercased()
+        }.joined(separator: ", ")
+        let references = asset.expectedSymbols.compactMap { symbol -> String? in
+            guard let url = Bundle.module.url(forResource: symbol, withExtension: "svg", subdirectory: "Samples/Symbols"),
+                  let svg = try? String(contentsOf: url, encoding: .utf8),
+                  let start = svg.firstIndex(of: ">"),
+                  let end = svg.range(of: "</svg>", options: .backwards)?.lowerBound else { return nil }
+            return "\(symbol): \(svg[svg.index(after: start)..<end].trimmingCharacters(in: .whitespacesAndNewlines))"
+        }.joined(separator: "\n")
         return """
-            Draw a \(asset.kind == .icon ? "square recipe icon" : "wide cooking-step illustration") for \(asset.recipeTitle).
-            Show: \(asset.subject).
-            Context: \(asset.context)
+            Scene: \(asset.subject).
+            Required visible objects: \(objects).
+            \(asset.kind == .icon ? "Show one finished dish." : "Show one cooking step.")
+            Symbol shapes to use (copy the elements inside each named symbol):
+            \(references)
             Start exactly with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 \(size.width) \(size.height)"> and end with </svg>.
-            Make the action or finished dish clear at thumbnail size. Do not add other foods, tools, letters, or captions.
+            Include every required object, arranged as one scene. Do not add other foods, tools, letters, or captions.
             """
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct Candidate: Identifiable, Codable, Hashable {
+struct Candidate: Identifiable, Codable, Hashable, Sendable {
     let id: String
     let name: String
     let repository: String
@@ -11,20 +11,23 @@ struct Candidate: Identifiable, Codable, Hashable {
     static let all: [Candidate] = [
         .init(id: "gemma3-1b", name: "Gemma 3 1B", repository: "google/gemma-3-1b-it-qat-q4_0-gguf", fileName: "gemma-3-1b-it-q4_0.gguf", approximateSizeMB: 1000, notes: "Google license acceptance required"),
         .init(id: "granite4-1b", name: "Granite 4.0 1B", repository: "ibm-granite/granite-4.0-1b-GGUF", fileName: "granite-4.0-1b-Q4_K_M.gguf", approximateSizeMB: 1020, notes: "Apache 2.0"),
+        .init(id: "qwen3-17b", name: "Qwen3 1.7B", repository: "ggml-org/Qwen3-1.7B-GGUF", fileName: "Qwen3-1.7B-Q4_K_M.gguf", approximateSizeMB: 1283, notes: "Q4_K_M; Apache 2.0"),
+        .init(id: "bonsai-17b", name: "Bonsai 1.7B", repository: "prism-ml/Bonsai-1.7B-gguf", fileName: "Bonsai-1.7B-Q1_0.gguf", approximateSizeMB: 249, notes: "1-bit Qwen3 derivative; Apache 2.0"),
         .init(id: "lfm25-12b", name: "LFM2.5 1.2B Instruct", repository: "LiquidAI/LFM2.5-1.2B-Instruct-GGUF", fileName: "LFM2.5-1.2B-Instruct-Q4_K_M.gguf", approximateSizeMB: 730, notes: "Review LFM license before distribution"),
         .init(id: "lfm25-jp", name: "LFM2.5 1.2B JP", repository: "LiquidAI/LFM2.5-1.2B-JP-GGUF", fileName: "LFM2.5-1.2B-JP-Q4_K_M.gguf", approximateSizeMB: 731, notes: "Japanese specialist; review LFM license")
     ]
 
     var modelPage: URL { URL(string: "https://huggingface.co/\(repository)/tree/main")! }
+    var prefersNonThinkingMode: Bool { id == "qwen3-17b" }
 }
 
-enum EvalLanguage: String, CaseIterable, Codable, Identifiable {
+enum EvalLanguage: String, CaseIterable, Codable, Identifiable, Sendable {
     case english = "English"
     case japanese = "Japanese"
     var id: String { rawValue }
 }
 
-struct EvalCase: Identifiable, Hashable {
+struct EvalCase: Identifiable, Hashable, Sendable {
     let id: String
     let title: String
     let englishRequest: String
@@ -41,10 +44,10 @@ struct EvalCase: Identifiable, Hashable {
     }
 }
 
-struct EvalRecipe: Codable {
-    struct Ingredient: Codable { let item: String; let amount: String }
-    struct Step: Codable { let title: String; let points: [String] }
-    struct Trouble: Codable { let problem: String; let solution: String }
+struct EvalRecipe: Codable, Sendable {
+    struct Ingredient: Codable, Sendable { let item: String; let amount: String }
+    struct Step: Codable, Sendable { let title: String; let points: [String] }
+    struct Trouble: Codable, Sendable { let problem: String; let solution: String }
     let title: String
     let time: String
     let serves: String
@@ -54,7 +57,7 @@ struct EvalRecipe: Codable {
     let troubleshooting: [Trouble]
 }
 
-struct Review: Codable {
+struct Review: Codable, Sendable {
     var reviewed = false
     var feasible = false
     var constraintsMet = false
@@ -69,7 +72,7 @@ struct Review: Codable {
     }
 }
 
-struct EvalRun: Identifiable, Codable {
+struct EvalRun: Identifiable, Codable, Sendable {
     let id: UUID
     let modelID: String
     let modelFile: String

@@ -2,6 +2,17 @@ import XCTest
 @testable import PlatesKitchen
 
 final class SVGChecksTests: XCTestCase {
+    func testPromptSuppliesAReferenceForEveryRequiredObject() throws {
+        for asset in try SVGSampleRecipe.load().flatMap(\.assets) {
+            let prompt = SVGPrompt.user(for: asset)
+            XCTAssertTrue(prompt.contains("Scene: \(asset.subject)."), asset.id)
+            XCTAssertTrue(prompt.contains("viewBox=\"0 0 \(asset.size.width) \(asset.size.height)\""), asset.id)
+            for symbol in asset.expectedSymbols {
+                XCTAssertTrue(prompt.contains("\(symbol): <"), "Missing \(symbol) reference for \(asset.id)")
+            }
+        }
+    }
+
     func testSamplesCoverEveryStepAndRecipeIcon() throws {
         let recipes = try SVGSampleRecipe.load()
         XCTAssertEqual(recipes.count, 3)

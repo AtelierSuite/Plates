@@ -37,8 +37,8 @@ struct SVGSampleRecipe: Codable, Identifiable {
     }
 }
 
-struct SVGSampleAsset: Identifiable {
-    enum Kind: String, Codable { case icon, step }
+struct SVGSampleAsset: Identifiable, Sendable {
+    enum Kind: String, Codable, Sendable { case icon, step }
     let id: String
     let recipeID: String
     let recipeTitle: String
@@ -52,7 +52,7 @@ struct SVGSampleAsset: Identifiable {
     var size: (width: Int, height: Int) { kind == .icon ? (128, 128) : (200, 150) }
 }
 
-struct SVGReview: Codable {
+struct SVGReview: Codable, Sendable {
     var reviewed = false
     var subjectMatches = false
     var actionMatches = false
@@ -63,7 +63,7 @@ struct SVGReview: Codable {
     var passes: Bool { reviewed && subjectMatches && actionMatches && readableAtSmallSize && consistentStyle }
 }
 
-struct SVGRun: Identifiable, Codable {
+struct SVGRun: Identifiable, Codable, Sendable {
     let id: UUID
     let modelID: String
     let assetID: String
