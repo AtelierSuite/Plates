@@ -2,7 +2,7 @@ import { env, runInDurableObject } from "cloudflare:test";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { base64Encode } from "../src/bytes";
 import type { Env } from "../src/env";
-import worker, { localDay } from "../src/index";
+import worker, { quotaDay } from "../src/index";
 import { Phone, call, sse } from "./client";
 
 const chat = { messages: [{ role: "user", content: "Make egg fried rice." }] };
@@ -44,11 +44,9 @@ describe("routing", () => {
     expect(((await response.json()) as { challenge: string }).challenge).toMatch(/^[A-Za-z0-9_-]{75}$/);
   });
 
-  it("works out the cook's day from their offset", () => {
-    const now = Date.UTC(2026, 8, 28, 20, 0);
-    expect(localDay(0, now)).toBe("2026-09-28");
-    expect(localDay(540, now)).toBe("2026-09-29");
-    expect(localDay(-480, now)).toBe("2026-09-28");
+  it("uses midnight UTC for the quota day", () => {
+    expect(quotaDay(Date.UTC(2026, 8, 28, 23, 59, 59))).toBe("2026-09-28");
+    expect(quotaDay(Date.UTC(2026, 8, 29))).toBe("2026-09-29");
   });
 });
 
@@ -246,5 +244,28 @@ describe("toppings", () => {
     const phone = await Phone.create();
     expect((await phone.post("/v1/toppings", { ...dish, ingredients: [] })).status).toBe(400);
     expect((await phone.post("/v1/toppings", { ...dish, steps: [] })).status).toBe(400);
+  });
+});
+
+describe("quota integrity", () => {
+  it("keeps exhausted quotas when the client changes UTC offsets", async () => {
+    const phone = await Phone.create();
+    for (let i = 0; i < 3; i++) expect((await phone.post("/v1/chat/completions", chat, { offset: -720 })).status).toBe(200);
+    for (const offset of [-720, 840, -720, 0]) {
+      expect((await phone.post("/v1/chat/completions", chat, { offset })).status).toBe(429);
+      expect(await (await phone.post("/v1/limits", {}, { offset })).json()).toMatchObject({ write: { remaining: 0 } });
+    }
+  });
+
+  it("does not let late refunds or answers reset the new day's usage", async () => {
+    const phone = await Phone.create();
+    const stub = phone.stub();
+    await stub.reserve("decide", "2026-09-28", 2, "old");
+    await stub.reserve("decide", "2026-09-29", 2, "new");
+    await stub.release("decide", "2026-09-28");
+    await stub.remember("decide", "2026-09-28", "old", { index: 0, confidence: 1, probabilities: [1, 0] });
+    expect(await stub.allowance("decide", "2026-09-29", 2)).toEqual({ limit: 2, remaining: 1 });
+    await stub.release("decide", "2026-09-29");
+    expect(await stub.allowance("decide", "2026-09-29", 2)).toEqual({ limit: 2, remaining: 2 });
   });
 });

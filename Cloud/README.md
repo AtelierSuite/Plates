@@ -29,7 +29,7 @@ Plain vars are read from the environment by `cloudflare.config.ts` at deploy tim
 | `DECIDE_DAILY_LIMIT` | Decide for me picks per device per day |
 | `TOPPINGS_DAILY_LIMIT` | Dish icon questions per device per day |
 
-The four limits are defaults. A device whose Durable Object has a row in its `limits` table (`kind` is `write`, `ideate`, `decide`, or `toppings`, `daily` a whole number) uses that instead, so one device can be given more or fewer calls without a deploy. Each device's Durable Object is named by its key ID in base64url, and `limits` is its only SQL table: the key, the counter, and the daily counts stay in its key-value storage.
+Daily quotas use the server’s UTC date and reset at midnight UTC. The four limits are defaults. A device whose Durable Object has a row in its `limits` table (`kind` is `write`, `ideate`, `decide`, or `toppings`, `daily` a whole number) uses that instead, so one device can be given more or fewer calls without a deploy. Each device's Durable Object is named by its key ID in base64url, and `limits` is its only SQL table: the key, the counter, and the daily counts stay in its key-value storage.
 
 For example, `INSERT OR REPLACE INTO limits (kind, daily) VALUES ('write', 50)` gives a device 50 Gemma calls a day.
 
@@ -51,7 +51,7 @@ Everything is `POST` except `/health`. The signed endpoints take three headers:
 | --- | --- |
 | `X-Plates-Key-Id` | The App Attest key ID, base64 |
 | `X-Plates-Assertion` | `DCAppAttestService.generateAssertion` over the SHA-256 of the exact request body, base64 |
-| `X-Plates-UTC-Offset` | The cook's offset from UTC in minutes, so a day ends at their midnight |
+| `X-Plates-UTC-Offset` | Optional legacy client offset, validated but not used for quotas; days end at midnight UTC |
 
 | Path | Signed | What it does |
 | --- | --- | --- |

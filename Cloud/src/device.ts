@@ -71,14 +71,15 @@ export class Device extends DurableObject<Env> {
   }
 
   async release(kind: Kind, day: string): Promise<void> {
-    const usage = await this.usage(kind, day);
-    if (usage.count === 0) return;
+    const usage = await this.ctx.storage.get<Usage>(`usage:${kind}`);
+    if (!usage || usage.day !== day || usage.count === 0) return;
     usage.count -= 1;
     await this.ctx.storage.put(`usage:${kind}`, usage);
   }
 
   async remember(kind: Kind, day: string, requestId: string, answer: Pick): Promise<void> {
-    const usage = await this.usage(kind, day);
+    const usage = await this.ctx.storage.get<Usage>(`usage:${kind}`);
+    if (!usage || usage.day !== day) return;
     usage.answers = [...usage.answers.filter(([id]) => id !== requestId), [requestId, answer] as [string, Pick]].slice(-KEPT_ANSWERS);
     await this.ctx.storage.put(`usage:${kind}`, usage);
   }

@@ -19,8 +19,8 @@ function failure(status: number, message: string, headers: HeadersInit = {}): Re
   return json({ error: message }, status, headers);
 }
 
-export function localDay(offsetMinutes: number, now = Date.now()): string {
-  return new Date(now + offsetMinutes * 60_000).toISOString().slice(0, 10);
+export function quotaDay(now = Date.now()): string {
+  return new Date(now).toISOString().slice(0, 10);
 }
 
 function offset(request: Request): number | null {
@@ -120,7 +120,7 @@ async function write(request: Request, env: Env, kind: "write" | "ideate"): Prom
   if (typeof chat === "string") return failure(400, chat);
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
-  return metered(stub, kind, localDay(minutes), most, undefined, async (remaining) => {
+  return metered(stub, kind, quotaDay(), most, undefined, async (remaining) => {
     const result = await env.AI.run(GEMMA_MODEL, { ...chat, chat_template_kwargs: { enable_thinking: false } });
     const headers = { "X-Plates-Remaining": String(remaining) };
     if (chat.stream) {
@@ -144,7 +144,7 @@ async function decide(request: Request, env: Env): Promise<Response> {
   if (typeof decision === "string") return failure(400, decision);
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
-  const day = localDay(minutes);
+  const day = quotaDay();
   return metered(
     stub, "decide", day, most, decision.requestId,
     async (remaining) => {
@@ -167,7 +167,7 @@ async function toppings(request: Request, env: Env): Promise<Response> {
   if (typeof asked === "string") return failure(400, asked);
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
-  return metered(stub, "toppings", localDay(minutes), most, undefined, async (remaining) => {
+  return metered(stub, "toppings", quotaDay(), most, undefined, async (remaining) => {
     const visible = await askToppings(asked, key);
     return json({ visible, remaining }, 200, { "X-Plates-Remaining": String(remaining) });
   });
@@ -181,7 +181,7 @@ async function limits(request: Request, env: Env): Promise<Response> {
   if (minutes === null || !bytes) return failure(400, "bad request");
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
-  const day = localDay(minutes);
+  const day = quotaDay();
   const kinds = Object.entries(defaults) as [Kind, number][];
   return json(Object.fromEntries(await Promise.all(kinds.map(async ([kind, most]) => [kind, await stub.allowance(kind, day, most)]))));
 }
