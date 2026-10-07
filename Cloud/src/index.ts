@@ -29,8 +29,24 @@ function offset(request: Request): number | null {
 }
 
 async function body(request: Request): Promise<Uint8Array | null> {
-  const bytes = new Uint8Array(await request.arrayBuffer());
-  return bytes.length <= MAX_BODY_BYTES ? bytes : null;
+  if (!request.body) return new Uint8Array();
+  const reader = request.body.getReader();
+  const bytes = new Uint8Array(MAX_BODY_BYTES);
+  let size = 0;
+  try {
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) return bytes.slice(0, size);
+      if (value.byteLength > MAX_BODY_BYTES - size) {
+        await reader.cancel();
+        return null;
+      }
+      bytes.set(value, size);
+      size += value.byteLength;
+    }
+  } finally {
+    reader.releaseLock();
+  }
 }
 
 function parse(bytes: Uint8Array): unknown {
@@ -70,7 +86,8 @@ async function attest(request: Request, env: Env): Promise<Response> {
   const app = appId(env);
   if (!app || !env.CHALLENGE_SECRET || !env.APP_ATTEST_ENVIRONMENT) return failure(503, "not configured");
   const bytes = await body(request);
-  const input = bytes ? parse(bytes) : undefined;
+  if (!bytes) return failure(413, "request too large");
+  const input = parse(bytes);
   const { keyId, attestation, challenge } = (input ?? {}) as { [key: string]: unknown };
   if (typeof keyId !== "string" || typeof attestation !== "string" || typeof challenge !== "string") {
     return failure(400, "keyId, attestation, and challenge are required");
@@ -115,7 +132,8 @@ async function write(request: Request, env: Env, kind: "write" | "ideate"): Prom
   if (most === null) return failure(503, "not configured");
   const minutes = offset(request);
   const bytes = await body(request);
-  if (minutes === null || !bytes) return failure(400, "bad request");
+  if (!bytes) return failure(413, "request too large");
+  if (minutes === null) return failure(400, "bad request");
   const chat = parseChat(parse(bytes), kind === "write" ? MAX_OUTPUT_TOKENS : MAX_IDEA_TOKENS);
   if (typeof chat === "string") return failure(400, chat);
   const stub = await authenticated(request, env, bytes);
@@ -139,7 +157,8 @@ async function decide(request: Request, env: Env): Promise<Response> {
   const key = env.JEV_API_KEY;
   const minutes = offset(request);
   const bytes = await body(request);
-  if (minutes === null || !bytes) return failure(400, "bad request");
+  if (!bytes) return failure(413, "request too large");
+  if (minutes === null) return failure(400, "bad request");
   const decision = parseDecision(parse(bytes));
   if (typeof decision === "string") return failure(400, decision);
   const stub = await authenticated(request, env, bytes);
@@ -162,7 +181,8 @@ async function toppings(request: Request, env: Env): Promise<Response> {
   const key = env.JEV_API_KEY;
   const minutes = offset(request);
   const bytes = await body(request);
-  if (minutes === null || !bytes) return failure(400, "bad request");
+  if (!bytes) return failure(413, "request too large");
+  if (minutes === null) return failure(400, "bad request");
   const asked = parseToppings(parse(bytes));
   if (typeof asked === "string") return failure(400, asked);
   const stub = await authenticated(request, env, bytes);
@@ -178,7 +198,8 @@ async function limits(request: Request, env: Env): Promise<Response> {
   if (Object.values(defaults).includes(null)) return failure(503, "not configured");
   const minutes = offset(request);
   const bytes = await body(request);
-  if (minutes === null || !bytes) return failure(400, "bad request");
+  if (!bytes) return failure(413, "request too large");
+  if (minutes === null) return failure(400, "bad request");
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
   const day = quotaDay();
