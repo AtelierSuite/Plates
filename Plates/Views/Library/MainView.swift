@@ -266,8 +266,13 @@ struct MainView: View {
             }
 
             Section {
-                Link(destination: URL(string: "https://github.com/katagaki/Plates")!) {
-                    Label("Menu.SourceCode", systemImage: "chevron.left.forwardslash.chevron.right")
+                Link(destination: URL(string: "https://github.com/AtelierSuite/Plates")!) {
+                    Label {
+                        Text("Menu.SourceCode")
+                        Text(verbatim: "AtelierSuite/Plates")
+                    } icon: {
+                        Image(systemName: "chevron.left.forwardslash.chevron.right")
+                    }
                 }
             }
         } label: {
