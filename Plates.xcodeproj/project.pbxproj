@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E47FE81A3047956D0038302E /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = E47FE8193047956D0038302E /* AppIcon.icon */; };
 		E4B00000000000000000000C /* PlatesActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E4B000000000000000000004 /* PlatesActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E4C000000000000000000003 /* CulinaryIntelligence in Frameworks */ = {isa = PBXBuildFile; productRef = E4C000000000000000000002 /* CulinaryIntelligence */; };
 		E4D00000000000000000000C /* PlatesChef.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E4D000000000000000000004 /* PlatesChef.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -45,7 +44,6 @@
 
 /* Begin PBXFileReference section */
 		E47FE75930478FED0038302E /* Plates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plates.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E47FE8193047956D0038302E /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		E4B000000000000000000004 /* PlatesActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PlatesActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D000000000000000000004 /* PlatesChef.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PlatesChef.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -149,7 +147,6 @@
 		E47FE75030478FED0038302E = {
 			isa = PBXGroup;
 			children = (
-				E47FE8193047956D0038302E /* AppIcon.icon */,
 				E47FE75B30478FED0038302E /* Plates */,
 				E4B000000000000000000002 /* PlatesActivity */,
 				E4D000000000000000000002 /* PlatesChef */,
@@ -286,7 +283,6 @@
 		E47FE75730478FED0038302E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				E47FE81A3047956D0038302E /* AppIcon.icon in Resources */,
 			);
 		};
 		E4B000000000000000000007 /* Resources */ = {
