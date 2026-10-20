@@ -24,7 +24,19 @@
             }
           ],
           "image-name" : "yolk.svg",
-          "name" : "Yolk"
+          "name" : "Yolk",
+          "position-specializations" : [
+            {
+              "idiom" : "iOS",
+              "value" : {
+                "scale" : 0.95,
+                "translation-in-points" : [
+                  0,
+                  0
+                ]
+              }
+            }
+          ]
         }
       ],
       "name" : "Yolk",
@@ -50,7 +62,19 @@
             }
           ],
           "image-name" : "egg-white.svg",
-          "name" : "Egg white"
+          "name" : "Egg white",
+          "position-specializations" : [
+            {
+              "idiom" : "iOS",
+              "value" : {
+                "scale" : 0.95,
+                "translation-in-points" : [
+                  0,
+                  0
+                ]
+              }
+            }
+          ]
         }
       ],
       "name" : "Egg white",
@@ -72,7 +96,7 @@
           "fill-specializations" : [
             {
               "value" : {
-                "automatic-gradient" : "gray:1.00000,1.00000"
+                "solid" : "gray:1.00000,0.45000"
               }
             },
             {
@@ -121,7 +145,7 @@
           "fill-specializations" : [
             {
               "value" : {
-                "automatic-gradient" : "gray:0.96091,1.00000"
+                "solid" : "gray:0.96091,0.30000"
               }
             },
             {
