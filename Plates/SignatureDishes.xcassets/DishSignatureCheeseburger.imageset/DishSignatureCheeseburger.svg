@@ -1,0 +1,97 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cheeseburger">
+  <defs>
+    <linearGradient id="g1" x1="2" y1="2" x2="94" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f5f2ed"/>
+      <stop offset="0.5" stop-color="#f0ece4"/>
+      <stop offset="1" stop-color="#d7cdb2"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="57.25" cy="59.1" r="46.25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eee9e2"/>
+      <stop offset="0.6" stop-color="#e8e3d8"/>
+      <stop offset="1" stop-color="#d9d2ba"/>
+    </radialGradient>
+    <linearGradient id="g3" x1="60" y1="56" x2="82" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe08a"/>
+      <stop offset="0.5" stop-color="#f4bb3e"/>
+      <stop offset="1" stop-color="#d68a1a"/>
+    </linearGradient>
+    <radialGradient id="g4" cx="33" cy="34" r="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b9e58a"/>
+      <stop offset="0.5" stop-color="#6fbb45"/>
+      <stop offset="1" stop-color="#3f8a2e"/>
+    </radialGradient>
+    <linearGradient id="g5" x1="15" y1="16" x2="71" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffd36a"/>
+      <stop offset="0.5" stop-color="#f7a822"/>
+      <stop offset="1" stop-color="#d97e0c"/>
+    </linearGradient>
+    <radialGradient id="g6" cx="35" cy="35" r="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6c27a"/>
+      <stop offset="0.45" stop-color="#df8f3e"/>
+      <stop offset="1" stop-color="#a8561c"/>
+    </radialGradient>
+  </defs>
+  <circle cx="48" cy="48" r="46" fill="url(#g1)"/>
+  <path d="M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <circle cx="48" cy="48" r="43" fill="none" stroke="#5f7fa3" stroke-width="2.4"/>
+  <circle cx="48" cy="48" r="37" fill="url(#g2)"/>
+  <path d="M18.4 31.3A36 36 0 0 1 64.7 18.4" stroke="#d9d2ba" stroke-opacity="0.35" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M53.87 70.46Q53.37 69.59 54.24 69.09L71.56 59.09Q72.43 58.59 72.93 59.46L74.13 61.54Q74.63 62.41 73.76 62.91L56.44 72.91Q55.57 73.41 55.07 72.54Z" fill="#3a2a18" fill-opacity="0.18" transform="translate(0.8 1.4)"/>
+  <path d="M53.87 70.46Q53.37 69.59 54.24 69.09L71.56 59.09Q72.43 58.59 72.93 59.46L74.13 61.54Q74.63 62.41 73.76 62.91L56.44 72.91Q55.57 73.41 55.07 72.54Z" fill="url(#g3)"/>
+  <path d="M54.54 69.61Q54.24 69.09 54.76 68.79L71.04 59.39Q71.56 59.09 71.86 59.61L72.06 59.96Q72.36 60.48 71.84 60.78L55.56 70.18Q55.04 70.48 54.74 69.96Z" fill="#fff4c4" fill-opacity="0.45"/>
+  <path d="M62.28 67.5Q61.46 66.93 62.04 66.11L72.36 51.37Q72.93 50.55 73.75 51.12L75.72 52.5Q76.54 53.07 75.96 53.89L65.64 68.63Q65.07 69.45 64.25 68.88Z" fill="#3a2a18" fill-opacity="0.18" transform="translate(0.8 1.4)"/>
+  <path d="M62.28 67.5Q61.46 66.93 62.04 66.11L72.36 51.37Q72.93 50.55 73.75 51.12L75.72 52.5Q76.54 53.07 75.96 53.89L65.64 68.63Q65.07 69.45 64.25 68.88Z" fill="url(#g3)"/>
+  <path d="M62.53 66.45Q62.04 66.11 62.38 65.62L72.02 51.86Q72.36 51.37 72.85 51.71L73.18 51.94Q73.67 52.28 73.33 52.77L63.69 66.54Q63.35 67.03 62.85 66.68Z" fill="#fff4c4" fill-opacity="0.45"/>
+  <path d="M49.97 72.91Q49.76 71.93 50.74 71.72L68.35 67.98Q69.32 67.77 69.53 68.75L70.03 71.09Q70.24 72.07 69.26 72.28L51.65 76.02Q50.68 76.23 50.47 75.25Z" fill="#3a2a18" fill-opacity="0.18" transform="translate(0.8 1.4)"/>
+  <path d="M49.97 72.91Q49.76 71.93 50.74 71.72L68.35 67.98Q69.32 67.77 69.53 68.75L70.03 71.09Q70.24 72.07 69.26 72.28L51.65 76.02Q50.68 76.23 50.47 75.25Z" fill="url(#g3)"/>
+  <path d="M50.86 72.31Q50.74 71.72 51.33 71.59L67.76 68.1Q68.35 67.98 68.47 68.56L68.55 68.96Q68.68 69.54 68.09 69.67L51.66 73.16Q51.07 73.28 50.95 72.7Z" fill="#fff4c4" fill-opacity="0.45"/>
+  <path d="M64.33 72.87Q63.69 72.1 64.46 71.46L76.71 61.17Q77.48 60.53 78.12 61.3L79.67 63.13Q80.31 63.9 79.54 64.54L67.29 74.83Q66.52 75.47 65.88 74.7Z" fill="#3a2a18" fill-opacity="0.18" transform="translate(0.8 1.4)"/>
+  <path d="M64.33 72.87Q63.69 72.1 64.46 71.46L76.71 61.17Q77.48 60.53 78.12 61.3L79.67 63.13Q80.31 63.9 79.54 64.54L67.29 74.83Q66.52 75.47 65.88 74.7Z" fill="url(#g3)"/>
+  <path d="M64.84 71.92Q64.46 71.46 64.92 71.07L76.25 61.56Q76.71 61.17 77.1 61.63L77.36 61.94Q77.74 62.4 77.28 62.78L65.95 72.3Q65.49 72.68 65.1 72.22Z" fill="#fff4c4" fill-opacity="0.45"/>
+  <path d="M58.79 76.5Q58.37 75.6 59.27 75.18L72.87 68.84Q73.77 68.41 74.2 69.32L75.21 71.5Q75.63 72.4 74.73 72.82L61.13 79.16Q60.23 79.59 59.8 78.68Z" fill="#3a2a18" fill-opacity="0.18" transform="translate(0.8 1.4)"/>
+  <path d="M58.79 76.5Q58.37 75.6 59.27 75.18L72.87 68.84Q73.77 68.41 74.2 69.32L75.21 71.5Q75.63 72.4 74.73 72.82L61.13 79.16Q60.23 79.59 59.8 78.68Z" fill="url(#g3)"/>
+  <path d="M59.53 75.72Q59.27 75.18 59.82 74.92L72.32 69.09Q72.87 68.84 73.12 69.38L73.29 69.74Q73.54 70.29 73 70.54L60.49 76.37Q59.95 76.63 59.7 76.08Z" fill="#fff4c4" fill-opacity="0.45"/>
+  <circle cx="44.5" cy="46.5" r="30" fill="#3a2a18" fill-opacity="0.2"/>
+  <path d="M72.05 40.28Q70.94 44 72.05 47.72Q73.16 51.43 70.45 54.21Q67.74 56.98 66.99 60.79Q66.25 64.6 62.56 65.8Q58.87 66.99 56.44 70.02Q54.02 73.04 50.19 72.39Q46.37 71.73 42.81 73.28Q39.26 74.84 36.17 72.48Q33.09 70.12 29.22 69.84Q25.35 69.56 23.72 66.04Q22.09 62.53 18.79 60.48Q15.5 58.44 15.68 54.56Q15.87 50.69 13.91 47.34Q11.94 44 13.91 40.66Q15.87 37.31 15.68 33.44Q15.5 29.56 18.79 27.52Q22.09 25.47 23.72 21.96Q25.35 18.44 29.22 18.16Q33.09 17.88 36.17 15.52Q39.26 13.16 42.81 14.72Q46.37 16.27 50.19 15.61Q54.02 14.96 56.44 17.98Q58.87 21.01 62.56 22.2Q66.25 23.4 66.99 27.21Q67.74 31.02 70.45 33.79Q73.16 36.57 72.05 40.28Z" fill="url(#g4)"/>
+  <path d="M27.97 22.29Q29.52 17.54 34.27 19.08L64.71 28.97Q69.46 30.52 67.92 35.27L58.03 65.71Q56.48 70.46 51.73 68.92L21.29 59.03Q16.54 57.48 18.08 52.73Z" fill="url(#g5)"/>
+  <ellipse cx="65" cy="57" rx="3" ry="5" fill="#f2a01e" transform="rotate(-20 65 57)"/>
+  <ellipse cx="30" cy="68" rx="3.2" ry="4.6" fill="#f2a01e" transform="rotate(60 30 68)"/>
+  <ellipse cx="18" cy="40" rx="2.6" ry="4" fill="#f2a01e" transform="rotate(15 18 40)"/>
+  <circle cx="43.6" cy="45.2" r="22.5" fill="#6e3d1c" fill-opacity="0.3"/>
+  <circle cx="43" cy="44" r="22.5" fill="url(#g6)"/>
+  <ellipse cx="35" cy="35" rx="8" ry="5" fill="#ffffff" fill-opacity="0.32" transform="rotate(-35 35 35)"/>
+  <ellipse cx="40.18" cy="50.73" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(167.69 40.18 50.73)"/>
+  <ellipse cx="39.88" cy="50.23" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(167.69 39.88 50.23)"/>
+  <ellipse cx="40.31" cy="40.33" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(59.26 40.31 40.33)"/>
+  <ellipse cx="40.01" cy="39.83" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(59.26 40.01 39.83)"/>
+  <ellipse cx="33.11" cy="42.16" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(33.39 33.11 42.16)"/>
+  <ellipse cx="32.81" cy="41.66" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(33.39 32.81 41.66)"/>
+  <ellipse cx="54.72" cy="48.86" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(168.46 54.72 48.86)"/>
+  <ellipse cx="54.42" cy="48.36" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(168.46 54.42 48.36)"/>
+  <ellipse cx="48.38" cy="46.88" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(134.34 48.38 46.88)"/>
+  <ellipse cx="48.08" cy="46.38" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(134.34 48.08 46.38)"/>
+  <ellipse cx="29.52" cy="51.57" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(5.74 29.52 51.57)"/>
+  <ellipse cx="29.22" cy="51.07" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(5.74 29.22 51.07)"/>
+  <ellipse cx="31.77" cy="32.61" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(119.6 31.77 32.61)"/>
+  <ellipse cx="31.47" cy="32.11" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(119.6 31.47 32.11)"/>
+  <ellipse cx="49.2" cy="37.22" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(68.15 49.2 37.22)"/>
+  <ellipse cx="48.9" cy="36.72" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(68.15 48.9 36.72)"/>
+  <ellipse cx="37.77" cy="58.86" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(67.3 37.77 58.86)"/>
+  <ellipse cx="37.47" cy="58.36" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(67.3 37.47 58.36)"/>
+  <ellipse cx="48.81" cy="56.34" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(59.71 48.81 56.34)"/>
+  <ellipse cx="48.51" cy="55.84" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(59.71 48.51 55.84)"/>
+  <ellipse cx="38.53" cy="34.3" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(30.47 38.53 34.3)"/>
+  <ellipse cx="38.23" cy="33.8" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(30.47 38.23 33.8)"/>
+  <ellipse cx="47.23" cy="30.78" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(0.52 47.23 30.78)"/>
+  <ellipse cx="46.93" cy="30.28" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(0.52 46.93 30.28)"/>
+  <ellipse cx="56.88" cy="40.38" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(50.37 56.88 40.38)"/>
+  <ellipse cx="56.58" cy="39.88" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(50.37 56.58 39.88)"/>
+  <ellipse cx="26.74" cy="41.54" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(63.26 26.74 41.54)"/>
+  <ellipse cx="26.44" cy="41.04" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(63.26 26.44 41.04)"/>
+  <ellipse cx="55.7" cy="33.27" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(171.99 55.7 33.27)"/>
+  <ellipse cx="55.4" cy="32.77" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(171.99 55.4 32.77)"/>
+  <ellipse cx="43.88" cy="61.2" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(22.27 43.88 61.2)"/>
+  <ellipse cx="43.58" cy="60.7" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(22.27 43.58 60.7)"/>
+  <ellipse cx="41.46" cy="27.62" rx="2.1" ry="1.15" fill="#8a4a1a" fill-opacity="0.35" transform="rotate(173.57 41.46 27.62)"/>
+  <ellipse cx="41.16" cy="27.12" rx="2.1" ry="1.15" fill="#fff6e2" transform="rotate(173.57 41.16 27.12)"/>
+</svg>

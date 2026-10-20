@@ -1,0 +1,57 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Grilled cheese sandwich">
+  <defs>
+    <linearGradient id="g1" x1="2" y1="2" x2="94" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c1d1c1"/>
+      <stop offset="0.5" stop-color="#9fb8a0"/>
+      <stop offset="1" stop-color="#7da382"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="57.25" cy="59.1" r="46.25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c9d8c8"/>
+      <stop offset="0.6" stop-color="#b6cbb5"/>
+      <stop offset="1" stop-color="#9dbd9e"/>
+    </radialGradient>
+    <linearGradient id="g3" x1="30" y1="30" x2="66" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffd65a"/>
+      <stop offset="0.5" stop-color="#f7a51e"/>
+      <stop offset="1" stop-color="#e08510"/>
+    </linearGradient>
+    <linearGradient id="g4" x1="14" y1="14" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d48a3e"/>
+      <stop offset="0.5" stop-color="#a85e22"/>
+      <stop offset="1" stop-color="#7a3e14"/>
+    </linearGradient>
+    <linearGradient id="g5" x1="14" y1="14" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6cf7e"/>
+      <stop offset="0.55" stop-color="#e3a04a"/>
+      <stop offset="1" stop-color="#c27428"/>
+    </linearGradient>
+    <linearGradient id="g6" x1="30" y1="30" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d48a3e"/>
+      <stop offset="0.5" stop-color="#a85e22"/>
+      <stop offset="1" stop-color="#7a3e14"/>
+    </linearGradient>
+    <linearGradient id="g7" x1="30" y1="30" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6cf7e"/>
+      <stop offset="0.55" stop-color="#e3a04a"/>
+      <stop offset="1" stop-color="#c27428"/>
+    </linearGradient>
+  </defs>
+  <circle cx="48" cy="48" r="46" fill="url(#g1)"/>
+  <path d="M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <circle cx="48" cy="48" r="37" fill="url(#g2)"/>
+  <path d="M18.4 31.3A36 36 0 0 1 64.7 18.4" stroke="#9dbd9e" stroke-opacity="0.35" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M14.49 30.62Q13.65 24.68 19.59 23.84L57.22 18.55Q63.17 17.72 59.55 22.51L24.22 69.4Q20.61 74.19 19.78 68.25Z" fill="#26402a" fill-opacity="0.22"/>
+  <path d="M12.99 28.22Q12.15 22.28 18.09 21.44L55.72 16.15Q61.67 15.32 58.05 20.11L22.72 67Q19.11 71.79 18.28 65.85Z" fill="url(#g4)"/>
+  <path d="M16.47 29.07Q15.92 25.11 19.88 24.56L51.57 20.1Q55.53 19.55 53.12 22.74L23.89 61.53Q21.48 64.72 20.93 60.76Z" fill="url(#g5)"/>
+  <path d="M32.17 33.85Q32.51 34.47 32.37 35.18Q32.23 35.88 31.77 36.57Q31.31 37.27 30.21 37.14Q29.11 37.01 28.24 37.34Q27.37 37.67 26.32 37.52Q25.26 37.37 24.56 36.73Q23.85 36.1 24.47 35.29Q25.09 34.47 24.75 33.76Q24.41 33.05 25.04 32.51Q25.67 31.96 26.56 31.75Q27.45 31.54 28.46 31.14Q29.48 30.73 30.18 31.41Q30.88 32.09 31.35 32.65Q31.83 33.22 32.17 33.85Z" fill="#a85e22" fill-opacity="0.3"/>
+  <path d="M29.76 32.09Q29.67 32.77 30.2 33.61Q30.73 34.45 30 35.11Q29.26 35.76 28.23 36.1Q27.2 36.43 26.12 36.32Q25.04 36.21 24.03 35.93Q23.03 35.65 23.29 34.67Q23.56 33.68 22.67 33.23Q21.78 32.77 22.4 32.22Q23.02 31.67 23.13 30.89Q23.24 30.1 24.24 30.03Q25.23 29.97 26.12 29.85Q27 29.74 27.82 30.05Q28.64 30.37 29.25 30.89Q29.85 31.41 29.76 32.09Z" fill="#a85e22" fill-opacity="0.3"/>
+  <path d="M56.56 22.09Q59.29 30.2 51.94 28.23Q52.09 33.75 47.32 34.36Q50.05 42.46 42.7 40.49Q42.85 46.02 38.08 46.62Q40.81 54.72 33.46 52.75Q33.61 58.28 28.84 58.88Q31.57 66.99 24.22 65.01L22.12 62.91L54.46 19.99Z" fill="url(#g3)"/>
+  <path d="M73.78 35.4Q77.39 30.61 78.22 36.55L83.51 74.18Q84.35 80.12 78.41 80.96L40.78 86.25Q34.83 87.08 38.45 82.29Z" fill="#26402a" fill-opacity="0.22"/>
+  <path d="M72.28 33Q75.89 28.21 76.72 34.15L82.01 71.78Q82.85 77.72 76.91 78.56L39.28 83.85Q33.33 84.68 36.95 79.89Z" fill="url(#g6)"/>
+  <path d="M71.11 38.47Q73.52 35.28 74.07 39.24L78.53 70.93Q79.08 74.89 75.12 75.44L43.43 79.9Q39.47 80.45 41.88 77.26Z" fill="url(#g7)"/>
+  <path d="M68.57 58.09Q68.66 58.59 69.26 59.35Q69.86 60.1 69.37 60.85Q68.89 61.6 67.71 61.49Q66.53 61.37 65.54 61.83Q64.56 62.3 63.93 61.57Q63.3 60.84 62.56 60.41Q61.82 59.99 61.25 59.29Q60.68 58.59 61.7 58.06Q62.72 57.52 63.3 57.21Q63.88 56.9 64.42 56.57Q64.97 56.24 65.65 56.36Q66.33 56.48 67.21 56.41Q68.09 56.33 68.28 56.96Q68.47 57.59 68.57 58.09Z" fill="#a85e22" fill-opacity="0.3"/>
+  <path d="M71.21 53.77Q72.09 54.35 71.18 54.92Q70.27 55.49 69.9 56.07Q69.54 56.64 68.67 56.64Q67.8 56.64 66.88 57.39Q65.95 58.15 65.54 57.18Q65.13 56.21 64.13 56Q63.13 55.79 63 55.07Q62.87 54.35 62.96 53.62Q63.04 52.88 63.89 52.51Q64.75 52.13 65.52 51.89Q66.28 51.64 67.11 51.62Q67.95 51.6 68.45 52.11Q68.96 52.61 69.64 52.9Q70.32 53.19 71.21 53.77Z" fill="#a85e22" fill-opacity="0.3"/>
+  <path d="M38.44 77.91Q38.51 72.6 43.06 71.77Q40.89 64.23 47.68 65.64Q47.75 60.34 52.3 59.51Q50.13 51.97 56.92 53.38Q56.99 48.08 61.54 47.25Q59.37 39.7 66.16 41.12Q66.23 35.81 70.78 34.99L72.88 37.09L40.54 80.01Z" fill="url(#g3)"/>
+  <path d="M41.33 74.68L49.33 66.68" stroke="#fff3b0" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M47.67 33.32L41.67 39.32" stroke="#fff3b0" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

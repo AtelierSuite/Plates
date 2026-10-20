@@ -1,0 +1,330 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tacos">
+  <defs>
+    <linearGradient id="g1" x1="2.00" y1="2.00" x2="94.00" y2="94.00" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#dcb197"/><stop offset="0.5" stop-color="#c9805f"/><stop offset="1" stop-color="#c15837"/></linearGradient>
+    <radialGradient id="g2" cx="57.25" cy="59.10" r="46.25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e2b89d"/><stop offset="0.6" stop-color="#d99a7c"/><stop offset="1" stop-color="#d87a5b"/></radialGradient>
+    <radialGradient id="g3" cx="26.35" cy="27.50" r="25.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f6dc8c"/><stop offset="0.5" stop-color="#e2b85a"/><stop offset="1" stop-color="#b8862c"/></radialGradient>
+    <radialGradient id="g4" cx="26.35" cy="27.50" r="25.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff2c2"/><stop offset="0.5" stop-color="#f4d888"/><stop offset="1" stop-color="#d2a548"/></radialGradient>
+    <radialGradient id="g5" cx="39.50" cy="35.88" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g6" cx="35.26" cy="39.68" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g7" cx="23.71" cy="31.16" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g8" cx="24.20" cy="31.96" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g9" cx="30.55" cy="25.25" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g10" cx="25.26" cy="33.93" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g11" cx="23.79" cy="37.92" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g12" cx="35.33" cy="30.85" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g13" cx="30.61" cy="33.79" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g14" cx="41.73" cy="35.33" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g15" cx="25.23" cy="30.43" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g16" cx="33.23" cy="36.79" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g17" cx="26.71" cy="37.60" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g18" cx="33.46" cy="29.76" r="3.00" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff59a"/><stop offset="0.5" stop-color="#ffd21f"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="g19" cx="30.27" cy="39.77" r="3.00" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff59a"/><stop offset="0.5" stop-color="#ffd21f"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="g20" cx="39.03" cy="35.57" r="3.00" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff59a"/><stop offset="0.5" stop-color="#ffd21f"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="g21" cx="35.46" cy="41.17" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g22" cx="27.72" cy="37.08" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g23" cx="36.76" cy="35.28" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g24" cx="33.77" cy="28.88" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g25" cx="35.38" cy="31.20" r="5.40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff7a5c"/><stop offset="0.5" stop-color="#d42a1c"/><stop offset="1" stop-color="#8f1410"/></radialGradient>
+    <radialGradient id="g26" cx="55.35" cy="29.50" r="25.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f6dc8c"/><stop offset="0.5" stop-color="#e2b85a"/><stop offset="1" stop-color="#b8862c"/></radialGradient>
+    <radialGradient id="g27" cx="55.35" cy="29.50" r="25.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff2c2"/><stop offset="0.5" stop-color="#f4d888"/><stop offset="1" stop-color="#d2a548"/></radialGradient>
+    <radialGradient id="g28" cx="68.07" cy="37.70" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g29" cx="58.77" cy="38.49" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g30" cx="67.86" cy="41.11" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g31" cx="57.37" cy="32.02" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g32" cx="58.65" cy="39.55" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g33" cx="64.78" cy="34.42" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g34" cx="69.67" cy="33.06" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g35" cx="53.13" cy="39.15" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g36" cx="62.95" cy="32.64" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g37" cx="61.21" cy="31.78" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g38" cx="65.43" cy="30.37" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g39" cx="56.76" cy="36.83" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g40" cx="66.28" cy="40.14" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b98058"/><stop offset="0.5" stop-color="#7e4626"/><stop offset="1" stop-color="#4a240c"/></radialGradient>
+    <radialGradient id="g41" cx="60.34" cy="35.56" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g42" cx="54.30" cy="39.66" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g43" cx="66.57" cy="32.13" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g44" cx="57.21" cy="37.75" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g45" cx="64.38" cy="33.20" r="5.40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b7e36a"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g46" cx="40.35" cy="54.50" r="25.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f6dc8c"/><stop offset="0.5" stop-color="#e2b85a"/><stop offset="1" stop-color="#b8862c"/></radialGradient>
+    <radialGradient id="g47" cx="40.35" cy="54.50" r="25.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff2c2"/><stop offset="0.5" stop-color="#f4d888"/><stop offset="1" stop-color="#d2a548"/></radialGradient>
+    <radialGradient id="g48" cx="41.69" cy="66.63" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g49" cx="43.25" cy="66.40" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g50" cx="42.97" cy="66.87" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g51" cx="49.58" cy="55.26" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g52" cx="54.14" cy="62.16" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g53" cx="44.37" cy="57.49" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g54" cx="42.32" cy="67.81" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g55" cx="40.09" cy="65.58" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g56" cx="56.00" cy="60.86" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g57" cx="54.93" cy="57.53" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g58" cx="49.71" cy="56.23" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g59" cx="54.67" cy="57.26" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g60" cx="43.30" cy="64.65" r="4.80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f08a4a"/><stop offset="0.5" stop-color="#c8481c"/><stop offset="1" stop-color="#7a2208"/></radialGradient>
+    <radialGradient id="g61" cx="50.19" cy="67.51" r="3.00" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff59a"/><stop offset="0.5" stop-color="#ffd21f"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="g62" cx="42.02" cy="65.54" r="3.00" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff59a"/><stop offset="0.5" stop-color="#ffd21f"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="g63" cx="47.89" cy="62.92" r="3.00" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff59a"/><stop offset="0.5" stop-color="#ffd21f"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="g64" cx="50.23" cy="62.43" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g65" cx="45.05" cy="64.64" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g66" cx="52.28" cy="61.26" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g67" cx="40.58" cy="59.79" r="3.45" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd86e"/><stop offset="0.5" stop-color="#4f9a34"/><stop offset="1" stop-color="#2f6e22"/></radialGradient>
+    <radialGradient id="g68" cx="49.38" cy="58.20" r="5.40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff7a5c"/><stop offset="0.5" stop-color="#d42a1c"/><stop offset="1" stop-color="#8f1410"/></radialGradient>
+    <radialGradient id="g69" cx="72.85" cy="60.50" r="10.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b7e36a"/><stop offset="0.5" stop-color="#6fb52c"/><stop offset="1" stop-color="#3f7d17"/></radialGradient>
+    <radialGradient id="g70" cx="73.75" cy="61.50" r="7.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f4fbc8"/><stop offset="0.5" stop-color="#d7ef8a"/><stop offset="1" stop-color="#a9cf55"/></radialGradient>
+    <radialGradient id="g71" cx="17.85" cy="56.50" r="10.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b7e36a"/><stop offset="0.5" stop-color="#6fb52c"/><stop offset="1" stop-color="#3f7d17"/></radialGradient>
+    <radialGradient id="g72" cx="18.75" cy="57.50" r="7.50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f4fbc8"/><stop offset="0.5" stop-color="#d7ef8a"/><stop offset="1" stop-color="#a9cf55"/></radialGradient>
+  </defs>
+  <circle cx="48.00" cy="48.00" r="46.00" fill="url(#g1)"/>
+  <path d="M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-opacity="0.55" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="48.00" cy="48.00" r="37.00" fill="url(#g2)"/>
+  <circle cx="34.90" cy="37.50" r="17.00" fill="#000000" fill-opacity="0.22"/>
+  <circle cx="35.60" cy="37.20" r="17.00" fill="url(#g3)"/>
+  <circle cx="34.00" cy="36.00" r="17.00" fill="url(#g4)"/>
+  <ellipse cx="28.98" cy="49.24" rx="1.11" ry="1.02" fill="#a8732c" transform="rotate(84.1 28.98 49.24)" fill-opacity="0.4"/>
+  <ellipse cx="26.38" cy="49.39" rx="1.53" ry="1.04" fill="#a8732c" transform="rotate(119.8 26.38 49.39)" fill-opacity="0.4"/>
+  <ellipse cx="39.30" cy="48.33" rx="1.09" ry="1.02" fill="#a8732c" transform="rotate(1.7 39.30 48.33)" fill-opacity="0.4"/>
+  <ellipse cx="37.13" cy="23.85" rx="1.14" ry="0.95" fill="#a8732c" transform="rotate(121.5 37.13 23.85)" fill-opacity="0.4"/>
+  <ellipse cx="19.97" cy="34.93" rx="1.37" ry="0.94" fill="#a8732c" transform="rotate(19.5 19.97 34.93)" fill-opacity="0.4"/>
+  <ellipse cx="30.18" cy="47.35" rx="1.35" ry="0.82" fill="#a8732c" transform="rotate(43.6 30.18 47.35)" fill-opacity="0.4"/>
+  <ellipse cx="31.63" cy="51.40" rx="1.00" ry="1.06" fill="#a8732c" transform="rotate(162.6 31.63 51.40)" fill-opacity="0.4"/>
+  <ellipse cx="38.34" cy="50.51" rx="1.06" ry="0.96" fill="#a8732c" transform="rotate(22.0 38.34 50.51)" fill-opacity="0.4"/>
+  <ellipse cx="28.25" cy="48.58" rx="1.20" ry="1.03" fill="#a8732c" transform="rotate(116.4 28.25 48.58)" fill-opacity="0.4"/>
+  <path d="M21.76 32.60 A12.75 12.75 0 0 1 32.30 23.42" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="38.44" y="35.88" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(8.2 41.44 38.28)" fill-opacity="0.3"/>
+  <rect x="37.94" y="35.08" width="6.00" height="4.80" rx="1.60" fill="url(#g5)" transform="rotate(8.2 40.94 37.48)"/>
+  <rect x="41.34" y="35.08" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(8.2 40.94 37.48)" fill-opacity="0.35"/>
+  <rect x="34.20" y="39.68" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(28.4 37.20 42.08)" fill-opacity="0.3"/>
+  <rect x="33.70" y="38.88" width="6.00" height="4.80" rx="1.60" fill="url(#g6)" transform="rotate(28.4 36.70 41.28)"/>
+  <rect x="37.10" y="38.88" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(28.4 36.70 41.28)" fill-opacity="0.35"/>
+  <rect x="22.65" y="31.16" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(70.1 25.65 33.56)" fill-opacity="0.3"/>
+  <rect x="22.15" y="30.36" width="6.00" height="4.80" rx="1.60" fill="url(#g7)" transform="rotate(70.1 25.15 32.76)"/>
+  <rect x="25.55" y="30.36" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(70.1 25.15 32.76)" fill-opacity="0.35"/>
+  <rect x="23.14" y="31.96" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(15.2 26.14 34.36)" fill-opacity="0.3"/>
+  <rect x="22.64" y="31.16" width="6.00" height="4.80" rx="1.60" fill="url(#g8)" transform="rotate(15.2 25.64 33.56)"/>
+  <rect x="26.04" y="31.16" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(15.2 25.64 33.56)" fill-opacity="0.35"/>
+  <rect x="29.49" y="25.25" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(84.8 32.49 27.65)" fill-opacity="0.3"/>
+  <rect x="28.99" y="24.45" width="6.00" height="4.80" rx="1.60" fill="url(#g9)" transform="rotate(84.8 31.99 26.85)"/>
+  <rect x="32.39" y="24.45" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(84.8 31.99 26.85)" fill-opacity="0.35"/>
+  <rect x="24.20" y="33.93" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(34.5 27.20 36.33)" fill-opacity="0.3"/>
+  <rect x="23.70" y="33.13" width="6.00" height="4.80" rx="1.60" fill="url(#g10)" transform="rotate(34.5 26.70 35.53)"/>
+  <rect x="27.10" y="33.13" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(34.5 26.70 35.53)" fill-opacity="0.35"/>
+  <rect x="22.73" y="37.92" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(12.0 25.73 40.32)" fill-opacity="0.3"/>
+  <rect x="22.23" y="37.12" width="6.00" height="4.80" rx="1.60" fill="url(#g11)" transform="rotate(12.0 25.23 39.52)"/>
+  <rect x="25.63" y="37.12" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(12.0 25.23 39.52)" fill-opacity="0.35"/>
+  <rect x="34.27" y="30.85" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(50.0 37.27 33.25)" fill-opacity="0.3"/>
+  <rect x="33.77" y="30.05" width="6.00" height="4.80" rx="1.60" fill="url(#g12)" transform="rotate(50.0 36.77 32.45)"/>
+  <rect x="37.17" y="30.05" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(50.0 36.77 32.45)" fill-opacity="0.35"/>
+  <rect x="29.55" y="33.79" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(43.3 32.55 36.19)" fill-opacity="0.3"/>
+  <rect x="29.05" y="32.99" width="6.00" height="4.80" rx="1.60" fill="url(#g13)" transform="rotate(43.3 32.05 35.39)"/>
+  <rect x="32.45" y="32.99" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(43.3 32.05 35.39)" fill-opacity="0.35"/>
+  <rect x="40.67" y="35.33" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(84.5 43.67 37.73)" fill-opacity="0.3"/>
+  <rect x="40.17" y="34.53" width="6.00" height="4.80" rx="1.60" fill="url(#g14)" transform="rotate(84.5 43.17 36.93)"/>
+  <rect x="43.57" y="34.53" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(84.5 43.17 36.93)" fill-opacity="0.35"/>
+  <rect x="24.17" y="30.43" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(65.7 27.17 32.83)" fill-opacity="0.3"/>
+  <rect x="23.67" y="29.63" width="6.00" height="4.80" rx="1.60" fill="url(#g15)" transform="rotate(65.7 26.67 32.03)"/>
+  <rect x="27.07" y="29.63" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(65.7 26.67 32.03)" fill-opacity="0.35"/>
+  <rect x="32.17" y="36.79" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(33.7 35.17 39.19)" fill-opacity="0.3"/>
+  <rect x="31.67" y="35.99" width="6.00" height="4.80" rx="1.60" fill="url(#g16)" transform="rotate(33.7 34.67 38.39)"/>
+  <rect x="35.07" y="35.99" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(33.7 34.67 38.39)" fill-opacity="0.35"/>
+  <rect x="25.65" y="37.60" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(60.6 28.65 40.00)" fill-opacity="0.3"/>
+  <rect x="25.15" y="36.80" width="6.00" height="4.80" rx="1.60" fill="url(#g17)" transform="rotate(60.6 28.15 39.20)"/>
+  <rect x="28.55" y="36.80" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(60.6 28.15 39.20)" fill-opacity="0.35"/>
+  <rect x="32.56" y="28.96" width="3.60" height="3.60" rx="0.80" fill="url(#g18)" transform="rotate(0.2 34.36 30.76)"/>
+  <rect x="29.37" y="38.97" width="3.60" height="3.60" rx="0.80" fill="url(#g19)" transform="rotate(80.1 31.17 40.77)"/>
+  <rect x="38.13" y="34.77" width="3.60" height="3.60" rx="0.80" fill="url(#g20)" transform="rotate(42.8 39.93 36.57)"/>
+  <rect x="27.51" y="42.99" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(26.1 28.81 44.29)"/>
+  <rect x="33.61" y="42.45" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(58.3 34.91 43.75)"/>
+  <rect x="36.46" y="41.27" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(24.1 37.76 42.57)"/>
+  <rect x="33.01" y="32.20" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(76.2 34.31 33.50)"/>
+  <rect x="27.96" y="35.10" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(28.6 29.26 36.40)"/>
+  <rect x="31.44" y="27.21" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(10.5 32.74 28.51)"/>
+  <rect x="34.40" y="36.93" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(48.0 35.70 38.23)"/>
+  <rect x="31.46" y="31.57" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(75.5 32.76 32.87)"/>
+  <rect x="23.68" y="31.40" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(21.8 24.98 32.70)"/>
+  <circle cx="35.77" cy="41.28" r="1.26" fill="url(#g21)"/>
+  <circle cx="35.74" cy="43.25" r="1.15" fill="url(#g21)"/>
+  <circle cx="37.63" cy="41.95" r="1.15" fill="url(#g21)"/>
+  <circle cx="36.49" cy="42.32" r="0.80" fill="url(#g21)"/>
+  <circle cx="28.28" cy="39.40" r="1.26" fill="url(#g22)"/>
+  <circle cx="29.95" cy="38.35" r="1.15" fill="url(#g22)"/>
+  <circle cx="27.83" cy="37.47" r="1.15" fill="url(#g22)"/>
+  <circle cx="28.76" cy="38.23" r="0.80" fill="url(#g22)"/>
+  <circle cx="38.75" cy="37.26" r="1.26" fill="url(#g23)"/>
+  <circle cx="38.29" cy="35.33" r="1.15" fill="url(#g23)"/>
+  <circle cx="36.78" cy="37.07" r="1.15" fill="url(#g23)"/>
+  <circle cx="37.79" cy="36.43" r="0.80" fill="url(#g23)"/>
+  <circle cx="33.71" cy="30.67" r="1.26" fill="url(#g24)"/>
+  <circle cx="35.68" cy="30.85" r="1.15" fill="url(#g24)"/>
+  <circle cx="34.52" cy="28.86" r="1.15" fill="url(#g24)"/>
+  <circle cx="34.80" cy="30.03" r="0.80" fill="url(#g24)"/>
+  <ellipse cx="37.00" cy="33.00" rx="3.60" ry="2.60" fill="url(#g25)" transform="rotate(25.0 37.00 33.00)"/>
+  <ellipse cx="36.00" cy="32.10" rx="1.30" ry="0.60" fill="#ffffff" transform="rotate(25.0 36.00 32.10)" fill-opacity="0.6"/>
+  <circle cx="63.90" cy="39.50" r="17.00" fill="#000000" fill-opacity="0.22"/>
+  <circle cx="64.60" cy="39.20" r="17.00" fill="url(#g26)"/>
+  <circle cx="63.00" cy="38.00" r="17.00" fill="url(#g27)"/>
+  <ellipse cx="48.93" cy="38.51" rx="1.55" ry="0.83" fill="#a8732c" transform="rotate(57.8 48.93 38.51)" fill-opacity="0.4"/>
+  <ellipse cx="58.15" cy="25.08" rx="1.19" ry="0.86" fill="#a8732c" transform="rotate(59.4 58.15 25.08)" fill-opacity="0.4"/>
+  <ellipse cx="70.12" cy="50.48" rx="1.62" ry="0.98" fill="#a8732c" transform="rotate(114.3 70.12 50.48)" fill-opacity="0.4"/>
+  <ellipse cx="55.91" cy="49.60" rx="1.02" ry="0.99" fill="#a8732c" transform="rotate(53.4 55.91 49.60)" fill-opacity="0.4"/>
+  <ellipse cx="58.93" cy="53.20" rx="1.17" ry="1.09" fill="#a8732c" transform="rotate(111.2 58.93 53.20)" fill-opacity="0.4"/>
+  <ellipse cx="63.97" cy="23.68" rx="1.04" ry="0.99" fill="#a8732c" transform="rotate(46.6 63.97 23.68)" fill-opacity="0.4"/>
+  <ellipse cx="52.63" cy="44.81" rx="0.95" ry="0.85" fill="#a8732c" transform="rotate(2.5 52.63 44.81)" fill-opacity="0.4"/>
+  <ellipse cx="51.58" cy="48.07" rx="1.70" ry="0.87" fill="#a8732c" transform="rotate(19.4 51.58 48.07)" fill-opacity="0.4"/>
+  <ellipse cx="56.11" cy="48.01" rx="1.07" ry="0.95" fill="#a8732c" transform="rotate(111.0 56.11 48.01)" fill-opacity="0.4"/>
+  <path d="M50.76 34.60 A12.75 12.75 0 0 1 61.30 25.42" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="67.01" y="37.70" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(38.0 70.01 40.10)" fill-opacity="0.3"/>
+  <rect x="66.51" y="36.90" width="6.00" height="4.80" rx="1.60" fill="url(#g28)" transform="rotate(38.0 69.51 39.30)"/>
+  <rect x="69.91" y="36.90" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(38.0 69.51 39.30)" fill-opacity="0.35"/>
+  <rect x="57.71" y="38.49" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(35.4 60.71 40.89)" fill-opacity="0.3"/>
+  <rect x="57.21" y="37.69" width="6.00" height="4.80" rx="1.60" fill="url(#g29)" transform="rotate(35.4 60.21 40.09)"/>
+  <rect x="60.61" y="37.69" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(35.4 60.21 40.09)" fill-opacity="0.35"/>
+  <rect x="66.80" y="41.11" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(58.4 69.80 43.51)" fill-opacity="0.3"/>
+  <rect x="66.30" y="40.31" width="6.00" height="4.80" rx="1.60" fill="url(#g30)" transform="rotate(58.4 69.30 42.71)"/>
+  <rect x="69.70" y="40.31" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(58.4 69.30 42.71)" fill-opacity="0.35"/>
+  <rect x="56.31" y="32.02" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(86.1 59.31 34.42)" fill-opacity="0.3"/>
+  <rect x="55.81" y="31.22" width="6.00" height="4.80" rx="1.60" fill="url(#g31)" transform="rotate(86.1 58.81 33.62)"/>
+  <rect x="59.21" y="31.22" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(86.1 58.81 33.62)" fill-opacity="0.35"/>
+  <rect x="57.59" y="39.55" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(33.6 60.59 41.95)" fill-opacity="0.3"/>
+  <rect x="57.09" y="38.75" width="6.00" height="4.80" rx="1.60" fill="url(#g32)" transform="rotate(33.6 60.09 41.15)"/>
+  <rect x="60.49" y="38.75" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(33.6 60.09 41.15)" fill-opacity="0.35"/>
+  <rect x="63.72" y="34.42" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(68.7 66.72 36.82)" fill-opacity="0.3"/>
+  <rect x="63.22" y="33.62" width="6.00" height="4.80" rx="1.60" fill="url(#g33)" transform="rotate(68.7 66.22 36.02)"/>
+  <rect x="66.62" y="33.62" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(68.7 66.22 36.02)" fill-opacity="0.35"/>
+  <rect x="68.61" y="33.06" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(41.9 71.61 35.46)" fill-opacity="0.3"/>
+  <rect x="68.11" y="32.26" width="6.00" height="4.80" rx="1.60" fill="url(#g34)" transform="rotate(41.9 71.11 34.66)"/>
+  <rect x="71.51" y="32.26" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(41.9 71.11 34.66)" fill-opacity="0.35"/>
+  <rect x="52.07" y="39.15" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(63.9 55.07 41.55)" fill-opacity="0.3"/>
+  <rect x="51.57" y="38.35" width="6.00" height="4.80" rx="1.60" fill="url(#g35)" transform="rotate(63.9 54.57 40.75)"/>
+  <rect x="54.97" y="38.35" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(63.9 54.57 40.75)" fill-opacity="0.35"/>
+  <rect x="61.89" y="32.64" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(54.7 64.89 35.04)" fill-opacity="0.3"/>
+  <rect x="61.39" y="31.84" width="6.00" height="4.80" rx="1.60" fill="url(#g36)" transform="rotate(54.7 64.39 34.24)"/>
+  <rect x="64.79" y="31.84" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(54.7 64.39 34.24)" fill-opacity="0.35"/>
+  <rect x="60.15" y="31.78" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(18.7 63.15 34.18)" fill-opacity="0.3"/>
+  <rect x="59.65" y="30.98" width="6.00" height="4.80" rx="1.60" fill="url(#g37)" transform="rotate(18.7 62.65 33.38)"/>
+  <rect x="63.05" y="30.98" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(18.7 62.65 33.38)" fill-opacity="0.35"/>
+  <rect x="64.37" y="30.37" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(36.9 67.37 32.77)" fill-opacity="0.3"/>
+  <rect x="63.87" y="29.57" width="6.00" height="4.80" rx="1.60" fill="url(#g38)" transform="rotate(36.9 66.87 31.97)"/>
+  <rect x="67.27" y="29.57" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(36.9 66.87 31.97)" fill-opacity="0.35"/>
+  <rect x="55.70" y="36.83" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(22.3 58.70 39.23)" fill-opacity="0.3"/>
+  <rect x="55.20" y="36.03" width="6.00" height="4.80" rx="1.60" fill="url(#g39)" transform="rotate(22.3 58.20 38.43)"/>
+  <rect x="58.60" y="36.03" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(22.3 58.20 38.43)" fill-opacity="0.35"/>
+  <rect x="65.22" y="40.14" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(13.2 68.22 42.54)" fill-opacity="0.3"/>
+  <rect x="64.72" y="39.34" width="6.00" height="4.80" rx="1.60" fill="url(#g40)" transform="rotate(13.2 67.72 41.74)"/>
+  <rect x="68.12" y="39.34" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(13.2 67.72 41.74)" fill-opacity="0.35"/>
+  <rect x="69.86" y="30.48" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(53.2 71.16 31.78)"/>
+  <rect x="68.55" y="41.06" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(14.0 69.85 42.36)"/>
+  <rect x="59.10" y="39.42" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(44.8 60.40 40.72)"/>
+  <rect x="66.65" y="39.23" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(21.0 67.95 40.53)"/>
+  <rect x="51.80" y="38.85" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(52.1 53.10 40.15)"/>
+  <rect x="63.49" y="27.94" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(47.8 64.79 29.24)"/>
+  <rect x="64.01" y="37.75" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(12.1 65.31 39.05)"/>
+  <rect x="55.61" y="36.09" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(83.8 56.91 37.39)"/>
+  <rect x="62.89" y="40.32" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(57.7 64.19 41.62)"/>
+  <circle cx="62.42" cy="37.42" r="1.26" fill="url(#g41)"/>
+  <circle cx="61.73" cy="35.57" r="1.15" fill="url(#g41)"/>
+  <circle cx="60.45" cy="37.48" r="1.15" fill="url(#g41)"/>
+  <circle cx="61.37" cy="36.71" r="0.80" fill="url(#g41)"/>
+  <circle cx="54.09" cy="40.58" r="1.26" fill="url(#g42)"/>
+  <circle cx="55.46" cy="42.00" r="1.15" fill="url(#g42)"/>
+  <circle cx="55.88" cy="39.74" r="1.15" fill="url(#g42)"/>
+  <circle cx="55.33" cy="40.81" r="0.80" fill="url(#g42)"/>
+  <circle cx="67.12" cy="32.11" r="1.26" fill="url(#g43)"/>
+  <circle cx="66.67" cy="34.04" r="1.15" fill="url(#g43)"/>
+  <circle cx="68.80" cy="33.17" r="1.15" fill="url(#g43)"/>
+  <circle cx="67.60" cy="33.28" r="0.80" fill="url(#g43)"/>
+  <circle cx="59.22" cy="38.10" r="1.26" fill="url(#g44)"/>
+  <circle cx="57.25" cy="38.24" r="1.15" fill="url(#g44)"/>
+  <circle cx="58.71" cy="40.01" r="1.15" fill="url(#g44)"/>
+  <circle cx="58.25" cy="38.90" r="0.80" fill="url(#g44)"/>
+  <ellipse cx="66.00" cy="35.00" rx="3.60" ry="2.60" fill="url(#g45)" transform="rotate(25.0 66.00 35.00)"/>
+  <ellipse cx="65.00" cy="34.10" rx="1.30" ry="0.60" fill="#ffffff" transform="rotate(25.0 65.00 34.10)" fill-opacity="0.6"/>
+  <circle cx="48.90" cy="64.50" r="17.00" fill="#000000" fill-opacity="0.22"/>
+  <circle cx="49.60" cy="64.20" r="17.00" fill="url(#g46)"/>
+  <circle cx="48.00" cy="63.00" r="17.00" fill="url(#g47)"/>
+  <ellipse cx="59.29" cy="57.47" rx="1.68" ry="0.80" fill="#a8732c" transform="rotate(83.7 59.29 57.47)" fill-opacity="0.4"/>
+  <ellipse cx="58.62" cy="55.01" rx="1.31" ry="0.76" fill="#a8732c" transform="rotate(173.0 58.62 55.01)" fill-opacity="0.4"/>
+  <ellipse cx="60.51" cy="61.80" rx="1.00" ry="0.89" fill="#a8732c" transform="rotate(93.4 60.51 61.80)" fill-opacity="0.4"/>
+  <ellipse cx="50.06" cy="49.92" rx="1.37" ry="0.76" fill="#a8732c" transform="rotate(38.3 50.06 49.92)" fill-opacity="0.4"/>
+  <ellipse cx="60.35" cy="69.66" rx="1.35" ry="0.95" fill="#a8732c" transform="rotate(168.4 60.35 69.66)" fill-opacity="0.4"/>
+  <ellipse cx="43.42" cy="75.42" rx="1.27" ry="1.08" fill="#a8732c" transform="rotate(55.3 43.42 75.42)" fill-opacity="0.4"/>
+  <ellipse cx="44.60" cy="76.14" rx="1.45" ry="0.81" fill="#a8732c" transform="rotate(31.1 44.60 76.14)" fill-opacity="0.4"/>
+  <ellipse cx="46.35" cy="48.95" rx="1.36" ry="0.71" fill="#a8732c" transform="rotate(44.9 46.35 48.95)" fill-opacity="0.4"/>
+  <ellipse cx="58.70" cy="70.94" rx="1.62" ry="1.10" fill="#a8732c" transform="rotate(152.4 58.70 70.94)" fill-opacity="0.4"/>
+  <path d="M35.76 59.60 A12.75 12.75 0 0 1 46.30 50.42" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40.63" y="66.63" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(80.7 43.63 69.03)" fill-opacity="0.3"/>
+  <rect x="40.13" y="65.83" width="6.00" height="4.80" rx="1.60" fill="url(#g48)" transform="rotate(80.7 43.13 68.23)"/>
+  <rect x="43.53" y="65.83" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(80.7 43.13 68.23)" fill-opacity="0.35"/>
+  <rect x="42.19" y="66.40" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(64.3 45.19 68.80)" fill-opacity="0.3"/>
+  <rect x="41.69" y="65.60" width="6.00" height="4.80" rx="1.60" fill="url(#g49)" transform="rotate(64.3 44.69 68.00)"/>
+  <rect x="45.09" y="65.60" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(64.3 44.69 68.00)" fill-opacity="0.35"/>
+  <rect x="41.91" y="66.87" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(32.6 44.91 69.27)" fill-opacity="0.3"/>
+  <rect x="41.41" y="66.07" width="6.00" height="4.80" rx="1.60" fill="url(#g50)" transform="rotate(32.6 44.41 68.47)"/>
+  <rect x="44.81" y="66.07" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(32.6 44.41 68.47)" fill-opacity="0.35"/>
+  <rect x="48.52" y="55.26" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(8.8 51.52 57.66)" fill-opacity="0.3"/>
+  <rect x="48.02" y="54.46" width="6.00" height="4.80" rx="1.60" fill="url(#g51)" transform="rotate(8.8 51.02 56.86)"/>
+  <rect x="51.42" y="54.46" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(8.8 51.02 56.86)" fill-opacity="0.35"/>
+  <rect x="53.08" y="62.16" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(10.5 56.08 64.56)" fill-opacity="0.3"/>
+  <rect x="52.58" y="61.36" width="6.00" height="4.80" rx="1.60" fill="url(#g52)" transform="rotate(10.5 55.58 63.76)"/>
+  <rect x="55.98" y="61.36" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(10.5 55.58 63.76)" fill-opacity="0.35"/>
+  <rect x="43.31" y="57.49" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(47.8 46.31 59.89)" fill-opacity="0.3"/>
+  <rect x="42.81" y="56.69" width="6.00" height="4.80" rx="1.60" fill="url(#g53)" transform="rotate(47.8 45.81 59.09)"/>
+  <rect x="46.21" y="56.69" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(47.8 45.81 59.09)" fill-opacity="0.35"/>
+  <rect x="41.26" y="67.81" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(12.0 44.26 70.21)" fill-opacity="0.3"/>
+  <rect x="40.76" y="67.01" width="6.00" height="4.80" rx="1.60" fill="url(#g54)" transform="rotate(12.0 43.76 69.41)"/>
+  <rect x="44.16" y="67.01" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(12.0 43.76 69.41)" fill-opacity="0.35"/>
+  <rect x="39.03" y="65.58" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(23.4 42.03 67.98)" fill-opacity="0.3"/>
+  <rect x="38.53" y="64.78" width="6.00" height="4.80" rx="1.60" fill="url(#g55)" transform="rotate(23.4 41.53 67.18)"/>
+  <rect x="41.93" y="64.78" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(23.4 41.53 67.18)" fill-opacity="0.35"/>
+  <rect x="54.94" y="60.86" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(87.1 57.94 63.26)" fill-opacity="0.3"/>
+  <rect x="54.44" y="60.06" width="6.00" height="4.80" rx="1.60" fill="url(#g56)" transform="rotate(87.1 57.44 62.46)"/>
+  <rect x="57.84" y="60.06" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(87.1 57.44 62.46)" fill-opacity="0.35"/>
+  <rect x="53.87" y="57.53" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(51.4 56.87 59.93)" fill-opacity="0.3"/>
+  <rect x="53.37" y="56.73" width="6.00" height="4.80" rx="1.60" fill="url(#g57)" transform="rotate(51.4 56.37 59.13)"/>
+  <rect x="56.77" y="56.73" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(51.4 56.37 59.13)" fill-opacity="0.35"/>
+  <rect x="48.65" y="56.23" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(5.9 51.65 58.63)" fill-opacity="0.3"/>
+  <rect x="48.15" y="55.43" width="6.00" height="4.80" rx="1.60" fill="url(#g58)" transform="rotate(5.9 51.15 57.83)"/>
+  <rect x="51.55" y="55.43" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(5.9 51.15 57.83)" fill-opacity="0.35"/>
+  <rect x="53.61" y="57.26" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(23.2 56.61 59.66)" fill-opacity="0.3"/>
+  <rect x="53.11" y="56.46" width="6.00" height="4.80" rx="1.60" fill="url(#g59)" transform="rotate(23.2 56.11 58.86)"/>
+  <rect x="56.51" y="56.46" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(23.2 56.11 58.86)" fill-opacity="0.35"/>
+  <rect x="42.24" y="64.65" width="6.00" height="4.80" rx="1.60" fill="#2a0a02" transform="rotate(64.2 45.24 67.05)" fill-opacity="0.3"/>
+  <rect x="41.74" y="63.85" width="6.00" height="4.80" rx="1.60" fill="url(#g60)" transform="rotate(64.2 44.74 66.25)"/>
+  <rect x="45.14" y="63.85" width="2.60" height="4.80" rx="1.30" fill="#2a0a02" transform="rotate(64.2 44.74 66.25)" fill-opacity="0.35"/>
+  <rect x="49.29" y="66.71" width="3.60" height="3.60" rx="0.80" fill="url(#g61)" transform="rotate(3.3 51.09 68.51)"/>
+  <rect x="41.12" y="64.74" width="3.60" height="3.60" rx="0.80" fill="url(#g62)" transform="rotate(43.7 42.92 66.54)"/>
+  <rect x="46.99" y="62.12" width="3.60" height="3.60" rx="0.80" fill="url(#g63)" transform="rotate(61.3 48.79 63.92)"/>
+  <rect x="51.66" y="64.25" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(54.2 52.96 65.55)"/>
+  <rect x="45.97" y="63.58" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(71.5 47.27 64.88)"/>
+  <rect x="45.29" y="53.61" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(9.0 46.59 54.91)"/>
+  <rect x="36.44" y="62.71" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(46.0 37.74 64.01)"/>
+  <rect x="46.41" y="71.86" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(31.2 47.71 73.16)"/>
+  <rect x="42.49" y="61.09" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(77.6 43.79 62.39)"/>
+  <rect x="43.56" y="54.72" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(44.4 44.86 56.02)"/>
+  <rect x="42.89" y="67.72" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(46.0 44.19 69.02)"/>
+  <rect x="55.50" y="62.79" width="2.60" height="2.60" rx="0.50" fill="#fbfaf4" transform="rotate(67.9 56.80 64.09)"/>
+  <circle cx="50.03" cy="63.88" r="1.26" fill="url(#g64)"/>
+  <circle cx="51.86" cy="64.62" r="1.15" fill="url(#g64)"/>
+  <circle cx="51.33" cy="62.39" r="1.15" fill="url(#g64)"/>
+  <circle cx="51.26" cy="63.58" r="0.80" fill="url(#g64)"/>
+  <circle cx="44.89" cy="66.20" r="1.26" fill="url(#g65)"/>
+  <circle cx="46.78" cy="66.77" r="1.15" fill="url(#g65)"/>
+  <circle cx="46.04" cy="64.59" r="1.15" fill="url(#g65)"/>
+  <circle cx="46.08" cy="65.79" r="0.80" fill="url(#g65)"/>
+  <circle cx="52.63" cy="63.47" r="1.26" fill="url(#g66)"/>
+  <circle cx="54.47" cy="62.74" r="1.15" fill="url(#g66)"/>
+  <circle cx="52.54" cy="61.49" r="1.15" fill="url(#g66)"/>
+  <circle cx="53.32" cy="62.41" r="0.80" fill="url(#g66)"/>
+  <circle cx="40.89" cy="61.98" r="1.26" fill="url(#g67)"/>
+  <circle cx="42.75" cy="61.31" r="1.15" fill="url(#g67)"/>
+  <circle cx="40.86" cy="60.00" r="1.15" fill="url(#g67)"/>
+  <circle cx="41.61" cy="60.94" r="0.80" fill="url(#g67)"/>
+  <ellipse cx="51.00" cy="60.00" rx="3.60" ry="2.60" fill="url(#g68)" transform="rotate(25.0 51.00 60.00)"/>
+  <ellipse cx="50.00" cy="59.10" rx="1.30" ry="0.60" fill="#ffffff" transform="rotate(25.0 50.00 59.10)" fill-opacity="0.6"/>
+  <ellipse cx="76.70" cy="65.20" rx="7.00" ry="4.00" fill="#000000" transform="rotate(60.0 76.70 65.20)" fill-opacity="0.2"/>
+  <ellipse cx="76.00" cy="64.00" rx="7.40" ry="4.40" fill="url(#g69)" transform="rotate(60.0 76.00 64.00)"/>
+  <ellipse cx="76.00" cy="64.00" rx="5.80" ry="2.90" fill="url(#g70)" transform="rotate(60.0 76.00 64.00)"/>
+  <ellipse cx="74.80" cy="63.20" rx="2.00" ry="0.90" fill="#ffffff" transform="rotate(60.0 74.80 63.20)" fill-opacity="0.55"/>
+  <ellipse cx="21.70" cy="61.20" rx="7.00" ry="4.00" fill="#000000" transform="rotate(-50.0 21.70 61.20)" fill-opacity="0.2"/>
+  <ellipse cx="21.00" cy="60.00" rx="7.40" ry="4.40" fill="url(#g71)" transform="rotate(-50.0 21.00 60.00)"/>
+  <ellipse cx="21.00" cy="60.00" rx="5.80" ry="2.90" fill="url(#g72)" transform="rotate(-50.0 21.00 60.00)"/>
+  <ellipse cx="19.80" cy="59.20" rx="2.00" ry="0.90" fill="#ffffff" transform="rotate(-50.0 19.80 59.20)" fill-opacity="0.55"/>
+</svg>
