@@ -4,15 +4,17 @@ import Foundation
 /// from parts when a recipe makes it. The titles each dish answers to, in English and Japanese,
 /// and the forms of food its icon can stand for are read from `SignatureDishes.json`.
 ///
-/// Code reads the title for the dishes it could be, the candidates, and Apple Intelligence sorts
-/// the recipe into a form and a cuisine once. A candidate is drawn when the form is one its icon
-/// shows, so a "Pesto Pasta Salad" is a salad and not a pesto pasta, and a "Mapo Tofu Rice Bowl"
-/// is still mapo tofu. Asked whether a picture showed the recipe, the model said yes to a lasagna
-/// soup and a pancake mix muffin; asked what the recipe is, it got both right.
+/// A title that ends with a dish's title names that dish, since that is where the dish sits in an
+/// English or a Japanese title, and on 160 real recipes from recipe sites this was right for all
+/// but one. A title that has a dish's title somewhere else, such as "Korean Beef Bulgogi Rice
+/// Bowls" or "Lasagna Soup", is put to Apple Intelligence, which sorts the recipe into a form and
+/// a cuisine, and the candidate is drawn when its icon shows that form. The model is not asked
+/// when the title already says: it called chicken enchiladas tacos and a kimchi jjigae a noodle
+/// soup. Asked whether a picture showed the recipe, it said yes to a lasagna soup.
 ///
 /// The answer is kept on the recipe's dish with the title it was decided for, and a recipe whose
-/// title has changed is decided again. Until then, and wherever Apple Intelligence cannot run, a
-/// title names a dish when it ends with one of the dish's titles.
+/// title has changed is decided again. Until then, and wherever Apple Intelligence cannot run, the
+/// dish the title ends with is drawn.
 public nonisolated enum SignatureDish {
     /// The forms a recipe is sorted into. Every form a dish lists is one of these.
     static let forms = [
@@ -193,12 +195,22 @@ public nonisolated enum SignatureDish {
 
     /// The first candidate whose icon shows the form the recipe was sorted into. A dish that
     /// lists cuisines also needs the recipe's cuisine, or one of the ingredients that settle it.
-    static func decided(candidates: [String], form: String, cuisine: String, icons: Set<String>) -> String? {
-        candidates.first { id in
+    /// A title written in Japanese settles a Japanese dish: plain カレー is a Japanese curry, and
+    /// a Japanese title names any other curry outright. The model called Vermont curry British.
+    static func decided(candidates: [String], form: String, cuisine: String, icons: Set<String>, title: String) -> String? {
+        let japaneseTitle = isJapanese(title)
+        return candidates.first { id in
             guard let rule = table.rules[id], rule.forms.contains(form) else { return false }
             guard let cuisines = rule.cuisines else { return true }
-            return cuisines.contains(cuisine) || !rule.signs.isDisjoint(with: icons)
+            return cuisines.contains(cuisine)
+                || !rule.signs.isDisjoint(with: icons)
+                || (japaneseTitle && cuisines.contains("japanese"))
         }
+    }
+
+    /// Whether a title is written in kana or kanji.
+    private static func isJapanese(_ title: String) -> Bool {
+        title.unicodeScalars.contains { (0x3040...0x30FF).contains($0.value) || (0x4E00...0x9FFF).contains($0.value) }
     }
 
     /// Every place a dish's title is found in the reading, starting before its clause and on
@@ -237,10 +249,11 @@ public nonisolated enum SignatureDish {
         }
     }
 
-    /// A title split where it gives a dish more than one name, as in "Weeknight Dinner: Chicken
-    /// Adobo".
+    /// A title split where it gives a dish more than one name or a catch line, as in "Weeknight
+    /// Dinner: Chicken Adobo" or "人気の定番メニュー！基本の牛丼". Japanese sites often put the
+    /// dish itself in brackets, as in "【鶏の照り焼き】基本のレシピ", so a bracket starts a part.
     private static func parts(of title: String) -> [String] {
-        title.components(separatedBy: CharacterSet(charactersIn: ":|｜/–—~〜～"))
+        title.components(separatedBy: CharacterSet(charactersIn: ":：|｜/\u{2013}\u{2014}~〜～【】「」『』!！♪☆★♡"))
     }
 
     private static func reading(of title: String, in table: Table, cuttingClauses: Bool = false) -> Reading {
@@ -278,11 +291,13 @@ public nonisolated enum SignatureDish {
         text.unicodeScalars.allSatisfy(\.isASCII)
     }
 
-    /// A title with case, accents, and character width set aside, and anything in brackets left
-    /// out, so "Crêpes (Sweet)" and "crepes" read the same.
+    /// A title with case, accents, character width, and hiragana or katakana set aside, and
+    /// anything in round or square brackets left out, so "Crêpes (Sweet)" and "crepes" read the
+    /// same, and so do "とんカツ" and "トンカツ".
     private static func folded(_ text: String) -> String {
         var text = text.folding(options: [.caseInsensitive, .diacriticInsensitive, .widthInsensitive], locale: nil)
-        for (open, close) in [("(", ")"), ("[", "]"), ("【", "】"), ("〔", "〕")] {
+        text = text.applyingTransform(.hiraganaToKatakana, reverse: false) ?? text
+        for (open, close) in [("(", ")"), ("[", "]"), ("〔", "〕")] {
             while let start = text.range(of: open),
                   let end = text.range(of: close, range: start.upperBound..<text.endIndex) {
                 text.removeSubrange(start.lowerBound..<end.upperBound)
