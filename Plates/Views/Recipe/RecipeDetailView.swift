@@ -217,12 +217,13 @@ struct RecipeDetailView: View {
     }
 
     /// The dish from above. While the recipe is edited, the dish can be worked out again from
-    /// the recipe as it now stands, which also lays it out afresh.
+    /// the recipe as it now stands, which also lays it out afresh. A dish drawn from its
+    /// signature icon has nothing to work out.
     private var dishHeader: some View {
         VStack(spacing: 12) {
             DishIcon(recipe: recipe, size: 168)
                 .shadow(color: .black.opacity(0.15), radius: 10, y: 5)
-            if isEditing {
+            if isEditing, SignatureDish.id(for: recipe) == nil {
                 Button("Recipe.Edit.RedrawDish", systemImage: "arrow.clockwise") {
                     Task {
                         recipe.dish = await Dish.asked(for: recipe, seed: UUID().uuidString)

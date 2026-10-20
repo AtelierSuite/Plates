@@ -108,6 +108,18 @@ from `Assets/DishIcons/Parts`. Do not edit the outputs.
   `python3 qa.py`, `python3 layout.py` and `swift contrast.swift`. `STYLE.md` has the details.
 - Only the PNGs from `qa.py` and `layout.py` are committed. Delete the SVGs they leave behind.
 
+### Signature dish icons
+
+Well known dishes have a hand drawn icon in `Plates/SignatureDishes.xcassets`, shown instead of the
+dish made from parts when a recipe's title names the dish. `SignatureDishes.json` in the package
+lists the English and Japanese titles each one answers to.
+
+- A title matches only when it names the dish and nothing more, once fillers such as "easy" or
+  "簡単" are taken out. "Seafood Carbonara" is not drawn as carbonara.
+- A new dish needs its titles in both languages and an icon named `DishSignature<PascalId>`,
+  drawn to the "Signature dish icons" section of `Assets/IconStyle/STYLE.md`.
+- Check the full set with `python3 Assets/SignatureDishes/sheet.py /tmp/sheet.png all`.
+
 ## Localization
 
 English (US) is the source language and Japanese the second. Japanese copy follows the same

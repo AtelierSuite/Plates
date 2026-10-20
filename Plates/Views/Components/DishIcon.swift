@@ -1,9 +1,10 @@
 import CulinaryIntelligence
 import SwiftUI
 
-/// The finished dish seen from above, put together from the drawn parts in the asset catalog:
-/// the vessel, the food it is built on, and what goes on top. Pieces cast a small shadow, and a
-/// piece whose colours would vanish into what it lands on is drawn with an outline.
+/// The finished dish seen from above. A dish with a signature icon of its own is drawn from that.
+/// Any other is put together from the drawn parts in the asset catalog: the vessel, the food it
+/// is built on, and what goes on top. Pieces cast a small shadow, and a piece whose colours would
+/// vanish into what it lands on is drawn with an outline.
 struct DishIcon: View {
     let recipe: Recipe
     var size: CGFloat = 72
@@ -17,11 +18,19 @@ struct DishIcon: View {
     ]
 
     var body: some View {
-        let placements = DishIconCache.placements(for: recipe)
-        Canvas { context, canvas in
-            let scale = canvas.width / DishLayout.canvas
-            for placement in placements {
-                draw(placement, in: &context, scale: scale)
+        Group {
+            switch DishIconCache.drawing(for: recipe) {
+            case .signature(let asset):
+                Image(asset)
+                    .resizable()
+                    .scaledToFit()
+            case .placements(let placements):
+                Canvas { context, canvas in
+                    let scale = canvas.width / DishLayout.canvas
+                    for placement in placements {
+                        draw(placement, in: &context, scale: scale)
+                    }
+                }
             }
         }
         .frame(width: size, height: size)
@@ -60,18 +69,27 @@ struct DishIcon: View {
     }
 }
 
-/// Dish layouts worked out once a recipe, so a scrolling grid does not lay every dish out again on
-/// every frame. A recipe that is edited is a different value and is laid out afresh. A recipe
-/// saved before dishes were written down has its dish worked out here instead.
+/// How a dish is drawn, worked out once a recipe, so a scrolling grid does not lay every dish out
+/// again on every frame. A recipe that is edited is a different value and is worked out afresh. A
+/// recipe saved before dishes were written down has its dish worked out here instead.
 @MainActor
 private enum DishIconCache {
-    private static var cache: [Recipe: [DishPlacement]] = [:]
+    enum Drawing {
+        case signature(String)
+        case placements([DishPlacement])
+    }
 
-    static func placements(for recipe: Recipe) -> [DishPlacement] {
+    private static var cache: [Recipe: Drawing] = [:]
+
+    static func drawing(for recipe: Recipe) -> Drawing {
         if let cached = cache[recipe] { return cached }
-        let placements = DishLayout.placements(for: recipe.dish ?? Dish.planned(for: recipe))
-        cache[recipe] = placements
-        return placements
+        let drawing: Drawing = if let asset = SignatureDish.assetName(for: recipe) {
+            .signature(asset)
+        } else {
+            .placements(DishLayout.placements(for: recipe.dish ?? Dish.planned(for: recipe)))
+        }
+        cache[recipe] = drawing
+        return drawing
     }
 }
 
