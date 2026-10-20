@@ -9,11 +9,15 @@ public nonisolated struct Dish: Decodable, Hashable, Sendable {
     public var vessel: String
     public var seed: String
     public var layers: [DishLayer]
+    /// Whether the recipe makes a dish with a signature icon, which is drawn instead of the
+    /// layers. Kept through a redraw, since the recipe is the same dish.
+    public var signature: SignatureDecision?
 
-    public init(vessel: String, seed: String, layers: [DishLayer]) {
+    public init(vessel: String, seed: String, layers: [DishLayer], signature: SignatureDecision? = nil) {
         self.vessel = vessel
         self.seed = seed
         self.layers = layers
+        self.signature = signature
     }
 }
 
@@ -150,17 +154,20 @@ extension Dish {
         Dish(
             vessel: DishParts.vessels[vessel] == nil ? "plate" : vessel,
             seed: seed,
-            layers: layers.filter { DishParts.part($0.ingredient, $0.variant) != nil }
+            layers: layers.filter { DishParts.part($0.ingredient, $0.variant) != nil },
+            signature: signature
         )
     }
 
     /// The dish as the recipe file keeps it.
     public var json: JSONValue {
-        .object([
-            ("vessel", .string(vessel)),
-            ("seed", .string(seed)),
-            ("layers", .array(layers.map(\.json))),
-        ])
+        .object(
+            [
+                ("vessel", .string(vessel)),
+                ("seed", .string(seed)),
+                ("layers", .array(layers.map(\.json))),
+            ] + (signature.map { [(key: "signature", value: $0.json)] } ?? [])
+        )
     }
 }
 

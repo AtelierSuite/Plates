@@ -165,3 +165,52 @@ From `Assets/DishIcons`:
 3. `python3 qa.py` writes the review sheets, `python3 layout.py` the sample sheet `dishes.png`,
    and `swift contrast.swift` lists pieces that are hard to see on a test surface.
 4. Only the PNGs are committed. Delete `Review/*.svg` and `dishes.svg` afterwards.
+
+## Signature dish icons
+
+About ninety well known dishes have an icon of their own, drawn by hand, which the app shows in
+place of the dish put together from parts whenever a recipe's title names that dish. They live in
+`Plates/SignatureDishes.xcassets` as `DishSignature<Name>.imageset/DishSignature<Name>.svg`, where
+the name is the Pascal cased id in `SignatureDishes.json` in the package. The prefix keeps them
+apart from ingredient icons of the same name, such as `Hummus`.
+
+They do not have to reuse dish parts, and should not look like a scatter of them. Draw the dish
+the way it is recognised: a few large, well made shapes for what defines it, and only the
+garnish that tells it apart.
+
+### File rules
+
+- Root element exactly: `<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="...">`,
+  with the dish's English (US) name as the label.
+- The same elements, attributes and gradient rules as ingredient icons. No `filter`, `mask`,
+  `clipPath`, `pattern`, `image`, `text`, `use`, `style` or `fill-rule`. Cut a hole by drawing
+  its path in the opposite direction.
+- Gradient ids are unique within the file. No comments, one element per line.
+
+### Composition
+
+- Seen from directly above, like the dish icons made from parts, so a library grid stays even.
+- The vessel fills the canvas the way the generated vessels do: a round plate or bowl is a
+  circle of radius 46 around (48, 48), with its well at radius 37 for a plate and 40 for a bowl.
+  The vessels in `Plates/Dishes.xcassets/Vessels` are a good start, and may be copied. A dish
+  served in something else gets that instead: a board for pizza, a two handled pan for paella, a
+  stone bowl for bibimbap, a clay pot for a stew. Handles and boards stay inside the 96 box.
+- The food fills most of the well. The thing that names the dish is the largest shape and sits
+  near the middle; nothing that matters is smaller than about 6 units across.
+- Pieces may sit on a soft contact shadow, a dark ellipse at opacity .15 to .25 a little down
+  and to the right. Nothing outside the vessel casts a shadow.
+
+### Light and colour
+
+- Light from the top left, as everywhere else. Fills, sauces and broths run lighter at the top
+  left; glossy things (yolk, sauce, broth, glazed meat) get a crisp highlight, matte things
+  (bread, rice, fried coating) a soft one or none.
+- Use the material colours in the table above where they fit.
+- Dishes in the same family must differ by more than one colour: curries, rice bowls, noodle
+  soups, fried rices and stews each need their own vessel, layout, or defining topping.
+
+### Checking
+
+`python3 Assets/SignatureDishes/sheet.py /tmp/sheet.png Name ...` renders icons through CoreSVG on
+light and dark, at the 168 pt header size and the 72 pt smallest size. Pass `all` for the full
+set. Every icon has to read as its dish at 72 pt, on both backgrounds.

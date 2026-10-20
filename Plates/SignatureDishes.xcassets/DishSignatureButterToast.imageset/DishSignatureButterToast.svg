@@ -1,0 +1,61 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Butter toast">
+  <defs>
+    <linearGradient id="g1" x1="2" y1="2" x2="94" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c1d1c1"/>
+      <stop offset="0.5" stop-color="#9fb8a0"/>
+      <stop offset="1" stop-color="#7da382"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="57.25" cy="59.1" r="46.25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c9d8c8"/>
+      <stop offset="0.6" stop-color="#b6cbb5"/>
+      <stop offset="1" stop-color="#9dbd9e"/>
+    </radialGradient>
+    <linearGradient id="g3" x1="22" y1="22" x2="74" y2="76" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d48e44"/>
+      <stop offset="0.5" stop-color="#b06a2a"/>
+      <stop offset="1" stop-color="#7e4416"/>
+    </linearGradient>
+    <radialGradient id="g4" cx="36" cy="36" r="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fbe2a2"/>
+      <stop offset="0.45" stop-color="#efbd6a"/>
+      <stop offset="1" stop-color="#c98a3a"/>
+    </radialGradient>
+    <linearGradient id="g5" x1="32" y1="39" x2="64" y2="69" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffcf5a"/>
+      <stop offset="0.5" stop-color="#eaa21a"/>
+      <stop offset="1" stop-color="#c97a08"/>
+    </linearGradient>
+    <linearGradient id="g6" x1="40" y1="42" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff7b8"/>
+      <stop offset="0.5" stop-color="#ffe066"/>
+      <stop offset="1" stop-color="#f2b829"/>
+    </linearGradient>
+  </defs>
+  <circle cx="48" cy="48" r="46" fill="url(#g1)"/>
+  <path d="M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <circle cx="48" cy="48" r="37" fill="url(#g2)"/>
+  <path d="M18.4 31.3A36 36 0 0 1 64.7 18.4" stroke="#9dbd9e" stroke-opacity="0.35" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M27 75L69 75Q73 75 73 71L73 39.56C78 35.56 75 23 59 23L37 23C21 23 18 35.56 23 39.56L23 71Q23 75 27 75Z" fill="#26402a" fill-opacity="0.25" transform="translate(1.8 3)"/>
+  <path d="M27 75L69 75Q73 75 73 71L73 39.56C78 35.56 75 23 59 23L37 23C21 23 18 35.56 23 39.56L23 71Q23 75 27 75Z" fill="#9a5a24" transform="translate(1 1.6)"/>
+  <path d="M27 75L69 75Q73 75 73 71L73 39.56C78 35.56 75 23 59 23L37 23C21 23 18 35.56 23 39.56L23 71Q23 75 27 75Z" fill="url(#g3)"/>
+  <path d="M30.25 72L65.75 72Q69.75 72 69.75 68L69.75 41.6C74.75 37.6 71.75 27 57.57 27L38.43 27C24.25 27 21.25 37.6 26.25 41.6L26.25 68Q26.25 72 30.25 72Z" fill="url(#g4)"/>
+  <path d="M25 37L49 65" stroke="#a86a2a" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M49 37L25 65" stroke="#a86a2a" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M36 37L60 65" stroke="#a86a2a" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M60 37L36 65" stroke="#a86a2a" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M47 37L71 65" stroke="#a86a2a" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M71 37L47 65" stroke="#a86a2a" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M59.85 49.94Q60.61 52 61.02 54.53Q61.42 57.06 59.44 59.02Q57.46 60.97 54.66 61.81Q51.87 62.65 49.12 62.2Q46.37 61.75 43.25 61.58Q40.14 61.41 38.13 59.32Q36.13 57.24 36.04 54.62Q35.95 52 36.61 49.61Q37.27 47.22 39.42 45.67Q41.58 44.13 44.07 43.55Q46.57 42.98 49.17 42.35Q51.77 41.72 54.55 42.44Q57.33 43.16 58.21 45.53Q59.1 47.89 59.85 49.94Z" fill="#ffe680" fill-opacity="0.65"/>
+  <path d="M30 45C34 35 54 33 64 41C70 47 66 59 60 63C60 67 57 71 55 67C48 63 38 65 32 57C28 53 28 49 30 45Z" fill="url(#g5)" fill-opacity="0.55"/>
+  <path d="M34 42Q42 36 52 37" stroke="#ffffff" stroke-opacity="0.65" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M39.36 46.85Q38.82 44.31 41.37 43.76L51.93 41.52Q54.47 40.98 55.01 43.52L56.64 51.15Q57.18 53.69 54.63 54.24L44.07 56.48Q41.53 57.02 40.99 54.48Z" fill="#3a2a18" fill-opacity="0.25" transform="translate(0.9 1.6)"/>
+  <path d="M39.36 46.85Q38.82 44.31 41.37 43.76L51.93 41.52Q54.47 40.98 55.01 43.52L56.64 51.15Q57.18 53.69 54.63 54.24L44.07 56.48Q41.53 57.02 40.99 54.48Z" fill="url(#g6)"/>
+  <path d="M43 46L50 44.4" stroke="#ffffff" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M35.26 48.44L37.86 49.55L36.29 51.54L34.46 50.29Z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M60.04 45.28L61.86 47.43L59.57 48.5L58.5 46.57Z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M42.61 30.98L45.42 30.72L44.98 33.21L42.79 32.98Z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M56.96 64.57L57.34 67.36L54.83 67.03L54.97 64.83Z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M40.58 64.38L41.64 66.99L39.12 67.29L38.71 65.12Z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M65 30.6L65.3 33.4L62.8 33L63 30.8Z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M32.12 28.52L34.8 29.37L33.43 31.5L31.5 30.43Z" fill="#ffffff" fill-opacity="0.95"/>
+</svg>

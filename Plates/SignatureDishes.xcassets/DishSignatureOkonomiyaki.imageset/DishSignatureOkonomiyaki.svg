@@ -1,0 +1,87 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Okonomiyaki">
+  <defs>
+    <linearGradient id="g1" x1="2.0" y1="2.0" x2="94.0" y2="94.0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7a8088"/><stop offset="0.5" stop-color="#555b63"/><stop offset="1" stop-color="#33373d"/></linearGradient>
+    <radialGradient id="g2" cx="57.2" cy="59.1" r="46.2" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5c626b"/><stop offset="0.6" stop-color="#454a51"/><stop offset="1" stop-color="#34383d"/></radialGradient>
+    <radialGradient id="g3" cx="33.1" cy="33.1" r="49.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f0c47a"/><stop offset="0.5" stop-color="#d49a4c"/><stop offset="1" stop-color="#a86c2a"/></radialGradient>
+    <radialGradient id="g4" cx="38.0" cy="36.0" r="40.0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8a4a24"/><stop offset="0.5" stop-color="#5e2c12"/><stop offset="1" stop-color="#3e1a08"/></radialGradient>
+  </defs>
+  <circle cx="48" cy="48" r="46" fill="url(#g1)"/>
+  <path d="M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <circle cx="48" cy="48" r="37" fill="url(#g2)"/>
+  <path d="M18.4 31.3A36 36 0 0 1 64.7 18.4" stroke="#34383d" stroke-opacity="0.35" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="48.8" cy="49.4" rx="33.0" ry="33.0" fill="#3a2a1a" opacity="0.3"/>
+  <path d="M81.6 52.6C81.8 57.3 81.1 55.8 77.8 60.1C74.4 64.3 67.0 74.7 61.7 78.1C56.5 81.4 51.5 80.5 46.3 80.1C41.1 79.7 34.9 78.6 30.5 75.8C26.0 73.0 22.2 67.8 19.6 63.2C17.1 58.7 15.2 54.3 15.2 48.7C15.2 43.0 16.4 34.5 19.8 29.4C23.1 24.2 30.8 20.1 35.5 17.8C40.1 15.6 43.4 15.8 47.5 16.0C51.6 16.1 55.3 16.1 60.0 18.7C64.8 21.3 72.5 26.0 76.1 31.6C79.7 37.3 81.3 47.8 81.6 52.6Z" fill="url(#g3)"/>
+  <path d="M78.2 45.6C78.6 49.4 77.6 54.0 75.9 57.6C74.3 61.2 72.5 64.4 68.2 67.4C63.9 70.4 54.7 74.3 50.1 75.6C45.5 76.9 43.7 76.2 40.4 75.4C37.1 74.5 33.3 72.6 30.2 70.5C27.2 68.5 24.0 66.4 22.3 63.2C20.6 60.0 20.2 55.3 20.0 51.4C19.8 47.5 19.6 44.0 21.0 39.6C22.4 35.3 25.2 28.4 28.5 25.3C31.9 22.3 36.8 22.7 40.8 21.5C44.8 20.4 48.9 18.1 52.6 18.4C56.3 18.7 59.6 20.6 63.1 23.3C66.7 26.0 71.5 30.8 74.1 34.5C76.6 38.2 77.9 41.7 78.2 45.6Z" fill="url(#g4)"/>
+  <path d="M28 34C32 26 40 22 48 21" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polyline points="51.3 22.4 53.4 24.7 55.2 27.3 57.3 29.7 59.9 31.6 62.5 33.5 64.5 35.9 66.4 38.6 68.6 40.9 71.2 42.7 73.7 44.7" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="38.8 24.0 41.7 27.8 44.8 31.3 48.4 34.4 52.1 37.3 55.3 40.7 58.2 44.4 61.4 47.9 65.0 50.9 68.7 53.9 71.8 57.3" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="30.0 30.0 33.2 33.9 37.0 37.4 41.0 40.5 44.7 44.1 47.9 48.1 51.3 52.0 55.1 55.3 59.1 58.5 62.7 62.2 65.9 66.2" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="24.0 38.8 27.4 42.1 31.1 45.0 34.6 48.1 37.6 51.7 40.6 55.4 44.0 58.6 47.8 61.5 51.2 64.7 54.2 68.4 57.2 72.0" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="22.4 51.3 25.0 53.1 27.5 55.1 29.5 57.5 31.3 60.2 33.6 62.4 36.2 64.2 38.7 66.3 40.6 68.8 42.5 71.4 44.8 73.6" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="22.4 44.7 24.7 42.6 27.3 40.8 29.7 38.7 31.6 36.1 33.5 33.5 35.9 31.5 38.6 29.6 40.9 27.4 42.7 24.8 44.7 22.3" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="24.0 57.2 27.8 54.3 31.3 51.2 34.4 47.6 37.3 43.9 40.7 40.7 44.4 37.8 47.9 34.6 50.9 31.0 53.9 27.3 57.3 24.2" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="30.0 66.0 33.9 62.8 37.4 59.0 40.5 55.0 44.1 51.3 48.1 48.1 52.0 44.7 55.3 40.9 58.5 36.9 62.2 33.3 66.2 30.1" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="38.8 72.0 42.1 68.6 45.0 64.9 48.1 61.4 51.7 58.4 55.4 55.4 58.6 52.0 61.5 48.2 64.7 44.8 68.4 41.8 72.0 38.8" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="51.3 73.6 53.1 71.0 55.1 68.5 57.5 66.5 60.2 64.7 62.4 62.4 64.2 59.8 66.3 57.3 68.8 55.4 71.4 53.5 73.6 51.2" fill="none" stroke="#fff8e6" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32.0" cy="32.4" r="0.75" fill="#5aa83a"/>
+  <circle cx="55.1" cy="23.8" r="0.75" fill="#5aa83a"/>
+  <circle cx="46.4" cy="23.1" r="0.75" fill="#5aa83a"/>
+  <circle cx="65.4" cy="51.2" r="0.75" fill="#5aa83a"/>
+  <circle cx="67.6" cy="40.7" r="0.75" fill="#5aa83a"/>
+  <circle cx="55.1" cy="42.9" r="0.75" fill="#5aa83a"/>
+  <circle cx="35.3" cy="50.5" r="0.75" fill="#5aa83a"/>
+  <circle cx="29.0" cy="42.7" r="0.75" fill="#5aa83a"/>
+  <circle cx="60.1" cy="49.0" r="0.75" fill="#5aa83a"/>
+  <circle cx="43.4" cy="72.5" r="0.75" fill="#5aa83a"/>
+  <circle cx="49.0" cy="37.7" r="0.75" fill="#5aa83a"/>
+  <circle cx="50.8" cy="38.7" r="0.75" fill="#5aa83a"/>
+  <circle cx="41.2" cy="41.8" r="0.75" fill="#5aa83a"/>
+  <circle cx="72.3" cy="48.3" r="0.75" fill="#5aa83a"/>
+  <circle cx="51.0" cy="59.7" r="0.75" fill="#5aa83a"/>
+  <circle cx="72.1" cy="45.3" r="0.75" fill="#5aa83a"/>
+  <circle cx="41.8" cy="72.7" r="0.75" fill="#5aa83a"/>
+  <circle cx="27.2" cy="42.8" r="0.75" fill="#5aa83a"/>
+  <circle cx="55.1" cy="72.2" r="0.75" fill="#5aa83a"/>
+  <circle cx="38.7" cy="24.2" r="0.75" fill="#5aa83a"/>
+  <circle cx="59.2" cy="39.2" r="0.75" fill="#5aa83a"/>
+  <circle cx="41.2" cy="56.1" r="0.75" fill="#5aa83a"/>
+  <circle cx="52.0" cy="53.3" r="0.75" fill="#5aa83a"/>
+  <circle cx="41.6" cy="67.1" r="0.75" fill="#5aa83a"/>
+  <circle cx="69.4" cy="48.5" r="0.75" fill="#5aa83a"/>
+  <circle cx="40.4" cy="60.3" r="0.75" fill="#5aa83a"/>
+  <circle cx="55.5" cy="31.6" r="0.75" fill="#5aa83a"/>
+  <circle cx="40.8" cy="64.5" r="0.75" fill="#5aa83a"/>
+  <circle cx="46.3" cy="42.0" r="0.75" fill="#5aa83a"/>
+  <circle cx="51.9" cy="47.4" r="0.75" fill="#5aa83a"/>
+  <circle cx="48.0" cy="24.1" r="0.75" fill="#5aa83a"/>
+  <circle cx="70.9" cy="50.6" r="0.75" fill="#5aa83a"/>
+  <circle cx="34.8" cy="62.7" r="0.75" fill="#5aa83a"/>
+  <circle cx="53.6" cy="48.3" r="0.75" fill="#5aa83a"/>
+  <circle cx="58.7" cy="71.1" r="0.75" fill="#5aa83a"/>
+  <circle cx="55.5" cy="69.3" r="0.75" fill="#5aa83a"/>
+  <circle cx="70.8" cy="37.2" r="0.75" fill="#5aa83a"/>
+  <circle cx="39.3" cy="60.8" r="0.75" fill="#5aa83a"/>
+  <circle cx="25.4" cy="44.5" r="0.75" fill="#5aa83a"/>
+  <circle cx="65.5" cy="62.1" r="0.75" fill="#5aa83a"/>
+  <path d="M34.2 34.5Q37.7 32.8 41.3 35.0L40.5 37.8Q37.7 36.4 34.7 37.6Z" fill="#f7dcc8" transform="rotate(143 37.7 36.0)"/>
+  <path d="M37.9 35.2Q41.4 33.5 45.0 35.7L44.2 38.5Q41.4 37.1 38.4 38.3Z" fill="#f2c9ae" transform="rotate(151 41.4 36.7)"/>
+  <path d="M34.6 31.1Q38.1 29.4 41.7 31.6L40.9 34.4Q38.1 33.0 35.1 34.2Z" fill="#e8b293" transform="rotate(20 38.1 32.6)"/>
+  <path d="M50.8 37.6Q54.3 35.9 57.9 38.1L57.1 40.9Q54.3 39.5 51.3 40.7Z" fill="#f2c9ae" transform="rotate(18 54.3 39.1)"/>
+  <path d="M51.5 45.1Q55.0 43.4 58.6 45.6L57.8 48.4Q55.0 47.0 52.0 48.2Z" fill="#e8b293" transform="rotate(50 55.0 46.6)"/>
+  <path d="M52.7 57.3Q56.2 55.6 59.8 57.8L59.0 60.6Q56.2 59.2 53.2 60.4Z" fill="#f7dcc8" transform="rotate(25 56.2 58.8)"/>
+  <path d="M39.0 46.5Q42.5 44.8 46.1 47.0L45.3 49.8Q42.5 48.4 39.5 49.6Z" fill="#f2c9ae" transform="rotate(175 42.5 48.0)"/>
+  <path d="M46.3 51.3Q49.8 49.6 53.4 51.8L52.6 54.6Q49.8 53.2 46.8 54.4Z" fill="#f2c9ae" transform="rotate(177 49.8 52.8)"/>
+  <path d="M40.2 61.4Q43.7 59.7 47.3 61.9L46.5 64.7Q43.7 63.3 40.7 64.5Z" fill="#f7dcc8" transform="rotate(97 43.7 62.9)"/>
+  <path d="M39.9 39.9Q43.4 38.2 47.0 40.4L46.2 43.2Q43.4 41.8 40.4 43.0Z" fill="#f2c9ae" transform="rotate(174 43.4 41.4)"/>
+  <path d="M60.6 41.1Q64.1 39.4 67.7 41.6L66.9 44.4Q64.1 43.0 61.1 44.2Z" fill="#e8b293" transform="rotate(54 64.1 42.6)"/>
+  <rect x="54.7" y="59.8" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(47 57.3 60.6)"/>
+  <rect x="54.1" y="59.1" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(106 56.7 59.9)"/>
+  <rect x="56.2" y="58.4" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(12 58.8 59.2)"/>
+  <rect x="54.2" y="56.0" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(125 56.8 56.8)"/>
+  <rect x="52.9" y="57.0" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(32 55.5 57.8)"/>
+  <rect x="53.4" y="59.8" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(171 56.0 60.6)"/>
+  <rect x="54.3" y="56.6" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(99 56.9 57.4)"/>
+  <rect x="54.8" y="56.5" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(151 57.4 57.3)"/>
+  <rect x="55.0" y="58.4" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(112 57.6 59.2)"/>
+  <rect x="59.0" y="54.9" width="5.2" height="1.6" rx="0.6" fill="#e83a4a" transform="rotate(44 61.6 55.7)"/>
+</svg>

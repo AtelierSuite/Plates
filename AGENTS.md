@@ -81,6 +81,12 @@ of the evals, so do not undo one without running them again.
   and an `.anyOf` over every ingredient name overruns it on its own.
 - Keep passes small enough that Private Cloud Compute stays a fallback for
   `contextSizeExceeded`, not the usual path.
+- Asked whether a picture of a dish shows a recipe, the on-device model said yes to a lasagna
+  soup, a pizza toast, and pancake mix muffins, and still said yes after writing that a Thai curry
+  was not a Japanese curry. It sorts the recipe into a fixed list of forms instead, and code checks
+  the form against the icon. Its cuisine was wrong one time in four, so little depends on it.
+  It is only asked when the title does not end with the dish: on real recipes it called chicken
+  enchiladas tacos and a kimchi jjigae a noodle soup, both of which the title already settled.
 - Jev says whether a seasoning, aromatic, or optional line can be seen on the served dish, one
   question per line, and a line under 0.6 is left off the icon. The title and the last step
   only decide when the Worker cannot be reached.
@@ -107,6 +113,29 @@ from `Assets/DishIcons/Parts`. Do not edit the outputs.
 - Work in `Assets/DishIcons`: `python3 preview.py` while drawing, then `python3 export.py`,
   `python3 qa.py`, `python3 layout.py` and `swift contrast.swift`. `STYLE.md` has the details.
 - Only the PNGs from `qa.py` and `layout.py` are committed. Delete the SVGs they leave behind.
+
+### Signature dish icons
+
+Well known dishes have a hand drawn icon in `Plates/SignatureDishes.xcassets`, shown instead of the
+dish made from parts when a recipe makes the dish. `SignatureDishes.json` in the package lists, for
+each one, the English and Japanese titles it answers to and the forms of food its icon can stand
+for.
+
+- A title that ends with a dish's title is that dish, leaving out what follows "with" and titles
+  ruled out by a dish's `unless` words. On 160 real recipes from recipe sites, in both
+  languages, this was right for all but one, so the model is not asked.
+- A title with a dish's title elsewhere in it ("Korean Beef Bulgogi Rice Bowls", "Lasagna Soup")
+  goes to Apple Intelligence, which sorts the recipe into a form and a cuisine once. A candidate
+  is drawn when the form is one of its `forms`. Only a dish whose form is shared with dishes that
+  look different lists `cuisines`, with `signs`, catalog ingredients that settle it.
+- The decision is kept on the recipe's dish with the title it was made for. `RecipeStore` decides
+  every recipe that needs it after a load, so a renamed recipe is decided again.
+- Evaluate a change on real recipes copied from recipe sites, not titles written to trip it up.
+  Invented decoys such as "Ramen Burger" made the title rule look far worse than it is.
+- A new dish needs its titles in both languages, its forms, and an icon named
+  `DishSignature<PascalId>`, drawn to the "Signature dish icons" section of
+  `Assets/IconStyle/STYLE.md`.
+- Check the full set with `python3 Assets/SignatureDishes/sheet.py /tmp/sheet.png all`.
 
 ## Localization
 

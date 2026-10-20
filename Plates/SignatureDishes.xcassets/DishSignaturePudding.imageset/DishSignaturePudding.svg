@@ -1,0 +1,56 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Custard pudding">
+  <defs>
+    <linearGradient id="g1" x1="2.0" y1="2.0" x2="94.0" y2="94.0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f5f2ed"/>
+      <stop offset="0.5" stop-color="#f0ece4"/>
+      <stop offset="1" stop-color="#d7cdb2"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="57.0" cy="59.0" r="46.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eee9e2"/>
+      <stop offset="0.5" stop-color="#e8e3d8"/>
+      <stop offset="1" stop-color="#d9d2ba"/>
+    </radialGradient>
+    <radialGradient id="g3" cx="40.0" cy="44.0" r="32.0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d8893c"/>
+      <stop offset="0.5" stop-color="#a3561a"/>
+      <stop offset="1" stop-color="#6e3008"/>
+    </radialGradient>
+    <radialGradient id="g4" cx="38.0" cy="40.0" r="28.0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff3c2"/>
+      <stop offset="0.55" stop-color="#f8dc86"/>
+      <stop offset="1" stop-color="#d9a83e"/>
+    </radialGradient>
+    <radialGradient id="g5" cx="41.0" cy="43.0" r="22.0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c87a32"/>
+      <stop offset="0.5" stop-color="#8a3e0e"/>
+      <stop offset="1" stop-color="#5a2406"/>
+    </radialGradient>
+    <radialGradient id="g6" cx="53.0" cy="41.0" r="8.0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#f6f1e6"/>
+      <stop offset="1" stop-color="#d8d0bc"/>
+    </radialGradient>
+    <radialGradient id="g7" cx="55.3" cy="38.8" r="5.0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f0545a"/>
+      <stop offset="0.5" stop-color="#c4202a"/>
+      <stop offset="1" stop-color="#7e0f18"/>
+    </radialGradient>
+  </defs>
+  <circle cx="48" cy="48" r="46" fill="url(#g1)"/>
+  <path d="M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <circle cx="48" cy="48" r="41.5" fill="none" stroke="#5a7aa6" stroke-width="2.2"/>
+  <circle cx="48" cy="48" r="37" fill="url(#g2)"/>
+  <path d="M18.4 31.3A36 36 0 0 1 64.7 18.4" stroke="#d9d2ba" stroke-opacity="0.35" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M71.12 55.90 Q70.52 61.81 66.48 66.21 Q62.44 70.62 57.28 73.72 Q52.12 76.82 45.99 76.87 Q39.86 76.92 35.17 73.19 Q30.48 69.46 27.14 65.07 Q23.81 60.69 20.58 55.34 Q17.36 50.00 20.04 44.40 Q22.73 38.79 26.35 34.35 Q29.97 29.90 34.71 25.61 Q39.46 21.33 45.72 22.57 Q51.98 23.82 57.91 25.71 Q63.85 27.61 67.04 32.97 Q70.22 38.34 70.97 44.17 Q71.73 50.00 71.12 55.90Z" fill="url(#g3)" opacity="0.9"/>
+  <path d="M65.80 52.92 Q64.94 56.85 62.85 60.30 Q60.76 63.76 57.31 65.88 Q53.87 68.00 49.93 68.73 Q46.00 69.45 42.01 68.87 Q38.01 68.29 34.39 66.25 Q30.78 64.22 28.51 60.70 Q26.25 57.18 25.46 53.09 Q24.67 49.00 25.79 45.05 Q26.92 41.10 29.02 37.61 Q31.12 34.12 34.59 31.99 Q38.07 29.86 42.04 29.14 Q46.00 28.41 49.92 29.23 Q53.85 30.06 57.22 32.23 Q60.59 34.41 63.25 37.58 Q65.90 40.76 66.28 44.88 Q66.67 49.00 65.80 52.92Z" fill="#3a2a1a" opacity="0.3" transform="translate(1 1.8)"/>
+  <path d="M65.80 52.92 Q64.94 56.85 62.85 60.30 Q60.76 63.76 57.31 65.88 Q53.87 68.00 49.93 68.73 Q46.00 69.45 42.01 68.87 Q38.01 68.29 34.39 66.25 Q30.78 64.22 28.51 60.70 Q26.25 57.18 25.46 53.09 Q24.67 49.00 25.79 45.05 Q26.92 41.10 29.02 37.61 Q31.12 34.12 34.59 31.99 Q38.07 29.86 42.04 29.14 Q46.00 28.41 49.92 29.23 Q53.85 30.06 57.22 32.23 Q60.59 34.41 63.25 37.58 Q65.90 40.76 66.28 44.88 Q66.67 49.00 65.80 52.92Z" fill="url(#g4)"/>
+  <path d="M59.13 51.38 Q59.06 53.75 60.08 57.71 Q61.09 61.66 57.02 61.35 Q52.95 61.04 50.62 61.52 Q48.29 62.00 45.94 62.34 Q43.59 62.69 41.49 61.56 Q39.40 60.43 36.04 60.31 Q32.67 60.18 33.13 56.85 Q33.60 53.51 32.85 51.26 Q32.10 49.00 32.85 46.74 Q33.60 44.49 31.60 39.86 Q29.61 35.24 34.50 36.41 Q39.40 37.57 41.49 36.44 Q43.59 35.31 45.94 35.66 Q48.29 36.00 51.82 34.40 Q55.35 32.81 55.73 36.66 Q56.11 40.52 57.59 42.38 Q59.06 44.25 59.13 46.62 Q59.20 49.00 59.13 51.38Z" fill="url(#g5)"/>
+  <path d="M37 45 Q40 40 46 39" stroke="#ffffff" stroke-opacity="0.7" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M30 52 Q29 44 33 38" stroke="#ffffff" stroke-opacity="0.45" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <path d="M60.34 44.67 Q59.60 46.34 58.36 47.93 Q57.12 49.52 55.21 48.87 Q53.30 48.23 51.49 47.55 Q49.67 46.87 49.24 44.93 Q48.81 43.00 49.70 41.39 Q50.58 39.79 51.78 38.29 Q52.99 36.80 54.83 37.32 Q56.67 37.85 58.40 38.56 Q60.13 39.27 60.61 41.14 Q61.09 43.00 60.34 44.67Z" fill="#3a2a1a" opacity="0.25" transform="translate(0.6 1.1)"/>
+  <path d="M60.34 44.67 Q59.60 46.34 58.36 47.93 Q57.12 49.52 55.21 48.87 Q53.30 48.23 51.49 47.55 Q49.67 46.87 49.24 44.93 Q48.81 43.00 49.70 41.39 Q50.58 39.79 51.78 38.29 Q52.99 36.80 54.83 37.32 Q56.67 37.85 58.40 38.56 Q60.13 39.27 60.61 41.14 Q61.09 43.00 60.34 44.67Z" fill="url(#g6)"/>
+  <path d="M52 43 Q55 39 58 43 Q55 46 54 44" stroke="#d8d0bc" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+  <path d="M57 39 Q60 32 64 30" stroke="#5a7a2a" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+  <circle cx="56.5" cy="40" r="3.6" fill="url(#g7)"/>
+  <circle cx="55.4" cy="38.8" r="1" fill="#ffffff" opacity="0.8"/>
+</svg>

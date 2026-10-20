@@ -55,6 +55,39 @@ final class RecipeStore {
             recipes = []
             loadError = error.localizedDescription
         }
+        decideSignatures()
+    }
+
+    /// Recipes whose signature dish has been asked about while the app has been open, by id and
+    /// title, so a decision that cannot be written is not asked for again on every load.
+    private var askedSignatures: Set<String> = []
+    private var signatureTask: Task<Void, Never>?
+
+    /// Asks, one recipe at a time, whether each recipe that could make a signature dish does, and
+    /// writes the answer into its dish. This covers new, generated, imported, and renamed recipes
+    /// alike, and the ones saved before signature icons were drawn.
+    private func decideSignatures() {
+        guard signatureTask == nil else { return }
+        let waiting = recipes.filter { SignatureDish.needsDecision($0) && !askedSignatures.contains(Self.signatureKey($0)) }
+        guard !waiting.isEmpty else { return }
+        signatureTask = Task {
+            for recipe in waiting {
+                askedSignatures.insert(Self.signatureKey(recipe))
+                guard let decision = await SignatureDish.decide(for: recipe) else { continue }
+                guard var current = recipes.first(where: { $0.id == recipe.id }),
+                      current.title == recipe.title else { continue }
+                var dish = current.dish ?? Dish.planned(for: current)
+                dish.signature = decision
+                current.dish = dish
+                save(current)
+            }
+            signatureTask = nil
+            decideSignatures()
+        }
+    }
+
+    private static func signatureKey(_ recipe: Recipe) -> String {
+        recipe.id + "\n" + recipe.title
     }
 
     /// Recipes read off web pages that are waiting to be sorted, oldest first. Each one opens
@@ -151,15 +184,21 @@ final class RecipeStore {
     }
 
     /// Asks for a new recipe's dish and writes it in, unless its dish was redrawn while Jev
-    /// was being asked.
+    /// was being asked. A signature dish decided in the meantime is kept.
     private func askDish(for recipe: Recipe) {
         Task {
-            let dish = await Dish.asked(for: recipe)
+            var dish = await Dish.asked(for: recipe)
             guard dish != recipe.dish, var current = recipes.first(where: { $0.id == recipe.id }),
-                  current.dish == recipe.dish else { return }
+                  Self.drawing(of: current.dish) == Self.drawing(of: recipe.dish) else { return }
+            dish.signature = current.dish?.signature
             current.dish = dish
             save(current)
         }
+    }
+
+    /// A dish as its layers draw it, leaving out the signature decision.
+    private static func drawing(of dish: Dish?) -> Dish? {
+        dish.map { Dish(vessel: $0.vessel, seed: $0.seed, layers: $0.layers) }
     }
 
     func delete(_ recipe: Recipe) {
