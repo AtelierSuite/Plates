@@ -114,8 +114,11 @@ Well known dishes have a hand drawn icon in `Plates/SignatureDishes.xcassets`, s
 dish made from parts when a recipe's title names the dish. `SignatureDishes.json` in the package
 lists the English and Japanese titles each one answers to.
 
-- A title matches only when it names the dish and nothing more, once fillers such as "easy" or
-  "簡単" are taken out. "Seafood Carbonara" is not drawn as carbonara.
+- A title matches when it ends with one of the dish's titles, which is where the dish sits in
+  English and in Japanese. What follows "with" is left out, and the longest title that fits wins,
+  so "Kimchi Fried Rice" is not plain fried rice.
+- A dish's `unless` list rules out words in front of it, for titles that end the same way but are
+  another dish: "Korean Pancakes", "スープカレー", "水餃子". Add to it rather than dropping a title.
 - A new dish needs its titles in both languages and an icon named `DishSignature<PascalId>`,
   drawn to the "Signature dish icons" section of `Assets/IconStyle/STYLE.md`.
 - Check the full set with `python3 Assets/SignatureDishes/sheet.py /tmp/sheet.png all`.
