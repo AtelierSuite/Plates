@@ -81,6 +81,10 @@ of the evals, so do not undo one without running them again.
   and an `.anyOf` over every ingredient name overruns it on its own.
 - Keep passes small enough that Private Cloud Compute stays a fallback for
   `contextSizeExceeded`, not the usual path.
+- Asked whether a picture of a dish shows a recipe, the on-device model said yes to a lasagna
+  soup, a pizza toast, and pancake mix muffins, and still said yes after writing that a Thai curry
+  was not a Japanese curry. It sorts the recipe into a fixed list of forms instead, and code checks
+  the form against the icon. Its cuisine was wrong one time in four, so little depends on it.
 - Jev says whether a seasoning, aromatic, or optional line can be seen on the served dish, one
   question per line, and a line under 0.6 is left off the icon. The title and the last step
   only decide when the Worker cannot be reached.
@@ -111,16 +115,21 @@ from `Assets/DishIcons/Parts`. Do not edit the outputs.
 ### Signature dish icons
 
 Well known dishes have a hand drawn icon in `Plates/SignatureDishes.xcassets`, shown instead of the
-dish made from parts when a recipe's title names the dish. `SignatureDishes.json` in the package
-lists the English and Japanese titles each one answers to.
+dish made from parts when a recipe makes the dish. `SignatureDishes.json` in the package lists, for
+each one, the English and Japanese titles it answers to and the forms of food its icon can stand
+for.
 
-- A title matches when it ends with one of the dish's titles, which is where the dish sits in
-  English and in Japanese. What follows "with" is left out, and the longest title that fits wins,
-  so "Kimchi Fried Rice" is not plain fried rice.
-- A dish's `unless` list rules out words in front of it, for titles that end the same way but are
-  another dish: "Korean Pancakes", "スープカレー", "水餃子". Add to it rather than dropping a title.
-- A new dish needs its titles in both languages and an icon named `DishSignature<PascalId>`,
-  drawn to the "Signature dish icons" section of `Assets/IconStyle/STYLE.md`.
+- Code reads the title for candidates: dishes whose title appears in it, nearest the end first,
+  leaving out what follows "with" and titles ruled out by a dish's `unless` words.
+- Apple Intelligence sorts the recipe into a form and a cuisine once, and a candidate is drawn
+  when the form is one of its `forms`. Only a dish whose form is shared with dishes that look
+  different lists `cuisines`, with `signs`, catalog ingredients that settle it, such as curry roux.
+- The decision is kept on the recipe's dish with the title it was made for. `RecipeStore` decides
+  every recipe that needs it after a load, so a renamed recipe is decided again. Until then, and
+  where Apple Intelligence cannot run, a title names the dish it ends with.
+- A new dish needs its titles in both languages, its forms, and an icon named
+  `DishSignature<PascalId>`, drawn to the "Signature dish icons" section of
+  `Assets/IconStyle/STYLE.md`.
 - Check the full set with `python3 Assets/SignatureDishes/sheet.py /tmp/sheet.png all`.
 
 ## Localization

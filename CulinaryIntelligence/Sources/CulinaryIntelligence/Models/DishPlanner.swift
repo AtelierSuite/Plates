@@ -10,7 +10,7 @@ extension Dish {
     /// The seed picks between the vessels that suit the food and scatters the pieces. It is the
     /// recipe's `id` the first time, and a fresh one when the cook asks for the icon again.
     public static func planned(for recipe: Recipe, seed: String? = nil) -> Dish {
-        DishPlanner(recipe, seed: seed ?? recipe.id).dish
+        DishPlanner(recipe, seed: seed ?? recipe.id).dish.keepingSignature(of: recipe)
     }
 
     /// The dish, with Jev asked which of the seasonings, aromatics, and optional lines can be
@@ -27,9 +27,17 @@ extension Dish {
                   ingredients: questions.map { String($0.line.prefix(300)) }
               ),
               answers.count == questions.count
-        else { return planner.dish }
+        else { return planner.dish.keepingSignature(of: recipe) }
         let seen = Dictionary(zip(questions.map(\.asset), answers.map { $0 >= DishPlanner.seenAbove }), uniquingKeysWith: { $0 || $1 })
-        return DishPlanner(recipe, seed: seed ?? recipe.id, seen: seen).dish
+        return DishPlanner(recipe, seed: seed ?? recipe.id, seen: seen).dish.keepingSignature(of: recipe)
+    }
+
+    /// The dish with the signature already decided for the recipe, since drawing the dish again
+    /// does not change which dish the recipe makes.
+    private func keepingSignature(of recipe: Recipe) -> Dish {
+        var dish = self
+        dish.signature = recipe.dish?.signature
+        return dish
     }
 }
 

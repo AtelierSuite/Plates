@@ -10289,6 +10289,42 @@
         }
       }
     },
+    "Signature.Prompt.Sort": {
+      "comment": "Given to Apple Intelligence in English whatever language the app is read in, so its answer can be matched to the catalog. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You sort recipes by the form of what they serve and the cuisine the dish comes from."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "あなたは、レシピを出来上がる料理の形と、その料理がどの国の料理かで分類します。"
+          }
+        }
+      }
+    },
+    "Signature.Prompt.Sort.Recipe": {
+      "comment": "Given to Apple Intelligence in English whatever language the app is read in, so its answer can be matched to the catalog. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recipe: %1$@\nMain ingredients: %2$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レシピ: %1$@\n主な材料: %2$@"
+          }
+        }
+      }
+    },
     "Tool.Name.AirFryer": {
       "extractionState": "manual",
       "localizations": {
