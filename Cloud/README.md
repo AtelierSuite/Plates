@@ -1,6 +1,6 @@
 # PlatesCloud
 
-The server side of Plates: one Cloudflare Worker that writes recipes with Gemma 4 on Workers AI and, when the cook taps Decide for me, asks TypeSafe's Jev to pick one of the recipe ideas. Jev also says which seasonings and garnishes can be seen on a finished dish, for its icon. Every call is signed with App Attest, and each device has a Durable Object that holds its key, its assertion counter, and its daily counts.
+The server side of Plates: one Cloudflare Worker that writes recipes with Gemma 4 on Workers AI and, when the cook taps Decide for me, asks Cloudflare's Clef-flash on Workers AI to pick one of the recipe ideas. Clef-flash also says which seasonings and garnishes can be seen on a finished dish, for its icon. Every call is signed with App Attest, and each device has a Durable Object that holds its key, its assertion counter, and its daily counts.
 
 ## Develop and deploy
 
@@ -44,7 +44,6 @@ Secrets are set once on the Worker, under Settings, Variables and Secrets, and c
 | Secret | Where it comes from |
 | --- | --- |
 | `CHALLENGE_SECRET` | Any long random string; signs attestation challenges |
-| `JEV_API_KEY` | A TypeSafe API key |
 | `SKIP_APP_ATTEST` | `true` to accept unsigned requests to `localhost`, so a debug build in Simulator can call `npm run dev`. Ignored on any other host; never set it in a deploy |
 
 Workers AI needs no key: the `AI` binding runs on the account the Worker is deployed to.
@@ -66,7 +65,7 @@ Everything is `POST` except `/health`. The signed endpoints take three headers:
 | `/v1/chat/completions` | Yes | OpenAI Chat Completions in and out, streamed when `stream` is true. Always Gemma 4 26B A4B; `max_tokens` is capped at 1,400 |
 | `/v1/ideate` | Yes | The same as `/v1/chat/completions`, for the dish ideas: counted against `IDEATE_DAILY_LIMIT`, with `max_tokens` capped at 500 |
 | `/v1/decide` | Yes | Takes `{ requestId, request, ingredients, tools, ideas: [{ title, summary }] }` and returns `{ index, confidence, probabilities, remaining }` |
-| `/v1/toppings` | Yes | Takes `{ dish, steps: [{ title, points }], ingredients }` and returns `{ visible, remaining }`, where `visible` holds Jev's probability, line by line, that the ingredient can be seen on the dish as it is served |
+| `/v1/toppings` | Yes | Takes `{ dish, steps: [{ title, points }], ingredients }` and returns `{ visible, remaining }`, where `visible` holds Clef-flash's probability, line by line, that the ingredient can be seen on the dish as it is served |
 | `/v1/limits` | Yes | Returns today's `{ limit, remaining }` for each of `write`, `ideate`, `decide`, and `toppings`, without counting anything |
 
 A metered call that fails upstream is given back. A retried Decide for me with the same `requestId` returns the first answer without counting again. Every metered response carries `X-Plates-Remaining`, and a call past the limit gets 429.

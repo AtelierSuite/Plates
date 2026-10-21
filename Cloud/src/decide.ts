@@ -1,6 +1,7 @@
-export const JEV_URL = "https://api.typesafe.ai/v1/systemone";
-export const JEV_MODEL = "jev-latest";
-const JEV_TIMEOUT_MS = 20_000;
+import type { AiRunner } from "./env";
+
+export const CLEF_MODEL = "@cf/cloudflare/clef-flash";
+export const CLEF_SELECTOR = "clef-flash";
 
 export interface Idea {
   title: string;
@@ -46,10 +47,10 @@ export function parseDecision(body: unknown): Decision | string {
   return { requestId, request, ingredients: picked, tools: kit, ideas: parsed };
 }
 
-export function jevRequest(decision: Decision): object {
+export function clefRequest(decision: Decision): object {
   const keys = decision.ideas.map((_, index) => `idea_${index + 1}`);
   return {
-    model: JEV_MODEL,
+    model: CLEF_SELECTOR,
     state: {
       request: decision.request,
       ingredients: decision.ingredients,
@@ -66,21 +67,14 @@ export function jevRequest(decision: Decision): object {
   };
 }
 
-export async function askJev(decision: Decision, apiKey: string): Promise<Pick> {
-  const response = await fetch(JEV_URL, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify(jevRequest(decision)),
-    signal: AbortSignal.timeout(JEV_TIMEOUT_MS),
-  });
-  if (!response.ok) throw new Error(`jev returned ${response.status}`);
-  const body = (await response.json()) as {
+export async function askClef(decision: Decision, ai: AiRunner): Promise<Pick> {
+  const body = (await ai.run(CLEF_MODEL, clefRequest(decision))) as {
     answers?: { pick?: { choice?: unknown; confidence?: unknown; probabilities?: { [key: string]: unknown } } };
   };
   const answer = body.answers?.pick;
   const match = typeof answer?.choice === "string" ? /^idea_(\d+)$/.exec(answer.choice) : null;
   const index = match ? Number(match[1]) - 1 : -1;
-  if (index < 0 || index >= decision.ideas.length) throw new Error("jev picked no idea");
+  if (index < 0 || index >= decision.ideas.length) throw new Error("clef picked no idea");
   return {
     index,
     confidence: typeof answer?.confidence === "number" ? answer.confidence : 0,

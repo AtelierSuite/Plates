@@ -15,7 +15,6 @@ export interface Env {
   DECIDE_DAILY_LIMIT: string;
   TOPPINGS_DAILY_LIMIT: string;
   CHALLENGE_SECRET?: string;
-  JEV_API_KEY?: string;
   SKIP_APP_ATTEST?: string;
 }
 

@@ -1,6 +1,6 @@
 import { checkChallenge, issueChallenge, verifyAttestation } from "./attest";
 import { base64Decode, base64UrlEncode } from "./bytes";
-import { type Pick, askJev, parseDecision } from "./decide";
+import { type Pick, askClef, parseDecision } from "./decide";
 import { Device, type Kind } from "./device";
 import { type Env, appId, limit } from "./env";
 import { GEMMA_MODEL, MAX_IDEA_TOKENS, MAX_OUTPUT_TOKENS, completion, completionStream, parseChat } from "./gemma";
@@ -153,8 +153,7 @@ async function write(request: Request, env: Env, kind: "write" | "ideate"): Prom
 
 async function decide(request: Request, env: Env): Promise<Response> {
   const most = limit(env.DECIDE_DAILY_LIMIT);
-  if (most === null || !env.JEV_API_KEY) return failure(503, "not configured");
-  const key = env.JEV_API_KEY;
+  if (most === null) return failure(503, "not configured");
   const minutes = offset(request);
   const bytes = await body(request);
   if (!bytes) return failure(413, "request too large");
@@ -167,7 +166,7 @@ async function decide(request: Request, env: Env): Promise<Response> {
   return metered(
     stub, "decide", day, most, decision.requestId,
     async (remaining) => {
-      const pick = await askJev(decision, key);
+      const pick = await askClef(decision, env.AI);
       await stub.remember("decide", day, decision.requestId, pick);
       return json({ ...pick, remaining }, 200, { "X-Plates-Remaining": String(remaining) });
     },
@@ -177,8 +176,7 @@ async function decide(request: Request, env: Env): Promise<Response> {
 
 async function toppings(request: Request, env: Env): Promise<Response> {
   const most = limit(env.TOPPINGS_DAILY_LIMIT);
-  if (most === null || !env.JEV_API_KEY) return failure(503, "not configured");
-  const key = env.JEV_API_KEY;
+  if (most === null) return failure(503, "not configured");
   const minutes = offset(request);
   const bytes = await body(request);
   if (!bytes) return failure(413, "request too large");
@@ -188,7 +186,7 @@ async function toppings(request: Request, env: Env): Promise<Response> {
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
   return metered(stub, "toppings", quotaDay(), most, undefined, async (remaining) => {
-    const visible = await askToppings(asked, key);
+    const visible = await askToppings(asked, env.AI);
     return json({ visible, remaining }, 200, { "X-Plates-Remaining": String(remaining) });
   });
 }

@@ -1,6 +1,5 @@
-import { JEV_MODEL, JEV_URL } from "./decide";
-
-const JEV_TIMEOUT_MS = 10_000;
+import { CLEF_MODEL, CLEF_SELECTOR } from "./decide";
+import type { AiRunner } from "./env";
 
 const QUESTION =
   "Can `ingredient` be seen on top of the finished dish as it is served, as pieces, flecks, or a sprinkle that a person would notice?";
@@ -39,9 +38,9 @@ export function parseToppings(body: unknown): Toppings | string {
   return { dish, steps: parsed, ingredients };
 }
 
-export function jevToppingsRequest(toppings: Toppings): object {
+export function clefToppingsRequest(toppings: Toppings): object {
   return {
-    model: JEV_MODEL,
+    model: CLEF_SELECTOR,
     state: { dish: toppings.dish, method: toppings.steps.map(({ title, points }) => ({ step: title, points })) },
     questions: Object.fromEntries(
       toppings.ingredients.map((ingredient, index) => [`line_${index + 1}`, { type: "noul", instructions: { question: QUESTION, ingredient } }]),
@@ -49,18 +48,11 @@ export function jevToppingsRequest(toppings: Toppings): object {
   };
 }
 
-export async function askToppings(toppings: Toppings, apiKey: string): Promise<number[]> {
-  const response = await fetch(JEV_URL, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify(jevToppingsRequest(toppings)),
-    signal: AbortSignal.timeout(JEV_TIMEOUT_MS),
-  });
-  if (!response.ok) throw new Error(`jev returned ${response.status}`);
-  const body = (await response.json()) as { answers?: { [key: string]: { noul?: unknown } } };
+export async function askToppings(toppings: Toppings, ai: AiRunner): Promise<number[]> {
+  const body = (await ai.run(CLEF_MODEL, clefToppingsRequest(toppings))) as { answers?: { [key: string]: { noul?: unknown } } };
   return toppings.ingredients.map((_, index) => {
     const value = body.answers?.[`line_${index + 1}`]?.noul;
-    if (typeof value !== "number") throw new Error("jev left a line unanswered");
+    if (typeof value !== "number") throw new Error("clef left a line unanswered");
     return value;
   });
 }

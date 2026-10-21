@@ -14,11 +14,15 @@ const ideas = {
   ideas: [{ title: "Egg fried rice", summary: "One pan, 15 minutes" }, { title: "Rice porridge" }],
 };
 
-function jev(choice: string, status = 200) {
-  return vi.spyOn(globalThis, "fetch").mockImplementation(async () => new Response(JSON.stringify({
-    model: "jev-1.13.0",
-    answers: { pick: { type: "choice", choice, confidence: 0.8, probabilities: { idea_1: 0.1, idea_2: 0.9 } } },
-  }), { status }));
+function clef(choice: string, fails = false) {
+  return vi.fn(async (_model: string, _input: object) => {
+    if (fails) throw new Error("clef is down");
+    return {
+      model: "clef-flash",
+      answers: { pick: { type: "choice", choice, confidence: 0.8, probabilities: { idea_1: 0.1, idea_2: 0.9 } } },
+      usage: { input_tokens: 1, output_tokens: 1 },
+    };
+  });
 }
 
 afterEach(() => vi.restoreAllMocks());
@@ -154,46 +158,43 @@ describe("writing", () => {
 });
 
 describe("deciding", () => {
-  it("asks Jev and returns the pick with what is left today", async () => {
+  it("asks Clef-flash and returns the pick with what is left today", async () => {
     const phone = await Phone.create();
-    const fetch = jev("idea_2");
-    const response = await phone.post("/v1/decide", ideas);
+    const run = clef("idea_2");
+    const response = await phone.post("/v1/decide", ideas, { ai: { run } });
     expect(await response.json()).toEqual({ index: 1, confidence: 0.8, probabilities: [0.1, 0.9], remaining: 1 });
-    const sent = JSON.parse(fetch.mock.calls[0][1]!.body as string);
-    expect(fetch.mock.calls[0][0]).toBe("https://api.typesafe.ai/v1/systemone");
-    expect(sent.model).toBe("jev-latest");
+    const sent = run.mock.calls[0][1] as { model: string; questions: { pick: { criteria: object } }; state: { ideas: { [key: string]: object } } };
+    expect(run.mock.calls[0][0]).toBe("@cf/cloudflare/clef-flash");
+    expect(sent.model).toBe("clef-flash");
     expect(sent.questions.pick.criteria).toEqual({ idea_1: "Egg fried rice", idea_2: "Rice porridge" });
     expect(sent.state.ideas.idea_1).toEqual({ title: "Egg fried rice", summary: "One pan, 15 minutes" });
   });
 
   it("answers a retried set from memory without counting it again", async () => {
     const phone = await Phone.create();
-    const fetch = jev("idea_1");
-    await phone.post("/v1/decide", ideas);
-    const again = await phone.post("/v1/decide", ideas);
+    const run = clef("idea_1");
+    await phone.post("/v1/decide", ideas, { ai: { run } });
+    const again = await phone.post("/v1/decide", ideas, { ai: { run } });
     expect(((await again.json()) as { index: number; remaining: number })).toMatchObject({ index: 0, remaining: 1 });
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(run).toHaveBeenCalledTimes(1);
   });
 
   it("allows the limit each day, per device, and not a failed pick", async () => {
     const phone = await Phone.create();
-    jev("idea_1", 500);
-    expect((await phone.post("/v1/decide", ideas)).status).toBe(502);
-    vi.restoreAllMocks();
-    jev("idea_1");
-    expect((await phone.post("/v1/decide", { ...ideas, requestId: "a" })).status).toBe(200);
-    expect((await phone.post("/v1/decide", { ...ideas, requestId: "b" })).status).toBe(200);
-    expect((await phone.post("/v1/decide", { ...ideas, requestId: "c" })).status).toBe(429);
+    expect((await phone.post("/v1/decide", ideas, { ai: { run: clef("idea_1", true) } })).status).toBe(502);
+    const ai = { run: clef("idea_1") };
+    expect((await phone.post("/v1/decide", { ...ideas, requestId: "a" }, { ai })).status).toBe(200);
+    expect((await phone.post("/v1/decide", { ...ideas, requestId: "b" }, { ai })).status).toBe(200);
+    expect((await phone.post("/v1/decide", { ...ideas, requestId: "c" }, { ai })).status).toBe(429);
     const limits = await phone.post("/v1/limits", {});
     expect(await limits.json()).toMatchObject({ decide: { limit: 2, remaining: 0 } });
     const other = await Phone.create();
-    expect((await other.post("/v1/decide", { ...ideas, requestId: "d" })).status).toBe(200);
+    expect((await other.post("/v1/decide", { ...ideas, requestId: "d" }, { ai })).status).toBe(200);
   });
 
   it("rejects a pick outside the ideas", async () => {
     const phone = await Phone.create();
-    jev("idea_9");
-    expect((await phone.post("/v1/decide", ideas)).status).toBe(502);
+    expect((await phone.post("/v1/decide", ideas, { ai: { run: clef("idea_9") } })).status).toBe(502);
   });
 
   it("rejects bad offsets and bad sets", async () => {
@@ -210,33 +211,33 @@ describe("toppings", () => {
     ingredients: ["Pecorino", "Salt", "Pepper"],
   };
 
-  function nouls(values: number[], status = 200) {
-    return vi.spyOn(globalThis, "fetch").mockImplementation(async () => new Response(JSON.stringify({
-      model: "jev-1.13.0",
+  function nouls(values: number[]) {
+    return vi.fn(async (_model: string, _input: object) => ({
+      model: "clef-flash",
       answers: Object.fromEntries(values.map((noul, index) => [`line_${index + 1}`, { type: "noul", noul }])),
-    }), { status }));
+      usage: { input_tokens: 1, output_tokens: 1 },
+    }));
   }
 
-  it("asks Jev one question per line and returns the answers in order", async () => {
+  it("asks Clef-flash one question per line and returns the answers in order", async () => {
     const phone = await Phone.create();
-    const fetch = nouls([0.96, 0.1, 0.93]);
-    const response = await phone.post("/v1/toppings", dish);
+    const run = nouls([0.96, 0.1, 0.93]);
+    const response = await phone.post("/v1/toppings", dish, { ai: { run } });
     expect(await response.json()).toEqual({ visible: [0.96, 0.1, 0.93], remaining: 1 });
-    const sent = JSON.parse(fetch.mock.calls[0][1]!.body as string);
+    expect(run.mock.calls[0][0]).toBe("@cf/cloudflare/clef-flash");
+    const sent = run.mock.calls[0][1] as { state: object; questions: { [key: string]: object } };
     expect(sent.state).toEqual({ dish: "Spaghetti Carbonara", method: [{ step: "Plate the carbonara", points: dish.steps[0].points }] });
     expect(Object.keys(sent.questions)).toEqual(["line_1", "line_2", "line_3"]);
     expect(sent.questions.line_3).toMatchObject({ type: "noul", instructions: { ingredient: "Pepper" } });
   });
 
-  it("gives back a call Jev does not fully answer, and stops at the limit", async () => {
+  it("gives back a call Clef-flash does not fully answer, and stops at the limit", async () => {
     const phone = await Phone.create();
-    nouls([0.9]);
-    expect((await phone.post("/v1/toppings", dish)).status).toBe(502);
-    vi.restoreAllMocks();
-    nouls([0.9, 0.1, 0.9]);
-    expect((await phone.post("/v1/toppings", dish)).status).toBe(200);
-    expect((await phone.post("/v1/toppings", dish)).status).toBe(200);
-    expect((await phone.post("/v1/toppings", dish)).status).toBe(429);
+    expect((await phone.post("/v1/toppings", dish, { ai: { run: nouls([0.9]) } })).status).toBe(502);
+    const ai = { run: nouls([0.9, 0.1, 0.9]) };
+    expect((await phone.post("/v1/toppings", dish, { ai })).status).toBe(200);
+    expect((await phone.post("/v1/toppings", dish, { ai })).status).toBe(200);
+    expect((await phone.post("/v1/toppings", dish, { ai })).status).toBe(429);
     expect(await (await phone.post("/v1/limits", {})).json()).toMatchObject({ toppings: { limit: 2, remaining: 0 } });
   });
 
