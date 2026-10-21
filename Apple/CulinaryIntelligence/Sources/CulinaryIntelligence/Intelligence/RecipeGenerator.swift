@@ -284,7 +284,7 @@ public final class RecipeGenerator {
     /// of it put into English for Gemma.
     let writer = ModelPasses()
 
-    /// Where Gemma writes, and where Jev picks an idea.
+    /// Where Gemma writes, and where Clef picks an idea.
     let cloud = PlatesCloud.shared
 
     /// Where the run reports how far along it is.

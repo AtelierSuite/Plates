@@ -148,7 +148,7 @@ final class RecipeStore {
     /// Writes a recipe out. New recipes get a unique id so a second "Tomato Egg" does not
     /// overwrite the first; existing ones keep the file they came from. A new recipe that came
     /// without a dish, from the share extension or the samples, has one worked out before it is
-    /// written, and Jev's answer replaces it once it comes back, the way a generated recipe's
+    /// written, and Clef's answer replaces it once it comes back, the way a generated recipe's
     /// dish is asked.
     @discardableResult
     func save(_ recipe: Recipe, isNew: Bool = false) -> Bool {
@@ -183,7 +183,7 @@ final class RecipeStore {
         return recipe
     }
 
-    /// Asks for a new recipe's dish and writes it in, unless its dish was redrawn while Jev
+    /// Asks for a new recipe's dish and writes it in, unless its dish was redrawn while Clef
     /// was being asked. A signature dish decided in the meantime is kept.
     private func askDish(for recipe: Recipe) {
         Task {

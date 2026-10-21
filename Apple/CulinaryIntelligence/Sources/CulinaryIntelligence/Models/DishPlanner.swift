@@ -13,7 +13,7 @@ extension Dish {
         DishPlanner(recipe, seed: seed ?? recipe.id).dish.keepingSignature(of: recipe)
     }
 
-    /// The dish, with Jev asked which of the seasonings, aromatics, and optional lines can be
+    /// The dish, with Clef asked which of the seasonings, aromatics, and optional lines can be
     /// seen once it is served. The words of the title and the last step only say so when the
     /// recipe happens to name the line there. When the Worker cannot be reached, they decide.
     @MainActor
@@ -65,13 +65,13 @@ private nonisolated struct DishPlanner {
     private let title: String
     private let method: String
     private let finish: String
-    /// Whether an ingredient the words cannot settle can be seen on the served dish, as Jev
+    /// Whether an ingredient the words cannot settle can be seen on the served dish, as Clef
     /// answered it, by catalog name.
     private let seen: [String: Bool]
 
-    /// How sure Jev has to be that an ingredient can be seen before it is drawn. Pepper on
-    /// carbonara comes back near 0.9 and pepper seasoned into fried rice near 0.3.
-    static let seenAbove = 0.6
+    /// How sure Clef has to be that an ingredient can be seen before it is drawn. Pepper on
+    /// carbonara comes back near 0.9 and pepper seasoned into fried rice under 0.3.
+    static let seenAbove = 0.35
 
     init(_ recipe: Recipe, seed: String, seen: [String: Bool] = [:]) {
         self.recipe = recipe

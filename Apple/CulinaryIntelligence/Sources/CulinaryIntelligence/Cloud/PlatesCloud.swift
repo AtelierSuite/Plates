@@ -6,7 +6,7 @@ import Foundation
 public enum CloudError: LocalizedError, Equatable {
     /// The app was built without the address of the Worker.
     case notConfigured
-    /// The cook has not yet allowed requests to go to Gemma and Jev.
+    /// The cook has not yet allowed requests to go to Gemma and Clef.
     case notAllowed
     /// This device cannot prove it is running Plates, which every request has to.
     case unsupported
@@ -42,13 +42,13 @@ public struct CloudLimits: Decodable, Equatable, Sendable {
     public let toppings: Allowance
 }
 
-/// The idea Jev picked, and how many more picks are left today.
+/// The idea Clef picked, and how many more picks are left today.
 public struct CloudPick: Equatable, Sendable {
     public let index: Int
     public let remaining: Int
 }
 
-/// The Worker the app talks to: Gemma on Workers AI writes, and Jev picks an idea when the cook
+/// The Worker the app talks to: Gemma on Workers AI writes, and Clef picks an idea when the cook
 /// asks it to and says what can be seen on a dish for its icon. Every request is signed with an App Attest key, made and registered the first
 /// time the app needs one, so the Worker only answers Plates on a real device.
 @MainActor
@@ -82,7 +82,7 @@ public final class PlatesCloud {
     /// Where `isAllowed` is kept, for views that follow it with `@AppStorage`.
     nonisolated public static let allowedKey = "PlatesCloud.Allowed"
 
-    /// Whether the cook has allowed their requests and recipes to go to Gemma and Jev. Until
+    /// Whether the cook has allowed their requests and recipes to go to Gemma and Clef. Until
     /// they have, nothing but a limits check leaves the device, and a dish icon is drawn from
     /// the recipe's words alone.
     public var isAllowed: Bool {
@@ -130,7 +130,7 @@ public final class PlatesCloud {
 
     // MARK: - Deciding
 
-    /// Asks Jev which of the ideas fits the cook's request best. A retry with the same request
+    /// Asks Clef which of the ideas fits the cook's request best. A retry with the same request
     /// ID is answered from the first pick and not counted again.
     public func decide(
         requestID: String,
@@ -153,7 +153,7 @@ public final class PlatesCloud {
 
     // MARK: - Dish icons
 
-    /// Asks Jev, line by line, how likely each ingredient is to be seen on the dish as it is
+    /// Asks Clef, line by line, how likely each ingredient is to be seen on the dish as it is
     /// served. The answers come back in the order the lines went out.
     func toppings(dish: String, steps: [(title: String, points: [String])], ingredients: [String]) async throws -> [Double] {
         let body = try JSONSerialization.data(withJSONObject: [

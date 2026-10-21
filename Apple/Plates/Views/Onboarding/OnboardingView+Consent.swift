@@ -20,8 +20,8 @@ extension OnboardingView {
                 )
                 featureRow(
                     icon: "dice",
-                    title: "Consent.Jev",
-                    description: "Consent.Jev.Description",
+                    title: "Consent.Clef",
+                    description: "Consent.Clef.Description",
                     spacing: 8
                 )
                 featureRow(
@@ -34,7 +34,6 @@ extension OnboardingView {
 
             VStack(alignment: .leading, spacing: 12) {
                 Link("Consent.Policy.Cloudflare", destination: AIProcessingView.cloudflarePolicy)
-                Link("Consent.Policy.TypeSafe", destination: AIProcessingView.typeSafePolicy)
             }
             .font(.subheadline)
 

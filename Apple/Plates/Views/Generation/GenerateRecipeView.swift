@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The sheet that asks for a new recipe and shows it before it is saved. A named dish the
 /// kitchen can make is written straight away. Anything else is offered as five ideas first, and
-/// the cook picks one or lets Jev pick it. Gemma writes the recipe and Apple Intelligence sorts
+/// the cook picks one or lets Clef pick it. Gemma writes the recipe and Apple Intelligence sorts
 /// it, so the sheet waits on both.
 struct GenerateRecipeView: View {
     @Environment(\.dismiss) private var dismiss
@@ -254,7 +254,7 @@ struct GenerateRecipeView: View {
         Task { draft = await generator.generate(request, idea: idea) }
     }
 
-    /// Jev picks for the cook. A pick that fails leaves the list as it was, and the cook can
+    /// Clef picks for the cook. A pick that fails leaves the list as it was, and the cook can
     /// still pick one themselves.
     private func decide() {
         decideError = nil

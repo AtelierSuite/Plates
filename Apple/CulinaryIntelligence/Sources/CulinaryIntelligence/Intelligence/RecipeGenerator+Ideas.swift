@@ -88,7 +88,7 @@ extension RecipeGenerator {
         }
     }
 
-    /// Asks Jev to pick one of the ideas for the cook. It reads Gemma's English for them, the
+    /// Asks Clef to pick one of the ideas for the cook. It reads Gemma's English for them, the
     /// cook's own words for the request, and what they picked in the catalog.
     public func decide(_ asked: GenerationRequest, ideas: [RecipeIdea], requestID: String) async throws -> CloudPick {
         let request = asked.asAsked

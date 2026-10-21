@@ -96,9 +96,11 @@ of the evals, so do not undo one without running them again.
   the form against the icon. Its cuisine was wrong one time in four, so little depends on it.
   It is only asked when the title does not end with the dish: on real recipes it called chicken
   enchiladas tacos and a kimchi jjigae a noodle soup, both of which the title already settled.
-- Jev says whether a seasoning, aromatic, or optional line can be seen on the served dish, one
-  question per line, and a line under 0.6 is left off the icon. The title and the last step
-  only decide when the Worker cannot be reached.
+- Clef-flash, on Workers AI, says whether a seasoning, aromatic, or optional line can be seen on
+  the served dish, one question per line, and a line under 0.35 is left off the icon. It scores
+  lower than Jev, the model before it: on the sample recipes, 0.35 kept Jev's 0.6 calls on 70 of
+  75 lines, and 0.6 kept 63. The title and the last step only decide when the Worker cannot be
+  reached.
 
 ## Icons
 
