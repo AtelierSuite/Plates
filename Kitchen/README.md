@@ -36,6 +36,18 @@ Each model gets all three dishes in both languages with a shared prompt, tempera
 
 This is a screening test only. A promising model still needs evaluation in the full multi-pass Plates pipeline and on a real iPhone 15 Pro.
 
+### Jev requests
+
+Each structured recipe can be sent to Jev as a state and a set of questions. The state holds the cook's request, the model's original text, and the Apple structure. The questions are `choice` questions from three templates, one for each ingredient, one for each tool, and one for each step, plus one check each for missing ingredients and missing tools. Every question offers `no_problem` or a named kind of problem. Ingredients and tools are keyed by their name in kebab case, with the amount, leading measures, bracketed notes, and anything after a comma taken off, so "1 can (14 oz) crushed tomatoes" is `crushed-tomatoes`. Steps are keyed `step_1`, `step_2`, and so on.
+
+**Copy state** and **Copy questions** under a result put one recipe on the clipboard. **Export Jev requests** writes every structured recipe to a folder as `<model>-<dish>-<language>-<run>.state.json` and `.questions.json`. From the command line:
+
+```sh
+"dist/Plates Kitchen.app/Contents/MacOS/PlatesKitchen" --jev-export --model granite4-1b --output "$HOME/Library/Application Support/Plates Kitchen/Jev"
+```
+
+Reads `session.json` unless `--input` names another results file. `--model` is optional.
+
 ## SVG graphics eval
 
 The **SVG graphics** screen has each model compose a recipe icon and every step illustration for three sample recipes (`Sources/PlatesKitchen/Samples/svg-recipes.json`). Prompts include the requested subject and the SVG paths of its required ingredient and cookware symbols, so this evaluates scene composition from a known visual vocabulary. Static checks cover XML validity, viewBox, allowed elements and attributes, external references, colors, size, and shape count; they do not verify that the composition depicts the cooking action. Only passing SVGs are previewed. Human review covers subject, action, readability, and style. Results are stored in `svg-session.json`, and **Import JSON** merges headless result files.

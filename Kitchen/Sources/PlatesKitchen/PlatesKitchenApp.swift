@@ -79,6 +79,8 @@ private struct KitchenView: View {
                     }
                     Button("Structure saved outputs") { runner.structureSavedOutputs() }
                     .disabled(runner.isRunning || !runner.appleIntelligenceAvailable || !runner.runs.contains { !$0.rawText.isEmpty })
+                    Button("Export Jev requests") { exportJev() }
+                        .disabled(!runner.runs.contains { $0.recipe != nil })
                 Text(runner.status).font(.caption).foregroundStyle(.secondary)
                 }
                 .padding()
@@ -202,6 +204,14 @@ private struct KitchenView: View {
                 DisclosureGroup("Original model recipe") {
                     Text(run.rawText).font(.system(.caption, design: .monospaced)).textSelection(.enabled)
                 }
+                if let recipe = run.recipe {
+                    HStack {
+                        Text("Jev").font(.headline)
+                        Spacer()
+                        Button("Copy state") { copy(JevRequest.state(for: run, recipe: recipe).json()) }
+                        Button("Copy questions") { copy(JevRequest.questions(for: recipe).json()) }
+                    }
+                }
                 Divider()
                 Text("Human review").font(.headline)
                 Toggle("Cookable as written", isOn: $runner.runs[index].review.feasible)
@@ -236,6 +246,27 @@ private struct KitchenView: View {
         if panel.runModal() == .OK, let url = panel.url {
             if url.lastPathComponent == candidate.fileName { runner.setModel(url, for: candidate) }
             else { runner.status = "Expected \(candidate.fileName). Choose the listed quantization." }
+        }
+    }
+
+    private func copy(_ text: String) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+    }
+
+    private func exportJev() {
+        let panel = NSOpenPanel()
+        panel.message = "Choose a folder for the Jev state and question files"
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.canCreateDirectories = true
+        if panel.runModal() == .OK, let url = panel.url {
+            do {
+                let count = try JevRequest.export(runner.runs, to: url)
+                runner.status = "Wrote Jev requests for \(count) recipes to \(url.lastPathComponent)."
+            } catch {
+                runner.status = "Jev export failed: \(error.localizedDescription)"
+            }
         }
     }
 

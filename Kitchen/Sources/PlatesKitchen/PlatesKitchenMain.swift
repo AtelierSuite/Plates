@@ -5,6 +5,10 @@ import SwiftUI
 @MainActor
 enum PlatesKitchenMain {
     static func main() async {
+        if CommandLine.arguments.contains("--jev-export") {
+            exportJev()
+            return
+        }
         if CommandLine.arguments.contains("--headless-scene-eval") {
             await runScene()
             return
@@ -207,6 +211,25 @@ enum PlatesKitchenMain {
         let peak = runner.runs.map(\.peakFootprintMB).max() ?? 0
         print("Completed \(runner.runs.count) images; \(failures.count) failed; median \(median.formatted(.number.precision(.fractionLength(1)))) s; peak footprint \(Int(peak)) MB.")
         exit(failures.isEmpty ? 0 : 2)
+    }
+
+    private static func exportJev() {
+        let arguments = CommandLine.arguments
+        let support = FileManager.default.homeDirectoryForCurrentUser.path + "/Library/Application Support/Plates Kitchen"
+        let input = URL(fileURLWithPath: value(after: "--input", in: arguments) ?? (support + "/session.json"))
+        let output = URL(fileURLWithPath: value(after: "--output", in: arguments) ?? (support + "/Jev"))
+        do {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            var runs = try decoder.decode([EvalRun].self, from: Data(contentsOf: input))
+            if let model = value(after: "--model", in: arguments) { runs = runs.filter { $0.modelID == model } }
+            let count = try JevRequest.export(runs, to: output)
+            print("Wrote Jev requests for \(count) recipes to \(output.path)")
+            exit(0)
+        } catch {
+            print("Could not export Jev requests: \(error.localizedDescription)")
+            exit(1)
+        }
     }
 
     private static func concurrency(in arguments: [String]) -> Int {
