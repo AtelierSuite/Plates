@@ -12,6 +12,8 @@ export default defineConfig(() => {
 			name,
 			compatibilityDate: "2026-08-22",
 			entrypoint: "src/index.ts",
+			workersDev: false,
+			previewUrls: false,
 			observability: {
 				enabled: true,
 			},
