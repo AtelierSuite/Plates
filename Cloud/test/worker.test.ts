@@ -32,7 +32,7 @@ describe("routing", () => {
     expect((await call(new Request("https://plates.test/health"))).status).toBe(200);
     const home = await call(new Request("https://plates.test/"));
     expect(home.status).toBe(302);
-    expect(home.headers.get("Location")).toBe("https://github.com/katagaki/PlatesCloud");
+    expect(home.headers.get("Location")).toBe("https://atelier.ktgk.app/#plates");
     expect((await call(new Request("https://plates.test/v1/chat/completions"))).status).toBe(405);
     expect((await call(new Request("https://plates.test/v1/nothing", { method: "POST" }))).status).toBe(404);
   });

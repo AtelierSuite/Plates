@@ -8,7 +8,7 @@ import { askToppings, parseToppings } from "./toppings";
 
 export { Device };
 
-const HOMEPAGE = "https://github.com/katagaki/PlatesCloud";
+const HOMEPAGE = "https://atelier.ktgk.app/#plates";
 const MAX_BODY_BYTES = 64 * 1024;
 
 function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {
