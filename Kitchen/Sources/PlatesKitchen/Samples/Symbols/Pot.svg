@@ -1,0 +1,6 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stock pot">
+  <path d="M9 20h30v14a6 6 0 0 1-6 6H15a6 6 0 0 1-6-6Z" fill="#4a4e54"/>
+  <rect x="7" y="17" width="34" height="4" rx="2" fill="#6f747b"/>
+  <path d="M7 24c-3 0-3 5 0 5M41 24c3 0 3 5 0 5" stroke="#8d939b" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M13 26h22" stroke="#6f747b" stroke-width="2" stroke-linecap="round"/>
+</svg>
