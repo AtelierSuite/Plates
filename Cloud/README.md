@@ -7,17 +7,23 @@ The server side of Plates: one Cloudflare Worker that writes recipes with Gemma 
 ```bash
 npm install && npm test
 npm run dev
-npm run deploy:staging
-npm run deploy:production
+npm run deploy
 ```
 
-CI tests every push and deploys on published GitHub Releases: a prerelease goes to staging, a full release to production, using a `CLOUDFLARE_API_TOKEN` secret scoped to Edit Cloudflare Workers.
+Cloudflare Workers Builds deploys `plates-cloud` from this repository. The Worker is connected to the repository's `main` branch with these build settings:
 
-The deploy jobs run in the `staging` and `production` GitHub Environments. Each environment holds the vars below as Variables and the secrets below as Secrets; CI exports both to `cf deploy`, which reads the vars in `cloudflare.config.ts` and uploads the secrets with `--secrets-file`.
+| Setting | Value |
+| --- | --- |
+| Root directory | `Cloud` |
+| Build watch paths | Include `Cloud/*` |
+| Build command | `npm ci && npm run typecheck && npm test` |
+| Deploy command | `npx cf deploy` |
+
+A push to `main` that changes `Cloud/` is tested and deployed. A push that changes nothing in `Cloud/` does not start a build.
 
 ## Settings
 
-Plain vars are read from the environment by `cloudflare.config.ts` at deploy time, and are empty until set. An endpoint that needs a missing setting answers 503 rather than running unchecked.
+Plain vars are read from the environment by `cloudflare.config.ts` at deploy time, and are empty until set. In Workers Builds they are build variables on the Worker, alongside `NODE_VERSION` set to `24`. An endpoint that needs a missing setting answers 503 rather than running unchecked.
 
 | Var | Meaning |
 | --- | --- |
@@ -33,7 +39,7 @@ Daily quotas use the server’s UTC date and reset at midnight UTC. The four lim
 
 For example, `INSERT OR REPLACE INTO limits (kind, daily) VALUES ('write', 50)` gives a device 50 Gemma calls a day.
 
-Outside CI, secrets are uploaded with `npm run deploy:staging -- --secrets-file secrets.json` (or `deploy:production`), or kept in a gitignored `.dev.vars` copied from `.dev.vars.example`:
+Secrets are set once on the Worker, under Settings, Variables and Secrets, and carry over to each new deploy. For `npm run dev` they are kept in a gitignored `.dev.vars` copied from `.dev.vars.example`:
 
 | Secret | Where it comes from |
 | --- | --- |

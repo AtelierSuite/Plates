@@ -5,8 +5,8 @@ declare const process: { env: Record<string, string | undefined> };
 
 const text = (name: string) => bindings.text(process.env[name] ?? "");
 
-export default defineConfig((ctx) => {
-	const name = ctx.mode === "staging" ? "plates-cloud-beta" : "plates-cloud";
+export default defineConfig(() => {
+	const name = "plates-cloud";
 	return {
 		worker: {
 			name,
