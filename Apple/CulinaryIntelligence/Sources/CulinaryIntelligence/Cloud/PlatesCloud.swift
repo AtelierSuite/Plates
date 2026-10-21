@@ -61,7 +61,7 @@ public final class PlatesCloud {
     private static let keyAccount = "AppAttestKeyID"
 
     /// A debug build in Simulator, where App Attest does not run, talks to `npm run dev` in
-    /// ../PlatesCloud unsigned. The Worker only allows that on localhost with `SKIP_APP_ATTEST`.
+    /// Cloud/ unsigned. The Worker only allows that on localhost with `SKIP_APP_ATTEST`.
     #if DEBUG && targetEnvironment(simulator)
     private static let skipsAppAttest = true
     private static let fallbackURL = "http://localhost:8787"

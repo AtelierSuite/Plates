@@ -4,6 +4,12 @@ A single-view iOS recipe manager. Recipes are JSON files that follow the schema 
 One-Pan Food site in `../Recipes`, one file per recipe, stored either in the app's Documents
 folder or in iCloud Drive depending on what the user picks in the ellipsis menu.
 
+## Layout
+
+- `Apple/`: the iOS app, its widget extension, and the `CulinaryIntelligence` package.
+- `Cloud/`: PlatesCloud, the Cloudflare Worker the app talks to.
+- `Kitchen/`: Plates Kitchen, a Mac app for screening models and exporting requests.
+
 ## Code rules
 
 - No file headers. Swift files start at the first `import`, with no leading comment block
@@ -35,14 +41,17 @@ folder or in iCloud Drive depending on what the user picks in the ellipsis menu.
 
 ## PlatesCloud
 
-The Worker lives in `../PlatesCloud` (github.com/katagaki/PlatesCloud) and keeps every daily
-limit. The app only shows what it is told is left.
+The Worker lives in `Cloud/` and keeps every daily limit. The app only shows what it is told is
+left.
 
-- `PlatesCloudAddress.url` is empty in the repository. `ci_scripts/ci_pre_xcodebuild.sh` writes
+- In `Cloud/`, write no comments in code unless one explains a hack or workaround, and keep the
+  code simple.
+
+- `PlatesCloudAddress.url` is empty in the repository. `Apple/ci_scripts/ci_pre_xcodebuild.sh` writes
   Xcode Cloud's `PLATES_CLOUD_URL` into it. For a local build against the Worker, run the script
   with `PLATES_CLOUD_URL` and `CI_PRIMARY_REPOSITORY_PATH` set, and do not commit the result.
 - App Attest does not run in Simulator, so a debug build there sends unsigned requests to
-  `http://localhost:8787`. Run `npm run dev` in `../PlatesCloud` with `SKIP_APP_ATTEST=true` in
+  `http://localhost:8787`. Run `npm run dev` in `Cloud/` with `SKIP_APP_ATTEST=true` in
   its `.dev.vars`.
 
 ## Model lessons
@@ -99,24 +108,24 @@ of the evals, so do not undo one without running them again.
   will not take it.
 - Adding an icon means adding its `Ingredient.Name.` or `Tool.Name.` key in both languages, by
   hand, with `extractionState` set to `manual`.
-- Every icon, dish parts included, follows the Fluent style in `Assets/IconStyle/STYLE.md`.
+- Every icon, dish parts included, follows the Fluent style in `Apple/Assets/IconStyle/STYLE.md`.
   Check what you draw against the real thing first, and look at it rendered on light and dark
   before you finish.
 
 ### Dish icons
 
-The parts, `Plates/Dishes.xcassets`, and the package's `Resources/DishParts.json` are all written
-from `Assets/DishIcons/Parts`. Do not edit the outputs.
+The parts, `Apple/Plates/Dishes.xcassets`, and the package's `Resources/DishParts.json` are all written
+from `Apple/Assets/DishIcons/Parts`. Do not edit the outputs.
 
 - Parts are drawn in flat colours. `export.py` shades them as it writes them, so do not add
   gradients to `catalog.py` or `draw.py` by hand.
-- Work in `Assets/DishIcons`: `python3 preview.py` while drawing, then `python3 export.py`,
+- Work in `Apple/Assets/DishIcons`: `python3 preview.py` while drawing, then `python3 export.py`,
   `python3 qa.py`, `python3 layout.py` and `swift contrast.swift`. `STYLE.md` has the details.
 - Only the PNGs from `qa.py` and `layout.py` are committed. Delete the SVGs they leave behind.
 
 ### Signature dish icons
 
-Well known dishes have a hand drawn icon in `Plates/SignatureDishes.xcassets`, shown instead of the
+Well known dishes have a hand drawn icon in `Apple/Plates/SignatureDishes.xcassets`, shown instead of the
 dish made from parts when a recipe makes the dish. `SignatureDishes.json` in the package lists, for
 each one, the English and Japanese titles it answers to and the forms of food its icon can stand
 for.
@@ -134,8 +143,8 @@ for.
   Invented decoys such as "Ramen Burger" made the title rule look far worse than it is.
 - A new dish needs its titles in both languages, its forms, and an icon named
   `DishSignature<PascalId>`, drawn to the "Signature dish icons" section of
-  `Assets/IconStyle/STYLE.md`.
-- Check the full set with `python3 Assets/SignatureDishes/sheet.py /tmp/sheet.png all`.
+  `Apple/Assets/IconStyle/STYLE.md`.
+- Check the full set with `python3 Apple/Assets/SignatureDishes/sheet.py /tmp/sheet.png all`.
 
 ## Localization
 
