@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-file="$CI_PRIMARY_REPOSITORY_PATH/CulinaryIntelligence/Sources/CulinaryIntelligence/Cloud/PlatesCloudAddress.swift"
+file="$CI_PRIMARY_REPOSITORY_PATH/Apple/CulinaryIntelligence/Sources/CulinaryIntelligence/Cloud/PlatesCloudAddress.swift"
 
 if [ -z "${PLATES_CLOUD_URL:-}" ]; then
     echo "warning: PLATES_CLOUD_URL is not set, so this build has no recipe writer."
