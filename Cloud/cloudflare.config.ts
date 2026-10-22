@@ -14,6 +14,7 @@ export default defineConfig(() => {
 			entrypoint: "src/index.ts",
 			workersDev: false,
 			previewUrls: false,
+			domains: ["plates.ktgk.app"],
 			observability: {
 				enabled: true,
 			},
