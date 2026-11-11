@@ -92,9 +92,15 @@ public final class PlatesCloud {
 
     // MARK: - Writing
 
-    /// Gemma's answer streamed back a piece at a time.
-    func write(instructions: String, prompt: String, maximumTokens: Int = 1400) -> AsyncThrowingStream<String, Error> {
-        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: true)
+    /// Gemma's answer streamed back a piece at a time. With `thinks`, Gemma reasons before it
+    /// writes, the Worker gives it the room, and only the answer comes back.
+    func write(
+        instructions: String,
+        prompt: String,
+        maximumTokens: Int = 1400,
+        thinks: Bool = false
+    ) -> AsyncThrowingStream<String, Error> {
+        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: true, thinks: thinks)
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
@@ -262,8 +268,10 @@ public final class PlatesCloud {
 
     // MARK: - Bodies
 
-    private static func chat(instructions: String, prompt: String, maximumTokens: Int, stream: Bool) -> Data {
-        let object: [String: Any] = [
+    /// `thinking` is only sent when it is on, so a request without it is the same as before
+    /// the Worker knew it.
+    private static func chat(instructions: String, prompt: String, maximumTokens: Int, stream: Bool, thinks: Bool = false) -> Data {
+        var object: [String: Any] = [
             "messages": [
                 ["role": "system", "content": instructions],
                 ["role": "user", "content": prompt],
@@ -272,6 +280,7 @@ public final class PlatesCloud {
             "temperature": 0.7,
             "stream": stream,
         ]
+        if thinks { object["thinking"] = true }
         return (try? JSONSerialization.data(withJSONObject: object)) ?? Data()
     }
 

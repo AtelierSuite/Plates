@@ -3,7 +3,7 @@ import { base64Decode, base64UrlEncode } from "./bytes";
 import { type Pick, askClef, parseDecision } from "./decide";
 import { Device, type Kind } from "./device";
 import { type Env, appId, limit } from "./env";
-import { GEMMA_MODEL, MAX_IDEA_TOKENS, MAX_OUTPUT_TOKENS, completion, completionStream, parseChat } from "./gemma";
+import { GEMMA_MODEL, MAX_IDEA_TOKENS, MAX_OUTPUT_TOKENS, completion, completionStream, gemmaInput, parseChat } from "./gemma";
 import { askToppings, parseToppings } from "./toppings";
 
 export { Device };
@@ -134,12 +134,12 @@ async function write(request: Request, env: Env, kind: "write" | "ideate"): Prom
   const bytes = await body(request);
   if (!bytes) return failure(413, "request too large");
   if (minutes === null) return failure(400, "bad request");
-  const chat = parseChat(parse(bytes), kind === "write" ? MAX_OUTPUT_TOKENS : MAX_IDEA_TOKENS);
+  const chat = parseChat(parse(bytes), kind === "write" ? MAX_OUTPUT_TOKENS : MAX_IDEA_TOKENS, kind === "write");
   if (typeof chat === "string") return failure(400, chat);
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
   return metered(stub, kind, quotaDay(), most, undefined, async (remaining) => {
-    const result = await env.AI.run(GEMMA_MODEL, { ...chat, chat_template_kwargs: { enable_thinking: false } });
+    const result = await env.AI.run(GEMMA_MODEL, gemmaInput(chat));
     const headers = { "X-Plates-Remaining": String(remaining) };
     if (chat.stream) {
       if (!(result instanceof ReadableStream)) throw new Error("gemma returned no stream");

@@ -62,8 +62,8 @@ Everything is `POST` except `/health`. The signed endpoints take three headers:
 | --- | --- | --- |
 | `/v1/challenge` | No | Returns `{ "challenge" }`, good for five minutes |
 | `/v1/attest` | No | Takes `{ keyId, attestation, challenge }`. The attestation's client data hash is the SHA-256 of the challenge string's UTF-8 bytes. Registers the key once |
-| `/v1/chat/completions` | Yes | OpenAI Chat Completions in and out, streamed when `stream` is true. Always Gemma 4 26B A4B; `max_tokens` is capped at 1,400 |
-| `/v1/ideate` | Yes | The same as `/v1/chat/completions`, for the dish ideas: counted against `IDEATE_DAILY_LIMIT`, with `max_tokens` capped at 500 |
+| `/v1/chat/completions` | Yes | OpenAI Chat Completions in and out, streamed when `stream` is true. Always Gemma 4 26B A4B; `max_tokens` is capped at 1,400. Gemma does not think unless `thinking` is `true`, which is for evaluating it: reasoning tokens count against Gemma's own `max_tokens`, so the Worker adds 2,600 to it, and the reasoning is left out of the answer |
+| `/v1/ideate` | Yes | The same as `/v1/chat/completions`, for the dish ideas: counted against `IDEATE_DAILY_LIMIT`, with `max_tokens` capped at 500 and no `thinking` |
 | `/v1/decide` | Yes | Takes `{ requestId, request, ingredients, tools, ideas: [{ title, summary }] }` and returns `{ index, confidence, probabilities, remaining }` |
 | `/v1/toppings` | Yes | Takes `{ dish, steps: [{ title, points }], ingredients }` and returns `{ visible, remaining }`, where `visible` holds Clef-flash's probability, line by line, that the ingredient can be seen on the dish as it is served |
 | `/v1/limits` | Yes | Returns today's `{ limit, remaining }` for each of `write`, `ideate`, `decide`, and `toppings`, without counting anything |

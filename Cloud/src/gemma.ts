@@ -1,6 +1,7 @@
 export const GEMMA_MODEL = "@cf/google/gemma-4-26b-a4b-it";
 export const MAX_OUTPUT_TOKENS = 1400;
 export const MAX_IDEA_TOKENS = 500;
+export const MAX_THINKING_TOKENS = 2600;
 const MAX_MESSAGES = 16;
 const MAX_CHARACTERS = 24_000;
 const ROLES = new Set(["system", "user", "assistant"]);
@@ -10,11 +11,12 @@ export interface Chat {
   max_tokens: number;
   temperature: number;
   stream: boolean;
+  thinking: boolean;
 }
 
-export function parseChat(body: unknown, most = MAX_OUTPUT_TOKENS): Chat | string {
+export function parseChat(body: unknown, most = MAX_OUTPUT_TOKENS, thinks = false): Chat | string {
   if (typeof body !== "object" || body === null) return "body must be an object";
-  const { messages, max_tokens, temperature, stream } = body as { [key: string]: unknown };
+  const { messages, max_tokens, temperature, stream, thinking } = body as { [key: string]: unknown };
   if (!Array.isArray(messages) || messages.length === 0 || messages.length > MAX_MESSAGES) return "messages must hold 1 to 16 entries";
   let characters = 0;
   for (const message of messages) {
@@ -28,12 +30,19 @@ export function parseChat(body: unknown, most = MAX_OUTPUT_TOKENS): Chat | strin
   if (!Number.isInteger(tokens) || (tokens as number) < 1 || (tokens as number) > most) return `max_tokens must be 1 to ${most}`;
   const heat = temperature === undefined ? 0.7 : temperature;
   if (typeof heat !== "number" || heat < 0 || heat > 1.5) return "temperature must be 0 to 1.5";
+  if (thinking !== undefined && (typeof thinking !== "boolean" || (thinking && !thinks))) return "thinking is not allowed here";
   return {
     messages: messages.map((message) => ({ role: message.role, content: message.content })),
     max_tokens: tokens as number,
     temperature: heat,
     stream: stream === true,
+    thinking: thinking === true,
   };
+}
+
+export function gemmaInput({ thinking, ...chat }: Chat): object {
+  if (!thinking) return { ...chat, chat_template_kwargs: { enable_thinking: false } };
+  return { ...chat, max_tokens: chat.max_tokens + MAX_THINKING_TOKENS, chat_template_kwargs: { enable_thinking: true } };
 }
 
 function text(part: unknown): string {

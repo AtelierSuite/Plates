@@ -290,6 +290,10 @@ public final class RecipeGenerator {
     /// Where the run reports how far along it is.
     let observer: (any RunObserver)?
 
+    /// Whether Gemma reasons before it writes the recipe. It is off in the app and is turned on
+    /// only to evaluate it, since it starts the draft later and has not been shown to help.
+    public var thinksWhileWriting = false
+
     public init(observer: (any RunObserver)? = nil) {
         self.observer = observer
     }
@@ -378,7 +382,11 @@ public final class RecipeGenerator {
     private func write(_ request: GenerationRequest) async throws -> String {
         progress.stage = .write
         var written = ""
-        let stream = cloud.write(instructions: Self.writeInstructions(for: request), prompt: Self.prompt(for: request))
+        let stream = cloud.write(
+            instructions: Self.writeInstructions(for: request),
+            prompt: Self.prompt(for: request),
+            thinks: thinksWhileWriting
+        )
         for try await piece in stream {
             written += piece
             guard piece.contains("\n"), let end = written.lastIndex(of: "\n") else { continue }

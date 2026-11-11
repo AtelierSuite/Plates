@@ -113,6 +113,34 @@ describe("writing", () => {
     expect(text.trim().endsWith("data: [DONE]")).toBe(true);
   });
 
+  it("thinks only when asked, with room for the reasoning, and streams none of it", async () => {
+    const phone = await Phone.create();
+    const run = vi.fn(async (_model: string, _input: object) => sse(
+      { choices: [{ delta: { reasoning_content: "Two eggs per person." } }] },
+      { choices: [{ delta: { reasoning_content: null, content: "Egg " } }] },
+      { choices: [{ delta: { content: "Fried Rice" } }] },
+    ));
+    const response = await phone.post("/v1/chat/completions", { ...chat, stream: true, thinking: true }, { ai: { run } });
+    const text = await response.text();
+    expect(text).not.toContain("Two eggs");
+    const contents = text.split("\n\n").filter((line) => line.startsWith("data: {"))
+      .map((line) => JSON.parse(line.slice(6)).choices[0].delta.content ?? "").join("");
+    expect(contents).toBe("Egg Fried Rice");
+    expect(run.mock.calls[0][1]).toEqual({
+      messages: chat.messages, max_tokens: 4000, temperature: 0.7, stream: true, chat_template_kwargs: { enable_thinking: true },
+    });
+    await phone.post("/v1/chat/completions", { ...chat, thinking: false }, { ai: { run } });
+    expect(run.mock.calls[1][1]).toEqual({
+      messages: chat.messages, max_tokens: 1400, temperature: 0.7, stream: false, chat_template_kwargs: { enable_thinking: false },
+    });
+  });
+
+  it("thinks for recipes only", async () => {
+    const phone = await Phone.create();
+    expect((await phone.post("/v1/ideate", { ...chat, thinking: true })).status).toBe(400);
+    expect((await phone.post("/v1/chat/completions", { ...chat, thinking: "yes" })).status).toBe(400);
+  });
+
   it("stops at the daily limit and gives back a failed write", async () => {
     const phone = await Phone.create();
     const broken = { run: async () => { throw new Error("gemma is down"); } };
