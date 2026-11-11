@@ -1,7 +1,8 @@
 import CulinaryIntelligence
 import SwiftUI
 
-/// The finished dish seen from above. A dish with a signature icon of its own is drawn from that.
+/// The finished dish seen from above. A dish Claude drew is shown as it drew it. A dish with a
+/// signature icon of its own is drawn from that.
 /// Any other is put together from the drawn parts in the asset catalog: the vessel, the food it
 /// is built on, and what goes on top. Pieces cast a small shadow, and a piece whose colours would
 /// vanish into what it lands on is drawn with an outline.
@@ -19,7 +20,21 @@ struct DishIcon: View {
 
     var body: some View {
         Group {
-            switch DishIconCache.drawing(for: recipe) {
+            if let drawn = DrawnDishes.shared.image(for: recipe.id) {
+                Image(uiImage: drawn)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                parts
+            }
+        }
+        .frame(width: size, height: size)
+        .accessibilityHidden(true)
+    }
+
+    @ViewBuilder
+    private var parts: some View {
+        switch DishIconCache.drawing(for: recipe) {
             case .signature(let asset):
                 Image(asset)
                     .resizable()
@@ -32,9 +47,6 @@ struct DishIcon: View {
                     }
                 }
             }
-        }
-        .frame(width: size, height: size)
-        .accessibilityHidden(true)
     }
 
     private func draw(_ placement: DishPlacement, in context: inout GraphicsContext, scale: CGFloat) {

@@ -172,6 +172,23 @@ final class ClaudeCloud: RecipeWriting {
         }
     }
 
+    // MARK: - Drawing
+
+    /// Room for a dish icon's SVG, which runs to a few thousand tokens.
+    static let drawingTokens = 6000
+
+    /// Claude's drawing of the dish as an SVG, from its title, its ingredient lines, and the
+    /// last step, which says how it is served.
+    func drawDish(title: String, ingredients: [String], finish: String) async throws -> String {
+        let prompt = Self.english(
+            "Claude.Prompt.DishIcon.Ask",
+            title,
+            ingredients.map { "- \($0)" }.joined(separator: "\n"),
+            finish
+        )
+        return try await answer(system: Self.english("Claude.Prompt.DishIcon"), prompt: prompt, maximumTokens: Self.drawingTokens)
+    }
+
     // MARK: - Requests
 
     /// The whole answer to one request, streamed and put together.
