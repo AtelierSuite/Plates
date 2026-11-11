@@ -143,11 +143,11 @@ async function write(request: Request, env: Env, kind: "write" | "ideate"): Prom
     const headers = { "X-Plates-Remaining": String(remaining) };
     if (chat.stream) {
       if (!(result instanceof ReadableStream)) throw new Error("gemma returned no stream");
-      return new Response(completionStream(result), {
+      return new Response(completionStream(result, chat.max_tokens), {
         headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", ...headers },
       });
     }
-    return json(completion(result), 200, headers);
+    return json(completion(result, chat.max_tokens), 200, headers);
   });
 }
 
