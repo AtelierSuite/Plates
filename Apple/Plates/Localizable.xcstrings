@@ -35,6 +35,23 @@
         }
       }
     },
+    "AIProcessing.Footer.Off.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipes are written by hand, and nothing is sent to Claude."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピは自分で書きます。Claudeには何も送られません。"
+          }
+        }
+      }
+    },
     "AIProcessing.Footer.On" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -52,6 +69,23 @@
         }
       }
     },
+    "AIProcessing.Footer.On.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plates generates recipes, and sends what is listed below to Claude at Anthropic."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platesがレシピを生成し、以下の情報をAnthropicのClaudeに送ります。"
+          }
+        }
+      }
+    },
     "AIProcessing.Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -65,6 +99,193 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "外部処理"
+          }
+        }
+      }
+    },
+    "APIKey.Claude.Footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Opus 5.5 writes on your own Anthropic account, and Anthropic bills it for each request. The key is kept in this iPhone's Keychain and sent only to Anthropic, never to PlatesCloud."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Opus 5.5は自分のAnthropicアカウントで動き、リクエストごとにAnthropicから請求されます。キーはこのiPhoneのキーチェーンに保存され、Anthropicにだけ送られます。PlatesCloudには送られません。"
+          }
+        }
+      }
+    },
+    "APIKey.Claude.Get" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get a Key from the Anthropic Console"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropic Consoleでキーを取得"
+          }
+        }
+      }
+    },
+    "APIKey.Claude.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropic API Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AnthropicのAPIキー"
+          }
+        }
+      }
+    },
+    "APIKey.Field" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APIキー"
+          }
+        }
+      }
+    },
+    "APIKey.Remove" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーを削除"
+          }
+        }
+      }
+    },
+    "APIKey.Save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        }
+      }
+    },
+    "APIKey.Saved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A key is saved. Enter a new one to replace it."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーは保存されています。置き換えるには、新しいキーを入力してください。"
+          }
+        }
+      }
+    },
+    "Consent.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Writes Recipes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claudeがレシピを書きます"
+          }
+        }
+      }
+    },
+    "Consent.Claude.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your request and the ingredients and tools you pick go to Claude Opus 5.5 at Anthropic, under your own account. Decide for Me and recipe icons send the recipe there too."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リクエストと選んだ材料・道具が、自分のアカウントでAnthropicのClaude Opus 5.5に送られます。おまかせとレシピのアイコンでは、レシピも送られます。"
+          }
+        }
+      }
+    },
+    "Consent.Claude.Key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Key Goes Only to Anthropic"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーはAnthropicにだけ送られます"
+          }
+        }
+      }
+    },
+    "Consent.Claude.Key.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The key stays in this iPhone's Keychain. Nothing is sent to PlatesCloud, and Anthropic bills your account for each request."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーはこのiPhoneのキーチェーンに保存されます。PlatesCloudには何も送られず、リクエストごとにAnthropicからアカウントに請求されます。"
           }
         }
       }
@@ -137,6 +358,23 @@
         }
       }
     },
+    "Consent.Policy.Anthropic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropic Privacy Policy"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropicのプライバシーポリシー"
+          }
+        }
+      }
+    },
     "Consent.Policy.Cloudflare" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -184,6 +422,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "名前、アカウント、位置情報は送られません。レシピはiPhoneまたはiCloud Driveにファイルとして残ります。"
+          }
+        }
+      }
+    },
+    "Consent.Private.Description.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No name or location is sent, and only the key ties a request to your Anthropic account. Recipes stay as files on your iPhone or in iCloud Drive."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前や位置情報は送られません。リクエストとAnthropicアカウントを結び付けるのはキーだけです。レシピはiPhoneまたはiCloud Driveにファイルとして残ります。"
           }
         }
       }
@@ -1157,6 +1412,23 @@
         }
       }
     },
+    "Limits.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Opus 5.5 runs on your own Anthropic account, so PlatesCloud's daily limits do not apply. Anthropic's rate limits and your account's credit do."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Opus 5.5は自分のAnthropicアカウントで動くため、PlatesCloudの1日の上限はありません。Anthropicのレート制限とアカウントのクレジットが適用されます。"
+          }
+        }
+      }
+    },
     "Limits.Decide" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1412,6 +1684,23 @@
         }
       }
     },
+    "Menu.APIKey.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropic API Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AnthropicのAPIキー"
+          }
+        }
+      }
+    },
     "Menu.Delete" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1599,6 +1888,23 @@
         }
       }
     },
+    "Menu.Writer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipe Writer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピの書き手"
+          }
+        }
+      }
+    },
     "Onboarding.Back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1663,6 +1969,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Platesは、iPhoneの外で動く2つのモデルを使ってレシピを書きます。必要な情報をこれらのモデルに送ることを許可してください。"
+          }
+        }
+      }
+    },
+    "Onboarding.Consent.Description.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plates writes recipes with Claude Opus 5.5, which runs outside your iPhone on your own Anthropic account. Allow Plates to send it what it needs."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platesは、iPhoneの外で、自分のAnthropicアカウントで動くClaude Opus 5.5を使ってレシピを書きます。必要な情報をClaudeに送ることを許可してください。"
           }
         }
       }

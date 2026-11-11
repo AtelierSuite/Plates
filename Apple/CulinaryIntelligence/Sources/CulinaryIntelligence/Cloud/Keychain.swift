@@ -2,7 +2,8 @@ import Foundation
 
 /// Small values kept in the Keychain rather than the app's defaults, so they are not in a backup
 /// of the recipe folder. They are readable after the first unlock, so a run carried on in the
-/// background can still send its requests.
+/// background can still send its requests. A cook's API key is kept to this device, so it does not
+/// travel in a backup to another one.
 nonisolated enum Keychain {
     static let service = "com.tsubuzaki.Plates.PlatesCloud"
 
@@ -20,7 +21,7 @@ nonisolated enum Keychain {
         return String(data: data, encoding: .utf8)
     }
 
-    static func write(_ value: String?, account: String) {
+    static func write(_ value: String?, account: String, thisDeviceOnly: Bool = false) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -30,7 +31,9 @@ nonisolated enum Keychain {
         guard let value, !value.isEmpty else { return }
         var item = query
         item[kSecValueData as String] = Data(value.utf8)
-        item[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+        item[kSecAttrAccessible as String] = thisDeviceOnly
+            ? kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+            : kSecAttrAccessibleAfterFirstUnlock
         SecItemAdd(item as CFDictionary, nil)
     }
 }

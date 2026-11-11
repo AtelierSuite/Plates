@@ -48,17 +48,18 @@ public struct CloudLimits: Decodable, Equatable, Sendable {
     public let edit: Allowance?
 }
 
-/// The idea Clef picked, and how many more picks are left today.
+/// The idea that was picked, and how many more picks are left today. A provider on the cook's
+/// own key has no daily limit, so it leaves the count out.
 public struct CloudPick: Equatable, Sendable {
     public let index: Int
-    public let remaining: Int
+    public let remaining: Int?
 }
 
 /// The Worker the app talks to: Gemma on Workers AI writes, and Clef picks an idea when the cook
 /// asks it to and says what can be seen on a dish for its icon. Every request is signed with an App Attest key, made and registered the first
 /// time the app needs one, so the Worker only answers Plates on a real device.
 @MainActor
-public final class PlatesCloud {
+public final class PlatesCloud: RecipeWriting {
     public static let shared = PlatesCloud()
 
     private let service = DCAppAttestService.shared
@@ -85,6 +86,10 @@ public final class PlatesCloud {
     }
 
     public var isConfigured: Bool { baseURL != nil }
+
+    var unconfiguredReason: LocalizedStringResource {
+        LocalizedStringResource(culinary: "Generate.Unavailable.CloudMissing")
+    }
 
     /// Where `isAllowed` is kept, for views that follow it with `@AppStorage`.
     nonisolated public static let allowedKey = "PlatesCloud.Allowed"
@@ -205,6 +210,10 @@ public final class PlatesCloud {
         let data = try await Self.collect(try await send("/v1/toppings", body: body).0)
         guard let answer = try? JSONDecoder().decode(ToppingsAnswer.self, from: data) else { throw CloudError.noResponse }
         return answer.visible
+    }
+
+    func decisionsRemaining() async -> Int? {
+        try? await limits().decide.remaining
     }
 
     /// Today's limits and what is left of each. Asking does not count against any of them.

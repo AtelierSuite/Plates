@@ -1,17 +1,22 @@
 import CulinaryIntelligence
 import SwiftUI
 
-/// What is left of today's limits on PlatesCloud, as the Worker counts them for this device.
+/// What is left of today's limits on PlatesCloud, as the Worker counts them for this device. A
+/// provider on the cook's own key has none from PlatesCloud, and the view says so instead.
 struct LimitsView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var limits: CloudLimits?
     @State private var error: String?
 
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+
     var body: some View {
         NavigationStack {
             List {
-                if let limits {
+                if provider.needsKey {
+                    Text("Limits.Claude")
+                } else if let limits {
                     Section {
                         row("Limits.Write", "Limits.Write.Detail", limits.write)
                         row("Limits.Ideate", "Limits.Ideate.Detail", limits.ideate)
@@ -73,6 +78,7 @@ struct LimitsView: View {
     }
 
     private func load() async {
+        guard !provider.needsKey else { return }
         do {
             limits = try await PlatesCloud.shared.limits()
             error = nil

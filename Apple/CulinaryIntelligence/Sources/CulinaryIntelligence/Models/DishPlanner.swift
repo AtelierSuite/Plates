@@ -13,15 +13,15 @@ extension Dish {
         DishPlanner(recipe, seed: seed ?? recipe.id).dish.keepingSignature(of: recipe)
     }
 
-    /// The dish, with Clef asked which of the seasonings, aromatics, and optional lines can be
-    /// seen once it is served. The words of the title and the last step only say so when the
+    /// The dish, with Clef, or the provider the cook brought a key for, asked which of the
+    /// seasonings, aromatics, and optional lines can be seen once it is served. The words of the title and the last step only say so when the
     /// recipe happens to name the line there. When the Worker cannot be reached, they decide.
     @MainActor
     public static func asked(for recipe: Recipe, seed: String? = nil) async -> Dish {
         let planner = DishPlanner(recipe, seed: seed ?? recipe.id)
         let questions = planner.questions
         guard !questions.isEmpty,
-              let answers = try? await PlatesCloud.shared.toppings(
+              let answers = try? await WriterProvider.current.service.toppings(
                   dish: recipe.title,
                   steps: recipe.steps.map { (title: $0.title, points: $0.points) },
                   ingredients: questions.map { String($0.line.prefix(300)) }

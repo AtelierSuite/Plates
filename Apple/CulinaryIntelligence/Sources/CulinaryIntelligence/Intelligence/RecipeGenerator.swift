@@ -288,8 +288,9 @@ public final class RecipeGenerator {
     /// of it put into English for Gemma.
     let writer = ModelPasses()
 
-    /// Where Gemma writes, and where Clef picks an idea.
-    let cloud = PlatesCloud.shared
+    /// Where the recipe is written and an idea picked: Gemma and Clef on PlatesCloud, or the
+    /// provider the cook brought their own key for.
+    var cloud: any RecipeWriting { WriterProvider.current.service }
 
     /// Where the run reports how far along it is.
     let observer: (any RunObserver)?
@@ -308,7 +309,7 @@ public final class RecipeGenerator {
     /// Why the button is disabled, in words a cook can act on.
     public var unavailableReason: LocalizedStringResource? {
         passes.unavailableReason
-            ?? (cloud.isConfigured ? nil : LocalizedStringResource(culinary: "Generate.Unavailable.CloudMissing"))
+            ?? (cloud.isConfigured ? nil : cloud.unconfiguredReason)
     }
 
     /// Writes the recipe the cook asked for, or the idea they picked for it. An idea is written

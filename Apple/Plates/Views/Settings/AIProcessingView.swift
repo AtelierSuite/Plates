@@ -1,14 +1,16 @@
 import CulinaryIntelligence
 import SwiftUI
 
-/// What is sent to Gemma and Clef, and the cook's say over it. Turned off, recipes are written
-/// by hand and nothing is sent.
+/// What is sent to Gemma and Clef, or to the provider the cook brought a key for, and the cook's
+/// say over it. Turned off, recipes are written by hand and nothing is sent.
 struct AIProcessingView: View {
     @Environment(\.dismiss) private var dismiss
 
     @AppStorage(PlatesCloud.allowedKey) private var isAllowed = false
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
 
     static let cloudflarePolicy = URL(string: "https://www.cloudflare.com/privacypolicy/")!
+    static let anthropicPolicy = URL(string: "https://www.anthropic.com/legal/privacy")!
 
     var body: some View {
         NavigationStack {
@@ -16,17 +18,32 @@ struct AIProcessingView: View {
                 Section {
                     Toggle("AIProcessing.Allow", isOn: $isAllowed)
                 } footer: {
-                    Text(isAllowed ? "AIProcessing.Footer.On" : "AIProcessing.Footer.Off")
+                    Text(footer)
                 }
 
                 Section {
-                    row("text.page", "Consent.Gemma", "Consent.Gemma.Description")
-                    row("dice", "Consent.Clef", "Consent.Clef.Description")
-                    row("lock.shield", "Consent.Private", "Consent.Private.Description")
+                    switch provider {
+                    case .platesCloud:
+                        row("text.page", "Consent.Gemma", "Consent.Gemma.Description")
+                        row("dice", "Consent.Clef", "Consent.Clef.Description")
+                    case .claude:
+                        row("text.page", "Consent.Claude", "Consent.Claude.Description")
+                        row("key", "Consent.Claude.Key", "Consent.Claude.Key.Description")
+                    }
+                    row(
+                        "lock.shield",
+                        "Consent.Private",
+                        provider == .claude ? "Consent.Private.Description.Claude" : "Consent.Private.Description"
+                    )
                 }
 
                 Section {
-                    Link("Consent.Policy.Cloudflare", destination: Self.cloudflarePolicy)
+                    switch provider {
+                    case .platesCloud:
+                        Link("Consent.Policy.Cloudflare", destination: Self.cloudflarePolicy)
+                    case .claude:
+                        Link("Consent.Policy.Anthropic", destination: Self.anthropicPolicy)
+                    }
                 }
             }
             .navigationTitle("AIProcessing.Title")
@@ -36,6 +53,15 @@ struct AIProcessingView: View {
                     Button(role: .close) { dismiss() }
                 }
             }
+        }
+    }
+
+    private var footer: LocalizedStringKey {
+        switch (provider, isAllowed) {
+        case (.platesCloud, true): "AIProcessing.Footer.On"
+        case (.platesCloud, false): "AIProcessing.Footer.Off"
+        case (.claude, true): "AIProcessing.Footer.On.Claude"
+        case (.claude, false): "AIProcessing.Footer.Off.Claude"
         }
     }
 
