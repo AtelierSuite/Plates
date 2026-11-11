@@ -11943,6 +11943,108 @@
         }
       }
     },
+    "Edit.Prompt.Scale.Tool.Larger": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food crowded into a pan steams instead of browning, and a full pot is slow to come to a boil. Write a short note giving the size this tool should be now, in centimeters or liters, or saying that the food goes in it in batches. Write the size, not the reason. Keep the same kind of tool."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フライパンに詰め込むと焼き色がつかずに蒸れ、いっぱいの鍋はなかなか沸きません。この道具の今ちょうどよい大きさを、直径のセンチや容量のリットルで短いメモに書くか、何回かに分けて使うことを書きます。理由ではなく大きさを書きます。道具の種類は変えません。"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Scale.Tool.Smaller": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A thin layer of food burns, and a little liquid boils away. Write a short note giving the size this tool should be now, in centimeters or liters. Write the size, not the reason. If the size still suits, keep the note as it is. Keep the same kind of tool."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "薄く広がった食材は焦げやすく、少ない水分はすぐに煮詰まります。この道具の今ちょうどよい大きさを、直径のセンチや容量のリットルで短いメモに書きます。理由ではなく大きさを書きます。大きさが合っているならメモはそのままにします。道具の種類は変えません。"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Scale.Step.Larger": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write this step for the larger amount. Where the food would crowd the pan, cook it in batches or use the larger pan. Where more liquid has to come to a boil, allow a few minutes more. A pan of the right size cooks in about the same time, so do not multiply the times. Keep every figure the step gives for quantity, size, heat, and cut exactly as written."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "増えた量に合わせてこの手順を書いてください。フライパンに詰め込むことになるなら、何回かに分けるか、大きいものを使います。沸かす水分が増えるなら、数分長めにします。大きさの合った鍋やフライパンなら時間はほぼ同じなので、時間を掛け算しません。手順にある分量、大きさ、火加減、切り方の数字は書かれたとおりに残します。"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Scale.Step.Smaller": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write this step for the smaller amount. Less food browns and comes to a boil a little sooner, so shorten a time only where it does, and use the smaller pan where the step names one. Do not divide the times. Keep every figure the step gives for quantity, size, heat, and cut exactly as written."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "減った量に合わせてこの手順を書いてください。量が少ないと少し早く色づき、早く沸くので、そうなるところだけ時間を短くします。手順で鍋やフライパンにふれているなら、小さいものにします。時間を割り算しません。手順にある分量、大きさ、火加減、切り方の数字は書かれたとおりに残します。"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Scale.Larger": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ is now made for %2$@ servings, a good deal more food than its pans and times were written for."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%1$@」は%2$@人分になり、鍋やフライパン、時間が想定していたよりかなり多い量を作ります。"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Scale.Smaller": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ is now made for %2$@ servings, a good deal less food than its pans and times were written for."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%1$@」は%2$@人分になり、鍋やフライパン、時間が想定していたよりかなり少ない量を作ります。"
+          }
+        }
+      }
+    },
     "Generate.Prompt.Example.Ask": {
       "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
       "extractionState": "manual",
