@@ -3,7 +3,7 @@ import { base64Decode, base64UrlEncode } from "./bytes";
 import { type Pick, askClef, parseDecision } from "./decide";
 import { Device, type Kind } from "./device";
 import { type Env, appId, limit } from "./env";
-import { GEMMA_MODEL, MAX_IDEA_TOKENS, MAX_OUTPUT_TOKENS, completion, completionStream, parseChat } from "./gemma";
+import { GEMMA_MODEL, MAX_EDIT_TOKENS, MAX_IDEA_TOKENS, MAX_OUTPUT_TOKENS, completion, completionStream, parseChat } from "./gemma";
 import { askToppings, parseToppings } from "./toppings";
 
 export { Device };
@@ -127,14 +127,20 @@ async function metered(
   }
 }
 
-async function write(request: Request, env: Env, kind: "write" | "ideate"): Promise<Response> {
-  const most = limit(kind === "write" ? env.WRITE_DAILY_LIMIT : env.IDEATE_DAILY_LIMIT);
+const CHATS = {
+  write: { limit: (env: Env) => env.WRITE_DAILY_LIMIT, tokens: MAX_OUTPUT_TOKENS },
+  ideate: { limit: (env: Env) => env.IDEATE_DAILY_LIMIT, tokens: MAX_IDEA_TOKENS },
+  edit: { limit: (env: Env) => env.EDIT_DAILY_LIMIT, tokens: MAX_EDIT_TOKENS },
+};
+
+async function write(request: Request, env: Env, kind: keyof typeof CHATS): Promise<Response> {
+  const most = limit(CHATS[kind].limit(env));
   if (most === null) return failure(503, "not configured");
   const minutes = offset(request);
   const bytes = await body(request);
   if (!bytes) return failure(413, "request too large");
   if (minutes === null) return failure(400, "bad request");
-  const chat = parseChat(parse(bytes), kind === "write" ? MAX_OUTPUT_TOKENS : MAX_IDEA_TOKENS);
+  const chat = parseChat(parse(bytes), CHATS[kind].tokens);
   if (typeof chat === "string") return failure(400, chat);
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
@@ -201,7 +207,8 @@ async function limits(request: Request, env: Env): Promise<Response> {
   const stub = await authenticated(request, env, bytes);
   if (stub instanceof Response) return stub;
   const day = quotaDay();
-  const kinds = Object.entries(defaults) as [Kind, number][];
+  const edit = limit(env.EDIT_DAILY_LIMIT);
+  const kinds = Object.entries(edit === null ? defaults : { ...defaults, edit }) as [Kind, number][];
   return json(Object.fromEntries(await Promise.all(kinds.map(async ([kind, most]) => [kind, await stub.allowance(kind, day, most)]))));
 }
 
@@ -220,6 +227,8 @@ export default {
         return write(request, env, "write");
       case "/v1/ideate":
         return write(request, env, "ideate");
+      case "/v1/edit":
+        return write(request, env, "edit");
       case "/v1/decide":
         return decide(request, env);
       case "/v1/toppings":

@@ -1,6 +1,7 @@
 export const GEMMA_MODEL = "@cf/google/gemma-4-26b-a4b-it";
 export const MAX_OUTPUT_TOKENS = 1400;
 export const MAX_IDEA_TOKENS = 500;
+export const MAX_EDIT_TOKENS = 400;
 const MAX_MESSAGES = 16;
 const MAX_CHARACTERS = 24_000;
 const ROLES = new Set(["system", "user", "assistant"]);
