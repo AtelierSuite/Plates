@@ -299,9 +299,14 @@ public final class RecipeAskEditor {
 
     // MARK: - Working out what to change
 
-    /// Asks what to change. A plan with nothing in it that can be carried out, which is a plan
-    /// pointing at lines the recipe does not have, is asked for once more before giving up.
+    /// Asks what to change. A plan is asked for once more when nothing in it can be carried
+    /// out, which is a plan pointing at lines the recipe does not have, or when it leaves out an
+    /// ingredient or tool the cook named. A plan that carried out part of a request and skipped
+    /// the rest used to be accepted. Of two plans, the one that reaches more of what was named
+    /// is kept, and the first when they reach as much.
     private func planEdits(for recipe: Recipe, request: String) async throws -> [PlannedEdit] {
+        let coverage = EditCoverage(request: request, ingredients: Self.ingredients(of: recipe), tools: recipe.tools)
+        var kept: (edits: [PlannedEdit], missed: Int)?
         for _ in 0..<2 {
             let plan = try await passes.respond(
                 GeneratedEditPlan.self,
@@ -310,9 +315,12 @@ public final class RecipeAskEditor {
                 tokenLimit: Self.planTokenLimit
             )
             let edits = Self.swapping(Self.readable(plan.edits, for: recipe), in: recipe, request: request)
-            if !edits.isEmpty { return edits }
+            guard !edits.isEmpty else { continue }
+            let missed = coverage.missed(by: edits, steps: recipe.steps).count
+            if missed == 0 { return edits }
+            if missed < kept?.missed ?? .max { kept = (edits, missed) }
         }
-        return []
+        return kept?.edits ?? []
     }
 
     /// A plan with its swaps made into swaps. Told to change a line to swap it, the model still

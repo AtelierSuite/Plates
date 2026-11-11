@@ -255,12 +255,12 @@ extension Step {
 
     /// True when a name is written without spaces, as Japanese is. Those names are looked for
     /// in the step as written, since there are no words to split them into.
-    private static func runsTogether(_ name: String) -> Bool {
+    static func runsTogether(_ name: String) -> Bool {
         !name.isEmpty && !name.contains { $0.isASCII && $0.isLetter }
     }
 
     /// The words worth matching on: lowercased, singular, and long enough to mean something.
-    private static func terms(in text: String) -> [String] {
+    static func terms(in text: String) -> [String] {
         text.lowercased()
             .map { $0.isLetter || $0.isNumber ? String($0) : " " }
             .joined()

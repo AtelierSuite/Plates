@@ -19,6 +19,10 @@ let package = Package(
                 .enableUpcomingFeature("MemberImportVisibility"),
             ]
         ),
+        .testTarget(
+            name: "CulinaryIntelligenceTests",
+            dependencies: ["CulinaryIntelligence"]
+        ),
     ],
     swiftLanguageModes: [.v5]
 )
