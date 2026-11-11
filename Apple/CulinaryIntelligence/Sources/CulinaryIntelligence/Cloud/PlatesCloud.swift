@@ -93,8 +93,9 @@ public final class PlatesCloud {
     // MARK: - Writing
 
     /// Gemma's answer streamed back a piece at a time.
-    func write(instructions: String, prompt: String, maximumTokens: Int = 1400) -> AsyncThrowingStream<String, Error> {
-        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: true)
+    func write(instructions: String, prompt: String, maximumTokens: Int = 1400, temperature: Double) -> AsyncThrowingStream<String, Error> {
+        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens,
+                             temperature: temperature, stream: true)
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
@@ -120,8 +121,9 @@ public final class PlatesCloud {
 
     /// Gemma's dish ideas, whole. They are counted against their own daily limit, apart from
     /// the recipes.
-    func ideate(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
-        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: false)
+    func ideate(instructions: String, prompt: String, maximumTokens: Int, temperature: Double) async throws -> String {
+        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens,
+                             temperature: temperature, stream: false)
         let data = try await Self.collect(try await send("/v1/ideate", body: body).0)
         guard let answer = try? JSONDecoder().decode(Completion.self, from: data),
               let text = answer.choices.first?.message.content else { throw CloudError.noResponse }
@@ -262,14 +264,17 @@ public final class PlatesCloud {
 
     // MARK: - Bodies
 
-    private static func chat(instructions: String, prompt: String, maximumTokens: Int, stream: Bool) -> Data {
+    /// The Worker takes a temperature from 0 to 1.5, and uses 0.7 when none is sent.
+    private static func chat(
+        instructions: String, prompt: String, maximumTokens: Int, temperature: Double, stream: Bool
+    ) -> Data {
         let object: [String: Any] = [
             "messages": [
                 ["role": "system", "content": instructions],
                 ["role": "user", "content": prompt],
             ],
             "max_tokens": maximumTokens,
-            "temperature": 0.7,
+            "temperature": temperature,
             "stream": stream,
         ]
         return (try? JSONSerialization.data(withJSONObject: object)) ?? Data()
