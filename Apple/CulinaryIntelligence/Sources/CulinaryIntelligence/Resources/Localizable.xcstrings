@@ -358,6 +358,23 @@
         }
       }
     },
+    "Edit.Prompt.Line.Ingredient.Amount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ does not fit in place of %3$@ of %2$@. Write the line again with an amount measured the way %3$@ is, and about as much."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@では、%2$@の%3$@の代わりになりません。%3$@と同じ量り方で、同じくらいの分量にして書き直してください。"
+          }
+        }
+      }
+    },
     "Edit.Prompt.Line.Ingredient.Ask": {
       "extractionState": "manual",
       "localizations": {

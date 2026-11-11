@@ -515,7 +515,7 @@ public final class RecipeAskEditor {
             else { continue }
             let job = followUp(.changeIngredient, line: index + 1, title: entry.ingredient.item, instruction)
             let written = try await run(job) {
-                try await changeIngredient(entry, instruction, in: recipe, changes: changes)
+                try await changeIngredient(entry, instruction, in: recipe, changes: changes, checkingAmount: false)
             }
             // Only the note is taken. Told to put a note right, the pass has renamed the line
             // after the thing the note was about.
@@ -836,16 +836,34 @@ public final class RecipeAskEditor {
         _ entry: Entry,
         _ instruction: String,
         in recipe: Recipe,
-        changes: [ListChange]
+        changes: [ListChange],
+        checkingAmount: Bool = true
     ) async throws -> Entry {
-        let written = try await line(StructuredIngredient.self, [
+        let prompt = [
             Self.summary(of: recipe),
             Self.listed(changes),
             Self.text("Edit.Prompt.Line.Ingredient", Self.line(for: entry.ingredient)),
             Self.text("Edit.Prompt.Ask", instruction),
             Self.text("Edit.Prompt.Line.Ingredient.Ask"),
-        ])
-        var ingredient = Self.ingredient(written)
+        ]
+        var ingredient = Self.ingredient(try await line(StructuredIngredient.self, prompt))
+        // A swap is checked for an amount that fits the one it replaced. Swapping 300 g of
+        // chicken, the pass has written "2 tbsp" of the new thing. It is asked once more with
+        // the old amount given, and an answer that still does not fit keeps the old amount.
+        let old = entry.ingredient.amount
+        if checkingAmount, !Self.sameName(ingredient.item, entry.ingredient.item),
+           !Self.fits(ingredient.amount, replacing: old, asked: instruction) {
+            let again = Self.ingredient(try await line(
+                StructuredIngredient.self,
+                prompt + [Self.text("Edit.Prompt.Line.Ingredient.Amount", ingredient.amount, entry.ingredient.item, old)]
+            ))
+            if !Self.sameName(again.item, entry.ingredient.item),
+               Self.fits(again.amount, replacing: old, asked: instruction) {
+                ingredient = again
+            } else {
+                ingredient.amount = old
+            }
+        }
         // The same thing keeps the icon it had, so a change to the amount does not redraw it.
         // Something else does not keep the note it had: bacon swapped in for guanciale came
         // back as "cured pork cheek".
@@ -1134,6 +1152,18 @@ public final class RecipeAskEditor {
         let solution = written.solution.withoutLeakedSyntax.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !problem.isEmpty, !solution.isEmpty else { return nil }
         return Troubleshooting(problem: problem, solution: solution)
+    }
+
+    /// Whether a swapped line's amount fits the one it replaced. An amount the change itself
+    /// asked for, as "use 2 blocks of tofu", is taken as it is.
+    private static func fits(_ amount: String, replacing old: String, asked instruction: String) -> Bool {
+        let written = amount.trimmingCharacters(in: .whitespacesAndNewlines)
+        let measured = written.contains { !$0.isNumber && !$0.isWhitespace && !"./".contains($0) }
+        let pattern = "(?<![0-9.])" + NSRegularExpression.escapedPattern(for: written)
+        if measured, instruction.range(of: pattern, options: [.regularExpression, .caseInsensitive]) != nil {
+            return true
+        }
+        return Amounts.fits(amount, replacing: old)
     }
 
     /// Two names for the same thing, written with a different case or spacing.
