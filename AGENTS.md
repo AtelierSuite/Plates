@@ -148,6 +148,13 @@ for.
   `Apple/Assets/IconStyle/STYLE.md`.
 - Check the full set with `python3 Apple/Assets/SignatureDishes/sheet.py /tmp/sheet.png all`.
 
+### Reference recipes
+
+A request that names a signature dish and nothing more ("egg fried rice", "卵チャーハン 2人分",
+not "shrimp fried rice") goes to Gemma with a short recipe for that dish to check its own
+against. `Resources/ReferenceRecipes.json` is written from the One-Pan Food recipes by
+`python3 Apple/Assets/ReferenceRecipes/export.py /path/to/Recipes`. Do not edit the output.
+
 ## Localization
 
 English (US) is the source language and Japanese the second. Japanese copy follows the same

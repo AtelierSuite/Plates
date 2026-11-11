@@ -193,6 +193,22 @@ public nonisolated enum SignatureDish {
         return best?.id
     }
 
+    /// The dish a cook's request names and nothing more, such as "easy egg fried rice with peas"
+    /// or "卵チャーハン". Words in front of the dish make it another dish, as "shrimp fried rice"
+    /// is not egg fried rice, so the dish's title has to start the request as well as end it.
+    static func namedID(forRequest request: String) -> String? {
+        var best: Found?
+        for part in parts(of: request) {
+            let reading = reading(of: part, in: table, cuttingClauses: true)
+            guard reading.cut > 0 else { continue }
+            for found in occurrences(in: reading)
+            where found.end >= reading.cut && found.end - found.length == 0 && found.length > best?.length ?? 0 {
+                best = found
+            }
+        }
+        return best?.id
+    }
+
     /// The first candidate whose icon shows the form the recipe was sorted into. A dish that
     /// lists cuisines also needs the recipe's cuisine, or one of the ingredients that settle it.
     /// A title written in Japanese settles a Japanese dish: plain カレー is a Japanese curry, and

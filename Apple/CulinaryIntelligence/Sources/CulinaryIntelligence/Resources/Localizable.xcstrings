@@ -1376,6 +1376,60 @@
         }
       }
     },
+    "Generate.Prompt.Reference": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Here is a short recipe for %1$@ from the cook's own cookbook. It serves %2$@ and is written to use as few pans as possible.\nIngredients: %3$@.\nMethod:\n%4$@\n\nWrite your own recipe for the request. Use this one only to check that your ingredients and method are right for the dish, and do not copy it. Where it differs from the request, from what the cook has, or from the rules you were given, follow those instead."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "料理する人のレシピ集にある、%1$@の短いレシピです。%2$@人分で、なるべく少ない鍋とフライパンで作るように書かれています。\n材料: %3$@\n作り方:\n%4$@\n\nリクエストに合わせて、自分のレシピを書いてください。このレシピは、材料と作り方がその料理として正しいかを確かめるためだけに使い、そのまま写さないでください。リクエスト、手元にあるもの、指示されたルールと違うところは、そちらに従ってください。"
+          }
+        }
+      }
+    },
+    "Generate.Prompt.Reference.Optional": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ (optional)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@（お好みで）"
+          }
+        }
+      }
+    },
+    "Generate.Prompt.Reference.Step": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. %2$@: %3$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. %2$@：%3$@"
+          }
+        }
+      }
+    },
     "Generate.Prompt.Separator": {
       "extractionState": "manual",
       "localizations": {

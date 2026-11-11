@@ -245,7 +245,8 @@ public struct GenerationProgress: Equatable, Sendable {
 /// Gemma, running on Workers AI behind PlatesCloud, writes the whole recipe as plain cookbook
 /// text in one go, always in English, since a model its size gets the cooking right far more
 /// often in English than in Japanese. A request the cook wrote in another language is put into
-/// English for it first.
+/// English for it first. A request that names a well known dish and nothing more goes with a
+/// short recipe for that dish, a `ReferenceRecipe`, for Gemma to check its own against.
 ///
 /// What Gemma wrote is then cut into its sections in code, and the time and the serving count
 /// are read out of it there. Apple Intelligence sorts the rest one line at a time, each line in
@@ -906,7 +907,30 @@ public final class RecipeGenerator {
         if !request.tools.isEmpty {
             lines.append(english("Generate.Prompt.Have.Tools", request.toolNames.joined(separator: separator)))
         }
+        if let reference = ReferenceRecipe.named(in: [request.writtenAs, request.description]) {
+            lines.append("")
+            lines.append(referenceText(reference))
+        }
         return lines.joined(separator: "\n")
+    }
+
+    /// A short recipe for the dish the cook named, for Gemma to check its own against. It is
+    /// given after the request, as something to check with, so the request and the cook's
+    /// kitchen still decide the recipe.
+    static func referenceText(_ reference: ReferenceRecipe) -> String {
+        let separator = english("Generate.Prompt.Separator")
+        let ingredients = reference.ingredients
+            + reference.optional.map { english("Generate.Prompt.Reference.Optional", $0) }
+        let method = reference.steps.enumerated().map { index, step in
+            english("Generate.Prompt.Reference.Step", String(index + 1), step.title, step.points.joined(separator: " "))
+        }
+        return english(
+            "Generate.Prompt.Reference",
+            reference.title,
+            reference.serves,
+            ingredients.joined(separator: separator),
+            method.joined(separator: "\n")
+        )
     }
 
     /// The answer for a section sorted from the whole text, where nothing could be counted.
