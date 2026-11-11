@@ -219,16 +219,24 @@ extension Step {
         tools: [Tool],
         limit: Int = 6
     ) -> [String] {
+        let named = named(inText: text, ingredients: ingredients, tools: tools)
+        let icons = named.ingredients.map(\.icon) + named.tools.map(\.icon)
+        return Array(NSOrderedSet(array: icons).compactMap { $0 as? String }.prefix(limit))
+    }
+
+    /// The ingredients and tools a step's words point at, by the same reading as its icons, in
+    /// the order the recipe lists them.
+    static func named(
+        inText text: String,
+        ingredients: [Ingredient],
+        tools: [Tool]
+    ) -> (ingredients: [Ingredient], tools: [Tool]) {
         let words = Set(terms(in: text))
         let written = text.lowercased()
-        let ingredientIcons = ingredients.filter { entry in
-            matches(words, in: written, name: entry.item, icon: entry.icon)
-        }
-        let toolIcons = tools.filter { tool in
-            matches(words, in: written, name: tool.name, icon: tool.icon)
-        }
-        let icons = ingredientIcons.map(\.icon) + toolIcons.map(\.icon)
-        return Array(NSOrderedSet(array: icons).compactMap { $0 as? String }.prefix(limit))
+        return (
+            ingredients.filter { matches(words, in: written, name: $0.item, icon: $0.icon) },
+            tools.filter { matches(words, in: written, name: $0.name, icon: $0.icon) }
+        )
     }
 
     /// An entry is in the step when the step names it, or names the icon it carries.

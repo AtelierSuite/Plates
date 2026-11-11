@@ -766,6 +766,23 @@
         }
       }
     },
+    "Edit.Prompt.List.Step": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ (uses %2$@)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@（使うもの：%2$@）"
+          }
+        }
+      }
+    },
     "Edit.Prompt.List.Tools": {
       "extractionState": "manual",
       "localizations": {
@@ -823,13 +840,13 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "You are working out what to change about a recipe the cook already has. Change only what the cook asked for, and leave the rest of the recipe as it is.\n\nEvery change is one line of the recipe: the title, the time, the serving count, one ingredient, one tool, one step, or one troubleshooting note. Point at a line by its label in the recipe, such as I3 for the third ingredient or S2 for the second step. To swap one ingredient or tool for another, change its line rather than adding one and removing the other. To make the recipe for more or fewer people, change the serving count only, and the amounts are scaled for you. When a swap or a removal leaves a step or a note naming what was swapped or removed, it is put right for you, so do not plan a change for that.\n\nGive each change a short imperative title in the cook's words, and one sentence saying exactly what to do. Use as few changes as the request needs.\n\nAn ingredient you add needs a step that uses it. A step you add goes where a cook would do it: prep before anything is heated, cooking in the order the pans need it, finishing at the end. Do not add a step that does work the method already has a step for. When a step that is already there can do the new work, rewrite it rather than adding another.\n\nWrite everything in English."
+            "value": "You are working out what to change about a recipe the cook already has. Change only what the cook asked for, and leave the rest of the recipe as it is.\n\nEvery change is one line of the recipe: the title, the time, the serving count, one ingredient, one tool, one step, or one troubleshooting note. Point at a line by its label in the recipe, such as I3 for the third ingredient or S2 for the second step. Each step in the method is listed with the ingredients and tools it uses. To swap one ingredient or tool for another, change its line rather than adding one and removing the other. To make the recipe for more or fewer people, change the serving count only, and the amounts are scaled for you. When a swap or a removal leaves a step or a note naming what was swapped or removed, it is put right for you, so do not plan a change for that.\n\nGive each change a short imperative title in the cook's words, and one sentence saying exactly what to do. Use as few changes as the request needs.\n\nAn ingredient you add needs a step that uses it. A step you add goes where a cook would do it: prep before anything is heated, cooking in the order the pans need it, finishing at the end. Do not add a step that does work the method already has a step for. When a step that is already there can do the new work, rewrite it rather than adding another.\n\nWrite everything in English."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "作る人がすでに持っているレシピの、どこを変更するかを考えます。依頼された箇所だけを変更し、ほかはそのままにします。\n\n変更はどれもレシピの一行に対して行います。題名、時間、人数、材料一つ、道具一つ、手順一つ、困ったときの覚え書き一つのいずれかです。行はレシピに振られたラベルで指します。3番目の材料ならI3、2番目の手順ならS2です。材料や道具を別のものに替えるときは、足して消すのではなく、その行を変更します。人数を増やしたり減らしたりするときは、人数だけを変更します。分量はこちらで計算し直します。替えたり除いたりしたものが手順や覚え書きに残っていても、こちらで直すので、そのための変更は考えなくてかまいません。\n\n変更ごとに、作る人の言葉で短い命令形のタイトルと、何をするかを1文で書きます。変更は必要な数だけにします。\n\n材料を足すときは、それを使う手順も必要です。手順を足すときは、作る人が動く順に合う位置に入れます。下ごしらえは火にかける前、加熱は鍋やフライパンを使う順、仕上げは最後です。すでに同じことをする手順があるなら、足しません。今ある手順で新しい作業もできるなら、足さずにその手順を書き直します。\n\nすべて日本語で書いてください。"
+            "value": "作る人がすでに持っているレシピの、どこを変更するかを考えます。依頼された箇所だけを変更し、ほかはそのままにします。\n\n変更はどれもレシピの一行に対して行います。題名、時間、人数、材料一つ、道具一つ、手順一つ、困ったときの覚え書き一つのいずれかです。行はレシピに振られたラベルで指します。3番目の材料ならI3、2番目の手順ならS2です。作り方の手順には、その手順で使う材料と道具を添えています。材料や道具を別のものに替えるときは、足して消すのではなく、その行を変更します。人数を増やしたり減らしたりするときは、人数だけを変更します。分量はこちらで計算し直します。替えたり除いたりしたものが手順や覚え書きに残っていても、こちらで直すので、そのための変更は考えなくてかまいません。\n\n変更ごとに、作る人の言葉で短い命令形のタイトルと、何をするかを1文で書きます。変更は必要な数だけにします。\n\n材料を足すときは、それを使う手順も必要です。手順を足すときは、作る人が動く順に合う位置に入れます。下ごしらえは火にかける前、加熱は鍋やフライパンを使う順、仕上げは最後です。すでに同じことをする手順があるなら、足しません。今ある手順で新しい作業もできるなら、足さずにその手順を書き直します。\n\nすべて日本語で書いてください。"
           }
         }
       }

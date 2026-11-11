@@ -1206,7 +1206,9 @@ public final class RecipeAskEditor {
     }
 
     /// The recipe with every line labelled, the way the plan points at one. The method is read
-    /// as step titles, which is enough to plan against.
+    /// as step titles, each with the ingredients and tools the step names, so a request about
+    /// the method can be placed in the step that does the work. "Make the sauce" does not say
+    /// the chili goes in there.
     private static func numbered(_ recipe: Recipe) -> String {
         func list(_ heading: String.LocalizationValue, _ letter: Character, _ lines: [String]) -> String {
             ([text(heading)] + lines.enumerated().map {
@@ -1221,12 +1223,25 @@ public final class RecipeAskEditor {
                     : line(for: entry.ingredient, withNote: false)
             }),
             list("Edit.Prompt.List.Tools", "T", recipe.tools.map(\.name)),
-            list("Edit.Prompt.List.Method", "S", recipe.steps.map(\.title)),
+            list("Edit.Prompt.List.Method", "S", recipe.steps.map { uses(of: $0, in: recipe) }),
         ]
         if !recipe.troubleshooting.isEmpty {
             parts.append(list("Edit.Prompt.List.Notes", "N", recipe.troubleshooting.map(\.problem)))
         }
         return parts.joined(separator: "\n\n")
+    }
+
+    /// A step's title with what it uses, by the names the recipe lists them under.
+    private static func uses(of step: Step, in recipe: Recipe) -> String {
+        let named = Step.named(
+            inText: ([step.title] + step.points).joined(separator: " "),
+            ingredients: ingredients(of: recipe),
+            tools: recipe.tools
+        )
+        let names = NSOrderedSet(array: named.ingredients.map(\.item) + named.tools.map(\.name))
+            .compactMap { $0 as? String }
+        guard !names.isEmpty else { return step.title }
+        return text("Edit.Prompt.List.Step", step.title, ModelPasses.joined(names))
     }
 
     /// The recipe as a line pass reads it: what it is, what goes in it, what it is cooked
