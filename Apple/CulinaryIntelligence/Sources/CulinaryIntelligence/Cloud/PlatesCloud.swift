@@ -92,9 +92,15 @@ public final class PlatesCloud {
 
     // MARK: - Writing
 
-    /// Gemma's answer streamed back a piece at a time.
-    func write(instructions: String, prompt: String, maximumTokens: Int = 1400) -> AsyncThrowingStream<String, Error> {
-        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: true)
+    /// Gemma's answer streamed back a piece at a time. An example, when given, goes before the
+    /// prompt as a request Gemma has already answered.
+    func write(
+        instructions: String,
+        example: (ask: String, answer: String)? = nil,
+        prompt: String,
+        maximumTokens: Int = 1400
+    ) -> AsyncThrowingStream<String, Error> {
+        let body = Self.chat(instructions: instructions, example: example, prompt: prompt, maximumTokens: maximumTokens, stream: true)
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
@@ -262,12 +268,21 @@ public final class PlatesCloud {
 
     // MARK: - Bodies
 
-    private static func chat(instructions: String, prompt: String, maximumTokens: Int, stream: Bool) -> Data {
+    private static func chat(
+        instructions: String,
+        example: (ask: String, answer: String)? = nil,
+        prompt: String,
+        maximumTokens: Int,
+        stream: Bool
+    ) -> Data {
+        var messages = [["role": "system", "content": instructions]]
+        if let example {
+            messages.append(["role": "user", "content": example.ask])
+            messages.append(["role": "assistant", "content": example.answer])
+        }
+        messages.append(["role": "user", "content": prompt])
         let object: [String: Any] = [
-            "messages": [
-                ["role": "system", "content": instructions],
-                ["role": "user", "content": prompt],
-            ],
+            "messages": messages,
             "max_tokens": maximumTokens,
             "temperature": 0.7,
             "stream": stream,

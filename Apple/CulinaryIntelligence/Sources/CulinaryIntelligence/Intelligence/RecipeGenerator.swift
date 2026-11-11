@@ -378,7 +378,11 @@ public final class RecipeGenerator {
     private func write(_ request: GenerationRequest) async throws -> String {
         progress.stage = .write
         var written = ""
-        let stream = cloud.write(instructions: Self.writeInstructions(for: request), prompt: Self.prompt(for: request))
+        let stream = cloud.write(
+            instructions: Self.writeInstructions(for: request),
+            example: Self.writeExample,
+            prompt: Self.prompt(for: request)
+        )
         for try await piece in stream {
             written += piece
             guard piece.contains("\n"), let end = written.lastIndex(of: "\n") else { continue }
@@ -880,6 +884,14 @@ public final class RecipeGenerator {
             instructions += "\n\n" + english("Generate.Prompt.Write.Tools")
         }
         return instructions
+    }
+
+    /// One recipe written out in the shape `WrittenRecipe` reads, handed to Gemma as a request it
+    /// has already answered. Without it Gemma now and then writes a section the parser cannot
+    /// cut into lines, and the whole section goes to a single sorting pass. Its method is plain
+    /// cooking, with none of the house style's rules in it, so none are copied into steps.
+    static var writeExample: (ask: String, answer: String) {
+        (english("Generate.Prompt.Example.Ask"), english("Generate.Prompt.Example.Recipe"))
     }
 
     /// The sorting passes are not given the house style. Its rules are about how to cook, and a
