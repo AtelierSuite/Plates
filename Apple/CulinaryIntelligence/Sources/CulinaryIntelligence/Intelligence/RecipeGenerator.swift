@@ -290,6 +290,9 @@ public final class RecipeGenerator {
     /// Where the run reports how far along it is.
     let observer: (any RunObserver)?
 
+    /// Where the generation eval reads what a run did. Nil in the app.
+    var trace: GenerationTrace?
+
     public init(observer: (any RunObserver)? = nil) {
         self.observer = observer
     }
@@ -324,8 +327,12 @@ public final class RecipeGenerator {
             } else {
                 english = await inEnglish(request)
             }
+            if !english.writtenAs.isEmpty { trace?.translation = english.description }
             let text = try await write(english)
-            let written = Self.withoutUnusedPicks(WrittenRecipe(parsing: text), request: request)
+            let parsed = WrittenRecipe(parsing: text)
+            let written = Self.withoutUnusedPicks(parsed, request: request)
+            trace?.written = parsed
+            trace?.kept = written
             let sorted = try await sort(
                 written,
                 text: text,
@@ -334,11 +341,13 @@ public final class RecipeGenerator {
             )
             var recipe = Self.makeRecipe(sorted)
             recipe.dish = await Dish.asked(for: recipe)
+            trace?.recipe = recipe
             progress.isFinished = true
             state = .idle
             observer?.runEnded(progress.activity, succeeded: true)
             return recipe
         } catch {
+            trace?.error = error
             state = .failed(error.localizedDescription)
             observer?.runEnded(progress.activity, succeeded: false)
             return nil
@@ -381,6 +390,7 @@ public final class RecipeGenerator {
         let stream = cloud.write(instructions: Self.writeInstructions(for: request), prompt: Self.prompt(for: request))
         for try await piece in stream {
             written += piece
+            trace?.draft = written
             guard piece.contains("\n"), let end = written.lastIndex(of: "\n") else { continue }
             show(String(written[..<end]), of: written)
         }
@@ -420,6 +430,7 @@ public final class RecipeGenerator {
         var ingredients: [(entry: StructuredIngredient, line: String)] = []
         var tools: [GeneratedTool] = []
         if written.ingredients.isEmpty || (written.tools.isEmpty && found == nil) {
+            trace?.sortedWholeShopping = true
             let whole = try await sortWholeShopping(text: text)
             ingredients = whole.0.map { ($0, "") }
             tools = whole.1
@@ -473,6 +484,7 @@ public final class RecipeGenerator {
             // recipe the evals asked for. One the method bakes in is listed for it.
             if found == nil, !tools.contains(where: { $0.icon == "oven" }),
                Self.namedTools(in: written.steps).contains("oven") {
+                trace?.addedOven = true
                 let oven = GeneratedTool(name: IconCatalog.displayName(for: "oven"), icon: "oven", required: true, note: "")
                 tools.append(oven)
                 progress.tools.append(.init(name: oven.name, detail: ""))
@@ -485,6 +497,7 @@ public final class RecipeGenerator {
         var steps: [(title: String, points: [String])] = []
         var notes: [GeneratedTroubleshooting] = []
         if written.steps.isEmpty {
+            trace?.sortedWholeMethod = true
             (steps, notes) = try await sortWholeMethod(text: text)
         } else {
             for line in written.steps {
