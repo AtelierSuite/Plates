@@ -16,8 +16,8 @@ struct OnboardingView: View {
     @State var dish = ""
     @FocusState var isDishFocused: Bool
     /// Whether the first recipe is generated, or started blank for the cook to write.
-    @AppStorage(PlatesCloud.allowedKey) var isGenerationAllowed = false
-    @AppStorage(WriterProvider.selectedKey) var provider: WriterProvider = .platesCloud
+    @AppStorage(Plates.allowedKey) var isGenerationAllowed = false
+    @AppStorage(WriterProvider.selectedKey) var provider: WriterProvider = .plates
 
     var body: some View {
         content

@@ -1,11 +1,11 @@
 import Foundation
 
 /// Where a recipe is written, ideas are offered and picked, and a dish is asked what can be seen
-/// on it. PlatesCloud is the default. Any other provider runs on the cook's own API key, which is
-/// kept in the Keychain and sent from the device straight to that provider, never to PlatesCloud.
+/// on it. Plates is the default. Any other provider runs on the cook's own API key, which is
+/// kept in the Keychain and sent from the device straight to that provider, never to Plates.
 /// Apple Intelligence sorts on the device whichever one writes.
 public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
-    case platesCloud = "PlatesCloud"
+    case plates = "Plates"
     case claude = "Claude"
 
     public var id: String { rawValue }
@@ -16,20 +16,20 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
     /// The provider the cook picked in the menu.
     public static var current: WriterProvider {
         get {
-            UserDefaults.standard.string(forKey: selectedKey).flatMap(WriterProvider.init(rawValue:)) ?? .platesCloud
+            UserDefaults.standard.string(forKey: selectedKey).flatMap(WriterProvider.init(rawValue:)) ?? .plates
         }
         set { UserDefaults.standard.set(newValue.rawValue, forKey: selectedKey) }
     }
 
     public var name: LocalizedStringResource {
         switch self {
-        case .platesCloud: LocalizedStringResource(culinary: "Writer.Provider.PlatesCloud")
+        case .plates: LocalizedStringResource(culinary: "Writer.Provider.Plates")
         case .claude: LocalizedStringResource(culinary: "Writer.Provider.Claude")
         }
     }
 
-    /// Whether the provider runs on a key the cook brings, with no daily limits from PlatesCloud.
-    public var needsKey: Bool { self != .platesCloud }
+    /// Whether the provider runs on a key the cook brings, with no daily limits from Plates.
+    public var needsKey: Bool { self != .plates }
 
     // MARK: - Key
 
@@ -56,7 +56,7 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
 
     var service: any RecipeWriting {
         switch self {
-        case .platesCloud: PlatesCloud.shared
+        case .plates: Plates.shared
         case .claude: ClaudeCloud.shared
         }
     }
@@ -65,7 +65,7 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
 /// The calls a run makes on whoever writes, so the passes never know which provider answers.
 @MainActor
 protocol RecipeWriting: AnyObject {
-    /// Whether requests can be sent at all: an address for PlatesCloud, a key for the others.
+    /// Whether requests can be sent at all: an address for Plates, a key for the others.
     var isConfigured: Bool { get }
 
     /// Why requests cannot be sent, when they cannot.

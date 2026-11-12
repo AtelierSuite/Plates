@@ -7,7 +7,7 @@ folder or in iCloud Drive depending on what the user picks in the ellipsis menu.
 ## Layout
 
 - `Apple/`: the iOS app, its widget extension, and the `CulinaryIntelligence` package.
-- `Cloud/`: PlatesCloud, the Cloudflare Worker the app talks to.
+- `Cloud/`: Plates, the Cloudflare Worker the app talks to.
 - `Kitchen/`: Plates Kitchen, a Mac app for screening models and exporting requests.
 
 ## Code rules
@@ -41,7 +41,7 @@ folder or in iCloud Drive depending on what the user picks in the ellipsis menu.
 - The samples are ten Singaporean home dishes, written by Claude in its generation eval and not
   yet marked as tried. Mark one tried only once someone has cooked it.
 
-## PlatesCloud
+## Plates
 
 The Worker lives in `Cloud/` and keeps every daily limit. The app only shows what it is told is
 left.
@@ -49,7 +49,7 @@ left.
 - In `Cloud/`, write no comments in code unless one explains a hack or workaround, and keep the
   code simple.
 
-- `PlatesCloudAddress.url` is empty in the repository. `Apple/ci_scripts/ci_pre_xcodebuild.sh` writes
+- `PlatesAddress.url` is empty in the repository. `Apple/ci_scripts/ci_pre_xcodebuild.sh` writes
   Xcode Cloud's `PLATES_CLOUD_URL` into it. For a local build against the Worker, run the script
   with `PLATES_CLOUD_URL` and `CI_PRIMARY_REPOSITORY_PATH` set, and do not commit the result.
 - App Attest does not run in Simulator, so a debug build there sends unsigned requests to
@@ -73,7 +73,7 @@ only runs with `PLATES_EVAL=1`. The command is in the test's comment.
 ## Claude
 
 A cook can pick Claude as the writer in the Recipe Writer page and run it on their own Anthropic
-key. While Claude writes, every pass goes to Claude instead of PlatesCloud and Apple
+key. While Claude writes, every pass goes to Claude instead of Plates and Apple
 Intelligence, and `ClaudeRole` picks the model: Opus 5.5 writes, edits, and draws icons, Sonnet
 5.5 offers ideas, plans a request, and reads a shared page, and Haiku 5.5 picks an idea, says what
 shows on a dish, sorts lines, and translates. Every role runs at medium effort.

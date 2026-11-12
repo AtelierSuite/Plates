@@ -37,10 +37,10 @@ struct MainView: View {
     @State private var firstDish = ""
     /// Whether recipes are generated, or only written by hand, as the cook chose in onboarding
     /// or later in the menu.
-    @AppStorage(PlatesCloud.allowedKey) private var isGenerationAllowed = false
+    @AppStorage(Plates.allowedKey) private var isGenerationAllowed = false
     @State private var isShowingAIProcessing = false
-    /// Who writes: PlatesCloud, or a provider on the cook's own key.
-    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+    /// Who writes: Plates, or a provider on the cook's own key.
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .plates
     @State private var isShowingWriter = false
     @State private var path = NavigationPath()
     /// The title a recipe written by hand starts with, once the recipe sheet is gone.
@@ -209,10 +209,10 @@ struct MainView: View {
     }
 
     /// A provider left with no key, as when the cook picks Claude and closes the page without
-    /// saving one, or removes the key, goes back to PlatesCloud, so a recipe can still be written.
+    /// saving one, or removes the key, goes back to Plates, so a recipe can still be written.
     private func writerDismissed() {
         if provider.needsKey, !provider.hasKey {
-            provider = .platesCloud
+            provider = .plates
         }
         openNextImport()
     }
@@ -285,7 +285,7 @@ struct MainView: View {
                     }
                 }
 
-                if isGenerationAllowed, provider.needsKey || PlatesCloud.shared.isConfigured {
+                if isGenerationAllowed, provider.needsKey || Plates.shared.isConfigured {
                     Button {
                         isShowingLimits = true
                     } label: {

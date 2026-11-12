@@ -7,7 +7,7 @@ import SwiftUI
 struct RecipeWriterView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .plates
 
     @State private var key = ""
     @State private var hasKey = false
@@ -51,7 +51,7 @@ struct RecipeWriterView: View {
 
     private var footer: LocalizedStringKey {
         switch provider {
-        case .platesCloud: "Writer.Footer.PlatesCloud"
+        case .plates: "Writer.Footer.Plates"
         case .claude: "Writer.Footer.Claude"
         }
     }

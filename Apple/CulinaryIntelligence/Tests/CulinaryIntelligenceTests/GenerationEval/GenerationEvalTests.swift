@@ -35,7 +35,7 @@ struct GenerationEvalTests {
             ?? NSTemporaryDirectory() + "generation-eval-\(language.rawValue).json")
         #expect(!requests.isEmpty)
 
-        PlatesCloud.shared.isAllowed = true
+        Plates.shared.isAllowed = true
         let generator = RecipeGenerator()
         try #require(generator.isAvailable, "Apple Intelligence or the Worker is not available")
 

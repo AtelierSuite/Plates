@@ -177,13 +177,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No key is saved yet. Recipes are written with PlatesCloud until one is."
+            "value" : "No key is saved yet. Recipes are written with Plates until one is."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "まだキーが保存されていません。保存するまでは、PlatesCloudでレシピを書きます。"
+            "value" : "まだキーが保存されていません。保存するまでは、Platesでレシピを書きます。"
           }
         }
       }
@@ -1435,13 +1435,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude runs on your own Anthropic account, so PlatesCloud's daily limits do not apply. Anthropic's rate limits and your account's credit do."
+            "value" : "Claude runs on your own Anthropic account, so Plates' daily limits do not apply. Anthropic's rate limits and your account's credit do."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claudeは自分のAnthropicアカウントで動くため、PlatesCloudの1日の上限はありません。Anthropicのレート制限とアカウントのクレジットが適用されます。"
+            "value" : "Claudeは自分のAnthropicアカウントで動くため、Platesの1日の上限はありません。Anthropicのレート制限とアカウントのクレジットが適用されます。"
           }
         }
       }
@@ -3606,19 +3606,19 @@
         }
       }
     },
-    "Writer.Footer.PlatesCloud" : {
+    "Writer.Footer.Plates" : {
       "extractionState" : "manual",
       "localizations" : {
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gemma on PlatesCloud writes recipes and ideas, within a daily limit. Apple Intelligence sorts and translates them on this iPhone."
+            "value" : "Gemma on Plates writes recipes and ideas, within a daily limit. Apple Intelligence sorts and translates them on this iPhone."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "PlatesCloudのGemmaが、1日の上限の範囲でレシピとアイディアを書きます。Apple Intelligenceが、このiPhoneの中でそれらを整理して翻訳します。"
+            "value" : "PlatesのGemmaが、1日の上限の範囲でレシピとアイディアを書きます。Apple Intelligenceが、このiPhoneの中でそれらを整理して翻訳します。"
           }
         }
       }

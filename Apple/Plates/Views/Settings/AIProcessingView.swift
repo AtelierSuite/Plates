@@ -6,8 +6,8 @@ import SwiftUI
 struct AIProcessingView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @AppStorage(PlatesCloud.allowedKey) private var isAllowed = false
-    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+    @AppStorage(Plates.allowedKey) private var isAllowed = false
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .plates
 
     static let cloudflarePolicy = URL(string: "https://www.cloudflare.com/privacypolicy/")!
     static let anthropicPolicy = URL(string: "https://www.anthropic.com/legal/privacy")!
@@ -23,7 +23,7 @@ struct AIProcessingView: View {
 
                 Section {
                     switch provider {
-                    case .platesCloud:
+                    case .plates:
                         row("text.page", "Consent.Gemma", "Consent.Gemma.Description")
                         row("dice", "Consent.Clef", "Consent.Clef.Description")
                     case .claude:
@@ -39,7 +39,7 @@ struct AIProcessingView: View {
 
                 Section {
                     switch provider {
-                    case .platesCloud:
+                    case .plates:
                         Link("Consent.Policy.Cloudflare", destination: Self.cloudflarePolicy)
                     case .claude:
                         Link("Consent.Policy.Anthropic", destination: Self.anthropicPolicy)
@@ -58,8 +58,8 @@ struct AIProcessingView: View {
 
     private var footer: LocalizedStringKey {
         switch (provider, isAllowed) {
-        case (.platesCloud, true): "AIProcessing.Footer.On"
-        case (.platesCloud, false): "AIProcessing.Footer.Off"
+        case (.plates, true): "AIProcessing.Footer.On"
+        case (.plates, false): "AIProcessing.Footer.Off"
         case (.claude, true): "AIProcessing.Footer.On.Claude"
         case (.claude, false): "AIProcessing.Footer.Off.Claude"
         }

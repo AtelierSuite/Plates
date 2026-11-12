@@ -2,7 +2,7 @@ import CryptoKit
 import DeviceCheck
 import Foundation
 
-/// What can go wrong reaching PlatesCloud, in words a cook can act on.
+/// What can go wrong reaching Plates, in words a cook can act on.
 public enum CloudError: LocalizedError, Equatable {
     /// The app was built without the address of the Worker.
     case notConfigured
@@ -59,8 +59,8 @@ public struct CloudPick: Equatable, Sendable {
 /// asks it to and says what can be seen on a dish for its icon. Every request is signed with an App Attest key, made and registered the first
 /// time the app needs one, so the Worker only answers Plates on a real device.
 @MainActor
-public final class PlatesCloud: RecipeWriting {
-    public static let shared = PlatesCloud()
+public final class Plates: RecipeWriting {
+    public static let shared = Plates()
 
     private let service = DCAppAttestService.shared
     private var attesting: Task<String, Error>?
@@ -80,7 +80,7 @@ public final class PlatesCloud: RecipeWriting {
 
     /// The Worker's address, written in when Xcode Cloud builds the app. Empty otherwise.
     private var baseURL: URL? {
-        let trimmed = PlatesCloudAddress.url.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = PlatesAddress.url.trimmingCharacters(in: .whitespacesAndNewlines)
         let address = trimmed.isEmpty ? Self.fallbackURL : trimmed
         return address.isEmpty ? nil : URL(string: address)
     }

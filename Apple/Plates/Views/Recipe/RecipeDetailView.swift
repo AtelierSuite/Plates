@@ -34,7 +34,7 @@ struct RecipeDetailView: View {
     @State private var isRedrawing = false
     @State private var redrawError: String?
     /// Asking for changes is left out when the cook writes their recipes by hand.
-    @AppStorage(PlatesCloud.allowedKey) private var isGenerationAllowed = false
+    @AppStorage(Plates.allowedKey) private var isGenerationAllowed = false
 
     /// One asked for change: the recipe before it, after it, and what the cook asked.
     private struct RevisionUndo {

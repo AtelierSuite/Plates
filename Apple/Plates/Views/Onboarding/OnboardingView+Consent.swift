@@ -16,7 +16,7 @@ extension OnboardingView {
 
             VStack(alignment: .leading, spacing: 24) {
                 switch provider {
-                case .platesCloud:
+                case .plates:
                     featureRow(
                         icon: "text.page",
                         title: "Consent.Gemma",
@@ -55,7 +55,7 @@ extension OnboardingView {
 
             VStack(alignment: .leading, spacing: 12) {
                 switch provider {
-                case .platesCloud:
+                case .plates:
                     Link("Consent.Policy.Cloudflare", destination: AIProcessingView.cloudflarePolicy)
                 case .claude:
                     Link("Consent.Policy.Anthropic", destination: AIProcessingView.anthropicPolicy)

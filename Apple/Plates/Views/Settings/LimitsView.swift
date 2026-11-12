@@ -1,15 +1,15 @@
 import CulinaryIntelligence
 import SwiftUI
 
-/// What is left of today's limits on PlatesCloud, as the Worker counts them for this device. A
-/// provider on the cook's own key has none from PlatesCloud, and the view says so instead.
+/// What is left of today's limits on Plates, as the Worker counts them for this device. A
+/// provider on the cook's own key has none from Plates, and the view says so instead.
 struct LimitsView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var limits: CloudLimits?
     @State private var error: String?
 
-    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .plates
 
     var body: some View {
         NavigationStack {
@@ -80,7 +80,7 @@ struct LimitsView: View {
     private func load() async {
         guard !provider.needsKey else { return }
         do {
-            limits = try await PlatesCloud.shared.limits()
+            limits = try await Plates.shared.limits()
             error = nil
         } catch {
             self.error = error.localizedDescription

@@ -66,7 +66,7 @@ enum ClaudeRole: Sendable {
 
 /// Claude on the cook's own Anthropic account, with each request sent to the model its role
 /// calls for. Requests go from the device straight to the Messages API with the cook's key, so
-/// neither App Attest nor PlatesCloud's daily limits apply. It is given the same English
+/// neither App Attest nor Plates' daily limits apply. It is given the same English
 /// instructions and prompts as Gemma, and its answers are read the same way. While Claude
 /// writes, the passes Apple Intelligence runs on the device are sent here too.
 @MainActor
@@ -99,7 +99,7 @@ final class ClaudeCloud: RecipeWriting {
         LocalizedStringResource(culinary: "Generate.Unavailable.ClaudeKey")
     }
 
-    var isAllowed: Bool { UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) }
+    var isAllowed: Bool { UserDefaults.standard.bool(forKey: Plates.allowedKey) }
 
     /// The cook's own key has no daily limit from us.
     var writesRemaining: Int? { .max }
@@ -286,7 +286,7 @@ final class ClaudeCloud: RecipeWriting {
         maximumTokens: Int,
         schema: [String: Any]?
     ) async throws -> URLSession.AsyncBytes {
-        guard UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) else { throw CloudError.notAllowed }
+        guard UserDefaults.standard.bool(forKey: Plates.allowedKey) else { throw CloudError.notAllowed }
         guard let key = key() else { throw ClaudeError.noKey }
         var request = URLRequest(url: Self.endpoint)
         request.httpMethod = "POST"

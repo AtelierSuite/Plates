@@ -246,7 +246,7 @@ public struct GenerationProgress: Equatable, Sendable {
 
 /// Writes a new recipe with two models, each doing what it is good at.
 ///
-/// Gemma, running on Workers AI behind PlatesCloud, writes the whole recipe as plain cookbook
+/// Gemma, running on Workers AI behind Plates, writes the whole recipe as plain cookbook
 /// text in one go, always in English, since a model its size gets the cooking right far more
 /// often in English than in Japanese. A request the cook wrote in another language is put into
 /// English for it first.
@@ -288,7 +288,7 @@ public final class RecipeGenerator {
     /// of it put into English for Gemma.
     let writer = ModelPasses()
 
-    /// Where the recipe is written and an idea picked: Gemma and Clef on PlatesCloud, or the
+    /// Where the recipe is written and an idea picked: Gemma and Clef on Plates, or the
     /// provider the cook brought their own key for.
     var cloud: any RecipeWriting { WriterProvider.current.service }
 
