@@ -675,34 +675,6 @@ public final class RecipeAskEditor {
         }
         recipe.troubleshooting = notes
 
-        // The pans and the steps that brown, fry, or boil, for a serving count far enough from
-        // the old one that the same pan crowds or the same time runs short. Code picks the lines,
-        // and each is rewritten on its own, told the new count and what it means for that line.
-        var resized = false
-        if let serves, let old = Recipe.servings(in: recipe.serves), let new = Recipe.servings(in: serves),
-           Recipe.outgrowsPans(scaledBy: new / old) {
-            // The pass is told the new count and which way it went, not by how much: told a
-            // recipe made three times the food, it tripled the frying time.
-            let larger = new > old
-            let size = Self.text(larger ? "Edit.Prompt.Scale.Larger" : "Edit.Prompt.Scale.Smaller", recipe.title, serves)
-            for (index, tool) in recipe.tools.enumerated() where tool.holdsTheFood {
-                let job = followUp(.changeTool, line: index + 1, title: tool.name, "")
-                recipe.tools[index] = try await run(job) {
-                    try await resize(tool, size, larger: larger)
-                }
-            }
-            // A recipe with no pan or pot, such as toast, has nothing to crowd.
-            let inPans = recipe.tools.contains(where: \.holdsTheFood)
-            for (index, step) in recipe.steps.enumerated() where inPans && step.dependsOnVolume {
-                let job = followUp(.step, line: index + 1, title: step.title, "")
-                recipe.steps[index] = try await run(job) {
-                    try await resize(step, number: index + 1, size, larger: larger, tools: recipe.tools)
-                }
-                resized = resized || recipe.steps[index] != step
-                progress.show(recipe)
-            }
-        }
-
         // The title, the time, and last of all the serving count, so an ingredient added for
         // the recipe as it was is scaled with the rest.
         var titleJobs = jobs(.title)
@@ -721,8 +693,7 @@ public final class RecipeAskEditor {
         // A method that changed may take longer or shorter, so the time is checked whenever it
         // did, and not only when the plan asked.
         var timeJobs = jobs(.time)
-        if timeJobs.isEmpty, recipe.steps != original.steps,
-           resized || !jobs(.step, .addStep, .removeStep).isEmpty {
+        if timeJobs.isEmpty, recipe.steps != original.steps, !jobs(.step, .addStep, .removeStep).isEmpty {
             timeJobs.append((PlannedEdit(target: .time, title: "", instruction: "", line: 0), nil))
         }
         for job in timeJobs.prefix(1) {
@@ -733,6 +704,7 @@ public final class RecipeAskEditor {
         if let serves, let old = Recipe.servings(in: recipe.serves), let new = Recipe.servings(in: serves) {
             for job in jobs(.serves).prefix(1) { mark(job, .done) }
             recipe.scaleAmounts(by: new / old)
+            recipe.resizePans(to: serves)
             recipe.serves = serves
         }
         progress.show(recipe)
@@ -1177,48 +1149,6 @@ public final class RecipeAskEditor {
         return serves
     }
 
-    /// A pan or pot written again for a new serving count. Only its note is taken: the name and
-    /// icon stay, so the steps that name it still do, and a size or batches go in the note. The
-    /// pass sees no amounts, since one that saw them would scale the recipe a second time.
-    private func resize(_ tool: Tool, _ size: String, larger: Bool) async throws -> Tool {
-        let written = try await line(GeneratedTool.self, [
-            size,
-            Self.text("Edit.Prompt.Line.Tool", Self.line(for: tool)),
-            Self.text("Edit.Prompt.Ask", Self.text(larger ? "Edit.Prompt.Scale.Tool.Larger" : "Edit.Prompt.Scale.Tool.Smaller")),
-            Self.text("Edit.Prompt.Line.Tool.Ask"),
-        ])
-        var resized = tool
-        resized.note = Self.trimmed(written.note.withoutLeakedSyntax) ?? tool.note
-        return resized
-    }
-
-    /// A step that browns, fries, or boils, written again for a new serving count with the pans
-    /// as they now stand. It keeps its title, since it is the same step. The step's own figures
-    /// are its to keep: the pass is told what the new count means for the pan and the time, and
-    /// never handed the ingredient amounts.
-    private func resize(_ step: Step, number: Int, _ size: String, larger: Bool, tools: [Tool]) async throws -> Step {
-        let vessels = tools.filter(\.holdsTheFood).map(Self.line(for:))
-        let instruction = Self.text(larger ? "Edit.Prompt.Scale.Step.Larger" : "Edit.Prompt.Scale.Step.Smaller")
-        let written = try await line(StructuredStep.self, [
-            size,
-            vessels.isEmpty ? "" : Self.text("Generate.Prompt.Line.Tools", ModelPasses.joined(vessels)),
-            Self.text("Edit.Prompt.Line.Step", String(number), Self.words(of: step)),
-            Self.text("Edit.Prompt.Ask", instruction),
-            Self.text("Edit.Prompt.Line.Step.Ask"),
-        ])
-        guard var resized = Self.step(written, after: step.title) else { return step }
-        // The pass has copied the instruction into the step, sentence by sentence.
-        let told = Step.comparable(instruction)
-        resized.points = resized.points.filter { !told.contains(Step.comparable($0)) }
-        // A step written back word for word, only cut into sentences differently, is kept as it was.
-        guard !resized.points.isEmpty,
-              Step.comparable(resized.points.joined(separator: " ")) != Step.comparable(step.points.joined(separator: " "))
-        else { return step }
-        resized.title = step.title
-        resized.icons = step.icons
-        return resized
-    }
-
     /// The step a change belongs in, counting from 0.
     private func placement(_ question: String, _ instruction: String, in recipe: Recipe) async throws -> Int {
         let written = try await line(GeneratedPlacement.self, [
@@ -1333,16 +1263,17 @@ public final class RecipeAskEditor {
 
     /// The edited recipe put straight: a step the model rewrote is marked with the icons its
     /// words point at, a step it left alone keeps the icons it had minus anything the recipe no
-    /// longer carries, and the file it came from is the file it goes back to.
+    /// longer carries, and the file it came from is the file it goes back to. A step that
+    /// differs only by the batches written for a new serving count was left alone too.
     private static func tidied(_ edited: Recipe, against original: Recipe) -> Recipe {
         var recipe = edited
         recipe.id = original.id
         let ingredients = ingredients(of: recipe)
         let carried = Set(ingredients.map(\.icon) + recipe.tools.map(\.icon))
-        let untouched = Set(original.steps)
+        let untouched = Set(original.steps.map(\.withoutPanLines))
         recipe.steps = recipe.steps.map { step in
             var step = step
-            if untouched.contains(step), let icons = step.icons {
+            if untouched.contains(step.withoutPanLines), let icons = step.icons {
                 step.icons = icons.filter(carried.contains)
             } else {
                 step.icons = Step.icons(
