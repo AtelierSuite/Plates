@@ -11925,6 +11925,42 @@
           }
         }
       }
+    },
+    "Generate.Prompt.Example.Ask": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Work out a recipe for garlic green beans."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ガーリックいんげんのレシピを考えてください。"
+          }
+        }
+      }
+    },
+    "Generate.Prompt.Example.Recipe": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garlic Green Beans\n\nTotal time: 20 minutes\nServes: 4\n\nIngredients:\n- 1 lb green beans\n- 2 tablespoons butter\n- 3 cloves garlic\n- 1/2 teaspoon salt\n- 1/4 teaspoon black pepper\n- 1 teaspoon lemon juice (optional)\n\nTools:\n- 1 chef knife\n- 1 cutting board\n- 1 large pot\n- 1 colander\n- 1 large frying pan\n- 1 wooden spoon\n\nMethod:\n1. Trim the stem ends off the green beans and slice the garlic thinly.\n2. Bring a large pot of water to a boil. Add the green beans and cook for 3 to 4 minutes, until bright green and just tender. Drain them in a colander.\n3. Melt the butter in a large frying pan over medium heat. Add the garlic and cook for 1 to 2 minutes, stirring, until it turns pale gold.\n4. Add the drained beans, the salt, and the pepper. Toss for 2 minutes, until the beans are hot and coated in the butter.\n5. Take the pan off the heat, stir in the lemon juice if you are using it, and serve.\n\nCommon problems:\n- The beans are soft and dull. They boiled too long. Drain them as soon as they turn bright green and bend a little.\n- The garlic tastes bitter. It browned too far. Keep the heat at medium and add the beans as soon as the garlic turns pale gold."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ガーリックいんげん\n\n全体の所要時間：20分\n分量：4人分\n\n材料：\n- さやいんげん 450g\n- バター 大さじ2\n- にんにく 3かけ\n- 塩 小さじ1/2\n- 黒こしょう 小さじ1/4\n- レモン汁 小さじ1（お好みで）\n\n道具：\n- 包丁 1本\n- まな板 1枚\n- 大きな鍋 1つ\n- ざる 1つ\n- 大きなフライパン 1つ\n- 木べら 1本\n\n作り方：\n1. さやいんげんのへたを切り落とし、にんにくを薄切りにします。\n2. 大きな鍋に湯を沸かします。さやいんげんを入れて3から4分、鮮やかな緑色になり、ちょうどやわらかくなるまでゆでます。ざるに上げて湯を切ります。\n3. 大きなフライパンを中火にかけてバターを溶かします。にんにくを入れ、混ぜながら1から2分、薄い金色になるまで炒めます。\n4. 湯を切ったさやいんげん、塩、こしょうを加えます。2分ほど、さやいんげんが温まってバターがからむまで混ぜます。\n5. フライパンを火から下ろし、使う場合はレモン汁を混ぜて、盛り付けます。\n\nよくある失敗：\n- さやいんげんがやわらかすぎて色がくすむ。ゆで過ぎています。鮮やかな緑色になって少ししなるようになったら、すぐに湯を切ります。\n- にんにくが苦い。焦がし過ぎています。火を中火に保ち、にんにくが薄い金色になったらすぐにさやいんげんを加えます。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"
