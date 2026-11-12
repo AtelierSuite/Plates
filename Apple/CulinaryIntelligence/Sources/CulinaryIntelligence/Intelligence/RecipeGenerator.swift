@@ -183,6 +183,8 @@ public struct GenerationProgress: Equatable, Sendable {
     public var outline: [String] = []
     /// The problems as they are sorted, without their fixes.
     public var problems: [String] = []
+    /// Set when Gemma's first draft failed a check in code and it is writing the recipe again.
+    public var isWritingAgain = false
     /// Set when the last pass ends, so the bar always lands on full.
     public var isFinished = false
     /// Set when the recipe came off a web page, which has nothing for Gemma to write, so the
@@ -201,7 +203,9 @@ public struct GenerationProgress: Equatable, Sendable {
     /// name of its own.
     public var activity: ActivityProgress {
         ActivityProgress(
-            stage: String(localized: stage.title),
+            stage: String(localized: stage == .write && isWritingAgain
+                ? LocalizedStringResource(culinary: "Generate.Progress.Stage.WriteAgain")
+                : stage.title),
             dish: title,
             fraction: fraction
         )
@@ -290,6 +294,9 @@ public final class RecipeGenerator {
     /// Where the run reports how far along it is.
     let observer: (any RunObserver)?
 
+    /// Where the generation eval reads what a run did. Nil in the app.
+    var trace: GenerationTrace?
+
     public init(observer: (any RunObserver)? = nil) {
         self.observer = observer
     }
@@ -324,8 +331,14 @@ public final class RecipeGenerator {
             } else {
                 english = await inEnglish(request)
             }
-            let text = try await write(english)
-            let written = Self.withoutUnusedPicks(WrittenRecipe(parsing: text), request: request)
+            if !english.writtenAs.isEmpty { trace?.translation = english.description }
+            // An idea's summary says more than the cook asked for, so only its title is held
+            // to the draft checks.
+            var checked = english
+            if let idea { checked.description = idea.englishTitle }
+            let (text, written) = try await draft(english, checkedAgainst: checked, request: request)
+            trace?.written = WrittenRecipe(parsing: text)
+            trace?.kept = written
             let sorted = try await sort(
                 written,
                 text: text,
@@ -334,11 +347,13 @@ public final class RecipeGenerator {
             )
             var recipe = Self.makeRecipe(sorted)
             recipe.dish = await Dish.asked(for: recipe)
+            trace?.recipe = recipe
             progress.isFinished = true
             state = .idle
             observer?.runEnded(progress.activity, succeeded: true)
             return recipe
         } catch {
+            trace?.error = error
             state = .failed(error.localizedDescription)
             observer?.runEnded(progress.activity, succeeded: false)
             return nil
@@ -381,10 +396,12 @@ public final class RecipeGenerator {
         let stream = cloud.write(
             instructions: Self.writeInstructions(for: request),
             example: Self.writeExample,
-            prompt: Self.prompt(for: request)
+            prompt: Self.prompt(for: request),
+            temperature: Self.writeTemperature
         )
         for try await piece in stream {
             written += piece
+            trace?.draft = written
             guard piece.contains("\n"), let end = written.lastIndex(of: "\n") else { continue }
             show(String(written[..<end]), of: written)
         }
@@ -392,6 +409,42 @@ public final class RecipeGenerator {
         let text = written.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { throw CloudError.noResponse }
         return text
+    }
+
+    /// How many times Gemma writes one recipe at most. Every time uses one of the cook's
+    /// writes for the day, so a draft is written again once at most.
+    static let draftAttempts = 2
+
+    /// Gemma's draft with the cook's unused picks taken out, held to `DraftCheck`. A draft that
+    /// fails a check is written again while the Worker says more than one write is left today,
+    /// so a second try never uses up the cook's last. The draft that fails fewer checks is
+    /// kept, the first on a tie, and so is the first when the second does not arrive.
+    private func draft(
+        _ english: GenerationRequest,
+        checkedAgainst checked: GenerationRequest,
+        request: GenerationRequest
+    ) async throws -> (text: String, written: WrittenRecipe) {
+        var best: (text: String, written: WrittenRecipe, failures: [DraftCheck])?
+        for _ in 1...Self.draftAttempts {
+            if let best {
+                guard !best.failures.isEmpty, (cloud.writesRemaining ?? 0) >= 2 else { break }
+                progress.isWritingAgain = true
+            }
+            let text: String
+            do {
+                text = try await write(english)
+            } catch {
+                guard best != nil, !(error is CancellationError) else { throw error }
+                break
+            }
+            let written = Self.withoutUnusedPicks(WrittenRecipe(parsing: text), request: request)
+            let failures = DraftCheck.failures(in: written, request: checked)
+            if failures.count < best?.failures.count ?? .max {
+                best = (text, written, failures)
+            }
+        }
+        guard let best else { throw CloudError.noResponse }
+        return (best.text, best.written)
     }
 
     /// Puts the finished lines on screen.
@@ -424,6 +477,7 @@ public final class RecipeGenerator {
         var ingredients: [(entry: StructuredIngredient, line: String)] = []
         var tools: [GeneratedTool] = []
         if written.ingredients.isEmpty || (written.tools.isEmpty && found == nil) {
+            trace?.sortedWholeShopping = true
             let whole = try await sortWholeShopping(text: text)
             ingredients = whole.0.map { ($0, "") }
             tools = whole.1
@@ -477,6 +531,7 @@ public final class RecipeGenerator {
             // recipe the evals asked for. One the method bakes in is listed for it.
             if found == nil, !tools.contains(where: { $0.icon == "oven" }),
                Self.namedTools(in: written.steps).contains("oven") {
+                trace?.addedOven = true
                 let oven = GeneratedTool(name: IconCatalog.displayName(for: "oven"), icon: "oven", required: true, note: "")
                 tools.append(oven)
                 progress.tools.append(.init(name: oven.name, detail: ""))
@@ -489,6 +544,7 @@ public final class RecipeGenerator {
         var steps: [(title: String, points: [String])] = []
         var notes: [GeneratedTroubleshooting] = []
         if written.steps.isEmpty {
+            trace?.sortedWholeMethod = true
             (steps, notes) = try await sortWholeMethod(text: text)
         } else {
             for line in written.steps {
@@ -621,6 +677,10 @@ public final class RecipeGenerator {
     /// other pass and is tried again.
     static let lineTokenLimit = 600
 
+    /// Gemma's temperature for the recipe write. It is the 0.7 the Kitchen screening used until
+    /// the generation evals settle on a lower value, where one recipe has to come out right.
+    static let writeTemperature = 0.7
+
     /// The same limit for a section sorted from the whole text, which writes every line of it.
     private static let wholeTokenLimit = 2400
 
@@ -740,7 +800,7 @@ public final class RecipeGenerator {
 
     /// Words that count an ingredient rather than name one, so "2 cloves garlic" is not read as
     /// the spice.
-    private static let measureWords: Set<String> = [
+    static let measureWords: Set<String> = [
         "can", "cans", "clove", "cloves", "stalk", "stalks", "slice", "slices", "piece", "pieces",
         "head", "heads", "bunch", "sprig", "sprigs", "pinch", "dash", "handful", "sheet", "sheets",
     ]
@@ -780,16 +840,9 @@ public final class RecipeGenerator {
     /// seldom the knife or the board.
     static func withoutUnusedPicks(_ written: WrittenRecipe, request: GenerationRequest) -> WrittenRecipe {
         guard !written.steps.isEmpty else { return written }
-        let method = Set(words(in: written.steps.joined(separator: " ")).map(stem))
-        // The line's own word for the thing, which is the last word before any comma or
-        // bracket, and the catalog's name for it, first word or last: the step may say
-        // "scallions" where the catalog says spring onion, or "Parmesan" for Parmesan cheese.
-        // Words such as "large" are left out of it, since "large skillet" says nothing of a pot.
+        let method = stems(in: written.steps.joined(separator: " "))
         func mentioned(line: String, name: String) -> Bool {
-            let head = line.split(whereSeparator: { $0 == "," || $0 == "(" }).first.map(String.init) ?? line
-            let named = words(in: name).map(stem)
-            let candidates = [words(in: head).last.map(stem), named.first, named.last].compactMap { $0 }
-            return candidates.contains(where: method.contains)
+            isMentioned(line: line, name: name, in: method)
         }
         var trimmed = written
         let picked = Set(request.ingredients)
@@ -810,8 +863,25 @@ public final class RecipeGenerator {
         return trimmed
     }
 
+    /// Whether a method, as its stemmed words, uses what a listed line names. It is the line's
+    /// own word for the thing, which is the last word before any comma or bracket, or the
+    /// catalog's name for it, first word or last: the step may say "scallions" where the
+    /// catalog says spring onion, or "Parmesan" for Parmesan cheese. Words such as "large" are
+    /// left out of it, since "large skillet" says nothing of a pot.
+    static func isMentioned(line: String, name: String, in method: Set<String>) -> Bool {
+        let head = line.split(whereSeparator: { $0 == "," || $0 == "(" }).first.map(String.init) ?? line
+        let named = words(in: name).map(stem)
+        let candidates = [words(in: head).last.map(stem), named.first, named.last].compactMap { $0 }
+        return candidates.contains(where: method.contains)
+    }
+
+    /// Some text's words, each without its plural.
+    static func stems(in text: String) -> Set<String> {
+        Set(words(in: text).map(stem))
+    }
+
     /// A line's words, lowercased, letters only.
-    private static func words(in text: String) -> [String] {
+    static func words(in text: String) -> [String] {
         text.lowercased()
             .map { $0.isLetter ? String($0) : " " }
             .joined()
@@ -820,7 +890,7 @@ public final class RecipeGenerator {
     }
 
     /// A word without its plural, so "tomatoes" in a step matches "tomato" in the list.
-    private static func stem(_ word: String) -> String {
+    static func stem(_ word: String) -> String {
         var word = word
         if word.hasSuffix("ies") { return String(word.dropLast(3)) + "y" }
         if word.hasSuffix("s"), !word.hasSuffix("ss") { word.removeLast() }

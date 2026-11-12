@@ -766,6 +766,23 @@
         }
       }
     },
+    "Generate.Progress.Row.WriteAgain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Writing the recipe again"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピを書き直し中"
+          }
+        }
+      }
+    },
     "Generate.Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1204,6 +1221,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "レシピのアイコンに、どの調味料や薬味を描くかを決めます。"
+          }
+        }
+      }
+    },
+    "Limits.Edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipe Editing"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピ編集"
+          }
+        }
+      }
+    },
+    "Limits.Edit.Detail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Working out what swapping an ingredient changes in the method."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "材料を替えたときに、作り方のどこが変わるかを調べます。"
           }
         }
       }
@@ -2769,6 +2820,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "道具"
+          }
+        }
+      }
+    },
+    "Recipe.Edit.Undo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo Changes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変更を取り消す"
           }
         }
       }
