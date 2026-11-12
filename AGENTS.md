@@ -51,8 +51,22 @@ left.
   Xcode Cloud's `PLATES_CLOUD_URL` into it. For a local build against the Worker, run the script
   with `PLATES_CLOUD_URL` and `CI_PRIMARY_REPOSITORY_PATH` set, and do not commit the result.
 - App Attest does not run in Simulator, so a debug build there sends unsigned requests to
-  `http://localhost:8787`. Run `npm run dev` in `Cloud/` with `SKIP_APP_ATTEST=true` in
-  its `.dev.vars`.
+  `http://localhost:8787`, or to `PLATES_CLOUD_URL` when it is set. Run `npm run dev` in
+  `Cloud/` with `SKIP_APP_ATTEST=true` in its `.dev.vars`.
+
+## Generation eval
+
+`GenerationEvalTests` in the package's tests runs the fixed requests in `EvalRequests` through
+`RecipeGenerator.generate` and writes what each run did to JSON: whether a section was sorted
+from the whole text, how many lines were lost or added between Gemma's text and the recipe,
+and, once their hooks on `GenerationTrace` are filled, the draft checks and the cut-off. It
+only runs with `PLATES_EVAL=1`. The command is in the test's comment.
+
+- It is an eval: it sends every request to Gemma and Apple Intelligence. Measure a generation
+  change against a baseline from it, in both languages.
+- Keep the requests real, as a cook would type them. Change the set only with a new baseline.
+- The local Worker needs its daily limits set high enough for every run, such as
+  `WRITE_DAILY_LIMIT=500` and `TOPPINGS_DAILY_LIMIT=500` in the environment of `npm run dev`.
 
 ## Model lessons
 
