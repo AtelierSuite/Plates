@@ -766,6 +766,23 @@
         }
       }
     },
+    "Generate.Progress.Row.WriteAgain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Writing the recipe again"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピを書き直し中"
+          }
+        }
+      }
+    },
     "Generate.Title" : {
       "extractionState" : "manual",
       "localizations" : {

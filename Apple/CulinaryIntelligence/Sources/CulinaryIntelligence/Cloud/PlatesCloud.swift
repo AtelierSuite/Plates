@@ -99,14 +99,20 @@ public final class PlatesCloud {
 
     // MARK: - Writing
 
+    /// How many recipes the Worker said were left today when it answered the last write, or
+    /// nil before it has answered one.
+    private(set) var writesRemaining: Int?
+
     /// Gemma's answer streamed back a piece at a time. An answer that ran out of tokens ends
     /// in `CloudError.cutOff`, as it would otherwise look finished and be missing its last steps.
     func write(instructions: String, prompt: String, maximumTokens: Int = 1400) -> AsyncThrowingStream<String, Error> {
         let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: true)
+        writesRemaining = nil
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    let (bytes, _) = try await self.send("/v1/chat/completions", body: body)
+                    let (bytes, response) = try await self.send("/v1/chat/completions", body: body)
+                    self.writesRemaining = response.value(forHTTPHeaderField: "X-Plates-Remaining").flatMap { Int($0) }
                     var reason: String?
                     for try await line in bytes.lines {
                         guard line.hasPrefix("data:") else { continue }

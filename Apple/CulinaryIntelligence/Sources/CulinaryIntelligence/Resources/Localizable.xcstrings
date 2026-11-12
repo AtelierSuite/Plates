@@ -1109,6 +1109,23 @@
         }
       }
     },
+    "Generate.Progress.Stage.WriteAgain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Writing the recipe again"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レシピを書き直しています"
+          }
+        }
+      }
+    },
     "Generate.Prompt.Ask.Any": {
       "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
       "extractionState": "manual",
