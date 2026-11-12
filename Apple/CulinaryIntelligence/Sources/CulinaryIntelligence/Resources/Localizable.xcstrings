@@ -1,6 +1,23 @@
 {
   "sourceLanguage": "en-US",
   "strings": {
+    "Cloud.Error.CutOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The recipe ran too long and stopped before the end. Try again, or ask for a simpler dish."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レシピが長くなりすぎて、最後まで書けませんでした。もう一度お試しいただくか、もっと簡単な料理をお願いしてください。"
+          }
+        }
+      }
+    },
     "Cloud.Error.LimitReached": {
       "extractionState": "manual",
       "localizations": {
@@ -150,6 +167,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "変更内容を検討しています"
+          }
+        }
+      }
+    },
+    "Edit.Progress.Method": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check how %1$@ cooks"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@の火の通し方を確かめる"
           }
         }
       }
@@ -473,6 +507,77 @@
           "stringUnit": {
             "state": "translated",
             "value": "現在の手順%1$@: %2$@"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Line.Step.Method": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Using %2$@ in place of %1$@ changes the method like this: %3$@\nWhere this step's prep, heat, time, or signs that it is done were written for %1$@, make them right for %2$@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@の代わりに%2$@を使うと、作り方は次のように変わります: %3$@\nこの手順の下ごしらえ、火加減、時間、火が通った目安が%1$@に合わせて書かれていれば、%2$@に合うように直してください。"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Method": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You help a cook change a recipe. One ingredient in it is being replaced by another. Say what the swap changes in the method: how the new ingredient is prepared, the heat, the cooking time, and how to tell when it is done. Where a cue only fits the old ingredient, such as a color or a texture, give the one that fits the new ingredient. Write two to four short sentences of plain English, with times where they change. Leave out flavor, serving, and anything that stays the same. If nothing in the method changes, answer with \"%1$@\" and nothing else."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レシピを変える手伝いをします。レシピの材料のひとつを、別の材料に替えます。この入れ替えで作り方の何が変わるかを答えてください。新しい材料の下ごしらえ、火加減、加熱時間、火が通った目安です。色や食感など、元の材料にしか合わない目安があれば、新しい材料に合う目安を書きます。平易な英語の短い文を二つから四つ書き、時間が変わるときは時間も書きます。味、盛り付け、変わらないことは書きません。作り方が何も変わらなければ「%1$@」とだけ答えてください。"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Method.Ask": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The dish: %1$@\nThe swap: %3$@ in place of %2$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "料理: %1$@\n入れ替え: %2$@の代わりに%3$@"
+          }
+        }
+      }
+    },
+    "Edit.Prompt.Method.Nothing": {
+      "comment": "Given to Gemma, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing changes."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "何も変わりません。"
           }
         }
       }
@@ -1000,6 +1105,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "レシピを書いています"
+          }
+        }
+      }
+    },
+    "Generate.Progress.Stage.WriteAgain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Writing the recipe again"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レシピを書き直しています"
           }
         }
       }

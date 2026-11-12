@@ -3,7 +3,7 @@ import { verifyAssertion } from "./attest";
 import type { Pick } from "./decide";
 import type { Env } from "./env";
 
-export type Kind = "write" | "ideate" | "decide" | "toppings";
+export type Kind = "write" | "ideate" | "decide" | "toppings" | "edit";
 
 interface Usage {
   day: string;

@@ -34,8 +34,9 @@ Plain vars are read from the environment by `cloudflare.config.ts` at deploy tim
 | `IDEATE_DAILY_LIMIT` | Sets of ideas Gemma writes per device per day |
 | `DECIDE_DAILY_LIMIT` | Decide for me picks per device per day |
 | `TOPPINGS_DAILY_LIMIT` | Dish icon questions per device per day |
+| `EDIT_DAILY_LIMIT` | Questions Gemma answers for the recipe editor per device per day. Optional: until it is set, `/v1/edit` answers 503 and `/v1/limits` leaves `edit` out |
 
-Daily quotas use the server’s UTC date and reset at midnight UTC. The four limits are defaults. A device whose Durable Object has a row in its `limits` table (`kind` is `write`, `ideate`, `decide`, or `toppings`, `daily` a whole number) uses that instead, so one device can be given more or fewer calls without a deploy. Each device's Durable Object is named by its key ID in base64url, and `limits` is its only SQL table: the key, the counter, and the daily counts stay in its key-value storage.
+Daily quotas use the server’s UTC date and reset at midnight UTC. The limits are defaults. A device whose Durable Object has a row in its `limits` table (`kind` is `write`, `ideate`, `decide`, `toppings`, or `edit`, `daily` a whole number) uses that instead, so one device can be given more or fewer calls without a deploy. Each device's Durable Object is named by its key ID in base64url, and `limits` is its only SQL table: the key, the counter, and the daily counts stay in its key-value storage.
 
 For example, `INSERT OR REPLACE INTO limits (kind, daily) VALUES ('write', 50)` gives a device 50 Gemma calls a day.
 
@@ -64,8 +65,9 @@ Everything is `POST` except `/health`. The signed endpoints take three headers:
 | `/v1/attest` | No | Takes `{ keyId, attestation, challenge }`. The attestation's client data hash is the SHA-256 of the challenge string's UTF-8 bytes. Registers the key once |
 | `/v1/chat/completions` | Yes | OpenAI Chat Completions in and out, streamed when `stream` is true. Always Gemma 4 26B A4B; `max_tokens` is capped at 1,400 |
 | `/v1/ideate` | Yes | The same as `/v1/chat/completions`, for the dish ideas: counted against `IDEATE_DAILY_LIMIT`, with `max_tokens` capped at 500 |
+| `/v1/edit` | Yes | The same as `/v1/chat/completions`, for what a swap in the recipe editor changes in the method: counted against `EDIT_DAILY_LIMIT`, with `max_tokens` capped at 400 |
 | `/v1/decide` | Yes | Takes `{ requestId, request, ingredients, tools, ideas: [{ title, summary }] }` and returns `{ index, confidence, probabilities, remaining }` |
 | `/v1/toppings` | Yes | Takes `{ dish, steps: [{ title, points }], ingredients }` and returns `{ visible, remaining }`, where `visible` holds Clef-flash's probability, line by line, that the ingredient can be seen on the dish as it is served |
-| `/v1/limits` | Yes | Returns today's `{ limit, remaining }` for each of `write`, `ideate`, `decide`, and `toppings`, without counting anything |
+| `/v1/limits` | Yes | Returns today's `{ limit, remaining }` for each of `write`, `ideate`, `decide`, and `toppings`, and `edit` when `EDIT_DAILY_LIMIT` is set, without counting anything |
 
 A metered call that fails upstream is given back. A retried Decide for me with the same `requestId` returns the first answer without counting again. Every metered response carries `X-Plates-Remaining`, and a call past the limit gets 429.

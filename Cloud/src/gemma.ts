@@ -1,6 +1,7 @@
 export const GEMMA_MODEL = "@cf/google/gemma-4-26b-a4b-it";
 export const MAX_OUTPUT_TOKENS = 1400;
 export const MAX_IDEA_TOKENS = 500;
+export const MAX_EDIT_TOKENS = 400;
 const MAX_MESSAGES = 16;
 const MAX_CHARACTERS = 24_000;
 const ROLES = new Set(["system", "user", "assistant"]);
@@ -45,22 +46,33 @@ function text(part: unknown): string {
   return typeof content === "string" ? content : "";
 }
 
-export function completion(result: unknown): object {
+function finish(part: unknown, most: number): string | null {
+  if (typeof part !== "object" || part === null) return null;
+  const value = part as { finish_reason?: unknown; choices?: { finish_reason?: unknown }[]; usage?: { completion_tokens?: unknown } };
+  const reason = value.choices?.[0]?.finish_reason ?? value.finish_reason;
+  if (typeof reason === "string" && reason !== "") return reason;
+  const tokens = value.usage?.completion_tokens;
+  if (typeof tokens === "number" && tokens >= most) return "length";
+  return null;
+}
+
+export function completion(result: unknown, most: number): object {
   return {
     id: `chatcmpl-${crypto.randomUUID()}`,
     object: "chat.completion",
     created: Math.floor(Date.now() / 1000),
     model: GEMMA_MODEL,
-    choices: [{ index: 0, message: { role: "assistant", content: text(result) }, finish_reason: "stop" }],
+    choices: [{ index: 0, message: { role: "assistant", content: text(result) }, finish_reason: finish(result, most) ?? "stop" }],
   };
 }
 
-export function completionStream(source: ReadableStream<Uint8Array>): ReadableStream<Uint8Array> {
+export function completionStream(source: ReadableStream<Uint8Array>, most: number): ReadableStream<Uint8Array> {
   const id = `chatcmpl-${crypto.randomUUID()}`;
   const created = Math.floor(Date.now() / 1000);
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
   let buffer = "";
+  let reason: string | null = null;
   const chunk = (delta: object, finish: string | null) =>
     encoder.encode(`data: ${JSON.stringify({
       id, object: "chat.completion.chunk", created, model: GEMMA_MODEL,
@@ -75,7 +87,9 @@ export function completionStream(source: ReadableStream<Uint8Array>): ReadableSt
       const payload = line.slice(5).trim();
       if (payload === "" || payload === "[DONE]") continue;
       try {
-        const content = text(JSON.parse(payload));
+        const part = JSON.parse(payload);
+        reason = finish(part, most) ?? reason;
+        const content = text(part);
         if (content) controller.enqueue(chunk({ content }, null));
       } catch {
         continue;
@@ -94,7 +108,7 @@ export function completionStream(source: ReadableStream<Uint8Array>): ReadableSt
     flush(controller) {
       buffer += decoder.decode();
       lines(controller, true);
-      controller.enqueue(chunk({}, "stop"));
+      controller.enqueue(chunk({}, reason ?? "stop"));
       controller.enqueue(encoder.encode("data: [DONE]\n\n"));
     },
   }));

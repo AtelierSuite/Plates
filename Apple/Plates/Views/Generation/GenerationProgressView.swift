@@ -11,7 +11,9 @@ struct GenerationProgressView: View {
             VStack(alignment: .leading, spacing: 12) {
                 // A recipe off a web page was written by the page, and has no fixes to sort.
                 row(
-                    progress.readsPage ? "Import.Progress.Row.Read" : "Generate.Progress.Row.Write",
+                    progress.readsPage
+                        ? "Import.Progress.Row.Read"
+                        : progress.isWritingAgain ? "Generate.Progress.Row.WriteAgain" : "Generate.Progress.Row.Write",
                     count: 0,
                     stage: .write
                 )

@@ -51,8 +51,22 @@ left.
   Xcode Cloud's `PLATES_CLOUD_URL` into it. For a local build against the Worker, run the script
   with `PLATES_CLOUD_URL` and `CI_PRIMARY_REPOSITORY_PATH` set, and do not commit the result.
 - App Attest does not run in Simulator, so a debug build there sends unsigned requests to
-  `http://localhost:8787`. Run `npm run dev` in `Cloud/` with `SKIP_APP_ATTEST=true` in
-  its `.dev.vars`.
+  `http://localhost:8787`, or to `PLATES_CLOUD_URL` when it is set. Run `npm run dev` in
+  `Cloud/` with `SKIP_APP_ATTEST=true` in its `.dev.vars`.
+
+## Generation eval
+
+`GenerationEvalTests` in the package's tests runs the fixed requests in `EvalRequests` through
+`RecipeGenerator.generate` and writes what each run did to JSON: whether a section was sorted
+from the whole text, how many lines were lost or added between Gemma's text and the recipe,
+and, once their hooks on `GenerationTrace` are filled, the draft checks and the cut-off. It
+only runs with `PLATES_EVAL=1`. The command is in the test's comment.
+
+- It is an eval: it sends every request to Gemma and Apple Intelligence. Measure a generation
+  change against a baseline from it, in both languages.
+- Keep the requests real, as a cook would type them. Change the set only with a new baseline.
+- The local Worker needs its daily limits set high enough for every run, such as
+  `WRITE_DAILY_LIMIT=500` and `TOPPINGS_DAILY_LIMIT=500` in the environment of `npm run dev`.
 
 ## Model lessons
 
@@ -101,6 +115,21 @@ of the evals, so do not undo one without running them again.
   lower than Jev, the model before it: on the sample recipes, 0.35 kept Jev's 0.6 calls on 70 of
   75 lines, and 0.6 kept 63. The title and the last step only decide when the Worker cannot be
   reached.
+
+## Edit eval
+
+`EditEvalTests` in the package's tests runs the fixed requests in `EditEvalRequests` through the
+real `RecipeAskEditor` on the sample recipes, and writes what each run did to JSON: the plan,
+whether every check on the request passed, and which lines changed that the request did not call
+for. It only runs with `PLATES_EVAL=1`, in Simulator, with no Worker. The command is in the test's
+comment.
+
+- It is an eval: it sends every request to Apple Intelligence. Measure an editing change against
+  a baseline from it, in both languages, before and after.
+- Run it with `-testLanguage ja -testRegion JP` for the Japanese requests, so the package reads
+  its Japanese catalog and the `ja.lproj` samples.
+- Keep the requests real, as a cook would ask. Change the set only with a new baseline.
+  `EditEvalHarnessTests` fails a check the sample already passes, since it measures nothing.
 
 ## Icons
 
