@@ -55,6 +55,7 @@ final class RecipeStore {
             recipes = []
             loadError = error.localizedDescription
         }
+        DrawnDishes.shared.load(from: directory)
         decideSignatures()
     }
 
@@ -150,14 +151,16 @@ final class RecipeStore {
     /// without a dish, from the share extension or the samples, has one worked out before it is
     /// written, and Clef's answer replaces it once it comes back, the way a generated recipe's
     /// dish is asked.
+    /// A new recipe is drawn by Claude as well when Claude writes, unless it is a sample.
     @discardableResult
-    func save(_ recipe: Recipe, isNew: Bool = false) -> Bool {
+    func save(_ recipe: Recipe, isNew: Bool = false, drawsDish: Bool = true) -> Bool {
         guard let directory else { return false }
         let recipe = isNew ? prepared(recipe) : recipe
         do {
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
             try recipe.fileContents().write(to: url(for: recipe.id, in: directory), options: .atomic)
             load()
+            if isNew, drawsDish { drawDish(for: recipe) }
             return true
         } catch {
             loadError = error.localizedDescription
@@ -169,7 +172,35 @@ final class RecipeStore {
     /// view that goes on editing it saves over the same file.
     func create(_ recipe: Recipe) -> Recipe? {
         let recipe = prepared(recipe)
-        return save(recipe) ? recipe : nil
+        guard save(recipe) else { return nil }
+        drawDish(for: recipe)
+        return recipe
+    }
+
+    /// Has Claude draw a recipe's dish, when Claude writes, and keeps the drawing beside the
+    /// recipe. A recipe with no ingredients yet, as one started by hand, is left to be redrawn
+    /// once it has some. A drawing that fails leaves the dish made from parts.
+    func drawDish(for recipe: Recipe) {
+        guard DishDrawing.isAvailable, let directory, !recipe.ingredients.isEmpty else { return }
+        Task {
+            guard let data = try? await DishDrawing.draw(for: recipe) else { return }
+            DrawnDishes.shared.store(data, for: recipe.id, in: directory)
+        }
+    }
+
+    /// Redraws a recipe's dish the way the writer draws it: Claude draws it again, or the
+    /// drawing is taken away and the dish is worked out from its parts.
+    func redrawDish(for recipe: Recipe) async throws -> Recipe {
+        guard let directory else { return recipe }
+        if DishDrawing.isAvailable {
+            let data = try await DishDrawing.draw(for: recipe)
+            DrawnDishes.shared.store(data, for: recipe.id, in: directory)
+            return recipe
+        }
+        DrawnDishes.shared.remove(for: recipe.id, in: directory)
+        var redrawn = recipe
+        redrawn.dish = await Dish.asked(for: recipe, seed: UUID().uuidString)
+        return redrawn
     }
 
     /// A new recipe with an id of its own, and a dish when it came without one.
@@ -204,6 +235,7 @@ final class RecipeStore {
     func delete(_ recipe: Recipe) {
         guard let directory else { return }
         try? FileManager.default.removeItem(at: url(for: recipe.id, in: directory))
+        DrawnDishes.shared.remove(for: recipe.id, in: directory)
         load()
     }
 
@@ -215,9 +247,10 @@ final class RecipeStore {
 
     /// Copies the recipes bundled with the app into the current folder, but only into an empty
     /// one. The samples ship in every language the app is written in, so the reader's language is
-    /// the one that gets copied over.
+    /// the one that gets copied over. Each sample's dish was drawn once by Claude, and the drawing
+    /// is copied in beside it, so it shows whoever writes.
     func addSampleRecipes() {
-        guard recipes.isEmpty else { return }
+        guard recipes.isEmpty, let directory else { return }
         let language = Bundle.main.preferredLocalizations.first ?? "en-US"
         let urls = Bundle.main.urls(
             forResourcesWithExtension: "json",
@@ -227,7 +260,11 @@ final class RecipeStore {
         for url in urls {
             guard let data = try? Data(contentsOf: url),
                   let recipe = try? decoder.decode(Recipe.self, from: data) else { continue }
-            save(recipe, isNew: true)
+            guard save(recipe, isNew: true, drawsDish: false) else { continue }
+            if let drawing = Bundle.main.url(forResource: recipe.id, withExtension: "png"),
+               let data = try? Data(contentsOf: drawing) {
+                DrawnDishes.shared.store(data, for: recipe.id, in: directory)
+            }
         }
     }
 

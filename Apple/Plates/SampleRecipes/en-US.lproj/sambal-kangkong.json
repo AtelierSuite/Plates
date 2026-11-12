@@ -1,0 +1,187 @@
+{
+  "id": "sambal-kangkong",
+  "title": "Sambal Kangkong",
+  "time": "35 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "water spinach (kangkong)",
+        "icon": "img/ingredients/water.svg",
+        "amount": "1 large bunch, about 1 lb"
+      },
+      {
+        "item": "red chilies",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "4 to 6"
+      },
+      {
+        "item": "shallots",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "4"
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "3 cloves"
+      }
+    ],
+    "general": [
+      {
+        "item": "dried shrimp",
+        "icon": "img/ingredients/dried-shrimp.svg",
+        "amount": "2 tbsp"
+      },
+      {
+        "item": "shrimp paste (belacan)",
+        "icon": "img/ingredients/shrimp-paste.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "3 tablespoons"
+      },
+      {
+        "item": "sugar",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1/4 teaspoon"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use a small bowl for soaking the dried shrimp."
+    },
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Colander",
+      "icon": "img/tools/colander.svg",
+      "required": true
+    },
+    {
+      "name": "Food processor",
+      "icon": "img/tools/food-processor.svg",
+      "required": true,
+      "note": "A small size works best, and a blender or a mortar and pestle can stand in."
+    },
+    {
+      "name": "Wok",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "A large frying pan can be used in its place."
+    },
+    {
+      "name": "Spatula",
+      "icon": "img/tools/spatula.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "Soak shrimp and prep water spinach",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/ingredients/dried-shrimp.svg",
+        "img/ingredients/shrimp-paste.svg",
+        "img/tools/bowl.svg",
+        "img/tools/colander.svg"
+      ],
+      "points": [
+        "Put the dried shrimp in the small bowl, cover with warm tap water, and leave to soak for 10 minutes.",
+        "While they soak, wash the water spinach well in the colander.",
+        "Cut off and discard the bottom 2 inches of the stems, which are tough.",
+        "Cut the rest into 3-inch lengths, keeping the stem pieces and the leafy pieces in separate piles.",
+        "Leave them in the colander to drain."
+      ]
+    },
+    {
+      "title": "Blend the chili paste",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/dried-shrimp.svg",
+        "img/ingredients/shrimp-paste.svg"
+      ],
+      "points": [
+        "Roughly chop the chilies, shallots, and garlic.",
+        "For a milder dish, scrape the seeds out of half the chilies first.",
+        "Drain the dried shrimp.",
+        "Put the chilies, shallots, garlic, shrimp paste, dried shrimp, and the 2 tablespoons of water in the food processor and blend to a coarse paste, scraping down the sides once or twice."
+      ]
+    },
+    {
+      "title": "Fry the paste",
+      "icons": [
+        "img/ingredients/shrimp-paste.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "Heat the oil in the wok over medium heat.",
+        "Add the paste and fry for 5 to 7 minutes, stirring often, until it darkens to a deep red, smells cooked rather than sharp, and the oil starts to separate from it at the edges.",
+        "If it starts to catch on the bottom, turn the heat down a little."
+      ]
+    },
+    {
+      "title": "Stir-fry the stem pieces",
+      "icons": [
+        "img/ingredients/shrimp-paste.svg"
+      ],
+      "points": [
+        "Turn the heat up to high.",
+        "Add the stem pieces and stir-fry for 1 minute, tossing them through the paste."
+      ]
+    },
+    {
+      "title": "Toss the greens",
+      "icons": [
+        "img/ingredients/sugar.svg",
+        "img/ingredients/salt.svg"
+      ],
+      "points": [
+        "Add the leafy pieces, the sugar, and the salt.",
+        "Toss for 1 to 2 minutes, until the leaves have just wilted and the stems are still crisp.",
+        "Taste, add a pinch more salt if needed, and serve straight away with rice."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The paste burns before it is cooked through",
+      "solution": "The heat was too high. Fry it over medium heat and stir often. If it scorches, add a spoonful of water and keep going."
+    },
+    {
+      "problem": "The dish sits in a pool of liquid",
+      "solution": "The greens were wet or cooked too long. Drain them well before they go in the wok, take the pan off the heat once the leaves wilt, and serve at once, because water spinach releases liquid as it stands."
+    },
+    {
+      "problem": "The greens steam and turn limp instead of frying",
+      "solution": "The wok was overcrowded or not hot enough. Make sure the heat is on high before the stems go in, and if your wok is small, cook the greens in two batches with half the paste each time."
+    }
+  ]
+}

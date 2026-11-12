@@ -1,0 +1,305 @@
+{
+  "id": "hainanese-chicken-rice",
+  "title": "Hainanese Chicken Rice",
+  "time": "105 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "chicken",
+        "icon": "img/ingredients/chicken.svg",
+        "amount": "1 whole chicken, about 3 1/2 lb"
+      },
+      {
+        "item": "ginger",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "1 piece",
+        "note": "About 4 inches long."
+      },
+      {
+        "item": "scallions",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "6"
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "8 cloves"
+      },
+      {
+        "item": "fresh red chilies",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "4",
+        "note": "Such as Fresno chilies work well here."
+      },
+      {
+        "item": "lime juice",
+        "icon": "img/ingredients/lime.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "cucumber",
+        "icon": "img/ingredients/cucumber.svg",
+        "amount": "1"
+      }
+    ],
+    "general": [
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "2 tablespoons plus 2 teaspoons"
+      },
+      {
+        "item": "jasmine rice",
+        "icon": "img/ingredients/rice.svg",
+        "amount": "2 cups"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "1/4 cup plus 1 tablespoon"
+      },
+      {
+        "item": "sugar",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "toasted sesame oil",
+        "icon": "img/ingredients/sesame-oil.svg",
+        "amount": "2 teaspoons"
+      },
+      {
+        "item": "light soy sauce",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "Ice",
+        "icon": "img/ingredients/allspice.svg",
+        "amount": "about 4 cups"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Grater",
+      "icon": "img/tools/grater.svg",
+      "required": true
+    },
+    {
+      "name": "Stockpot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Large enough to hold the chicken with room to cover it in water."
+    },
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use a large bowl for the ice bath."
+    },
+    {
+      "name": "Tongs",
+      "icon": "img/tools/tongs.svg",
+      "required": true
+    },
+    {
+      "name": "Instant-read thermometer",
+      "icon": "img/tools/thermometer.svg",
+      "required": true
+    },
+    {
+      "name": "Fine sieve",
+      "icon": "img/tools/sieve.svg",
+      "required": true,
+      "note": "Used for straining the broth."
+    },
+    {
+      "name": "Heavy-bottomed saucepan",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "A medium size works best, and a lid helps the rice steam evenly."
+    },
+    {
+      "name": "Saucepan",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "Use a small one, for heating the oil for the ginger-scallion sauce."
+    },
+    {
+      "name": "Blender",
+      "icon": "img/tools/blender.svg",
+      "required": true,
+      "note": "A mini food processor can be used in its place."
+    },
+    {
+      "name": "Heatproof bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use two small bowls, one for each sauce."
+    },
+    {
+      "name": "Measuring cups and spoons",
+      "icon": "img/tools/measuring-cup.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "Do the prep",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/ginger.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/cucumber.svg"
+      ],
+      "points": [
+        "Do all the prep first.",
+        "Pull the loose fat from the chicken's cavity and neck, chop it small, and set it aside for the rice.",
+        "Rub the chicken all over with 1 tablespoon of the salt, then rinse it under cold water.",
+        "Peel the ginger.",
+        "Cut half of it into thin coins and grate the other half; you need about 3 tablespoons grated.",
+        "Smash 2 of the scallions with the flat of the knife and thinly slice the other 4.",
+        "Mince all 8 garlic cloves and divide them into two piles.",
+        "Stem and roughly chop the chilies.",
+        "Rinse the rice in several changes of cold water until the water runs nearly clear, then drain it well.",
+        "Slice the cucumber into thin rounds.",
+        "Fill the large bowl with the ice and cold water."
+      ]
+    },
+    {
+      "title": "Poach the chicken",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/ginger.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/salt.svg",
+        "img/tools/pot.svg",
+        "img/tools/thermometer.svg"
+      ],
+      "points": [
+        "Set the chicken breast side up in the stockpot and add cold water to cover it by 1 inch.",
+        "Add the ginger coins, the smashed scallions, and 1 tablespoon of the salt.",
+        "Bring it to a boil over high heat, skim off the foam, then turn the heat down to the lowest setting so the water barely trembles.",
+        "Cover and cook for 35 to 45 minutes, until the thermometer reads 165°F in the thickest part of the thigh, not touching bone."
+      ]
+    },
+    {
+      "title": "Lift and chill the chicken",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/allspice.svg",
+        "img/tools/pot.svg",
+        "img/tools/tongs.svg",
+        "img/tools/measuring-cup.svg"
+      ],
+      "points": [
+        "Lift the chicken out with the tongs, tilting it so the hot broth runs out of the cavity back into the pot, and lower it into the ice bath.",
+        "Leave it there for 10 minutes to firm the skin.",
+        "Keep the broth in the stockpot over low heat."
+      ]
+    },
+    {
+      "title": "Cook the rice",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/salt.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/sesame-oil.svg"
+      ],
+      "points": [
+        "Put the chopped chicken fat in the medium saucepan over medium-low heat and cook for 5 to 8 minutes, stirring now and then, until you have about 2 tablespoons of liquid fat.",
+        "Lift out the crisp bits and discard them.",
+        "If the fat comes to less than 2 tablespoons, make up the difference with the 1 tablespoon of vegetable oil.",
+        "Add one pile of minced garlic and cook for 1 minute, until fragrant but not brown.",
+        "Add the rice and stir for 2 minutes to coat every grain.",
+        "Strain 2 1/2 cups of the hot broth through the sieve into the pan and add 1 teaspoon of salt.",
+        "Bring it to a boil, cover, turn the heat to the lowest setting, and cook for 15 minutes.",
+        "Take the pan off the heat and leave it covered for 10 minutes."
+      ]
+    },
+    {
+      "title": "Make chili sauce",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/lime.svg",
+        "img/ingredients/salt.svg",
+        "img/ingredients/rice.svg"
+      ],
+      "points": [
+        "While the rice cooks, make the chili sauce.",
+        "Put the chilies, the second pile of garlic, 1 tablespoon of the grated ginger, the lime juice, the sugar, 1/2 teaspoon of salt, and 2 tablespoons of the strained broth in the blender.",
+        "Blend until fairly smooth, then scrape it into one of the small bowls."
+      ]
+    },
+    {
+      "title": "Make ginger-scallion sauce",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/salt.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/sesame-oil.svg",
+        "img/tools/bowl.svg"
+      ],
+      "points": [
+        "Put the remaining 2 tablespoons of grated ginger, the sliced scallions, and the last 1/2 teaspoon of salt in the other small heatproof bowl.",
+        "Heat the 1/4 cup of vegetable oil in the small saucepan over medium heat for about 2 minutes, until it shimmers.",
+        "Pour it carefully over the ginger and scallions; it will sizzle.",
+        "Stir once."
+      ]
+    },
+    {
+      "title": "Dry, carve, and serve chicken",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/cucumber.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/sesame-oil.svg",
+        "img/ingredients/soy-sauce.svg"
+      ],
+      "points": [
+        "Take the chicken out of the ice bath, pat it dry, and rub the skin with the sesame oil.",
+        "Carve it into legs, thighs, and breasts, then cut the pieces into slices about 3/4 inch thick.",
+        "Lay them on a plate and spoon the soy sauce and 2 tablespoons of warm broth over the top.",
+        "Fluff the rice and serve it with the chicken, the cucumber, the two sauces, and small bowls of the remaining hot broth."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The meat near the bone is still pink and below 165°F",
+      "solution": "Return it to the broth at the same low heat for another 5 to 10 minutes and check again."
+    },
+    {
+      "problem": "The breast meat is dry and stringy",
+      "solution": "The water boiled during poaching. Keep it at the lowest heat so only a few small bubbles rise, and take the chicken out as soon as it reaches temperature."
+    },
+    {
+      "problem": "The rice is wet and sticky",
+      "solution": "Rinse until the water is nearly clear, drain it well, and measure the broth exactly."
+    },
+    {
+      "problem": "The rice has scorched on the bottom",
+      "solution": "The heat was too high after the boil. Turn the burner to its lowest setting once the lid goes on, and use a heavy-bottomed pan."
+    }
+  ]
+}

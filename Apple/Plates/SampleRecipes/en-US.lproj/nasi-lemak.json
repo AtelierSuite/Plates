@@ -1,0 +1,316 @@
+{
+  "id": "nasi-lemak",
+  "title": "Nasi Lemak",
+  "time": "75 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "ginger",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "1 thin slice"
+      },
+      {
+        "item": "shallots",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "6"
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "3 cloves"
+      },
+      {
+        "item": "red onion",
+        "icon": "img/ingredients/red-onion.svg",
+        "amount": "1 medium"
+      },
+      {
+        "item": "eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "4"
+      },
+      {
+        "item": "cucumber",
+        "icon": "img/ingredients/cucumber.svg",
+        "amount": "1"
+      }
+    ],
+    "general": [
+      {
+        "item": "jasmine rice",
+        "icon": "img/ingredients/rice.svg",
+        "amount": "2 cups"
+      },
+      {
+        "item": "coconut milk",
+        "icon": "img/ingredients/coconut-milk.svg",
+        "amount": "1 can (13.5 oz)"
+      },
+      {
+        "item": "water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "1 cup"
+      },
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "dried red chilies",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "15"
+      },
+      {
+        "item": "water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "1 cup"
+      },
+      {
+        "item": "shrimp paste (belacan)",
+        "icon": "img/ingredients/shrimp-paste.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "1/4 cup"
+      },
+      {
+        "item": "tamarind paste",
+        "icon": "img/ingredients/tamarind.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "sugar",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1/2 teaspoon"
+      },
+      {
+        "item": "dried anchovies",
+        "icon": "img/ingredients/anchovies.svg",
+        "amount": "1 cup"
+      },
+      {
+        "item": "raw peanuts",
+        "icon": "img/ingredients/peanuts.svg",
+        "amount": "1/2 cup"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "1/2 cup"
+      }
+    ],
+    "optional": [
+      {
+        "item": "pandan leaves",
+        "icon": "img/ingredients/curry-leaves.svg",
+        "amount": "2",
+        "note": "Fresh or frozen pandan leaves both work."
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Kettle",
+      "icon": "img/tools/kettle.svg",
+      "required": true
+    },
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use a heatproof bowl for soaking the chilies."
+    },
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Fine sieve",
+      "icon": "img/tools/sieve.svg",
+      "required": true,
+      "note": "Used for rinsing the rice and the anchovies."
+    },
+    {
+      "name": "Blender",
+      "icon": "img/tools/blender.svg",
+      "required": true,
+      "note": "Used to make the sambal paste."
+    },
+    {
+      "name": "Saucepan",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "A medium size works best, and a heavy base helps prevent scorching."
+    },
+    {
+      "name": "Pot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Any pot of similar size will work for boiling the eggs."
+    },
+    {
+      "name": "Frying pan",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "A small size is useful here, but a medium pan can be used instead."
+    },
+    {
+      "name": "Slotted spoon",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true,
+      "note": "A regular spoon or a pair of tongs can stand in."
+    },
+    {
+      "name": "Plate",
+      "icon": "img/tools/paper-towel.svg",
+      "required": true
+    },
+    {
+      "name": "Wooden spoon",
+      "icon": "img/tools/wooden-spoon.svg",
+      "required": true,
+      "note": "A silicone or metal spoon also works for stirring."
+    }
+  ],
+  "steps": [
+    {
+      "title": "Prep and blend the chili paste",
+      "icons": [
+        "img/ingredients/shallot.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/red-onion.svg",
+        "img/ingredients/cucumber.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/water.svg"
+      ],
+      "points": [
+        "Do all the prep first.",
+        "Snip the stems off the dried chilies and shake out most of the seeds.",
+        "Put the chilies in the heatproof bowl, pour the boiling water over them, and soak for 20 minutes.",
+        "While they soak, rinse the rice in the sieve until the water runs clear, then set it aside to drain.",
+        "Rinse the anchovies in the sieve and pat them completely dry with paper towels.",
+        "Peel and roughly chop the shallots and garlic.",
+        "Peel the onion and slice it into thin rings.",
+        "Slice the cucumber into rounds.",
+        "Drain the chilies, keeping 1/4 cup of the soaking liquid.",
+        "Blend the chilies, shallots, garlic, shrimp paste, and reserved liquid into a smooth paste."
+      ]
+    },
+    {
+      "title": "Cook coconut rice",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/coconut-milk.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/salt.svg",
+        "img/ingredients/curry-leaves.svg"
+      ],
+      "points": [
+        "Put the rice, coconut milk, water, salt, pandan leaves, and ginger in the saucepan and stir once.",
+        "Bring to a boil over medium heat, then cover, turn the heat to low, and cook for 15 minutes without lifting the lid.",
+        "Take the pan off the heat and let it rest, still covered, for 10 minutes.",
+        "Remove the pandan and ginger and fluff the rice with a fork."
+      ]
+    },
+    {
+      "title": "Boil and peel eggs",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/water.svg",
+        "img/tools/bowl.svg",
+        "img/tools/pot.svg",
+        "img/tools/slotted-spoon.svg"
+      ],
+      "points": [
+        "While the rice cooks, bring the medium pot of water to a boil.",
+        "Lower in the eggs with the slotted spoon and simmer for 9 minutes.",
+        "Move them to the bowl of cold water, then peel and halve them."
+      ]
+    },
+    {
+      "title": "Fry peanuts and anchovies",
+      "icons": [
+        "img/ingredients/oil.svg",
+        "img/ingredients/anchovies.svg",
+        "img/ingredients/peanuts.svg",
+        "img/tools/pan.svg",
+        "img/tools/paper-towel.svg"
+      ],
+      "points": [
+        "Heat the 1/2 cup of oil in the small frying pan over medium heat.",
+        "Fry the peanuts for 4 to 5 minutes, stirring, until the skins darken and the nuts smell toasted.",
+        "Lift them out onto the lined plate.",
+        "Fry the anchovies in the same oil for 3 to 4 minutes, stirring, until golden and crisp.",
+        "Lift them out onto the plate."
+      ]
+    },
+    {
+      "title": "Cook the chili paste",
+      "icons": [
+        "img/ingredients/red-onion.svg",
+        "img/ingredients/salt.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/shrimp-paste.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/tamarind.svg"
+      ],
+      "points": [
+        "Heat the 1/4 cup of oil in the large frying pan over medium-low heat.",
+        "Add the chili paste and cook for 15 to 20 minutes, stirring often, until it turns a deep brick red and the oil separates from the paste.",
+        "Add the onion rings and cook for 5 minutes, until soft.",
+        "Stir in the tamarind paste, sugar, and salt, and simmer for 2 to 3 minutes.",
+        "Stir in a quarter of the fried anchovies."
+      ]
+    },
+    {
+      "title": "Plate the dish",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/cucumber.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/coconut-milk.svg",
+        "img/ingredients/anchovies.svg",
+        "img/ingredients/peanuts.svg"
+      ],
+      "points": [
+        "To serve, put a mound of coconut rice on each plate.",
+        "Arrange a spoonful of sambal, some of the remaining anchovies and peanuts, two egg halves, and a few cucumber slices around it."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The sambal tastes raw and sharp",
+      "solution": "It was not cooked long enough. Keep cooking over medium-low heat until the oil visibly pools at the edges of the paste."
+    },
+    {
+      "problem": "The rice scorches on the bottom or turns gummy",
+      "solution": "Coconut milk sticks easily. Use a heavy saucepan, keep the heat low once it boils, and do not lift the lid or stir during cooking."
+    },
+    {
+      "problem": "The anchovies come out chewy or the oil spatters",
+      "solution": "Dry them thoroughly after rinsing. Wait until a test anchovy sizzles at once before adding the rest."
+    },
+    {
+      "problem": "The peanuts taste burnt once they cool",
+      "solution": "Take them out when they are just golden inside, not dark brown. They keep cooking after leaving the pan."
+    }
+  ]
+}

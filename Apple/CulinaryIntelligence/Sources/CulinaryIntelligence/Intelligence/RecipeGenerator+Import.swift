@@ -32,8 +32,8 @@ public struct SharedPage: Codable, Equatable, Sendable {
 }
 
 extension RecipeGenerator {
-    /// Whether a shared page can be sorted here. Only Apple Intelligence sorts, so no cloud
-    /// is needed.
+    /// Whether a shared page can be sorted here: by Apple Intelligence, or by Claude while it
+    /// writes on the cook's key.
     public var canSortPages: Bool { passes.isAvailable }
 
     /// Why a shared page cannot be sorted here, in words a cook can act on, or nil when it can.
@@ -52,7 +52,11 @@ extension RecipeGenerator {
         progress.stage = .shopping
         observer?.runStarted(progress.activity)
         passes.beginBackgroundRun(named: "Recipe import")
-        defer { passes.endBackgroundRun() }
+        passes.sortingRole = .parse
+        defer {
+            passes.endBackgroundRun()
+            passes.sortingRole = .sort
+        }
         do {
             var written = WrittenRecipe(parsing: "")
             written.title = page.title

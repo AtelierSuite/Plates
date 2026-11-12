@@ -103,7 +103,7 @@ extension RecipeGenerator {
 
     /// How many Decide for me picks are left today, or nil when that cannot be found out.
     public func decisionsRemaining() async -> Int? {
-        try? await cloud.limits().decide.remaining
+        await cloud.decisionsRemaining()
     }
 
     // MARK: - Planning
@@ -112,13 +112,13 @@ extension RecipeGenerator {
     private func kind(of request: GenerationRequest) async throws -> RequestKind {
         let words = request.trimmedDescription
         guard !words.isEmpty else { return .open }
-        let answer = try await writer.run(instructions: Self.text("Generate.Prompt.Plan")) { session in
-            try await session.respond(
-                to: Self.text("Generate.Prompt.Plan.Kind", words),
-                generating: RequestKindAnswer.self,
-                options: GenerationOptions(maximumResponseTokens: Self.lineTokenLimit)
-            ).content
-        }
+        let answer = try await writer.respond(
+            RequestKindAnswer.self,
+            to: Self.text("Generate.Prompt.Plan.Kind", words),
+            instructions: Self.text("Generate.Prompt.Plan"),
+            tokenLimit: Self.lineTokenLimit,
+            role: .plan
+        )
         return RequestKind(rawValue: answer.kind) ?? .dish
     }
 
@@ -133,18 +133,18 @@ extension RecipeGenerator {
         let none = Self.text("Generate.Prompt.Plan.None")
         let ingredients = request.ingredients.prefix(GenerationRequest.listLimit).map(IconCatalog.displayName)
         let tools = request.tools.prefix(GenerationRequest.listLimit).map(IconCatalog.displayName)
-        let answer = try await writer.run(instructions: Self.text("Generate.Prompt.Plan")) { session in
-            try await session.respond(
-                to: Self.text(
+        let answer = try await writer.respond(
+            MakeableAnswer.self,
+            to: Self.text(
                     "Generate.Prompt.Plan.Makeable",
                     request.trimmedDescription,
                     ingredients.isEmpty ? none : ModelPasses.joined(ingredients),
                     tools.isEmpty ? none : ModelPasses.joined(tools)
                 ),
-                generating: MakeableAnswer.self,
-                options: GenerationOptions(maximumResponseTokens: Self.lineTokenLimit)
-            ).content
-        }
+            instructions: Self.text("Generate.Prompt.Plan"),
+            tokenLimit: Self.lineTokenLimit,
+            role: .plan
+        )
         return answer.makeable
     }
 
@@ -152,13 +152,13 @@ extension RecipeGenerator {
     /// when it is built on none. Asked in English, so the answer names the same starch in any
     /// language the cook typed in.
     private func staples(of request: GenerationRequest) async throws -> Set<String>? {
-        let answer = try await writer.run(instructions: Self.english("Generate.Prompt.Plan")) { session in
-            try await session.respond(
-                to: Self.english("Generate.Prompt.Plan.Staple", request.trimmedDescription),
-                generating: StapleAnswer.self,
-                options: GenerationOptions(maximumResponseTokens: Self.lineTokenLimit)
-            ).content
-        }
+        let answer = try await writer.respond(
+            StapleAnswer.self,
+            to: Self.english("Generate.Prompt.Plan.Staple", request.trimmedDescription),
+            instructions: Self.english("Generate.Prompt.Plan"),
+            tokenLimit: Self.lineTokenLimit,
+            role: .plan
+        )
         return Self.staples[answer.staple]
     }
 
@@ -189,7 +189,8 @@ extension RecipeGenerator {
             if !Self.readsInEnglish {
                 let translated = try await sortLine(
                     GeneratedIdea.self,
-                    Self.text("Generate.Prompt.Structure.Idea.Ask", summary.isEmpty ? title : "\(title): \(summary)")
+                    Self.text("Generate.Prompt.Structure.Idea.Ask", summary.isEmpty ? title : "\(title): \(summary)"),
+                    role: .translate
                 )
                 title = translated.title.withoutLeakedSyntax
                 summary = translated.summary.withoutLeakedSyntax

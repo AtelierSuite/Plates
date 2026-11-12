@@ -1,0 +1,281 @@
+{
+  "id": "hokkien-prawn-mee",
+  "title": "ホッケンミー",
+  "time": "90 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "えび",
+        "icon": "img/ingredients/shrimp.svg",
+        "amount": "450グラム",
+        "note": "頭付きが手に入るなら、頭付きを選んでください。"
+      },
+      {
+        "item": "豚バラ肉",
+        "icon": "img/ingredients/pork-belly.svg",
+        "amount": "225グラム",
+        "note": "塊のまま買ってください。"
+      },
+      {
+        "item": "いか",
+        "icon": "img/ingredients/squid.svg",
+        "amount": "225グラム"
+      },
+      {
+        "item": "中華麺",
+        "icon": "img/ingredients/egg-noodles.svg",
+        "amount": "450グラム",
+        "note": "生の黄色い卵麺を選んでください（福建麺とも呼ばれます）。乾麺は使いません。"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "6片"
+      },
+      {
+        "item": "卵",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "3個"
+      },
+      {
+        "item": "もやし",
+        "icon": "img/ingredients/bean-sprouts.svg",
+        "amount": "480ミリリットル"
+      },
+      {
+        "item": "青ねぎ",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "4本"
+      },
+      {
+        "item": "ライム",
+        "icon": "img/ingredients/lime.svg",
+        "amount": "2個"
+      }
+    ],
+    "general": [
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ3"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "1680ミリリットル"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "ナンプラー",
+        "icon": "img/ingredients/fish-sauce.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "こしょう",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "小さじ1/4",
+        "note": "白こしょうの粉を買います。"
+      },
+      {
+        "item": "乾燥ビーフン",
+        "icon": "img/ingredients/rice-noodles.svg",
+        "amount": "115g"
+      },
+      {
+        "item": "サンバル",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": "大さじ4"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "大きめのサイズで、春雨をもどすために使います。"
+    },
+    {
+      "name": "ザル",
+      "icon": "img/tools/colander.svg",
+      "required": true
+    },
+    {
+      "name": "鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "ストックを取るために、大きめのサイズを使います。"
+    },
+    {
+      "name": "目の細かいざる",
+      "icon": "img/tools/sieve.svg",
+      "required": true
+    },
+    {
+      "name": "耐熱ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "熱に強いボウルであれば、ほかのボウルでも代用できます。"
+    },
+    {
+      "name": "穴あきおたま",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "中華鍋",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "大きく深めのフライパンでも代用できます。"
+    },
+    {
+      "name": "中華へら",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "木のスプーンでも代用できます。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "材料を下ごしらえする",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/lime.svg",
+        "img/ingredients/oil.svg"
+      ],
+      "points": [
+        "火をつける前に、すべての下ごしらえを済ませておきます。",
+        "エビは殻をむいて背わたを取り、頭と殻はだし用に取っておきます。",
+        "イカは幅1.5センチの輪切りにします。",
+        "にんにくはみじん切りにし、ねぎは5センチの長さに切ります。",
+        "もやしは洗っておき、ライムはくし形に切ります。",
+        "小さいボウルで卵を溶きほぐします。",
+        "春雨は大きいボウルのぬるま湯に15から20分つけ、柔らかくしなやかになったら、ざるに上げて水気を切ります。",
+        "黄色い麺はほぐし、熱い水道水をかけて表面の油を落としてから、水気を切ります。"
+      ]
+    },
+    {
+      "title": "スープを取る",
+      "icons": [
+        "img/ingredients/pork-belly.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/salt.svg",
+        "img/tools/knife.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "大きめの鍋でスープを作る。",
+        "中強火で大さじ1の油を熱し、海老の頭と殻を入れ、スプーンで頭を押さえながら3から4分炒める。",
+        "赤くなり、香ばしい香りがしてくるまで炒める。",
+        "水、豚バラ肉、塩を加える。",
+        "沸騰したら、スープがかろうじて沸く程度に火を弱める。",
+        "浮いてくるアクをすくい取りながら40から45分煮て、包丁がすっと豚肉に入るまで煮る。"
+      ]
+    },
+    {
+      "title": "えびとイカを茹でる",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/sugar.svg",
+        "img/tools/bowl.svg",
+        "img/tools/colander.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "豚肉を取り出して冷まし、薄切りにする。",
+        "ザルに出汁を通して耐熱ボウルに漉し、殻を強く押さえてだしを絞り、殻は捨てる。",
+        "鍋を洗い、出汁を戻して、魚醤、砂糖、白胡椒を混ぜ入れる。",
+        "約960ミリリットルになっているはず。",
+        "弱火で、ごく弱く煮立った状態を保つ。",
+        "えびを1分から2分、ピンク色になるまで茹で、穴あきお玉で取り出す。",
+        "イカを30秒から60秒、かろうじて不透明になるまで茹で、取り出す。"
+      ]
+    },
+    {
+      "title": "麺と卵を炒め合わせる",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/pot.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "中華鍋に残りの油大さじ2を入れ、強火で熱し、油が揺らめくまで待ちます。",
+        "中華鍋の直径が35cmより小さい場合は、麺を2回に分けて炒めます。",
+        "その場合は、この手順と次の手順の量を半分にします。",
+        "溶き卵を流し入れ、約30秒、大きくやわらかい塊になるまで混ぜたら、鍋の端に寄せます。",
+        "にんにくを加え、香りが立つまで20秒混ぜます。",
+        "黄色い麺と春雨を加え、卵とにんにくがなじむまで1分から2分、からめるように炒め混ぜます。"
+      ]
+    },
+    {
+      "title": "麺にスープを吸わせながら具材と炒め合わせる",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/squid.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/spring-onion.svg"
+      ],
+      "points": [
+        "熱いスープ480ミリリットルを加え、強火で絶えず炒め合わせながら、麺がほとんどのスープを吸うまで3分から4分ほど加熱します。",
+        "もう1カップ分のスープ（240ミリリットル）を、もやし、ねぎ、えび、いか、豚肉と一緒に加えます。",
+        "約2分間炒め、もやしがちょうどしんなりし始め、麺につやと湿り気が出て、少しのたれが絡んでいるものの、スープがたまっていない状態にしてください。",
+        "麺が乾いて見えたら、スープを少しだけ足します。"
+      ]
+    },
+    {
+      "title": "盛り付けて食べる",
+      "icons": [
+        "img/ingredients/lime.svg",
+        "img/ingredients/sambal.svg"
+      ],
+      "points": [
+        "できたらすぐに、それぞれの皿に小さじ1杯のサンバルとライムのくし形切りを添えて出します。",
+        "食べる前に、ライムを麺の上に絞ってください。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "麺が鍋の中で固まってくっつく",
+      "solution": "調理する前に、麺を熱いお湯の下で指を使ってひと房ずつほぐしてください。麺を入れたら、絶えず混ぜ続けてください。"
+    },
+    {
+      "problem": "麺が乾いて味がぼやける",
+      "solution": "残ったスープを煮立たせたままにしておき、麺がまたしっとりするまで大さじ数杯ずつ加えてください。"
+    },
+    {
+      "problem": "料理がスープ状にゆるくなる",
+      "solution": "火加減が弱すぎて、スープが麺に絡むまで煮詰まらなかったのが原因です。コンロの火は強火のままにして、魚介を加える前にさらに1分から2分、全体を和えるように混ぜてください。"
+    },
+    {
+      "problem": "イカがゴムのように硬くなる",
+      "solution": "イカは白く変わったらすぐに出汁から取り出してください。中華鍋で再び火が通るためです。"
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "id": "hokkien-prawn-mee",
+  "title": "Hokkien Prawn Mee",
+  "time": "90 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "raw prawns",
+        "icon": "img/ingredients/shrimp.svg",
+        "amount": "1 lb",
+        "note": "Buy shell-on, head-on prawns if you can find them."
+      },
+      {
+        "item": "pork belly",
+        "icon": "img/ingredients/pork-belly.svg",
+        "amount": "8 oz"
+      },
+      {
+        "item": "squid tubes",
+        "icon": "img/ingredients/squid.svg",
+        "amount": "8 oz"
+      },
+      {
+        "item": "fresh thick yellow egg noodles",
+        "icon": "img/ingredients/egg-noodles.svg",
+        "amount": "1 lb",
+        "note": "Hokkien or lo mein style noodles are the match for this."
+      },
+      {
+        "item": "eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "4"
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "6 cloves"
+      },
+      {
+        "item": "bean sprouts",
+        "icon": "img/ingredients/bean-sprouts.svg",
+        "amount": "8 oz"
+      },
+      {
+        "item": "garlic chives or regular chives",
+        "icon": "img/ingredients/nira.svg",
+        "amount": "1 small bunch"
+      },
+      {
+        "item": "lime",
+        "icon": "img/ingredients/lime.svg",
+        "amount": "2"
+      }
+    ],
+    "general": [
+      {
+        "item": "dried thin rice vermicelli",
+        "icon": "img/ingredients/rice-noodles.svg",
+        "amount": "4 oz"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "5 tablespoons"
+      },
+      {
+        "item": "water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "6 cups"
+      },
+      {
+        "item": "fish sauce",
+        "icon": "img/ingredients/fish-sauce.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "ground white pepper",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "1/2 teaspoon"
+      },
+      {
+        "item": "sambal oelek or other chili paste",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": "4 tablespoons"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Small bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Two small bowls are needed, one for soaking the vermicelli and one for the eggs."
+    },
+    {
+      "name": "Pot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "A large pot is needed for making the prawn stock and poaching the seafood."
+    },
+    {
+      "name": "Sieve",
+      "icon": "img/tools/sieve.svg",
+      "required": true,
+      "note": "Use a fine mesh sieve so the dry ingredients sift smoothly."
+    },
+    {
+      "name": "Heatproof bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use a large one."
+    },
+    {
+      "name": "Slotted spoon",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "Ladle",
+      "icon": "img/tools/ladle.svg",
+      "required": true
+    },
+    {
+      "name": "Measuring cup",
+      "icon": "img/tools/measuring-cup.svg",
+      "required": true
+    },
+    {
+      "name": "Wok",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "A 12-inch frying pan can be used in place of the wok."
+    },
+    {
+      "name": "Wok spatula",
+      "icon": "img/tools/wok.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "Prep all ingredients",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/squid.svg",
+        "img/ingredients/egg-noodles.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/bean-sprouts.svg"
+      ],
+      "points": [
+        "Prepare everything before you turn on the stove.",
+        "Peel the prawns, keeping all the heads and shells, and devein them.",
+        "Slice the squid into 1/2-inch rings.",
+        "Mince the garlic.",
+        "Cut the chives into 2-inch lengths.",
+        "Rinse the bean sprouts.",
+        "Soak the vermicelli in warm water for 10 minutes, then drain.",
+        "Loosen the yellow noodles with your fingers.",
+        "Beat the eggs in a small bowl.",
+        "Cut the limes into wedges."
+      ]
+    },
+    {
+      "title": "Make the prawn stock",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/pork-belly.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/water.svg",
+        "img/tools/knife.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "Make the stock in the large pot.",
+        "Heat 1 tablespoon of the oil over medium to high heat, add the prawn heads and shells, and fry for 4 to 5 minutes, pressing them with the spatula, until they turn red and smell toasted.",
+        "Add the water and the pork belly.",
+        "Bring to a boil, then lower the heat and simmer gently for 35 to 40 minutes, skimming off any scum, until the pork is tender when pierced with a knife."
+      ]
+    },
+    {
+      "title": "Strain and season the stock",
+      "icons": [
+        "img/ingredients/pork-belly.svg",
+        "img/ingredients/fish-sauce.svg",
+        "img/ingredients/pepper.svg",
+        "img/tools/bowl.svg",
+        "img/tools/pot.svg",
+        "img/tools/sieve.svg"
+      ],
+      "points": [
+        "Lift out the pork and set it aside to cool.",
+        "Strain the stock through the sieve into the heatproof bowl, pressing hard on the heads to get out all the liquid.",
+        "Rinse the pot, pour the stock back in, and stir in the fish sauce and white pepper.",
+        "You should have about 4 cups.",
+        "Keep it at a gentle simmer over low heat.",
+        "Slice the cooled pork thinly."
+      ]
+    },
+    {
+      "title": "Cook the prawns and squid",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/squid.svg",
+        "img/tools/slotted-spoon.svg"
+      ],
+      "points": [
+        "Add the peeled prawns to the simmering stock and cook for 1 to 2 minutes, until pink.",
+        "Lift them out with the slotted spoon.",
+        "Add the squid and cook for 1 minute, until it turns opaque, then lift it out.",
+        "Leave the stock on low heat."
+      ]
+    },
+    {
+      "title": "Fry the noodles",
+      "icons": [
+        "img/ingredients/egg-noodles.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/nira.svg",
+        "img/ingredients/rice-noodles.svg",
+        "img/ingredients/oil.svg"
+      ],
+      "points": [
+        "Fry the noodles in two batches, so the wok stays hot.",
+        "Heat 2 tablespoons of the oil in the wok over high heat until it shimmers.",
+        "Pour in half the eggs and stir for about 30 seconds, until just set.",
+        "Add half the garlic and stir for 20 seconds.",
+        "Add half the yellow noodles and half the vermicelli and toss for 1 minute.",
+        "Ladle in 1 cup of the stock and keep tossing for 3 to 4 minutes, until the noodles have absorbed most of it."
+      ]
+    },
+    {
+      "title": "Cook the first batch",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/pork-belly.svg",
+        "img/ingredients/squid.svg",
+        "img/ingredients/egg-noodles.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/nira.svg"
+      ],
+      "points": [
+        "Add half the bean sprouts, prawns, squid, and pork, with another 1/2 cup of stock.",
+        "Toss for 2 minutes, until everything is hot and the noodles are glossy and slightly wet.",
+        "Add half the chives and toss for 30 seconds more.",
+        "Divide between two plates.",
+        "Wipe the wok and repeat with the remaining ingredients."
+      ]
+    },
+    {
+      "title": "Serve with sambal and lime",
+      "icons": [
+        "img/ingredients/egg-noodles.svg",
+        "img/ingredients/lime.svg",
+        "img/ingredients/rice-noodles.svg",
+        "img/ingredients/sambal.svg"
+      ],
+      "points": [
+        "Serve with a tablespoon of sambal and a lime wedge on each plate.",
+        "Squeeze the lime over the noodles and mix in the sambal as you eat."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The noodles taste flat",
+      "solution": "The stock was weak. Fry the shells until they are fully red before adding water, and press every drop out of the heads when straining."
+    },
+    {
+      "problem": "The noodles stew instead of frying",
+      "solution": "The wok was overloaded or not hot enough. Cook in two batches and wait for the oil to shimmer before adding the eggs."
+    },
+    {
+      "problem": "The noodles turn dry and stick",
+      "solution": "They have soaked up all the stock. Add another ladle of hot stock and toss until they are moist again."
+    },
+    {
+      "problem": "The prawns and squid are rubbery",
+      "solution": "Poach them only until pink or opaque, since they heat through again in the wok."
+    }
+  ]
+}

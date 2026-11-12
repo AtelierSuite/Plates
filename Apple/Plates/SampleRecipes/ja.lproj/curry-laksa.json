@@ -1,0 +1,305 @@
+{
+  "id": "curry-laksa",
+  "title": "ラクサ",
+  "time": "70 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "エシャロット",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "4個"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "4片"
+      },
+      {
+        "item": "しょうが",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "1片（約2.5センチ）"
+      },
+      {
+        "item": "レモングラス",
+        "icon": "img/ingredients/lemongrass.svg",
+        "amount": "2本"
+      },
+      {
+        "item": "生の赤唐辛子",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "2本"
+      },
+      {
+        "item": "鶏もも肉",
+        "icon": "img/ingredients/chicken-thigh.svg",
+        "amount": "450 g"
+      },
+      {
+        "item": "えび",
+        "icon": "img/ingredients/shrimp.svg",
+        "amount": "340g"
+      },
+      {
+        "item": "もやし",
+        "icon": "img/ingredients/bean-sprouts.svg",
+        "amount": "480ミリリットル"
+      },
+      {
+        "item": "唐辛子",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "1本"
+      },
+      {
+        "item": "パクチー",
+        "icon": "img/ingredients/coriander.svg",
+        "amount": "小1束"
+      },
+      {
+        "item": "ライム",
+        "icon": "img/ingredients/lime.svg",
+        "amount": "2個"
+      }
+    ],
+    "general": [
+      {
+        "item": "カレー粉",
+        "icon": "img/ingredients/curry-powder.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "ターメリック",
+        "icon": "img/ingredients/turmeric.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "パクチー（粉末）",
+        "icon": "img/ingredients/coriander.svg",
+        "amount": "小さじ1",
+        "note": "生のパクチーではなく、コリアンダーの種を挽いた粉末を買います。"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "鶏のブイヨン",
+        "icon": "img/ingredients/bouillon.svg",
+        "amount": "960ミリリットル"
+      },
+      {
+        "item": "ココナッツミルク",
+        "icon": "img/ingredients/coconut-milk.svg",
+        "amount": "2缶（1缶380グラム）"
+      },
+      {
+        "item": "ナンプラー",
+        "icon": "img/ingredients/fish-sauce.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "ブラウンシュガー",
+        "icon": "img/ingredients/brown-sugar.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "ビーフン",
+        "icon": "img/ingredients/rice-noodles.svg",
+        "amount": "220グラム"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "ブレンダー",
+      "icon": "img/tools/blender.svg",
+      "required": true,
+      "note": "フードプロセッサーで代用できます。"
+    },
+    {
+      "name": "鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "スープ用の大きめで厚手のものを使います。"
+    },
+    {
+      "name": "水切りザル",
+      "icon": "img/tools/colander.svg",
+      "required": true
+    },
+    {
+      "name": "穴あきスプーン",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "木のスプーン",
+      "icon": "img/tools/wooden-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "お玉",
+      "icon": "img/tools/ladle.svg",
+      "required": true
+    },
+    {
+      "name": "スープボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "深めのものを4個用意します。ほかの深めの器でも代用できます。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "ペーストを作る",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/ginger.svg",
+        "img/ingredients/lemongrass.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/curry-powder.svg",
+        "img/ingredients/turmeric.svg"
+      ],
+      "points": [
+        "シャロット、にんにく、しょうがの皮をむき、大きめに刻みます。",
+        "レモングラスは先を切り落とし、硬い外側の皮をむいてから、白っぽい根元の下10 cmを薄切りにします。",
+        "残りは捨てます。",
+        "ペースト用の唐辛子2本は種を取り、大きめに刻みます。",
+        "これらすべてを、カレー粉、ターメリック、挽いたコリアンダー、大さじ2の油、大さじ2の水と一緒にミキサーに入れます。",
+        "なめらかになるまで回し、必要に応じて容器の側面をこそげ落とします。"
+      ]
+    },
+    {
+      "title": "ほかの材料を下ごしらえする",
+      "icons": [
+        "img/ingredients/chili.svg",
+        "img/ingredients/chicken-thigh.svg",
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/coriander.svg",
+        "img/ingredients/lime.svg"
+      ],
+      "points": [
+        "ほかの材料を下ごしらえします。",
+        "鶏もも肉は繊維を断つように薄切りにします。",
+        "えびは使う直前まで冷蔵庫で冷たいまま保存します。",
+        "残りの唐辛子は薄切りにし、パクチーはざく切りにします。",
+        "ライムはくし形に切り、もやしは水で洗っておきます。"
+      ]
+    },
+    {
+      "title": "スパイスペーストを炒める",
+      "icons": [
+        "img/ingredients/oil.svg",
+        "img/tools/pot.svg",
+        "img/tools/wooden-spoon.svg"
+      ],
+      "points": [
+        "大きめの鍋を中弱火にかけ、油大さじ2を熱します。",
+        "スパイスペーストを加え、木べらでこまめに混ぜながら8から10分炒めます。",
+        "色が一段濃くなり、生の匂いが消えて火が通った香りがして、ペーストから油が分かれてくるまで炒めます。",
+        "焦げ付き始めたら火を弱めます。"
+      ]
+    },
+    {
+      "title": "チキンスープを煮立てる",
+      "icons": [
+        "img/ingredients/coconut-milk.svg",
+        "img/ingredients/fish-sauce.svg",
+        "img/ingredients/salt.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "チキンストックを注ぎ、中強火で沸騰させる。",
+        "その間、鍋底のペーストを浮かせるようにかき混ぜる。",
+        "ココナッツミルク、ナンプラー、黒砂糖、塩を加えて混ぜ入れる。",
+        "火を弱めの中火にし、スープがごく軽く煮立つ状態を10分保つ。"
+      ]
+    },
+    {
+      "title": "麺ともやしを茹でる",
+      "icons": [
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/water.svg",
+        "img/tools/pot.svg",
+        "img/tools/ladle.svg"
+      ],
+      "points": [
+        "スープを煮込んでいる間に、中くらいの鍋の水を強火で沸騰させます。",
+        "もやしを30秒入れてから、穴あきお玉ですくい出します。",
+        "同じ湯に麺を入れ、パッケージの表示どおりに茹でます。",
+        "通常は3から5分で、ちょうど柔らかくなるまで茹でます。",
+        "ザルで水気を切り、ぬるま湯で手早くすすいで、麺同士がくっつかないようにします。"
+      ]
+    },
+    {
+      "title": "鶏肉とエビを煮る",
+      "icons": [
+        "img/ingredients/fish-sauce.svg",
+        "img/ingredients/salt.svg"
+      ],
+      "points": [
+        "スープに薄切りの鶏肉を加え、8分から10分煮ます。",
+        "一番厚い部分に赤み（ピンク色）が残らなくなるまで火を通してください。",
+        "次にエビを加え、さらに2分から3分煮ます。",
+        "エビ全体がピンク色になり、不透明になるまで火を通してください。",
+        "スープの味を見て、必要であれば塩またはナンプラーを足して調えます。"
+      ]
+    },
+    {
+      "title": "盛り付けて提供する",
+      "icons": [
+        "img/ingredients/chili.svg",
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/coriander.svg",
+        "img/ingredients/lime.svg"
+      ],
+      "points": [
+        "麺ともやしを4つのお椀に等分して入れます。",
+        "その上から熱いスープを注ぎ、鶏肉とえびも均等に分けて乗せます。",
+        "それぞれのお椀に刻んだ唐辛子とみじん切りのパクチーを散らし、くし切りのライムを添えて出します。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "スープが分離して、表面に脂の粒が浮いている",
+      "solution": "ココナッツミルクを入れたあとは、スープを弱火でふつふつと静かに煮える状態に保ってください。分離し始めたら、よくかき混ぜてください。"
+    },
+    {
+      "problem": "スープの味がきつく、生っぽい",
+      "solution": "液体を加える前に、ペーストを弱火で8から10分、油が分離するまで十分に炒めてください。ペーストを炒める時間が足りないと、スープの味がきつく生っぽくなります。"
+    },
+    {
+      "problem": "麺が柔らかくなりすぎて崩れる",
+      "solution": "麺は茹ですぎたり、スープに浸したまま放置したりすると崩れやすくなります。麺は別に茹で、柔らかくなったらすぐに湯切りし、提供する直前にだけスープをかけてください。"
+    }
+  ]
+}

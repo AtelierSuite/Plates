@@ -1,0 +1,342 @@
+{
+  "id": "singapore-chilli-crab",
+  "title": "Singapore Chilli Crab",
+  "time": "90 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "Dungeness crab",
+        "icon": "img/ingredients/crab.svg",
+        "amount": "2 (about 2 lb each)",
+        "note": "Buy them live."
+      },
+      {
+        "item": "mantou",
+        "icon": "img/ingredients/buns.svg",
+        "amount": "8",
+        "note": "Buy the frozen plain Chinese steamed buns from the freezer aisle."
+      },
+      {
+        "item": "shallots",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "4"
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "6 cloves"
+      },
+      {
+        "item": "fresh ginger",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "2-inch piece"
+      },
+      {
+        "item": "red chillies",
+        "icon": "img/ingredients/anko.svg",
+        "amount": "6"
+      },
+      {
+        "item": "eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "2"
+      },
+      {
+        "item": "scallions",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "2"
+      },
+      {
+        "item": "cilantro",
+        "icon": "img/ingredients/coriander.svg",
+        "amount": "1 small bunch"
+      },
+      {
+        "item": "lime",
+        "icon": "img/ingredients/lime.svg",
+        "amount": "1"
+      }
+    ],
+    "general": [
+      {
+        "item": "neutral oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "6 cups, plus 1/2 cup, plus 3 tablespoons",
+        "note": "The three amounts are for separate uses, so buy enough to cover all of them."
+      },
+      {
+        "item": "chicken stock",
+        "icon": "img/ingredients/bouillon.svg",
+        "amount": "1 1/2 cups"
+      },
+      {
+        "item": "tomato ketchup",
+        "icon": "img/ingredients/tomato.svg",
+        "amount": "1/2 cup"
+      },
+      {
+        "item": "Thai sweet chilli sauce",
+        "icon": "img/ingredients/sweet-chili-sauce.svg",
+        "amount": "1/4 cup"
+      },
+      {
+        "item": "sambal oelek",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "sugar",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "light soy sauce",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "cornstarch",
+        "icon": "img/ingredients/cornstarch.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "cold water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "2 tablespoons"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cleaver",
+      "icon": "img/tools/knife.svg",
+      "required": true,
+      "note": "The back of a heavy knife works as a substitute for cracking the claws."
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Food processor",
+      "icon": "img/tools/food-processor.svg",
+      "required": true,
+      "note": "A blender can be used in its place."
+    },
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Three small bowls are needed, one each for the sauce, the cornstarch mixture, and the eggs."
+    },
+    {
+      "name": "Heavy pot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Use a large one so there is room for deep-frying the crab."
+    },
+    {
+      "name": "Deep-fry thermometer",
+      "icon": "img/tools/thermometer.svg",
+      "required": true
+    },
+    {
+      "name": "Slotted spoon",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true,
+      "note": "A spider can be used in its place."
+    },
+    {
+      "name": "Wire rack",
+      "icon": "img/tools/wire-rack.svg",
+      "required": true,
+      "note": "Set over a baking sheet for draining the crab."
+    },
+    {
+      "name": "Wok",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "Use one with a lid, which the sauce and the crab finish both need."
+    },
+    {
+      "name": "Wooden spatula",
+      "icon": "img/tools/spatula.svg",
+      "required": true
+    },
+    {
+      "name": "Frying pan",
+      "icon": "img/tools/pan.svg",
+      "required": true
+    },
+    {
+      "name": "Kitchen tongs",
+      "icon": "img/tools/tongs.svg",
+      "required": true
+    },
+    {
+      "name": "Paper towels",
+      "icon": "img/tools/paper-towel.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "Prep the crabs",
+      "icons": [
+        "img/ingredients/crab.svg",
+        "img/ingredients/buns.svg",
+        "img/ingredients/water.svg",
+        "img/tools/knife.svg",
+        "img/tools/paper-towel.svg"
+      ],
+      "points": [
+        "Put the crabs in the freezer for 20 to 30 minutes, until they stop moving.",
+        "Set the mantou on a plate on the counter to thaw.",
+        "Turn each crab on its back, pull off the triangular flap, and lift off the top shell.",
+        "Remove the feathery gills and the grey innards, then rinse the crab under cold water.",
+        "Cut each body into 4 pieces with the legs attached, and crack each claw once with the back of the cleaver.",
+        "Pat every piece completely dry with paper towels."
+      ]
+    },
+    {
+      "title": "Prepare the aromatics, sauce, and garnishes",
+      "icons": [
+        "img/ingredients/shallot.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/ginger.svg",
+        "img/ingredients/anko.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/spring-onion.svg"
+      ],
+      "points": [
+        "Blend the shallots, garlic, ginger, and red chillies with 1 tablespoon of the oil into a coarse paste.",
+        "In one small bowl, stir together the stock, ketchup, sweet chilli sauce, sambal oelek, sugar, soy sauce, and salt.",
+        "In a second bowl, mix the cornstarch with the cold water.",
+        "In the third bowl, beat the eggs.",
+        "Slice the scallions, chop the cilantro, and cut the lime into wedges."
+      ]
+    },
+    {
+      "title": "Fry the crab",
+      "icons": [
+        "img/ingredients/crab.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/pot.svg",
+        "img/tools/thermometer.svg",
+        "img/tools/slotted-spoon.svg",
+        "img/tools/wire-rack.svg"
+      ],
+      "points": [
+        "Pour the 6 cups of oil into the heavy pot.",
+        "It should be no more than half full.",
+        "Heat over medium-high to 350°F on the thermometer.",
+        "Fry the crab in 2 or 3 batches for 2 to 3 minutes each, until the shells turn red.",
+        "Lift the pieces out with the slotted spoon and drain them on the rack.",
+        "Turn off the heat under the pot and leave it on the back of the stove to cool."
+      ]
+    },
+    {
+      "title": "Cook the paste in oil",
+      "icons": [
+        "img/ingredients/anko.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/sweet-chili-sauce.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "Heat the remaining 2 tablespoons of oil in the wok over medium heat.",
+        "Add the paste and cook for 5 to 7 minutes, stirring often, until it darkens slightly, smells sweet, and the oil starts to separate from it.",
+        "Lower the heat if it begins to stick."
+      ]
+    },
+    {
+      "title": "Simmer the crab in sauce",
+      "icons": [
+        "img/ingredients/crab.svg",
+        "img/tools/wok.svg",
+        "img/tools/tongs.svg"
+      ],
+      "points": [
+        "Pour the sauce into the wok and bring it to a simmer.",
+        "Add the crab and any juices from the baking sheet, and toss with tongs to coat.",
+        "Cover and simmer over medium heat for 6 to 8 minutes, turning the pieces once, until the meat inside the thickest part of the body is white and opaque."
+      ]
+    },
+    {
+      "title": "Fry mantou",
+      "icons": [
+        "img/ingredients/crab.svg",
+        "img/ingredients/buns.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/thermometer.svg",
+        "img/tools/pan.svg",
+        "img/tools/tongs.svg"
+      ],
+      "points": [
+        "While the crab simmers, heat the 1/2 cup of oil in the frying pan over medium heat.",
+        "Fry the mantou for 3 to 4 minutes, turning them with tongs, until golden on all sides.",
+        "Drain on paper towels."
+      ]
+    },
+    {
+      "title": "Thicken and add eggs",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/cornstarch.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "Uncover the wok.",
+        "Stir the cornstarch mixture again, pour it in, and simmer for 1 minute, stirring, until the sauce thickens.",
+        "Turn the heat to low.",
+        "Pour the beaten eggs over the sauce in a thin stream, wait 20 seconds, then stir gently so they set in soft ribbons.",
+        "Take the wok off the heat."
+      ]
+    },
+    {
+      "title": "Plate and serve",
+      "icons": [
+        "img/ingredients/crab.svg",
+        "img/ingredients/buns.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/coriander.svg",
+        "img/ingredients/lime.svg",
+        "img/tools/slotted-spoon.svg"
+      ],
+      "points": [
+        "Spoon the crab and sauce onto a large platter and scatter the scallions and cilantro over the top.",
+        "Serve with the lime wedges and the fried mantou for mopping up the sauce."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The oil spits hard when the crab goes in",
+      "solution": "The crab was wet. Pat every piece dry, including inside the cracked claws, and lower the pieces in gently with the slotted spoon."
+    },
+    {
+      "problem": "The sauce tastes harsh and raw",
+      "solution": "The paste was not cooked long enough. Keep it over medium heat until the oil separates and the smell turns sweet before adding the sauce."
+    },
+    {
+      "problem": "The eggs turn into firm lumps instead of ribbons",
+      "solution": "Turn the heat to low before pouring in the eggs, and stir slowly only after they start to set. The sauce was too hot."
+    },
+    {
+      "problem": "The sauce is thin and runs off the crab",
+      "solution": "The cornstarch settled in the bowl. Stir it well just before adding, and let the sauce simmer a full minute afterward."
+    }
+  ]
+}

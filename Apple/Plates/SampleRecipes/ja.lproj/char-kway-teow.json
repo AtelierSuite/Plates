@@ -1,0 +1,229 @@
+{
+  "id": "char-kway-teow",
+  "title": "チャークイティオ",
+  "time": "30 min",
+  "serves": "2",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "えび",
+        "icon": "img/ingredients/shrimp.svg",
+        "amount": "220グラム"
+      },
+      {
+        "item": "ラーチャン",
+        "icon": "img/ingredients/lap-cheong.svg",
+        "amount": "2本"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "4片"
+      },
+      {
+        "item": "ニラ",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "1束",
+        "note": "にんにくではなくニラのことなので、ニラがなければ青ねぎ4本で代用できます。"
+      },
+      {
+        "item": "もやし",
+        "icon": "img/ingredients/bean-sprouts.svg",
+        "amount": "480ミリリットル"
+      },
+      {
+        "item": "卵",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "2個"
+      }
+    ],
+    "general": [
+      {
+        "item": "ライスヌードル",
+        "icon": "img/ingredients/rice-noodles.svg",
+        "amount": "220グラム"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ3"
+      },
+      {
+        "item": "サンバル",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": "小さじ1から2",
+        "note": "サンバルがなければ、他のチリペーストでも構いません。"
+      },
+      {
+        "item": "しょうゆ",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "老抽醤油",
+        "icon": "img/ingredients/dark-soy-sauce.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "オイスターソース",
+        "icon": "img/ingredients/oyster-sauce.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "小さじ1"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "麺をもどすための大きめのサイズを使います。"
+    },
+    {
+      "name": "ざる",
+      "icon": "img/tools/colander.svg",
+      "required": true
+    },
+    {
+      "name": "中華鍋",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "中華鍋がない場合は、直径約30センチの厚手のフライパンで代用できます。"
+    },
+    {
+      "name": "中華べら",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "中華べらがなければ、平らな金属製のフライ返しで代用できます。"
+    },
+    {
+      "name": "皿",
+      "icon": "img/tools/plate.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "麺を戻す",
+      "icons": [
+        "img/ingredients/oil.svg",
+        "img/tools/bowl.svg"
+      ],
+      "points": [
+        "麺を大きなボウルに入れ、ぬるめの水道水をかけて全体を浸します。",
+        "30から40分ほど置き、軽く曲がるようになっても中心がまだ少し硬い状態にします。",
+        "ザルで水気を切り、小さじ1の油と和えて麺同士がくっつかないようにします。"
+      ]
+    },
+    {
+      "title": "材料を二つの分量に分ける",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/oyster-sauce.svg",
+        "img/ingredients/sugar.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "麺を戻している間に、中華ソーセージを斜めに薄切りにし、にんにくをみじん切りにし、ニラ、またはワケギを5センチの長さに切ります。",
+        "小鉢に薄口醤油、濃口醤油、オイスターソース、砂糖を入れて混ぜ合わせます。",
+        "麺、ソーセージ、エビ、にんにく、ニラ、もやし、豆板醤、そしてタレを、それぞれ同じ量の二つの分量に分けます。",
+        "麺を二回に分けて炒めるのは、家庭のコンロでは中華鍋を麺が焦げるほど十分に熱く保てないからです。"
+      ]
+    },
+    {
+      "title": "ソーセージとエビを炒める",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "中華鍋を強火で熱し、煙がかすかに立つまで約2分置きます。",
+        "残りの油の半量を入れ、続けてソーセージを一人分入れて、1分ほど炒めて表面がカリッとし始めるまで火を通します。",
+        "エビを一人分加えて1分ほど、色が桃色に変わるまで火を通します。",
+        "にんにくとチリペーストを一人分加え、30秒ほど混ぜます。"
+      ]
+    },
+    {
+      "title": "麺とソースを合わせる",
+      "icons": [
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "麺を1人前加え、ソースも1人前かけます。",
+        "1分から2分、麺を返すように炒め合わせてください。",
+        "混ぜる間には、麺を15秒から20秒ほど中華鍋の側面に置いて、少し焦げ目がつくようにします。"
+      ]
+    },
+    {
+      "title": "卵を焼いて麺と混ぜる",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "麺をフライパン（中華鍋）の片側に寄せます。",
+        "空いたスペースに卵を1個割り入れ、黄身を崩して30秒ほど固まるまで置きます。",
+        "軽くかき混ぜて半熟に炒めたら、麺と合わせて混ぜ込みます。"
+      ]
+    },
+    {
+      "title": "もやしとニラを加える",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/tools/plate.svg"
+      ],
+      "points": [
+        "もやしとニラを1人分加え、30秒から1分ほど炒め合わせます。",
+        "ニラがしんなりして、もやしに熱が通ってもシャキシャキとした食感が残ったら、麺を皿に移します。"
+      ]
+    },
+    {
+      "title": "鍋を拭いて二回目を作る",
+      "icons": [
+        "img/tools/wok.svg",
+        "img/tools/plate.svg"
+      ],
+      "points": [
+        "ペーパータオルで中華鍋をきれいに拭き、強火にかけて再び煙が出るまで熱します。",
+        "そのうえで、手順3から6を、すべての材料の二回目の分で繰り返します。",
+        "両方の皿を同時に出してください。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "麺が短くちぎれてしまう",
+      "solution": "芯がまだ少し硬いうちに湯切りし、かき混ぜずに、へらで麺を持ち上げては返すように混ぜてください。"
+    },
+    {
+      "problem": "麺がべちゃっとして色が白っぽく、焦げ目がつかない",
+      "solution": "鍋が十分に熱くなっていないか、詰め込みすぎていたのが原因です。火は強火のままにし、毎回炒め始める前に鍋から煙が出るまで待って、一度に作るのは一人分までにしてください。"
+    },
+    {
+      "problem": "麺が中華鍋にくっつく",
+      "solution": "油を入れる前に中華鍋を十分に熱してください。水切りした麺は小さじの油でよく和えてください。"
+    },
+    {
+      "problem": "料理の味がぼんやりする",
+      "solution": "最後に薄口醤油をもう少し、少量ずつ足してください。味を見ながら加えていきます。"
+    }
+  ]
+}

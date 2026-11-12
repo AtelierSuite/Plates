@@ -30,6 +30,9 @@ struct RecipeDetailView: View {
     /// The recipe as it was before the last asked for change, kept while the recipe is still as
     /// that change left it, so the change can be undone.
     @State private var undo: RevisionUndo?
+    /// Whether the dish is being drawn again, which takes a while when Claude draws it.
+    @State private var isRedrawing = false
+    @State private var redrawError: String?
     /// Asking for changes is left out when the cook writes their recipes by hand.
     @AppStorage(PlatesCloud.allowedKey) private var isGenerationAllowed = false
 
@@ -242,14 +245,35 @@ struct RecipeDetailView: View {
         VStack(spacing: 12) {
             DishIcon(recipe: recipe, size: 168)
                 .shadow(color: .black.opacity(0.15), radius: 10, y: 5)
-            if isEditing, SignatureDish.id(for: recipe) == nil {
+            if isEditing, SignatureDish.id(for: recipe) == nil || DishDrawing.isAvailable
+                || DrawnDishes.shared.image(for: recipe.id) != nil {
                 Button("Recipe.Edit.RedrawDish", systemImage: "arrow.clockwise") {
+                    isRedrawing = true
+                    redrawError = nil
                     Task {
-                        recipe.dish = await Dish.asked(for: recipe, seed: UUID().uuidString)
-                        save()
+                        defer { isRedrawing = false }
+                        do {
+                            if let store {
+                                recipe = try await store.redrawDish(for: recipe)
+                            } else {
+                                recipe.dish = await Dish.asked(for: recipe, seed: UUID().uuidString)
+                            }
+                            save()
+                        } catch {
+                            redrawError = error.localizedDescription
+                        }
                     }
                 }
                 .buttonStyle(.bordered)
+                .disabled(isRedrawing)
+                if isRedrawing {
+                    ProgressView()
+                } else if let redrawError {
+                    Text(verbatim: redrawError)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
             }
         }
         .frame(maxWidth: .infinity)

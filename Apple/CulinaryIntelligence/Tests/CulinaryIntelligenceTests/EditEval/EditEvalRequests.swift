@@ -423,18 +423,16 @@ enum EditEvalRequests {
     ]
 }
 
-/// The sample recipes the requests are made on, read from the app's own files so the eval
-/// always runs on what ships.
+/// The recipes the requests are made on: the samples the app shipped until the Singaporean
+/// ones replaced them, kept as fixtures so the requests and their baseline still hold.
 enum EditEvalSamples {
-    /// `Apple/Plates/SampleRecipes`, found from this file. Simulator reads the Mac's disk, so
+    /// `Tests/Fixtures/SampleRecipes`, found from this file. Simulator reads the Mac's disk, so
     /// the path holds there too.
     static let folder = URL(filePath: #filePath)
         .deletingLastPathComponent() // EditEval
         .deletingLastPathComponent() // CulinaryIntelligenceTests
         .deletingLastPathComponent() // Tests
-        .deletingLastPathComponent() // CulinaryIntelligence
-        .deletingLastPathComponent() // Apple
-        .appending(path: "Plates/SampleRecipes")
+        .appending(path: "Fixtures/SampleRecipes")
 
     static func recipe(_ name: String, in language: EditEvalRequest.Language) throws -> Recipe {
         let file = folder.appending(path: "\(language == .japanese ? "ja" : "en-US").lproj/\(name).json")

@@ -38,6 +38,8 @@ folder or in iCloud Drive depending on what the user picks in the ellipsis menu.
   site's schema and each other.
 - Sample recipes are written out once per language, in `en-US.lproj` and `ja.lproj`, under the
   same file name and the same `id`, so switching languages does not add a second copy.
+- The samples are ten Singaporean home dishes, written by Claude in its generation eval and not
+  yet marked as tried. Mark one tried only once someone has cooked it.
 
 ## PlatesCloud
 
@@ -67,6 +69,23 @@ only runs with `PLATES_EVAL=1`. The command is in the test's comment.
 - Keep the requests real, as a cook would type them. Change the set only with a new baseline.
 - The local Worker needs its daily limits set high enough for every run, such as
   `WRITE_DAILY_LIMIT=500` and `TOPPINGS_DAILY_LIMIT=500` in the environment of `npm run dev`.
+
+## Claude
+
+A cook can pick Claude as the writer in the Recipe Writer page and run it on their own Anthropic
+key. While Claude writes, every pass goes to Claude instead of PlatesCloud and Apple
+Intelligence, and `ClaudeRole` picks the model: Opus 5.5 writes, edits, and draws icons, Sonnet
+5.5 offers ideas, plans a request, and reads a shared page, and Haiku 5.5 picks an idea, says what
+shows on a dish, sorts lines, and translates. Every role runs at medium effort.
+
+- `ModelPasses` sends a pass to Claude with its `@Generable` schema as JSON Schema in
+  `output_config.format`, and reads the answer back through `GeneratedContent(json:)`.
+- The lessons below came from Gemma and the on-device model. They hold for Claude until its own
+  evals say otherwise.
+- Sorting a step, Haiku gave 2 of 154 steps a title and an empty text, and a step with no text
+  is dropped. The pass is asked again, and a step still empty is kept as it was written.
+- Held to the picks, Opus wrote a soup when asked for fried bee hoon with no oil among them,
+  and said so at the top of the recipe.
 
 ## Model lessons
 
@@ -116,14 +135,15 @@ of the evals, so do not undo one without running them again.
   enchiladas tacos and a kimchi jjigae a noodle soup, both of which the title already settled.
 - Clef-flash, on Workers AI, says whether a seasoning, aromatic, or optional line can be seen on
   the served dish, one question per line, and a line under 0.35 is left off the icon. It scores
-  lower than Jev, the model before it: on the sample recipes, 0.35 kept Jev's 0.6 calls on 70 of
+  lower than Jev, the model before it: on the old sample recipes, now the edit eval's fixtures, 0.35 kept Jev's 0.6 calls on 70 of
   75 lines, and 0.6 kept 63. The title and the last step only decide when the Worker cannot be
   reached.
 
 ## Edit eval
 
 `EditEvalTests` in the package's tests runs the fixed requests in `EditEvalRequests` through the
-real `RecipeAskEditor` on the sample recipes, and writes what each run did to JSON: the plan,
+real `RecipeAskEditor` on the recipes in `Apple/CulinaryIntelligence/Tests/Fixtures/SampleRecipes`,
+the samples the app shipped before the Singaporean ones, and writes what each run did to JSON: the plan,
 whether every check on the request passed, and which lines changed that the request did not call
 for. It only runs with `PLATES_EVAL=1`, in Simulator, with no Worker. The command is in the test's
 comment.
@@ -131,7 +151,7 @@ comment.
 - It is an eval: it sends every request to Apple Intelligence. Measure an editing change against
   a baseline from it, in both languages, before and after.
 - Run it with `-testLanguage ja -testRegion JP` for the Japanese requests, so the package reads
-  its Japanese catalog and the `ja.lproj` samples.
+  its Japanese catalog and the fixtures' `ja.lproj` recipes.
 - Keep the requests real, as a cook would ask. Change the set only with a new baseline.
   `EditEvalHarnessTests` fails a check the sample already passes, since it measures nothing.
 
@@ -146,6 +166,15 @@ comment.
 - Every icon, dish parts included, follows the Fluent style in `Apple/Assets/IconStyle/STYLE.md`.
   Check what you draw against the real thing first, and look at it rendered on light and dark
   before you finish.
+
+### Drawn by Claude
+
+When Claude writes on the cook's own key, it draws each new recipe's dish as an SVG to the
+signature dish rules, and on Redraw. `DishDrawing` checks the SVG in code and renders it to
+`<id>.png` beside the recipe's `<id>.json`, which older builds ignore. The drawing stands in for
+the dish made from parts and for a signature icon alike. Samples are not drawn on the device: each one ships with the drawing
+Opus made of it in the drawing eval, in `Apple/Plates/SampleRecipes/Drawings`, copied in beside
+the sample.
 
 ### Dish icons
 

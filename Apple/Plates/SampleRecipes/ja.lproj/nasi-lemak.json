@@ -1,0 +1,322 @@
+{
+  "id": "nasi-lemak",
+  "title": "ナシレマ",
+  "time": "75 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "しょうが",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "2枚"
+      },
+      {
+        "item": "エシャロット",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "6個"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "3片"
+      },
+      {
+        "item": "卵",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "4個"
+      },
+      {
+        "item": "きゅうり",
+        "icon": "img/ingredients/cucumber.svg",
+        "amount": "1本"
+      }
+    ],
+    "general": [
+      {
+        "item": "ココナッツ",
+        "icon": "img/ingredients/coconut.svg",
+        "amount": ""
+      },
+      {
+        "item": "米",
+        "icon": "img/ingredients/rice.svg",
+        "amount": "480ミリリットル"
+      },
+      {
+        "item": "ココナッツミルク",
+        "icon": "img/ingredients/coconut-milk.svg",
+        "amount": "1缶（380グラム）"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "240ミリリットル"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "サンバル",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": ""
+      },
+      {
+        "item": "乾燥赤唐辛子",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "15本"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "120ミリリットル"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ3"
+      },
+      {
+        "item": "タマリンド",
+        "icon": "img/ingredients/tamarind.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1/2"
+      },
+      {
+        "item": "副菜用",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "",
+        "note": "この行は材料ではなく見出しのため、買うものはありません。"
+      },
+      {
+        "item": "アンチョビ",
+        "icon": "img/ingredients/anchovies.svg",
+        "amount": "240ミリリットル",
+        "note": "アジア食材の売り場で買える、乾燥させた小さなカタクチイワシです（オイル漬けのアンチョビ切り身ではありません）。"
+      },
+      {
+        "item": "ピーナッツ",
+        "icon": "img/ingredients/peanuts.svg",
+        "amount": "120ミリリットル",
+        "note": "薄皮つきの生のピーナッツを選んでください。"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "120ミリリットル"
+      }
+    ],
+    "optional": [
+      {
+        "item": "パンダンの葉",
+        "icon": "img/ingredients/bread.svg",
+        "amount": "2枚",
+        "note": "アジア食材店の冷凍売り場で売られているので、冷凍のものを探してください。"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "ざる",
+      "icon": "img/tools/sieve.svg",
+      "required": true,
+      "note": "目の細かいものを使います。"
+    },
+    {
+      "name": "ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "3個使い分けます。唐辛子を浸す用、卵を入れる冷水用、キッチンペーパーを敷いて水気を切る用です。"
+    },
+    {
+      "name": "ブレンダー",
+      "icon": "img/tools/blender.svg",
+      "required": true
+    },
+    {
+      "name": "片手鍋",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "中サイズで、蓋がぴったり閉まるものを使います。"
+    },
+    {
+      "name": "フライパン",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "小さめのものを使います。"
+    },
+    {
+      "name": "中華鍋",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "中華鍋がなければ深めのフライパンで代用できます。"
+    },
+    {
+      "name": "穴あきスプーン",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true,
+      "note": "ざるやトングで代用できます。"
+    },
+    {
+      "name": "木のスプーン",
+      "icon": "img/tools/wooden-spoon.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "材料を下ごしらえする",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/cucumber.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/water.svg"
+      ],
+      "points": [
+        "乾燥唐辛子をボウルに入れ、いちばん熱い水道水を注いでかぶらせ、30分つけておく。",
+        "つけている間に、米をざるに入れて冷水で水が澄むまですすぎ、水を切る。",
+        "アンチョビは手早くすすいでから、キッチンペーパーでしっかり水気を拭き取る。",
+        "エシャロットとにんにくは皮をむき、大まかに刻む。",
+        "しょうがは薄切りにし、パンダンの葉はそれぞれ結び目を作る。",
+        "きゅうりは輪切りにする。"
+      ]
+    },
+    {
+      "title": "唐辛子とにんにくをペーストにする",
+      "icons": [
+        "img/ingredients/shallot.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/chili.svg",
+        "img/tools/blender.svg"
+      ],
+      "points": [
+        "唐辛子の水気を切り、へたを取って、種をほとんど振り落とします。",
+        "辛いのが好きなら、種は少なめに振り落としてください。",
+        "唐辛子、エシャロット、にんにく、水120ミリリットルをミキサーに入れ、なめらかなペーストになるまで撹拌します。"
+      ]
+    },
+    {
+      "title": "ココナッツご飯を炊く",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/coconut.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/coconut-milk.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/salt.svg"
+      ],
+      "points": [
+        "米、ココナッツミルク、水240ミリリットル、塩、しょうが、パンダンの葉を中くらいの鍋に入れます。",
+        "中火にかけて沸騰させます。",
+        "米がくっつかないように、一度だけ混ぜます。",
+        "火を一番弱くして、ふたをして18分加熱します。",
+        "その間ふたは開けないでください。",
+        "鍋を火から下ろし、ふたをしたまま10分置きます。"
+      ]
+    },
+    {
+      "title": "卵をゆでて切る",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/water.svg",
+        "img/tools/bowl.svg",
+        "img/tools/saucepan.svg"
+      ],
+      "points": [
+        "ご飯が炊けるのを待つ間に、小さな片手鍋で水を沸騰させます。",
+        "卵を入れて9分ゆでます。",
+        "その後、卵を冷水を入れたボウルに移して5分おき、殻をむいて半分に切ります。"
+      ]
+    },
+    {
+      "title": "ピーナッツとアンチョビを揚げる",
+      "icons": [
+        "img/ingredients/sambal.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/anchovies.svg",
+        "img/ingredients/peanuts.svg",
+        "img/ingredients/bread.svg",
+        "img/tools/pan.svg"
+      ],
+      "points": [
+        "小さなフライパンに油120ミリリットルを入れ、中火で熱します。",
+        "ピーナッツを木のお玉で混ぜながら3分から4分、きつね色になるまで揚げ、穴あきお玉で引き上げてキッチンペーパーの上に置きます。",
+        "同じ油でアンチョビを3分から4分、カリッときつね色になるまで揚げ、引き上げてキッチンペーパーの上に置きます。",
+        "アンチョビの半量は取り分けて、サンバル用にします。"
+      ]
+    },
+    {
+      "title": "唐辛子ペーストを炒める",
+      "icons": [
+        "img/ingredients/salt.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/tamarind.svg",
+        "img/ingredients/sugar.svg",
+        "img/ingredients/anchovies.svg"
+      ],
+      "points": [
+        "中火より弱めの中火で、大さじ3の油を中華鍋に熱します。",
+        "唐辛子ペーストを加え、ときどき混ぜながら15から20分炒め、濃い赤色になって油がペーストから分離するまで火を通します。",
+        "タマリンドペースト、砂糖、塩、取り分けておいたアンチョビの半量を加えて混ぜます。",
+        "混ぜながら5分煮て、とろみがつくまで煮詰めます。"
+      ]
+    },
+    {
+      "title": "ご飯をほぐして皿に盛り付ける",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/cucumber.svg",
+        "img/ingredients/sambal.svg",
+        "img/ingredients/peanuts.svg",
+        "img/ingredients/bread.svg"
+      ],
+      "points": [
+        "ご飯からショウガとパンダンを取り除き、フォークでほぐします。",
+        "各皿に、ご飯を山のように盛り、サンバルを大さじ1杯ほど添えます。",
+        "カタクチイワシとピーナッツを数粒ずつ、卵半個か2個、そしてきゅうりの薄切りを盛り付けます。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "ご飯の底が焦げる、ココナッツミルクが焦げつきやすい",
+      "solution": "鍋にふたをしたら、火は一番弱い設定に保ってください。重い鍋を持っていれば、それを使ってください。"
+    },
+    {
+      "problem": "サンバルの味が刺々しく、生っぽい",
+      "solution": "加熱時間が足りていません。中弱火で混ぜ続け、油が表面に浮いてペーストの色が濃くなるまで火を入れてください。"
+    },
+    {
+      "problem": "アンチョビが焦げて苦い",
+      "solution": "色が濃くなりすぎると苦くなるので、アンチョビはきつね色になったらすぐに取り出してください。冷める間もカリッとしていくからです。"
+    },
+    {
+      "problem": "サンバルが鍋から飛び散る",
+      "solution": "ペーストは油に触れたときに水分を含んでいるため、飛び散りやすくなります。火加減は中弱火に保ち、ペーストを入れるときは鍋から体を離してください。"
+    }
+  ]
+}

@@ -35,6 +35,23 @@
         }
       }
     },
+    "AIProcessing.Footer.Off.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipes are written by hand, and nothing is sent to Claude."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピは自分で書きます。Claudeには何も送られません。"
+          }
+        }
+      }
+    },
     "AIProcessing.Footer.On" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -52,6 +69,23 @@
         }
       }
     },
+    "AIProcessing.Footer.On.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plates generates recipes, and sends what is listed below to Claude at Anthropic."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platesがレシピを生成し、以下の情報をAnthropicのClaudeに送ります。"
+          }
+        }
+      }
+    },
     "AIProcessing.Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -65,6 +99,210 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "外部処理"
+          }
+        }
+      }
+    },
+    "APIKey.Claude.Footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude runs on your own Anthropic account, and Anthropic bills it for each request. The key is kept in this iPhone's Keychain and is never sent to any server other than Anthropic's."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claudeは自分のAnthropicアカウントで動き、リクエストごとにAnthropicから請求されます。キーはこのiPhoneのキーチェーンに保存され、Anthropic以外のサーバーには送られません。"
+          }
+        }
+      }
+    },
+    "APIKey.Claude.Get" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get a New Key from Claude Platform"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Platformで新しいキーを発行"
+          }
+        }
+      }
+    },
+    "APIKey.Claude.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropic API Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AnthropicのAPIキー"
+          }
+        }
+      }
+    },
+    "APIKey.Field" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APIキー"
+          }
+        }
+      }
+    },
+    "APIKey.Missing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No key is saved yet. Recipes are written with PlatesCloud until one is."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだキーが保存されていません。保存するまでは、PlatesCloudでレシピを書きます。"
+          }
+        }
+      }
+    },
+    "APIKey.Remove" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーを削除"
+          }
+        }
+      }
+    },
+    "APIKey.Save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        }
+      }
+    },
+    "APIKey.Saved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A key is saved. Enter a new one to replace it."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーは保存されています。置き換えるには、新しいキーを入力してください。"
+          }
+        }
+      }
+    },
+    "Consent.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Writes Recipes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claudeがレシピを書きます"
+          }
+        }
+      }
+    },
+    "Consent.Claude.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your request, the ingredients and tools you pick, and each recipe's lines go to Claude at Anthropic, under your own account, to be written, sorted, and translated. A page you share to Plates goes there too."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リクエスト、選んだ材料・道具、レシピの各行が、自分のアカウントでAnthropicのClaudeに送られ、書く、整理する、翻訳するのに使われます。Platesに共有したページも送られます。"
+          }
+        }
+      }
+    },
+    "Consent.Claude.Key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Key Goes Only to Anthropic"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーはAnthropicにだけ送られます"
+          }
+        }
+      }
+    },
+    "Consent.Claude.Key.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The key stays in this iPhone's Keychain and is never sent to any server other than Anthropic's. Anthropic bills your account for each request."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーはこのiPhoneのキーチェーンに保存され、Anthropic以外のサーバーには送られません。リクエストごとにAnthropicからアカウントに請求されます。"
           }
         }
       }
@@ -137,6 +375,23 @@
         }
       }
     },
+    "Consent.Policy.Anthropic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropic Privacy Policy"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropicのプライバシーポリシー"
+          }
+        }
+      }
+    },
     "Consent.Policy.Cloudflare" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -184,6 +439,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "名前、アカウント、位置情報は送られません。レシピはiPhoneまたはiCloud Driveにファイルとして残ります。"
+          }
+        }
+      }
+    },
+    "Consent.Private.Description.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No name or location is sent, and only the key ties a request to your Anthropic account. Recipes stay as files on your iPhone or in iCloud Drive."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前や位置情報は送られません。リクエストとAnthropicアカウントを結び付けるのはキーだけです。レシピはiPhoneまたはiCloud Driveにファイルとして残ります。"
           }
         }
       }
@@ -1157,6 +1429,23 @@
         }
       }
     },
+    "Limits.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude runs on your own Anthropic account, so PlatesCloud's daily limits do not apply. Anthropic's rate limits and your account's credit do."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claudeは自分のAnthropicアカウントで動くため、PlatesCloudの1日の上限はありません。Anthropicのレート制限とアカウントのクレジットが適用されます。"
+          }
+        }
+      }
+    },
     "Limits.Decide" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1599,6 +1888,23 @@
         }
       }
     },
+    "Menu.Writer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipe Writer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピの書き手"
+          }
+        }
+      }
+    },
     "Onboarding.Back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1663,6 +1969,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Platesは、iPhoneの外で動く2つのモデルを使ってレシピを書きます。必要な情報をこれらのモデルに送ることを許可してください。"
+          }
+        }
+      }
+    },
+    "Onboarding.Consent.Description.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plates writes and sorts recipes with Claude, which runs outside your iPhone on your own Anthropic account. Allow Plates to send it what it needs."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platesは、iPhoneの外で自分のAnthropicアカウントで動くClaudeを使って、レシピを書いて整理します。必要な情報をClaudeに送ることを許可してください。"
           }
         }
       }
@@ -3262,6 +3585,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "調理器具"
+          }
+        }
+      }
+    },
+    "Writer.Footer.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude does every step on your own Anthropic account, with no daily limit from Plates. Opus 5.5 writes, edits, and draws icons. Sonnet 5.5 suggests ideas, plans requests, and reads pages you share. Haiku 5.5 picks ideas, sorts lines, and translates. Apple Intelligence is not needed."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claudeが、自分のAnthropicアカウントですべての手順を行います。Platesによる1日の上限はありません。Opus 5.5はレシピを書き、変更し、アイコンを描きます。Sonnet 5.5はアイディアを出し、リクエストの内容を考え、共有したページを読みます。Haiku 5.5はアイディアを選び、各行を整理し、翻訳します。Apple Intelligenceは必要ありません。"
+          }
+        }
+      }
+    },
+    "Writer.Footer.PlatesCloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gemma on PlatesCloud writes recipes and ideas, within a daily limit. Apple Intelligence sorts and translates them on this iPhone."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PlatesCloudのGemmaが、1日の上限の範囲でレシピとアイディアを書きます。Apple Intelligenceが、このiPhoneの中でそれらを整理して翻訳します。"
           }
         }
       }

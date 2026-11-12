@@ -1,0 +1,240 @@
+{
+  "id": "char-kway-teow",
+  "title": "Char Kway Teow",
+  "time": "40 min",
+  "serves": "2",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "fresh flat rice noodles",
+        "icon": "img/ingredients/rice-noodles.svg",
+        "amount": "1 lb"
+      },
+      {
+        "item": "raw medium shrimp",
+        "icon": "img/ingredients/shrimp.svg",
+        "amount": "8 oz"
+      },
+      {
+        "item": "Chinese sausage (lap cheong)",
+        "icon": "img/ingredients/lap-cheong.svg",
+        "amount": "2"
+      },
+      {
+        "item": "garlic cloves",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "4 cloves"
+      },
+      {
+        "item": "eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "2"
+      },
+      {
+        "item": "bean sprouts",
+        "icon": "img/ingredients/bean-sprouts.svg",
+        "amount": "2 cups"
+      },
+      {
+        "item": "garlic chives or scallions",
+        "icon": "img/ingredients/nira.svg",
+        "amount": "1 small bunch",
+        "note": "Either garlic chives or scallions will work, so buy whichever is easier to find."
+      }
+    ],
+    "general": [
+      {
+        "item": "dark soy sauce",
+        "icon": "img/ingredients/dark-soy-sauce.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "light soy sauce",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "oyster sauce",
+        "icon": "img/ingredients/oyster-sauce.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "sugar",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "sambal oelek or other chili paste",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": "2 teaspoons, or to taste"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "3 tablespoons"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use a small bowl for mixing the sauce."
+    },
+    {
+      "name": "Pot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Use a medium pot for boiling water to loosen the noodles."
+    },
+    {
+      "name": "Heatproof bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use a large one, since it is for soaking the noodles."
+    },
+    {
+      "name": "Colander",
+      "icon": "img/tools/colander.svg",
+      "required": true
+    },
+    {
+      "name": "Wok",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "A 12-inch skillet can be used in its place."
+    },
+    {
+      "name": "Wok spatula",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "A wide metal spatula can be used instead."
+    },
+    {
+      "name": "Serving plates",
+      "icon": "img/tools/plate.svg",
+      "required": true,
+      "note": "Any two plates will do in place of serving plates."
+    }
+  ],
+  "steps": [
+    {
+      "title": "Prep the ingredients and divide into two batches",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/lap-cheong.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/nira.svg",
+        "img/ingredients/dark-soy-sauce.svg"
+      ],
+      "points": [
+        "Slice the Chinese sausages thinly on a diagonal.",
+        "Mince the garlic.",
+        "Cut the chives or scallions into 2-inch lengths.",
+        "Rinse the bean sprouts and let them drain.",
+        "In the small bowl, stir together the dark soy sauce, light soy sauce, oyster sauce, sugar, and sambal oelek until the sugar dissolves.",
+        "Divide the shrimp, sausage, garlic, bean sprouts, chives, and sauce into two equal portions, one for each batch."
+      ]
+    },
+    {
+      "title": "Soften the noodles",
+      "icons": [
+        "img/ingredients/rice-noodles.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/bowl.svg",
+        "img/tools/pot.svg",
+        "img/tools/colander.svg"
+      ],
+      "points": [
+        "Bring the medium pot of water to a boil.",
+        "Put the noodles in the heatproof bowl and pour the boiling water over them.",
+        "Gently separate the strands with chopsticks for 30 seconds to 1 minute, until they come apart.",
+        "Drain in the colander, toss with 1 teaspoon of oil, and divide into two portions."
+      ]
+    },
+    {
+      "title": "Stir-fry garlic, sausage and shrimp",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/lap-cheong.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/nira.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "Heat the wok over high heat until it just begins to smoke, about 2 minutes.",
+        "Add 1 1/2 tablespoons of oil, then one portion of garlic and sausage.",
+        "Stir for 30 seconds.",
+        "Add one portion of shrimp and cook, tossing, for 1 to 2 minutes until pink."
+      ]
+    },
+    {
+      "title": "Add sauce and toss noodles",
+      "icons": [
+        "img/ingredients/rice-noodles.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "Add one portion of noodles and pour one portion of sauce over them.",
+        "Toss gently with the spatula, lifting from underneath, for 1 to 2 minutes, until the noodles are evenly brown and a few edges have charred."
+      ]
+    },
+    {
+      "title": "Scramble the egg",
+      "icons": [
+        "img/ingredients/rice-noodles.svg",
+        "img/ingredients/egg.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "Push everything to one side of the wok.",
+        "Crack 1 egg into the empty space and let it set for 20 seconds, then break it up and fold it through the noodles."
+      ]
+    },
+    {
+      "title": "Wilt the sprouts and chives",
+      "icons": [
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/nira.svg",
+        "img/tools/wok.svg",
+        "img/tools/plate.svg"
+      ],
+      "points": [
+        "Add one portion of bean sprouts and chives and toss for 30 seconds, until the chives wilt.",
+        "Turn out onto a plate.",
+        "Wipe the wok clean with a paper towel and repeat steps 3 to 6 with the remaining ingredients."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The noodles break into short pieces",
+      "solution": "They were stirred too hard or were still cold and stiff. Loosen them fully in hot water first, and lift and fold them with the spatula rather than stirring."
+    },
+    {
+      "problem": "The noodles come out pale and wet instead of smoky",
+      "solution": "The wok was crowded or not hot enough. Cook one portion at a time and wait until the wok smokes before adding oil."
+    },
+    {
+      "problem": "The shrimp turn rubbery",
+      "solution": "They cooked too long. Take them only to pink in step 3, since they keep cooking while the noodles fry."
+    },
+    {
+      "problem": "The noodles stick to the wok",
+      "solution": "There was too little oil or the wok was not hot enough when they went in. Make sure the oil shimmers and coats the pan before the noodles go in."
+    }
+  ]
+}

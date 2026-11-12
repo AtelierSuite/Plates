@@ -19,6 +19,8 @@ enum IntelligenceError: LocalizedError {
 /// The model, the cloud a pass falls back to, and the time the app asks for to finish a pass
 /// once it is off screen. Writing a recipe and rewriting one both run their passes through one
 /// of these, so availability, the fallback, and the background time are written down once.
+/// While Claude writes on the cook's own key, every pass goes to Claude instead, to the model
+/// its role calls for, and Apple Intelligence is not needed.
 @MainActor
 final class ModelPasses {
     private let model = SystemLanguageModel.default
@@ -32,11 +34,23 @@ final class ModelPasses {
     /// land.
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
-    var isAvailable: Bool { model.availability == .available }
+    /// Claude, when it writes on a key the cook saved and the cook allowed requests to leave
+    /// the device. Nil sends every pass to Apple Intelligence.
+    var claude: ClaudeCloud? {
+        let cloud = ClaudeCloud.shared
+        return WriterProvider.current == .claude && cloud.isConfigured && cloud.isAllowed ? cloud : nil
+    }
+
+    /// The role a sorting pass goes to Claude under: sorting what was written, or reading a
+    /// page the cook shared.
+    var sortingRole: ClaudeRole = .sort
+
+    var isAvailable: Bool { claude != nil || model.availability == .available }
 
     /// Why Apple Intelligence cannot run here, in words a cook can act on, or nil when it can.
     var unavailableReason: LocalizedStringResource? {
-        switch model.availability {
+        if claude != nil { return nil }
+        return switch model.availability {
         case .available:
             nil
         case .unavailable(.deviceNotEligible):
@@ -77,29 +91,125 @@ final class ModelPasses {
     /// One answer in a session of its own, held to a response length. A pass that fails is
     /// tried again, waiting longer each time. The usual failure is the system holding back a
     /// run that has gone on in the background, which clears after a short wait.
+    /// With Claude, the pass's own schema holds the answer, and the role picks the model:
+    /// sorting when none is given.
     func respond<Content: Generable>(
         _ type: Content.Type,
         to prompt: String,
         instructions: String,
-        tokenLimit: Int
+        tokenLimit: Int,
+        role: ClaudeRole? = nil,
+        greedy: Bool = false,
+        retries: Bool = true
     ) async throws -> Content {
-        var waits: [Duration] = [.seconds(1), .seconds(4), .seconds(10)]
+        try await retrying(retries) {
+            if let claude {
+                let json = try await claude.structured(
+                    role ?? sortingRole,
+                    system: instructions,
+                    prompt: prompt,
+                    schema: Self.jsonSchema(Content.generationSchema),
+                    maximumTokens: tokenLimit
+                )
+                return try Content(GeneratedContent(json: json))
+            }
+            return try await run(instructions: instructions) { session in
+                try await session.respond(
+                    to: prompt,
+                    generating: Content.self,
+                    options: GenerationOptions(sampling: greedy ? .greedy : nil, maximumResponseTokens: tokenLimit)
+                ).content
+            }
+        }
+    }
+
+    /// One answer held to a schema built while the app runs, such as a whole section's lists.
+    func respond(
+        to prompt: String,
+        schema: GenerationSchema,
+        instructions: String,
+        tokenLimit: Int,
+        role: ClaudeRole? = nil
+    ) async throws -> GeneratedContent {
+        if let claude {
+            let json = try await claude.structured(
+                role ?? sortingRole,
+                system: instructions,
+                prompt: prompt,
+                schema: Self.jsonSchema(schema),
+                maximumTokens: tokenLimit
+            )
+            return try GeneratedContent(json: json)
+        }
+        return try await run(instructions: instructions) { session in
+            try await session.respond(
+                to: prompt,
+                schema: schema,
+                options: GenerationOptions(maximumResponseTokens: tokenLimit)
+            ).content
+        }
+    }
+
+    /// One answer in plain text, such as a translation.
+    func respondText(to prompt: String, instructions: String, tokenLimit: Int, role: ClaudeRole) async throws -> String {
+        if let claude {
+            return try await claude.plain(role, system: instructions, prompt: prompt, maximumTokens: tokenLimit)
+        }
+        return try await run(instructions: instructions) { session in
+            try await session.respond(
+                to: prompt,
+                options: GenerationOptions(maximumResponseTokens: tokenLimit)
+            ).content
+        }
+    }
+
+    /// Runs a pass, and runs it again when it fails, waiting longer each time. An answer from
+    /// Anthropic about the key, the account, or the request is not tried again.
+    private func retrying<Value>(_ retries: Bool, _ pass: () async throws -> Value) async throws -> Value {
+        var waits: [Duration] = retries ? [.seconds(1), .seconds(4), .seconds(10)] : []
         while true {
             do {
-                return try await run(instructions: instructions) { session in
-                    try await session.respond(
-                        to: prompt,
-                        generating: Content.self,
-                        options: GenerationOptions(maximumResponseTokens: tokenLimit)
-                    ).content
-                }
+                return try await pass()
             } catch is CancellationError {
                 throw CancellationError()
+            } catch let error as ClaudeError {
+                throw error
+            } catch CloudError.notAllowed {
+                throw CloudError.notAllowed
             } catch {
                 guard !waits.isEmpty else { throw error }
                 try await Task.sleep(for: waits.removeFirst())
             }
         }
+    }
+
+    /// A pass's schema as the JSON Schema Claude's structured outputs take. The keywords they
+    /// do not take, such as array lengths and FoundationModels' own property order, are left out.
+    nonisolated static func jsonSchema(_ schema: GenerationSchema) throws -> [String: Any] {
+        let object = try JSONSerialization.jsonObject(with: JSONEncoder().encode(schema))
+        guard let schema = stripped(object) as? [String: Any] else { throw IntelligenceError.empty }
+        return schema
+    }
+
+    nonisolated private static let unsupported: Set<String> = [
+        "x-order", "minItems", "maxItems", "minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum",
+        "multipleOf", "minLength", "maxLength", "pattern",
+    ]
+
+    /// The keys of `properties` are the pass's own names, so they are kept whatever they are.
+    nonisolated private static func stripped(_ value: Any, naming: Bool = false) -> Any {
+        if let object = value as? [String: Any] {
+            if naming { return object.mapValues { stripped($0) } }
+            var kept: [String: Any] = [:]
+            for (key, child) in object where !unsupported.contains(key) {
+                kept[key] = stripped(child, naming: key == "properties" || key == "$defs")
+            }
+            return kept
+        }
+        if let array = value as? [Any] {
+            return array.map { stripped($0) }
+        }
+        return value
     }
 
     // MARK: - Running in the background

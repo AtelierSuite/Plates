@@ -39,6 +39,9 @@ struct MainView: View {
     /// or later in the menu.
     @AppStorage(PlatesCloud.allowedKey) private var isGenerationAllowed = false
     @State private var isShowingAIProcessing = false
+    /// Who writes: PlatesCloud, or a provider on the cook's own key.
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+    @State private var isShowingWriter = false
     @State private var path = NavigationPath()
     /// The title a recipe written by hand starts with, once the recipe sheet is gone.
     @State private var byHandTitle: String?
@@ -109,6 +112,9 @@ struct MainView: View {
         }
         .sheet(isPresented: $isShowingAIProcessing, onDismiss: openNextImport) {
             AIProcessingView()
+        }
+        .sheet(isPresented: $isShowingWriter, onDismiss: writerDismissed) {
+            RecipeWriterView()
         }
         .onAppear {
             store.importSharedRecipes()
@@ -198,6 +204,16 @@ struct MainView: View {
         isShowingLimits = false
         isShowingInventory = false
         isShowingAIProcessing = false
+        isShowingWriter = false
+        openNextImport()
+    }
+
+    /// A provider left with no key, as when the cook picks Claude and closes the page without
+    /// saving one, or removes the key, goes back to PlatesCloud, so a recipe can still be written.
+    private func writerDismissed() {
+        if provider.needsKey, !provider.hasKey {
+            provider = .platesCloud
+        }
         openNextImport()
     }
 
@@ -206,7 +222,7 @@ struct MainView: View {
     /// asked for by URL goes first.
     private func openNextImport() {
         guard sharedImport == nil, generation == nil, !isOnboarding, !isShowingLimits,
-              !isShowingInventory, !isShowingAIProcessing else { return }
+              !isShowingInventory, !isShowingAIProcessing, !isShowingWriter else { return }
         if isOnboardingRequested {
             isOnboardingRequested = false
             isOnboarding = true
@@ -256,7 +272,20 @@ struct MainView: View {
                     Label("Menu.AIProcessing", systemImage: "apple.intelligence")
                 }
 
-                if PlatesCloud.shared.isConfigured, isGenerationAllowed {
+                if isGenerationAllowed {
+                    Button {
+                        isShowingWriter = true
+                    } label: {
+                        Label {
+                            Text("Menu.Writer")
+                            Text(provider.name)
+                        } icon: {
+                            Image(systemName: "pencil.and.scribble")
+                        }
+                    }
+                }
+
+                if isGenerationAllowed, provider.needsKey || PlatesCloud.shared.isConfigured {
                     Button {
                         isShowingLimits = true
                     } label: {

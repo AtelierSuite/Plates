@@ -288,8 +288,9 @@ public final class RecipeGenerator {
     /// of it put into English for Gemma.
     let writer = ModelPasses()
 
-    /// Where Gemma writes, and where Clef picks an idea.
-    let cloud = PlatesCloud.shared
+    /// Where the recipe is written and an idea picked: Gemma and Clef on PlatesCloud, or the
+    /// provider the cook brought their own key for.
+    var cloud: any RecipeWriting { WriterProvider.current.service }
 
     /// Where the run reports how far along it is.
     let observer: (any RunObserver)?
@@ -308,7 +309,7 @@ public final class RecipeGenerator {
     /// Why the button is disabled, in words a cook can act on.
     public var unavailableReason: LocalizedStringResource? {
         passes.unavailableReason
-            ?? (cloud.isConfigured ? nil : LocalizedStringResource(culinary: "Generate.Unavailable.CloudMissing"))
+            ?? (cloud.isConfigured ? nil : cloud.unconfiguredReason)
     }
 
     /// Writes the recipe the cook asked for, or the idea they picked for it. An idea is written
@@ -370,12 +371,12 @@ public final class RecipeGenerator {
         let words = request.trimmedDescription
         guard !words.allSatisfy(\.isASCII) else { return request }
         do {
-            let english = try await writer.run(instructions: Self.english("Generate.Prompt.Translate")) { session in
-                try await session.respond(
-                    to: words,
-                    options: GenerationOptions(maximumResponseTokens: Self.lineTokenLimit)
-                ).content
-            }
+            let english = try await writer.respondText(
+                to: words,
+                instructions: Self.english("Generate.Prompt.Translate"),
+                tokenLimit: Self.lineTokenLimit,
+                role: .translate
+            )
             let translated = english.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !translated.isEmpty else { return request }
             var asked = request
@@ -555,6 +556,19 @@ public final class RecipeGenerator {
                 if !Self.readsInEnglish, Self.leavesEnglish(step.title + " " + step.text) {
                     step = (try? await sortLine(StructuredStep.self, prompt)) ?? step
                 }
+                // Haiku has given a step its title and left its text empty, and a step with no
+                // text is dropped. Asked again it is usually whole. When it is still empty, the
+                // step is kept as it was written rather than lost.
+                if Self.isEmpty(step) {
+                    step = (try? await sortLine(StructuredStep.self, prompt)) ?? step
+                }
+                if Self.isEmpty(step) {
+                    let written = Measures.forReader(line)
+                    step.text = written
+                    if step.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        step.title = Self.sentences(in: written).first ?? written
+                    }
+                }
                 steps.append((step.title.withoutLeakedSyntax, Self.sentences(in: step.text.withoutLeakedSyntax)))
                 progress.outline.append(step.title.withoutLeakedSyntax)
                 progress.stepCount = steps.count
@@ -661,12 +675,13 @@ public final class RecipeGenerator {
 
     /// One line sorted in a session of its own. A line cannot be left out without the recipe
     /// being wrong, so a pass that fails is tried again.
-    func sortLine<Content: Generable>(_ type: Content.Type, _ prompt: String) async throws -> Content {
+    func sortLine<Content: Generable>(_ type: Content.Type, _ prompt: String, role: ClaudeRole? = nil) async throws -> Content {
         try await passes.respond(
             type,
             to: prompt,
             instructions: Self.structureInstructions,
-            tokenLimit: Self.lineTokenLimit
+            tokenLimit: Self.lineTokenLimit,
+            role: role
         )
     }
 
@@ -700,13 +715,12 @@ public final class RecipeGenerator {
             "",
             Self.text("Generate.Prompt.Structure.Shopping.Ask"),
         ].joined(separator: "\n")
-        let content = try await passes.run(instructions: Self.structureInstructions) { session in
-            try await session.respond(
-                to: prompt,
-                schema: schema,
-                options: GenerationOptions(maximumResponseTokens: Self.wholeTokenLimit)
-            ).content
-        }
+        let content = try await passes.respond(
+            to: prompt,
+            schema: schema,
+            instructions: Self.structureInstructions,
+            tokenLimit: Self.wholeTokenLimit
+        )
         return (
             try content.value([GeneratedContent].self, forProperty: "ingredients").map(StructuredIngredient.init),
             try content.value([GeneratedContent].self, forProperty: "tools").map(GeneratedTool.init)
@@ -731,13 +745,12 @@ public final class RecipeGenerator {
             "",
             Self.text("Generate.Prompt.Structure.Method.Ask"),
         ].joined(separator: "\n")
-        let content = try await passes.run(instructions: Self.structureInstructions) { session in
-            try await session.respond(
-                to: prompt,
-                schema: schema,
-                options: GenerationOptions(maximumResponseTokens: Self.wholeTokenLimit)
-            ).content
-        }
+        let content = try await passes.respond(
+            to: prompt,
+            schema: schema,
+            instructions: Self.structureInstructions,
+            tokenLimit: Self.wholeTokenLimit
+        )
         let steps = try content.value([GeneratedContent].self, forProperty: "steps")
             .map(StructuredStep.init)
             .map { (title: $0.title.withoutLeakedSyntax, points: Self.sentences(in: $0.text.withoutLeakedSyntax)) }
@@ -906,13 +919,13 @@ public final class RecipeGenerator {
 
     /// The serving count as the figures in it: "Makes 4 servings" is "4", and "Serves 4 to 6" is
     /// "4 to 6".
+    /// The serving count, or a range when the two figures are joined as one. Opus has written
+    /// "Serves: 2, with about 1 1/2 cups of kaya left over", which is two servings and not two to
+    /// one, so a second figure counts only when "to", a dash, "or", or a Japanese range mark joins it.
     static func serves(from written: String) -> String {
-        let figures = written.matches(of: #/\d+/#).map { String(written[$0.range]) }
-        switch figures.count {
-        case 0: return ""
-        case 1: return figures[0]
-        default: return figures[0] + " to " + figures[1]
-        }
+        guard let match = written.firstMatch(of: #/(\d+)(?:\s*(?:to|-|–|or|〜|～|から)\s*(\d+))?/#) else { return "" }
+        guard let upper = match.output.2 else { return String(match.output.1) }
+        return match.output.1 + " to " + upper
     }
 
     /// A step's text cut into its sentences, with any sentence said twice kept once.
@@ -1067,6 +1080,11 @@ public final class RecipeGenerator {
                 Troubleshooting(problem: $0.problem.withoutLeakedSyntax, solution: $0.solution.withoutLeakedSyntax)
             }
         )
+    }
+
+    private static func isEmpty(_ step: StructuredStep) -> Bool {
+        step.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            || step.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     /// Drops a step that is the step above it written out again. A step that only shares a

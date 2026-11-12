@@ -1,0 +1,173 @@
+{
+  "id": "sambal-kangkong",
+  "title": "空心菜のサンバル炒め",
+  "time": "20 min",
+  "serves": "3",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "水（空芯菜）",
+        "icon": "img/ingredients/water.svg",
+        "amount": "大1束（約340グラム）"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "3片"
+      },
+      {
+        "item": "エシャロット",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "小1個"
+      }
+    ],
+    "general": [
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "サンバル",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": "大さじ1 1/2"
+      },
+      {
+        "item": "ナンプラー",
+        "icon": "img/ingredients/fish-sauce.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "小さじ1/2"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "適量"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "大きめのサイズを使います。"
+    },
+    {
+      "name": "サラダスピナー",
+      "icon": "img/tools/salad-spinner.svg",
+      "required": true,
+      "note": "清潔なキッチンタオルで代用できます。"
+    },
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "中華鍋",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "大きめのフライパンで代用できます。"
+    },
+    {
+      "name": "へら",
+      "icon": "img/tools/spatula.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "空芯菜を洗って切る",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/tools/bowl.svg"
+      ],
+      "points": [
+        "大きなボウルに冷水を張り、空芯菜を入れてふり洗いし、砂や汚れを落とします。",
+        "空芯菜を取り出し、水気を切るか、ふきんで押さえるようにして水気を拭き取ります。",
+        "茎の硬い根元5センチを切り落として捨てます。",
+        "残りは約8センチの長さに切り、茎の部分と葉の部分を別々に分けて置きます。"
+      ]
+    },
+    {
+      "title": "にんにくとエシャロットを切り、調味料を混ぜる",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/sambal.svg",
+        "img/ingredients/fish-sauce.svg",
+        "img/ingredients/sugar.svg"
+      ],
+      "points": [
+        "にんにくをみじん切りにし、エシャロットを薄切りにします。",
+        "小さめのボウルに、サンバルオレック、ナンプラー、砂糖、水を入れて混ぜ合わせます。"
+      ]
+    },
+    {
+      "title": "香味を炒める",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/sambal.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "中火にかけた中華鍋で油を熱します。",
+        "にんにくとエシャロットを加え、柔らかく香りが立つまで1分炒めます。",
+        "サンバル・ミックスを加え、油が赤くなり、サンバルが香ばしい匂いになるまで30秒炒めます。"
+      ]
+    },
+    {
+      "title": "強火にして茎を炒める",
+      "points": [
+        "火を強火にします。",
+        "茎の部分を加えて、1分ほど全体を和えるように炒め、鮮やかな緑色になるまで火を通します。"
+      ]
+    },
+    {
+      "title": "葉を加えてあおる",
+      "icons": [
+        "img/ingredients/salt.svg"
+      ],
+      "points": [
+        "葉の部分を加えて、1分から2分あおります。",
+        "葉がしんなりして、茎がまだシャキッとしていれば火から下ろします。",
+        "味を見て、必要なら塩をひとつまみ加え、すぐに盛り付けます。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "料理が水っぽくなる",
+      "solution": "空芯菜の水気をよくふき取ってから炒めてください。フライパンが小さい場合は、茎と葉を二回に分けて火を通してください。"
+    },
+    {
+      "problem": "茎は硬いのに葉はしんなりしすぎた",
+      "solution": "茎と葉は別々の山にして分けておき、茎には先に火を入れて時間に差をつけてください。"
+    },
+    {
+      "problem": "サンバルが焦げて苦くなる",
+      "solution": "サンバルは中火で炒めてください。香ばしい匂いがしたらすぐに入れられるよう、茎を用意しておいてください。"
+    },
+    {
+      "problem": "料理が辛すぎた",
+      "solution": "サンバルは銘柄によって辛さが違います。初めて作るときは大さじ1から始め、次に作るときに好みに合わせて増やしてください。"
+    }
+  ]
+}
