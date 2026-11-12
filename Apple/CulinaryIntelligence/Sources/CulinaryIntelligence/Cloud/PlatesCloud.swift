@@ -14,6 +14,8 @@ public enum CloudError: LocalizedError, Equatable {
     case limitReached
     case server(Int, String?)
     case noResponse
+    /// Gemma ran out of tokens before it finished the recipe.
+    case cutOff
 
     public var errorDescription: String? {
         switch self {
@@ -25,6 +27,7 @@ public enum CloudError: LocalizedError, Equatable {
             String(format: String(culinary: "Cloud.Error.Server"),
                    message ?? HTTPURLResponse.localizedString(forStatusCode: code))
         case .noResponse: String(culinary: "Cloud.Error.NoResponse")
+        case .cutOff: String(culinary: "Cloud.Error.CutOff")
         }
     }
 }
@@ -92,23 +95,29 @@ public final class PlatesCloud {
 
     // MARK: - Writing
 
-    /// Gemma's answer streamed back a piece at a time.
+    /// Gemma's answer streamed back a piece at a time. An answer that ran out of tokens ends
+    /// in `CloudError.cutOff`, as it would otherwise look finished and be missing its last steps.
     func write(instructions: String, prompt: String, maximumTokens: Int = 1400) -> AsyncThrowingStream<String, Error> {
         let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: true)
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
                     let (bytes, _) = try await self.send("/v1/chat/completions", body: body)
+                    var reason: String?
                     for try await line in bytes.lines {
                         guard line.hasPrefix("data:") else { continue }
                         let payload = line.dropFirst(5).trimmingCharacters(in: .whitespaces)
                         guard payload != "[DONE]",
                               let data = payload.data(using: .utf8),
                               let chunk = try? JSONDecoder().decode(Chunk.self, from: data),
-                              let text = chunk.choices.first?.delta.content, !text.isEmpty
+                              let choice = chunk.choices.first
                         else { continue }
-                        continuation.yield(text)
+                        reason = choice.finishReason ?? reason
+                        if let text = choice.delta.content, !text.isEmpty {
+                            continuation.yield(text)
+                        }
                     }
+                    if reason == "length" { throw CloudError.cutOff }
                     continuation.finish()
                 } catch {
                     continuation.finish(throwing: error)
@@ -282,7 +291,15 @@ public final class PlatesCloud {
     }
 
     private struct Chunk: Decodable {
-        struct Choice: Decodable { let delta: Delta }
+        struct Choice: Decodable {
+            let delta: Delta
+            let finishReason: String?
+
+            enum CodingKeys: String, CodingKey {
+                case delta
+                case finishReason = "finish_reason"
+            }
+        }
         struct Delta: Decodable { let content: String? }
         let choices: [Choice]
     }

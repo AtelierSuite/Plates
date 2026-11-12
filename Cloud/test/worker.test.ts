@@ -113,6 +113,30 @@ describe("writing", () => {
     expect(text.trim().endsWith("data: [DONE]")).toBe(true);
   });
 
+  it("passes on Gemma's finish reason", async () => {
+    const phone = await Phone.create();
+    const cut = async () => ({ choices: [{ message: { content: "Egg" }, finish_reason: "length" }] });
+    const counted = async () => ({ response: "Egg", usage: { completion_tokens: 1400 } });
+    const whole = async () => ({ response: "Egg Fried Rice", usage: { completion_tokens: 12 } });
+    const reason = async (run: () => Promise<object>) =>
+      ((await (await phone.post("/v1/chat/completions", chat, { ai: { run } })).json()) as { choices: { finish_reason: string }[] }).choices[0].finish_reason;
+    expect(await reason(cut)).toBe("length");
+    expect(await reason(counted)).toBe("length");
+    expect(await reason(whole)).toBe("stop");
+  });
+
+  it("ends a stream with Gemma's finish reason", async () => {
+    const phone = await Phone.create();
+    const reason = async (...events: object[]) => {
+      const text = await (await phone.post("/v1/chat/completions", { ...chat, stream: true }, { ai: { run: async () => sse(...events) } })).text();
+      const chunks = text.split("\n\n").filter((line) => line.startsWith("data: {")).map((line) => JSON.parse(line.slice(6)));
+      return chunks[chunks.length - 1].choices[0].finish_reason;
+    };
+    expect(await reason({ choices: [{ delta: { content: "Egg" }, finish_reason: null }] }, { choices: [{ delta: {}, finish_reason: "length" }] })).toBe("length");
+    expect(await reason({ response: "Egg" }, { response: "", usage: { completion_tokens: 1400 } })).toBe("length");
+    expect(await reason({ choices: [{ delta: { content: "Egg Fried Rice" } }] })).toBe("stop");
+  });
+
   it("stops at the daily limit and gives back a failed write", async () => {
     const phone = await Phone.create();
     const broken = { run: async () => { throw new Error("gemma is down"); } };

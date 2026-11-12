@@ -1,6 +1,23 @@
 {
   "sourceLanguage": "en-US",
   "strings": {
+    "Cloud.Error.CutOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The recipe ran too long and stopped before the end. Try again, or ask for a simpler dish."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レシピが長くなりすぎて、最後まで書けませんでした。もう一度お試しいただくか、もっと簡単な料理をお願いしてください。"
+          }
+        }
+      }
+    },
     "Cloud.Error.LimitReached": {
       "extractionState": "manual",
       "localizations": {
