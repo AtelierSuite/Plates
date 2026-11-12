@@ -43,6 +43,9 @@ public struct CloudLimits: Decodable, Equatable, Sendable {
     public let ideate: Allowance
     public let decide: Allowance
     public let toppings: Allowance
+    /// Questions Gemma answers for the recipe editor. Nil from a Worker that does not count
+    /// them yet.
+    public let edit: Allowance?
 }
 
 /// The idea Clef picked, and how many more picks are left today.
@@ -133,6 +136,18 @@ public final class PlatesCloud {
     func ideate(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
         let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: false)
         let data = try await Self.collect(try await send("/v1/ideate", body: body).0)
+        guard let answer = try? JSONDecoder().decode(Completion.self, from: data),
+              let text = answer.choices.first?.message.content else { throw CloudError.noResponse }
+        return text
+    }
+
+    // MARK: - Editing
+
+    /// Gemma's answer to a question the recipe editor asks, whole. Counted against a daily
+    /// limit of its own.
+    func edit(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
+        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: false)
+        let data = try await Self.collect(try await send("/v1/edit", body: body).0)
         guard let answer = try? JSONDecoder().decode(Completion.self, from: data),
               let text = answer.choices.first?.message.content else { throw CloudError.noResponse }
         return text

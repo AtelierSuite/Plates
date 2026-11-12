@@ -17,6 +17,9 @@ struct LimitsView: View {
                         row("Limits.Ideate", "Limits.Ideate.Detail", limits.ideate)
                         row("Limits.Decide", "Limits.Decide.Detail", limits.decide)
                         row("Limits.DishIcon", "Limits.DishIcon.Detail", limits.toppings)
+                        if let edit = limits.edit {
+                            row("Limits.Edit", "Limits.Edit.Detail", edit)
+                        }
                     } footer: {
                         Text("Limits.Footer")
                     }
