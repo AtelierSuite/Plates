@@ -1,0 +1,239 @@
+{
+  "id": "bak-kut-teh",
+  "title": "バクテー",
+  "time": "135 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "スペアリブ",
+        "icon": "img/ingredients/spare-ribs.svg",
+        "amount": "910g",
+        "note": "5センチの大きさに切ってもらうよう、精肉店に頼んでください。"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "2株"
+      }
+    ],
+    "general": [
+      {
+        "item": "白こしょう（粒）",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "2400ミリリットル"
+      },
+      {
+        "item": "しょうゆ",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "老抽醤油",
+        "icon": "img/ingredients/dark-soy-sauce.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "米",
+        "icon": "img/ingredients/rice.svg",
+        "amount": "480ミリリットル"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "720ミリリットル"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "フライパン",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "小さめのものを使い、粒こしょうを乾煎りします。"
+    },
+    {
+      "name": "乳鉢と乳棒",
+      "icon": "img/tools/mortar-pestle.svg",
+      "required": true,
+      "note": "ジッパー付きの袋と麺棒で代用できます。"
+    },
+    {
+      "name": "チーズクロス",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "1枚を使い、たこ糸で縛ってこしょうを包みます。"
+    },
+    {
+      "name": "鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "大きめのものを使います。"
+    },
+    {
+      "name": "水切りざる",
+      "icon": "img/tools/colander.svg",
+      "required": true
+    },
+    {
+      "name": "寸胴鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "大きめの鍋があれば代用できます。"
+    },
+    {
+      "name": "ザル",
+      "icon": "img/tools/sieve.svg",
+      "required": true,
+      "note": "米をすすぐ用の目の細かいものを使い、ボウルで代用することもできます。"
+    },
+    {
+      "name": "片手鍋",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "中サイズで、ふた付きのものを使います。"
+    },
+    {
+      "name": "お玉",
+      "icon": "img/tools/ladle.svg",
+      "required": true,
+      "note": "大きめのスプーンで代用できます。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "材料を下ごしらえする",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/rice.svg",
+        "img/tools/pan.svg",
+        "img/tools/colander.svg"
+      ],
+      "points": [
+        "リブを冷水で洗う。",
+        "にんにくの玉から、はがれかけた薄い皮をこすって取る。",
+        "ただし玉はばらさず、皮をむかずに丸ごとのまま残す。",
+        "米をざるに入れ、水がほぼ澄むまで冷水で洗ってから、水を切っておく。",
+        "チーズクロスを一辺約20センチの正方形に切る。"
+      ]
+    },
+    {
+      "title": "黒こしょうを煎って砕く",
+      "icons": [
+        "img/ingredients/pepper.svg",
+        "img/tools/pan.svg"
+      ],
+      "points": [
+        "黒こしょうの粒を、弱めの中火にかけた小さめのフライパンに入れ、フライパンを揺すりながら2から3分、香りが立つまで乾煎りする。",
+        "そのまま1分ほど冷ましてから、粗く砕く。",
+        "それをチーズクロスに包み、台所用の糸でしっかり縛る。"
+      ]
+    },
+    {
+      "title": "スペアリブをゆでてアクを取る",
+      "icons": [
+        "img/ingredients/spare-ribs.svg",
+        "img/ingredients/water.svg",
+        "img/tools/sieve.svg"
+      ],
+      "points": [
+        "大きななべに水を入れ、強火で沸騰させます。",
+        "スペアリブを加えて5分ゆでると、灰色のアクが浮いてきます。",
+        "ザルにスペアリブを上げて水を切り、一切れずつ流水で軽く洗って、アクを洗い流します。"
+      ]
+    },
+    {
+      "title": "材料を入れて煮る",
+      "icons": [
+        "img/ingredients/spare-ribs.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/water.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "きれいに洗ったスペアリブ、にんにくの株、胡椒の束、水2400ミリリットルを寸胴鍋に入れます。",
+        "強火にかけて沸騰させたら、弱火にして、スープがかすかにふつふつする程度に保ちます。",
+        "蓋を少しずらしてかぶせ、1時間半煮ます。",
+        "浮いてくるアクや脂は、そのつどすくい取ります。"
+      ]
+    },
+    {
+      "title": "ご飯を炊く",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/ingredients/rice.svg",
+        "img/tools/pot.svg",
+        "img/tools/saucepan.svg"
+      ],
+      "points": [
+        "スープが仕上がる約30分前に、水気を切った米と720ミリリットルの水を片手鍋に入れます。",
+        "中強火にかけて沸騰させたら、ふたをして弱火にし、15分炊きます。",
+        "火から下ろし、ふたをしたまま10分蒸らしてから、フォークでほぐします。"
+      ]
+    },
+    {
+      "title": "調味料を加えて煮込む",
+      "icons": [
+        "img/ingredients/sugar.svg",
+        "img/ingredients/salt.svg"
+      ],
+      "points": [
+        "スープに薄口醤油、濃口醤油、砂糖、塩を入れて混ぜます。",
+        "さらに15分間煮込み、肉が骨から簡単に離れるまで火を通します。",
+        "味をみて、必要なら塩を足します。"
+      ]
+    },
+    {
+      "title": "盛り付けて供する",
+      "icons": [
+        "img/ingredients/spare-ribs.svg",
+        "img/ingredients/garlic.svg"
+      ],
+      "points": [
+        "香辛料の束を取り出して捨てます。",
+        "スペアリブ、にんにく、スープを器によそい、ご飯と一緒に出します。",
+        "食べるときに、やわらかくなったにんにくの実を皮から押し出します。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "スープが濁り、雑味が出る",
+      "solution": "スペアリブは下茹でして丁寧に洗い、スープは沸騰させず、ごく弱くふつふつと沸く火加減を保ってください。"
+    },
+    {
+      "problem": "肉がまだ硬い",
+      "solution": "まだ時間が必要です。骨から簡単に外れるまで、15分ずつ煮込み続けてください。"
+    },
+    {
+      "problem": "スープの辛みが足りないか、辛すぎる",
+      "solution": "次に作るときは、こしょうをもっと細かく砕き、数粒増やして辛みを強めてください。やわらかい味にしたいときは、大さじ1を使ってください。"
+    }
+  ]
+}

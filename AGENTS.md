@@ -38,6 +38,8 @@ folder or in iCloud Drive depending on what the user picks in the ellipsis menu.
   site's schema and each other.
 - Sample recipes are written out once per language, in `en-US.lproj` and `ja.lproj`, under the
   same file name and the same `id`, so switching languages does not add a second copy.
+- The samples are ten Singaporean home dishes, written by Claude in its generation eval and not
+  yet marked as tried. Mark one tried only once someone has cooked it.
 
 ## PlatesCloud
 
@@ -129,14 +131,15 @@ of the evals, so do not undo one without running them again.
   enchiladas tacos and a kimchi jjigae a noodle soup, both of which the title already settled.
 - Clef-flash, on Workers AI, says whether a seasoning, aromatic, or optional line can be seen on
   the served dish, one question per line, and a line under 0.35 is left off the icon. It scores
-  lower than Jev, the model before it: on the sample recipes, 0.35 kept Jev's 0.6 calls on 70 of
+  lower than Jev, the model before it: on the old sample recipes, now the edit eval's fixtures, 0.35 kept Jev's 0.6 calls on 70 of
   75 lines, and 0.6 kept 63. The title and the last step only decide when the Worker cannot be
   reached.
 
 ## Edit eval
 
 `EditEvalTests` in the package's tests runs the fixed requests in `EditEvalRequests` through the
-real `RecipeAskEditor` on the sample recipes, and writes what each run did to JSON: the plan,
+real `RecipeAskEditor` on the recipes in `Apple/CulinaryIntelligence/Tests/Fixtures/SampleRecipes`,
+the samples the app shipped before the Singaporean ones, and writes what each run did to JSON: the plan,
 whether every check on the request passed, and which lines changed that the request did not call
 for. It only runs with `PLATES_EVAL=1`, in Simulator, with no Worker. The command is in the test's
 comment.
@@ -144,7 +147,7 @@ comment.
 - It is an eval: it sends every request to Apple Intelligence. Measure an editing change against
   a baseline from it, in both languages, before and after.
 - Run it with `-testLanguage ja -testRegion JP` for the Japanese requests, so the package reads
-  its Japanese catalog and the `ja.lproj` samples.
+  its Japanese catalog and the fixtures' `ja.lproj` recipes.
 - Keep the requests real, as a cook would ask. Change the set only with a new baseline.
   `EditEvalHarnessTests` fails a check the sample already passes, since it measures nothing.
 

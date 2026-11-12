@@ -1,0 +1,368 @@
+{
+  "id": "hainanese-chicken-rice",
+  "title": "海南チキンライス",
+  "time": "120 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "鶏肉",
+        "icon": "img/ingredients/chicken.svg",
+        "amount": "1羽、1590グラムから1820グラム"
+      },
+      {
+        "item": "しょうが",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "約7.5センチ"
+      },
+      {
+        "item": "青ねぎ",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "4本"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "4片"
+      },
+      {
+        "item": "しょうが",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "1インチ"
+      },
+      {
+        "item": "エシャロット",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "1個"
+      },
+      {
+        "item": "鶏肉",
+        "icon": "img/ingredients/chicken.svg",
+        "amount": "720ミリリットル"
+      },
+      {
+        "item": "生の赤唐辛子",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "4個",
+        "note": "フレスノ唐辛子か赤いハラペーニョを使います。"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "3片"
+      },
+      {
+        "item": "しょうが",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "約2.5センチ"
+      },
+      {
+        "item": "ライム",
+        "icon": "img/ingredients/lime.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "しょうが",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "5センチ"
+      },
+      {
+        "item": "青ねぎ",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "2本"
+      },
+      {
+        "item": "きゅうり",
+        "icon": "img/ingredients/cucumber.svg",
+        "amount": "1本"
+      },
+      {
+        "item": "パクチー",
+        "icon": "img/ingredients/coriander.svg",
+        "amount": "小ひとつかみ"
+      }
+    ],
+    "general": [
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "氷",
+        "icon": "img/ingredients/allspice.svg",
+        "amount": ""
+      },
+      {
+        "item": "米",
+        "icon": "img/ingredients/rice.svg",
+        "amount": "480ミリリットル"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1/2"
+      },
+      {
+        "item": "鶏肉のゆで汁",
+        "icon": "img/ingredients/chicken.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1/2"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "60 ミリリットル"
+      },
+      {
+        "item": "しょうゆ",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "ごま油",
+        "icon": "img/ingredients/sesame-oil.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "鶏肉",
+        "icon": "img/ingredients/chicken.svg",
+        "amount": "大さじ2"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "おろし器",
+      "icon": "img/tools/grater.svg",
+      "required": true,
+      "note": "目の細かいものを使ってください。"
+    },
+    {
+      "name": "ザル",
+      "icon": "img/tools/sieve.svg",
+      "required": true,
+      "note": "目の細かいものを使い、米をとぐのに使います。"
+    },
+    {
+      "name": "寸胴鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "鶏肉がゆで汁に十分浸るよう、大きめのものを使います。"
+    },
+    {
+      "name": "ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "大きめのサイズで、氷水を入れて使います。"
+    },
+    {
+      "name": "片手鍋",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "中サイズで、蓋がしっかり閉まる厚手のものを使います。"
+    },
+    {
+      "name": "ブレンダー",
+      "icon": "img/tools/blender.svg",
+      "required": true,
+      "note": "小型のフードプロセッサーでも代用できます。"
+    },
+    {
+      "name": "瞬間温度計",
+      "icon": "img/tools/thermometer.svg",
+      "required": true,
+      "note": "ない場合は、見た目や竹串での確認で代えても構いません。"
+    },
+    {
+      "name": "トング",
+      "icon": "img/tools/tongs.svg",
+      "required": true,
+      "note": "菜箸などで代用できます。"
+    },
+    {
+      "name": "穴あきスプーン",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "お玉",
+      "icon": "img/tools/ladle.svg",
+      "required": true,
+      "note": "大きめのスプーンで代用できます。"
+    },
+    {
+      "name": "スープボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "小さめのものを使います。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "下準備をする",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/cucumber.svg"
+      ],
+      "points": [
+        "コンロに火をつける前に、すべての準備をします。",
+        "鶏の体の穴と首まわりにあるゆるい脂を取り除き、細かく刻んでごはん用に取り分けておきます。",
+        "鶏全体に大さじ1の粗塩をすり込み、洗い流してから水気をふき取ります。",
+        "3インチ（約7.5センチ）のしょうがをコイン状に薄切りにし、4本のねぎを約7.5センチの長さに切ります。",
+        "米をざるに入れ、冷水の下で指でこすりながら洗い、水がほぼ透明になるまで続けたら水気をきります。",
+        "にんにく、1インチ（約2.5センチ）のしょうが、エシャロットをみじん切りにし、ごはん用に分けておきます。",
+        "チリソースには、唐辛子、にんにく、しょうがを大まかに刻みます。",
+        "ねぎしょうがだれには、2インチ（約5センチ）のしょうがをすりおろし、ねぎ2本を薄切りにします。",
+        "両方を耐熱ボウルに入れ、小さじ1/2の塩を加えます。",
+        "きゅうりを薄切りにし、パクチーの葉をつみます。"
+      ]
+    },
+    {
+      "title": "鶏肉をゆでる",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/ginger.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/allspice.svg",
+        "img/tools/pot.svg",
+        "img/tools/bowl.svg"
+      ],
+      "points": [
+        "鶏むね肉を皮を上にして寸胴鍋に入れ、しょうがの薄切りとねぎの長さに切ったもの、残りの大さじ1のコーシャーソルトを加えます。",
+        "鶏肉が2.5センチかぶるくらいの冷水を加えます。",
+        "中火で沸騰させ、表面に浮いたアクをすくいます。",
+        "弱火にして湯がかすかに沸く程度にし、ふたをして40から50分、もも肉の最も厚い部分で骨に触れないところの温度が75度になるまで加熱します。",
+        "加熱している間に、大きなボウルに氷と冷水を入れておきます。"
+      ]
+    },
+    {
+      "title": "鶏肉を氷水で冷やす",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/allspice.svg",
+        "img/tools/cutting-board.svg",
+        "img/tools/pot.svg",
+        "img/tools/tongs.svg"
+      ],
+      "points": [
+        "トングで鶏肉を持ち上げ、体腔内の液体が鍋に戻るように少し傾けます。",
+        "その後、氷水に10分つけて皮を締め、加熱を止めます。",
+        "取り出して水気をペーパーで拭き、まな板の上に置いておきます。",
+        "だしは一番弱い火にかけておきます。"
+      ]
+    },
+    {
+      "title": "鶏脂を溶かして米を炒める",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/salt.svg",
+        "img/ingredients/rice.svg",
+        "img/ingredients/oil.svg"
+      ],
+      "points": [
+        "刻んだ鶏の脂身と大さじ2の植物油を中くらいの鍋に入れ、弱めの中火にかける。",
+        "脂が溶けて脂身のかけらがカリッとするまで5から8分加熱し、穴あきスプーンでかけらを取り出す。",
+        "火を中火に上げ、みじん切りにしたにんにく、しょうが、エシャロットを加えて、香りが立つが色はつかないように1から2分炒める。",
+        "水切りした米を加え、米粒全体に油がなじむまで2分炒める。",
+        "お玉でだしを720ミリリットル注ぎ、小さじ1の塩を加えて沸騰させる。",
+        "ふたをして火を弱め、15分加熱する。",
+        "鍋を火から下ろし、ふたをしたまま10分置く。"
+      ]
+    },
+    {
+      "title": "ソースを作る",
+      "icons": [
+        "img/ingredients/ginger.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/lime.svg",
+        "img/ingredients/salt.svg"
+      ],
+      "points": [
+        "ご飯が炊けるあいだにソースを作ります。",
+        "刻んだ唐辛子、にんにく、しょうがを、ライム果汁、砂糖、塩、大さじ2のストックと一緒に、ほぼなめらかになるまで混ぜ合わせ、それから小さめのボウルに移します。",
+        "小さめのなべで60ミリリットルの植物油を中火で2分から3分、表面がゆらめくまで熱し、耐熱ボウルのしょうがとねぎの上に注ぎます。",
+        "ジューッと音がします。",
+        "最後の小さなボウルで、しょうゆ、ごま油、砂糖、大さじ2の温かいストックを混ぜ合わせ、砂糖が溶けるまでかき混ぜます。"
+      ]
+    },
+    {
+      "title": "鶏肉を切り分けて盛り付ける",
+      "icons": [
+        "img/ingredients/chicken.svg",
+        "img/ingredients/cucumber.svg",
+        "img/ingredients/coriander.svg",
+        "img/ingredients/salt.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/bowl.svg"
+      ],
+      "points": [
+        "鶏肉を、もも、手羽元、手羽先、胸肉に切り分けます。",
+        "胸肉ともも肉は、骨に沿って、または骨から外して厚めに切ります。",
+        "鶏肉に醤油のソースをかけます。",
+        "ごはんはフォークでほぐし、鶏肉と一緒に、きゅうり、パクチー、3種類のソースを添えて出します。",
+        "残っただしを味見し、必要なら塩を加えて、スープ用のボウルに入れて熱いうちに出します。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "お湯がふつふつ程度ではなく、激しく沸き立ってしまう",
+      "solution": "火を、泡が数個ずつ上がる程度まで弱めてください。40分たったら温度の確認を始めてください。"
+    },
+    {
+      "problem": "腿の骨の近くの肉がまだピンク色である",
+      "solution": "鶏肉が思っていたより大きかったか、お湯の温度が低すぎた可能性があります。熱いスープに戻してさらに5から10分加熱し、氷水に入れる前に温度計でもう一度確認してください。"
+    },
+    {
+      "problem": "ご飯がべちゃっとしてしまう",
+      "solution": "水がほぼ透明になるまでよく研ぎ、だしを正確に量ってください。炊飯中も蒸らしの時間も、ふたは開けずにそのままにしておきます。"
+    },
+    {
+      "problem": "ご飯がにがくなる",
+      "solution": "火加減は中火に保ち、にんにくから香りが立ったらすぐにご飯を加えてください。"
+    }
+  ]
+}

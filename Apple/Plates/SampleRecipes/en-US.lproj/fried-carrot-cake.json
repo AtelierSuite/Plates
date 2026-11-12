@@ -1,0 +1,301 @@
+{
+  "id": "fried-carrot-cake",
+  "title": "Fried Carrot Cake",
+  "time": "240 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "daikon radish",
+        "icon": "img/ingredients/daikon.svg",
+        "amount": "1 1/2 lb"
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "4 cloves"
+      },
+      {
+        "item": "eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "3"
+      },
+      {
+        "item": "green onions",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "2"
+      }
+    ],
+    "general": [
+      {
+        "item": "rice flour",
+        "icon": "img/ingredients/shiratamako.svg",
+        "amount": "1 1/2 cups (200 g)",
+        "note": "Buy regular rice flour, not glutinous rice flour."
+      },
+      {
+        "item": "water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "1 1/2 cups"
+      },
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "ground white pepper",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "1/4 teaspoon"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "3 tablespoons"
+      },
+      {
+        "item": "preserved radish (chai poh)",
+        "icon": "img/ingredients/radish.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "fish sauce",
+        "icon": "img/ingredients/fish-sauce.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "light soy sauce",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "1 tablespoon"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Vegetable peeler",
+      "icon": "img/tools/peeler.svg",
+      "required": true
+    },
+    {
+      "name": "Box grater",
+      "icon": "img/tools/grater.svg",
+      "required": true
+    },
+    {
+      "name": "Mixing bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true
+    },
+    {
+      "name": "Whisk",
+      "icon": "img/tools/whisk.svg",
+      "required": true
+    },
+    {
+      "name": "Saucepan",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "Large size, used for cooking the grated radish."
+    },
+    {
+      "name": "Wooden spoon",
+      "icon": "img/tools/wooden-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "Cake pan",
+      "icon": "img/tools/cake-tin.svg",
+      "required": true,
+      "note": "Use an 8-inch square metal pan, since the cake is steamed in it."
+    },
+    {
+      "name": "Pot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Large, with a lid and a steamer rack that fits inside."
+    },
+    {
+      "name": "Kettle",
+      "icon": "img/tools/kettle.svg",
+      "required": true
+    },
+    {
+      "name": "Skewer",
+      "icon": "img/tools/skewer.svg",
+      "required": true
+    },
+    {
+      "name": "Cooling rack",
+      "icon": "img/tools/wire-rack.svg",
+      "required": true,
+      "note": "A cooling rack lets the baked goods air out, but a plate or wire tray can stand in if you do not have one."
+    },
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "A small bowl is enough for beating the eggs."
+    },
+    {
+      "name": "Frying Pan",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "A large nonstick frying pan is needed for frying the cake."
+    },
+    {
+      "name": "Spatula",
+      "icon": "img/tools/spatula.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "Prep the ingredients",
+      "icons": [
+        "img/ingredients/daikon.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/shiratamako.svg",
+        "img/ingredients/water.svg"
+      ],
+      "points": [
+        "Prep everything first.",
+        "Peel the daikon and grate it on the coarse side of the box grater, keeping the juice.",
+        "In the mixing bowl, whisk the rice flour, 1 cup of the water, the salt, and the white pepper until smooth.",
+        "Grease the cake pan with 1 tablespoon of oil.",
+        "Mince the garlic.",
+        "Rinse the preserved radish, squeeze it dry, and chop it finely.",
+        "Beat the eggs with the fish sauce in the small bowl.",
+        "Slice the green onions.",
+        "Cover the frying ingredients and refrigerate them until you need them."
+      ]
+    },
+    {
+      "title": "Cook daikon and thicken paste",
+      "icons": [
+        "img/ingredients/daikon.svg",
+        "img/ingredients/shiratamako.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/radish.svg",
+        "img/tools/whisk.svg",
+        "img/tools/saucepan.svg"
+      ],
+      "points": [
+        "Put the grated daikon, its juice, and the remaining 1/2 cup of water in the large saucepan over medium heat.",
+        "Cook for 8 to 10 minutes, stirring often, until the radish is soft and translucent.",
+        "Turn the heat to low, whisk the flour mixture again, and pour it in.",
+        "Stir for 2 to 3 minutes until it forms a thick, heavy paste.",
+        "Take the pan off the heat and spread the paste evenly in the greased cake pan."
+      ]
+    },
+    {
+      "title": "Steam the cake",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/tools/cake-tin.svg",
+        "img/tools/pot.svg",
+        "img/tools/kettle.svg",
+        "img/tools/skewer.svg",
+        "img/tools/wire-rack.svg"
+      ],
+      "points": [
+        "Set the steamer rack in the large pot and add water to 1 inch below the rack.",
+        "Bring it to a boil over high heat.",
+        "Set the cake pan on the rack, cover the pot, and turn the heat to medium.",
+        "Steam for 45 to 50 minutes, until the cake is firm and a skewer pushed into the center comes out clean.",
+        "Check the water every 15 minutes and top it up with boiling water from the kettle."
+      ]
+    },
+    {
+      "title": "Cool and cube the cake",
+      "icons": [
+        "img/tools/cake-tin.svg",
+        "img/tools/wire-rack.svg",
+        "img/tools/cutting-board.svg",
+        "img/tools/pan.svg"
+      ],
+      "points": [
+        "Lift the cake pan out carefully and let it cool on the rack for 1 hour.",
+        "Refrigerate it for at least 3 hours, or overnight, until completely firm.",
+        "Turn the cake out onto the cutting board and cut it into 3/4-inch cubes."
+      ]
+    },
+    {
+      "title": "Brown the cubes",
+      "icons": [
+        "img/ingredients/oil.svg",
+        "img/tools/cake-tin.svg",
+        "img/tools/pan.svg"
+      ],
+      "points": [
+        "Heat 3 tablespoons of oil in the large nonstick frying pan over medium-high heat until it shimmers.",
+        "Add the cubes in a single layer and leave them alone for 4 to 5 minutes, until browned underneath.",
+        "Turn them and brown for another 3 to 4 minutes."
+      ]
+    },
+    {
+      "title": "Fry the aromatics",
+      "icons": [
+        "img/ingredients/daikon.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/radish.svg",
+        "img/ingredients/soy-sauce.svg",
+        "img/tools/cake-tin.svg",
+        "img/tools/pan.svg"
+      ],
+      "points": [
+        "Push the cubes to one side of the pan.",
+        "Add the garlic and preserved radish to the cleared space and stir for 1 minute, until fragrant.",
+        "Toss everything together and add the light soy sauce."
+      ]
+    },
+    {
+      "title": "Set and break the egg",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/tools/spatula.svg"
+      ],
+      "points": [
+        "Pour the egg mixture evenly over the cubes.",
+        "Let it set for 1 minute without stirring, then turn and break it into pieces with the spatula.",
+        "Cook for about 2 minutes more, until the egg is cooked through and lightly browned.",
+        "Scatter the green onions over, toss once, and serve hot."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The cake is too soft to cut and falls apart in the pan",
+      "solution": "Steam until the skewer comes out clean, and chill the cake overnight if you can."
+    },
+    {
+      "problem": "The cubes stick and tear when you turn them",
+      "solution": "The oil was not hot enough, or the cubes were moved too soon. Wait for the oil to shimmer before adding the cubes, and do not turn them until a brown crust has formed."
+    },
+    {
+      "problem": "The egg cooks into a separate scramble instead of coating the cubes",
+      "solution": "It was stirred too early. Pour it over the cubes and let it set for a full minute before breaking it up."
+    },
+    {
+      "problem": "The dish tastes too salty",
+      "solution": "The preserved radish was not rinsed. Rinse and squeeze it well before chopping, and taste before adding any extra soy sauce."
+    }
+  ]
+}

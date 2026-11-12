@@ -1,0 +1,253 @@
+{
+  "id": "kaya-toast-with-soft-boiled-eggs",
+  "title": "Kaya Toast with Soft Boiled Eggs",
+  "time": "90 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "large eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "3"
+      },
+      {
+        "item": "white sandwich bread",
+        "icon": "img/ingredients/bread.svg",
+        "amount": "8 slices"
+      },
+      {
+        "item": "salted butter",
+        "icon": "img/ingredients/butter.svg",
+        "amount": "4 tablespoons"
+      },
+      {
+        "item": "large eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "4"
+      }
+    ],
+    "general": [
+      {
+        "item": "granulated sugar",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "3/4 cup (150 g)"
+      },
+      {
+        "item": "water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "full-fat canned coconut milk",
+        "icon": "img/ingredients/coconut-milk.svg",
+        "amount": "1 cup (240 ml)"
+      },
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1/4 teaspoon"
+      },
+      {
+        "item": "soy sauce",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "2 teaspoons"
+      },
+      {
+        "item": "ground white pepper",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "1/4 teaspoon"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Measuring cups and spoons",
+      "icon": "img/tools/measuring-cup.svg",
+      "required": true
+    },
+    {
+      "name": "Heatproof mixing bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Set it over the saucepan so the bowl sits above the water without touching it."
+    },
+    {
+      "name": "Whisk",
+      "icon": "img/tools/whisk.svg",
+      "required": true
+    },
+    {
+      "name": "Fine-mesh strainer",
+      "icon": "img/tools/sieve.svg",
+      "required": true
+    },
+    {
+      "name": "Saucepan",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "A small saucepan works best for both the caramel and warming the coconut milk."
+    },
+    {
+      "name": "Silicone spatula",
+      "icon": "img/tools/spatula.svg",
+      "required": true
+    },
+    {
+      "name": "Jar or bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Use a clean one; either a jar or a bowl will work for cooling the kaya."
+    },
+    {
+      "name": "Pot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Use a small pot with a lid for cooking the eggs."
+    },
+    {
+      "name": "Slotted spoon",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "Toaster",
+      "icon": "img/tools/toaster.svg",
+      "required": true
+    },
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Four small bowls are used for serving the eggs, so the size is small and the count is four."
+    },
+    {
+      "name": "Kitchen timer",
+      "icon": "img/tools/timer.svg",
+      "required": true,
+      "note": "A phone or any clock with a second hand can stand in for it."
+    }
+  ],
+  "steps": [
+    {
+      "title": "Mix kaya custard base",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/butter.svg",
+        "img/ingredients/sugar.svg",
+        "img/ingredients/salt.svg",
+        "img/tools/measuring-cup.svg",
+        "img/tools/bowl.svg"
+      ],
+      "points": [
+        "Take the 4 eggs for serving out of the fridge so they lose their chill.",
+        "Crack the 3 kaya eggs into the heatproof bowl, add the 1/2 cup sugar and the salt, and whisk until the sugar dissolves, about 1 minute.",
+        "Pour the mixture through the fine-mesh strainer into a measuring cup, rinse the bowl, and pour the strained mixture back in.",
+        "Cut the cold butter into thin slices and keep it in the fridge."
+      ]
+    },
+    {
+      "title": "Combine custard over simmering water",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/coconut-milk.svg",
+        "img/tools/measuring-cup.svg",
+        "img/tools/bowl.svg",
+        "img/tools/whisk.svg"
+      ],
+      "points": [
+        "Whisk the egg mixture constantly while you pour the warm caramel coconut milk into it in a thin stream.",
+        "Fill the medium saucepan with about 2 inches of water and bring it to a gentle simmer over medium-low heat.",
+        "Set the bowl on top, making sure the bottom does not touch the water."
+      ]
+    },
+    {
+      "title": "Cook the kaya",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/tools/measuring-cup.svg",
+        "img/tools/bowl.svg",
+        "img/tools/spatula.svg"
+      ],
+      "points": [
+        "Cook the kaya, stirring and scraping the sides and bottom of the bowl with the spatula without stopping, for 30 to 40 minutes.",
+        "It will go from thin to a thick custard that coats the spatula heavily and holds a line when you draw a finger through it.",
+        "Keep the water at a bare simmer the whole time.",
+        "Scrape the kaya into the jar and let it cool for at least 30 minutes; it thickens further as it cools."
+      ]
+    },
+    {
+      "title": "Heat water and set the eggs",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/coconut-milk.svg",
+        "img/tools/measuring-cup.svg",
+        "img/tools/pot.svg",
+        "img/tools/slotted-spoon.svg"
+      ],
+      "points": [
+        "When the kaya has cooled, fill the small pot with enough water to cover the eggs by 1 inch and bring it to a full boil over high heat.",
+        "Turn off the heat, lower the 4 eggs in with the slotted spoon, cover the pot, and set the timer for 7 minutes."
+      ]
+    },
+    {
+      "title": "Assemble kaya toast sandwiches",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/bread.svg",
+        "img/ingredients/butter.svg",
+        "img/tools/measuring-cup.svg"
+      ],
+      "points": [
+        "While the eggs sit, toast the bread until deep golden and crisp, then trim off the crusts if you like.",
+        "Spread kaya thickly on 4 slices, lay the cold butter slices over the kaya, and close each sandwich with a second slice of toast.",
+        "Cut each sandwich in half."
+      ]
+    },
+    {
+      "title": "Lift and season the eggs",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/soy-sauce.svg",
+        "img/ingredients/pepper.svg",
+        "img/tools/measuring-cup.svg",
+        "img/tools/bowl.svg",
+        "img/tools/slotted-spoon.svg"
+      ],
+      "points": [
+        "When the timer goes, lift the eggs out with the slotted spoon.",
+        "Crack each egg into a small bowl; the whites will be just set and the yolks runny.",
+        "Add 1/2 teaspoon soy sauce and a pinch of white pepper to each bowl, stir gently, and serve with the toast for dipping."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The kaya turns grainy or has bits of cooked egg in it",
+      "solution": "Keep the water at a bare simmer and stir without stopping. If it has already happened, push the warm kaya through the fine-mesh strainer."
+    },
+    {
+      "problem": "The kaya is still runny after 40 minutes",
+      "solution": "Turn the heat up slightly so the water simmers steadily, and keep stirring until it holds a line."
+    },
+    {
+      "problem": "The egg whites are watery and clear",
+      "solution": "Let them sit out longer next time, or leave them covered in the hot water for 1 to 2 more minutes."
+    },
+    {
+      "problem": "The butter melts into the toast",
+      "solution": "The toast was too hot or the butter was too warm. Keep the butter in the fridge until you assemble, and let the toast sit for 1 minute before spreading."
+    }
+  ]
+}

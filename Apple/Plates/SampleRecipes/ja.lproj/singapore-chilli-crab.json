@@ -1,0 +1,298 @@
+{
+  "id": "singapore-chilli-crab",
+  "title": "シンガポールのチリクラブ",
+  "time": "60 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "かに",
+        "icon": "img/ingredients/crab.svg",
+        "amount": "2匹（1匹約910グラム）",
+        "note": "冷凍品でもよく、その場合は使う前に解凍してください。"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "6片"
+      },
+      {
+        "item": "しょうが",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "1個（長さ約5センチ）"
+      },
+      {
+        "item": "エシャロット",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "4個"
+      },
+      {
+        "item": "生の赤唐辛子",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "4本",
+        "note": "フレスノ種か赤ハラペーニョを選びます。"
+      },
+      {
+        "item": "卵",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "1個"
+      },
+      {
+        "item": "青ねぎ",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "2本"
+      },
+      {
+        "item": "パクチー",
+        "icon": "img/ingredients/coriander.svg",
+        "amount": "小さめ1握り"
+      },
+      {
+        "item": "冷凍マントウ",
+        "icon": "img/ingredients/buns.svg",
+        "amount": "8個"
+      }
+    ],
+    "general": [
+      {
+        "item": "サンバル",
+        "icon": "img/ingredients/sambal.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ3"
+      },
+      {
+        "item": "ケチャップ",
+        "icon": "img/ingredients/ketchup.svg",
+        "amount": "120ミリリットル"
+      },
+      {
+        "item": "スイートチリソース",
+        "icon": "img/ingredients/sweet-chili-sauce.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "しょうゆ",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "米酢",
+        "icon": "img/ingredients/rice-vinegar.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1/2"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "360ミリリットル、別に大さじ2"
+      },
+      {
+        "item": "片栗粉",
+        "icon": "img/ingredients/cornstarch.svg",
+        "amount": "大さじ1"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "キッチンバサミ",
+      "icon": "img/tools/kitchen-scale.svg",
+      "required": true
+    },
+    {
+      "name": "カニ割り",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "くるみ割りでも代用できます。"
+    },
+    {
+      "name": "ブレンダー",
+      "icon": "img/tools/blender.svg",
+      "required": true,
+      "note": "フードプロセッサーで代用できます。"
+    },
+    {
+      "name": "計量カップ",
+      "icon": "img/tools/measuring-cup.svg",
+      "required": true,
+      "note": "ソースの材料を量るために使い、計量スプーンや別の容器で代えられます。"
+    },
+    {
+      "name": "ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "小さめのボウルを2つ用意し、片方に片栗粉、もう片方に溶いた卵を入れます。"
+    },
+    {
+      "name": "鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "中くらいの大きさで蓋つきのものを使い、鍋に合う蒸し器のかごを入れて蒸します。"
+    },
+    {
+      "name": "中華鍋",
+      "icon": "img/tools/wok.svg",
+      "required": true,
+      "note": "ふた付きの大きめの深型フライパンで代用できます。"
+    },
+    {
+      "name": "木べら",
+      "icon": "img/tools/wooden-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "トング",
+      "icon": "img/tools/tongs.svg",
+      "required": true
+    },
+    {
+      "name": "盛り付け皿",
+      "icon": "img/tools/plate.svg",
+      "required": true,
+      "note": "盛り付けに使う皿で、調理の工程には必要ありません。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "カニを下ごしらえする",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/tools/knife.svg"
+      ],
+      "points": [
+        "カニの下ごしらえをします。",
+        "それぞれのカニの甲羅を引きはがし、盛り付け用に取っておきます。",
+        "ふわふわしたエラを取り除き、柔らかい内臓をかき出してから、体を冷水で洗います。",
+        "包丁かはさみで体を4等分にします。",
+        "脚はつけたままにしてください。",
+        "それぞれのハサミは、クラッカーで一度割っておき、ソースがしみ込みやすいようにします。"
+      ]
+    },
+    {
+      "title": "下ごしらえ",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/ginger.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/chili.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/spring-onion.svg"
+      ],
+      "points": [
+        "火をつける前に、ほかの材料をすべて準備します。",
+        "にんにく、しょうが、エシャロットの皮をむき、唐辛子と一緒に大きめに刻みます。",
+        "それをサンバルオエレックと大さじ1の油と合わせてミキサーにかけ、粗いペースト状にします。",
+        "ピッチャーに、ケチャップ、スイートチリソース、しょうゆ、米酢、砂糖、塩、360ミリリットルの水を入れてよく混ぜ合わせます。",
+        "小さなボウルの一つに片栗粉を入れ、大さじ2の水でよく溶きます。",
+        "もう一つの小さなボウルで卵を溶きほぐします。",
+        "青ねぎを薄切りにし、パクチーを大きめに刻みます。"
+      ]
+    },
+    {
+      "title": "冷凍饅頭を蒸す",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "鍋に水を約5センチ入れ、強火で沸騰させます。",
+        "凍ったままの饅頭を、間を少し空けて蒸し器の中に並べ、蒸し器を鍋にのせてふたをし、中火で10分から12分、中まで柔らかくなるまで蒸します。",
+        "火を止めて、ふたをしたまま置き、温かさを保ちます。"
+      ]
+    },
+    {
+      "title": "スパイスペーストを炒める",
+      "icons": [
+        "img/ingredients/oil.svg",
+        "img/tools/pot.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "蒸し器でパンが蒸されている間に、中華鍋を中火にかけ、残りの大さじ2の油を熱します。",
+        "スパイスペーストを入れ、よく混ぜながら4分から5分炒めます。",
+        "生の匂いがなくなって火が通った香りがし、油がペーストから分離し始めたら炒め終わりの目安です。",
+        "焦げ付いたり色が濃くなり始めたりしたら、火を弱めてください。"
+      ]
+    },
+    {
+      "title": "カニをソースで煮る",
+      "icons": [
+        "img/tools/tongs.svg"
+      ],
+      "points": [
+        "合わせておいたソースを流し入れ、弱めの煮立ちになるまで温めます。",
+        "カニの身を加えて、トングでソースとよくからめます。",
+        "ふたをして中弱火で6分から8分煮ます。",
+        "途中で一度身を返し、カニの中まで熱が通るまで火を通します。"
+      ]
+    },
+    {
+      "title": "とろみをつけて卵を流し入れる",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/cornstarch.svg",
+        "img/tools/pot.svg",
+        "img/tools/wok.svg"
+      ],
+      "points": [
+        "水溶き片栗粉をもう一度よく混ぜて中華鍋に注ぎ、かき混ぜながら約1分煮て、スプーンに絡むくらいまでとろみをつけます。",
+        "火を弱めて、溶いた卵をかき混ぜながらゆっくり流し入れ、ふんわりとした細い筋状に固めます。",
+        "さらに30秒加熱してから、中華鍋を火から下ろします。"
+      ]
+    },
+    {
+      "title": "カニを盛りつける",
+      "icons": [
+        "img/ingredients/coriander.svg",
+        "img/tools/plate.svg"
+      ],
+      "points": [
+        "カニの身を甲羅と一緒にお皿に盛りつけ、その上からタレをかけます。",
+        "最後に青ネギとパクチーを散らします。",
+        "温かい饅頭を添えて、タレにつけながらいただきます。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "卵が固いかたまりになる",
+      "solution": "卵を加える前に火を弱くします。卵は細く流し入れ、そのあいだずっとやさしく混ぜてください。"
+    },
+    {
+      "problem": "ソースがゆるく、カニからたれてしまう",
+      "solution": "片栗粉を入れたあとの煮込みが足りなかったことが原因です。とろとろと煮る状態を1分間続けてください。それでもゆるい場合は、小さじ1の片栗粉を大さじ1の水で溶いて加えてください。"
+    },
+    {
+      "problem": "ペーストの味がきつく、苦くなる",
+      "solution": "中火を保ち、4から5分かけてしっかり炒めてください。色が濃くなり始めたら火を弱めてください。"
+    },
+    {
+      "problem": "カニの身がパサついて繊維状になる",
+      "solution": "カニはすでに加熱済みなので、長く煮すぎないようにしてください。中まで熱くなる程度に温め、温める時間は8分を超えないようにします。"
+    }
+  ]
+}

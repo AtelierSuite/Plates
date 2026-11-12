@@ -1,0 +1,245 @@
+{
+  "id": "kaya-toast-with-soft-boiled-eggs",
+  "title": "カヤトーストと半熟卵",
+  "time": "80 min",
+  "serves": "2",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "卵",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "3個"
+      },
+      {
+        "item": "卵",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "4個"
+      },
+      {
+        "item": "パン",
+        "icon": "img/ingredients/bread.svg",
+        "amount": "4枚"
+      },
+      {
+        "item": "バター",
+        "icon": "img/ingredients/butter.svg",
+        "amount": "大さじ2"
+      }
+    ],
+    "general": [
+      {
+        "item": "ココナッツミルク",
+        "icon": "img/ingredients/coconut-milk.svg",
+        "amount": "240ミリリットル",
+        "note": "缶詰の全脂タイプを買ってください。"
+      },
+      {
+        "item": "砂糖",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "100グラム、キャラメル用に大さじ3"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1つまみ"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "大さじ3"
+      },
+      {
+        "item": "しょうゆ",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "小さじ2"
+      },
+      {
+        "item": "こしょう",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "1つまみ",
+        "note": "白こしょうの粉を使います。"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "耐熱ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true
+    },
+    {
+      "name": "片手鍋",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "中サイズのものを使い、カヤを湯せんにかけるための湯を沸かします。"
+    },
+    {
+      "name": "鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "中サイズで、ふた付きのものを使います。"
+    },
+    {
+      "name": "泡立て器",
+      "icon": "img/tools/whisk.svg",
+      "required": true
+    },
+    {
+      "name": "シリコーンベラ",
+      "icon": "img/tools/spatula.svg",
+      "required": true,
+      "note": "ほかの調理へらでも代用できます。"
+    },
+    {
+      "name": "ふるい",
+      "icon": "img/tools/sieve.svg",
+      "required": true,
+      "note": "目の細かいものを使い、粉類をふるいます。なければ目の細かいざるで代用できます。"
+    },
+    {
+      "name": "瓶",
+      "icon": "img/tools/lid.svg",
+      "required": true
+    },
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "穴あきスプーン",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "トースター",
+      "icon": "img/tools/toaster.svg",
+      "required": true
+    },
+    {
+      "name": "ボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "小さめのものを2個用意し、卵を割り入れて使います。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "卵と砂糖を泡立てる",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/butter.svg",
+        "img/ingredients/coconut-milk.svg",
+        "img/ingredients/sugar.svg",
+        "img/ingredients/salt.svg",
+        "img/tools/bowl.svg"
+      ],
+      "points": [
+        "ゆでる用の卵4個を冷蔵庫から出し、冷たさが抜けるようにしておく。",
+        "耐熱ボウルにカヤ用の卵3個を割り入れ、砂糖120ミリリットルと塩を加えて、砂糖がほぼ溶けるまで約1分泡立て器で混ぜる。",
+        "ココナッツミルクを加えて混ぜ入れる。",
+        "冷たいバターを薄い板状に2枚切り、冷蔵庫に入れて冷やしておく。"
+      ]
+    },
+    {
+      "title": "カラメルシロップを作る",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/sugar.svg",
+        "img/ingredients/water.svg",
+        "img/tools/saucepan.svg",
+        "img/tools/pot.svg",
+        "img/tools/whisk.svg"
+      ],
+      "points": [
+        "小さめの片手鍋を中火にかけ、砂糖大さじ3と水大さじ1を入れる。",
+        "混ぜずに、ときどき鍋を揺すりながら、シロップが濃い琥珀色になるまで4から6分煮る。",
+        "火から下ろし、残りの水大さじ2を慎重に加える。",
+        "はねるので、顔を離して注意する。",
+        "なめらかになるまで鍋を揺すり、2分冷ます。",
+        "そのあと、泡立て器でかき混ぜながら、卵液に細く流し入れる。"
+      ]
+    },
+    {
+      "title": "カヤを湯煎で練る",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/tools/bowl.svg",
+        "img/tools/saucepan.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "中くらいの片手鍋に水を約5センチの深さまで注ぎ、弱めの中火で弱く沸く状態にします。",
+        "その上に、カヤ液を入れたボウルを置きます。",
+        "ゴムべらで鍋底と側面をこそぐようにしながら、絶えずかき混ぜ、30分から40分かけて加熱します。",
+        "カヤがプリンのように固くなり、へらにつけた指でなぞったときに線がはっきり残るようになったら完成です。",
+        "その間、水は弱く沸いた状態を保ってください。"
+      ]
+    },
+    {
+      "title": "カヤを漉して冷ます",
+      "icons": [
+        "img/tools/lid.svg"
+      ],
+      "points": [
+        "カヤを細かいざるで瓶に漉し入れ、ふたをせずに少なくとも20分間冷ましてください。",
+        "冷めるにつれてさらに固まります。"
+      ]
+    },
+    {
+      "title": "卵をゆで、パンを焼く",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/bread.svg",
+        "img/ingredients/water.svg",
+        "img/tools/pot.svg",
+        "img/tools/lid.svg"
+      ],
+      "points": [
+        "カヤジャムが冷めている間に、中くらいの鍋に卵が浸るくらい（約2.5センチ上まで）の水を入れ、強火で沸騰させます。",
+        "火を止めてから、穴あきお玉で卵4個を静かに入れ、ふたをして7分置きます。",
+        "残り3分になったら、パンを濃いきつね色になるまで焼きます。"
+      ]
+    },
+    {
+      "title": "カヤトーストを組み立てて盛り付ける",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/bread.svg",
+        "img/ingredients/butter.svg",
+        "img/ingredients/pepper.svg",
+        "img/tools/lid.svg"
+      ],
+      "points": [
+        "トースト2枚に厚めにカヤジャムを塗り、それぞれに冷たいバターを一切れのせ、残りの食パンで挟みます。",
+        "サンドイッチを半分に切ります。",
+        "卵を取り出し、小さい器それぞれに2個ずつ割り入れて、醤油と白こしょうで味をつけます。",
+        "一緒に出し、トーストを卵につけて食べます。",
+        "余ったカヤジャムは、ふたをして冷蔵庫で最長1週間保存します。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "カヤがざらついたり、固まった卵の粒が混じったりする",
+      "solution": "お湯が熱すぎたのが原因です。火を弱め、強くよく混ぜて、最後に漉し器でこしてください。それでもおいしく食べられます。"
+    },
+    {
+      "problem": "40分たってもカヤがゆるいまま",
+      "solution": "湯せんの湯が静かに沸いている上で、かき混ぜながらさらに10から15分火を入れてください。冷めるにつれて固まるので、へらに厚くまとうようになったら火を止めてください。"
+    },
+    {
+      "problem": "キャラメルが鍋の中で固まり、砂糖のようにざらついてしまう",
+      "solution": "混ぜてしまったか、砂糖が鍋の縁にくっついたのが原因です。新しい砂糖と水で一から作り直し、鍋をゆするだけにしてください。"
+    },
+    {
+      "problem": "卵白が完全に固まっているか、まだ生で透き通っている",
+      "solution": "卵の大きさか温度が違っていたのが原因です。次回は浸す時間を1分増減してください。白身はやわらかく白く濁り、黄身は流れる状態が目安です。"
+    }
+  ]
+}

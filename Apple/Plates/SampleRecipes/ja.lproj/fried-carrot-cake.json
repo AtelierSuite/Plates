@@ -1,0 +1,262 @@
+{
+  "id": "fried-carrot-cake",
+  "title": "チャイトウクエ（大根もちの炒め物）",
+  "time": "285 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "大根",
+        "icon": "img/ingredients/daikon.svg",
+        "amount": "680グラム"
+      },
+      {
+        "item": "にんにく",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "4片"
+      },
+      {
+        "item": "卵",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "3個"
+      },
+      {
+        "item": "青ねぎ",
+        "icon": "img/ingredients/spring-onion.svg",
+        "amount": "3本"
+      }
+    ],
+    "general": [
+      {
+        "item": "米粉",
+        "icon": "img/ingredients/shiratamako.svg",
+        "amount": "200グラム",
+        "note": "もち米粉ではなく、普通の米粉を買ってください。"
+      },
+      {
+        "item": "水",
+        "icon": "img/ingredients/water.svg",
+        "amount": "300ミリリットル"
+      },
+      {
+        "item": "塩",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "小さじ1"
+      },
+      {
+        "item": "こしょう",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "小さじ1/2"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ1"
+      },
+      {
+        "item": "油",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "大さじ3"
+      },
+      {
+        "item": "ケチャップマニス",
+        "icon": "img/ingredients/kecap-manis.svg",
+        "amount": "大さじ2"
+      },
+      {
+        "item": "しょうゆ",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "大さじ1"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "ピーラー",
+      "icon": "img/tools/peeler.svg",
+      "required": true,
+      "note": "包丁でも皮をむけるので、なければ包丁で代用できます。"
+    },
+    {
+      "name": "おろし器",
+      "icon": "img/tools/grater.svg",
+      "required": true
+    },
+    {
+      "name": "牛刀",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "まな板",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "ミキシングボウル",
+      "icon": "img/tools/bowl.svg",
+      "required": true
+    },
+    {
+      "name": "泡立て器",
+      "icon": "img/tools/whisk.svg",
+      "required": true
+    },
+    {
+      "name": "片手鍋",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "中サイズで、ふた付きのものを使います。"
+    },
+    {
+      "name": "角型ケーキ型",
+      "icon": "img/tools/cake-tin.svg",
+      "required": true,
+      "note": "一辺20センチ程度のものを使います。"
+    },
+    {
+      "name": "鍋",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "大きめで、中に入る蒸し台とふたが付いたものを使います。"
+    },
+    {
+      "name": "フライパン",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "大きめのフッ素樹脂加工のものを使い、中華鍋でも代用できます。"
+    },
+    {
+      "name": "木べら",
+      "icon": "img/tools/wooden-spoon.svg",
+      "required": true,
+      "note": "木製でなくても、ほかのへらやスプーンで代用できます。"
+    },
+    {
+      "name": "平へら",
+      "icon": "img/tools/spatula.svg",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "title": "下ごしらえして生地を作る",
+      "icons": [
+        "img/ingredients/daikon.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/spring-onion.svg",
+        "img/ingredients/shiratamako.svg",
+        "img/ingredients/water.svg"
+      ],
+      "points": [
+        "大根の皮をむき、箱おろしの大きい穴でおろす。",
+        "おろしたときに出る汁もすべて残しておく。",
+        "にんにくはみじん切りにする。",
+        "青ねぎは薄切りにする。",
+        "ボウルの一つで卵を溶きほぐす。",
+        "もう一つのボウルに米粉、水、塩、白こしょうを入れ、泡立て器でなめらかでだまのない生地にする。",
+        "ケーキ型に大さじ1の油を塗る。"
+      ]
+    },
+    {
+      "title": "大根を煮て生地を練る",
+      "icons": [
+        "img/ingredients/daikon.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/cake-tin.svg",
+        "img/tools/pot.svg",
+        "img/tools/wooden-spoon.svg"
+      ],
+      "points": [
+        "すりおろした大根と、その汁を中火にかけた中ぐらいの鍋に入れます。",
+        "ふたをして、ときどきかき混ぜながら10分から12分煮て、大根がやわらかく透き通るまで火を通します。",
+        "火を弱火にし、生地を流し入れて木べらで1分から2分混ぜ、全体が濃くべたつくペースト状になるまで練ります。",
+        "それを油を塗ったケーキ型に移し、表面を平らにならします。"
+      ]
+    },
+    {
+      "title": "ケーキを蒸す",
+      "icons": [
+        "img/ingredients/water.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "大きな鍋に蒸し器の網を置き、網の下に水が来るように5センチほどの水を入れます。",
+        "強火で沸騰させたら、ケパンを網の上にのせてふたをし、中火より少し強めの火で45分から50分蒸します。",
+        "15分ごとに水の量を確認し、少なくなったら熱湯を足します。",
+        "中央に竹串を刺したとき、生地がくっついて出てこなければ蒸し上がりです。"
+      ]
+    },
+    {
+      "title": "ケーキを冷やして角切りにする",
+      "icons": [
+        "img/tools/cutting-board.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "鍋を持ち上げるときは慎重に行ってください。",
+        "鍋も中の蒸気もとても熱いためです。",
+        "ケーキを調理台の上で30分冷まし、その後ラップをせずに冷蔵庫で少なくとも3時間半、中心までしっかり固まるまで冷やします。",
+        "まな板の上にひっくり返して取り出し、一辺3/4インチ（約2センチ）の角切りにします。"
+      ]
+    },
+    {
+      "title": "大根もちを焼く",
+      "icons": [
+        "img/ingredients/daikon.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/pan.svg",
+        "img/tools/wooden-spoon.svg"
+      ],
+      "points": [
+        "大きめのフッ素樹脂加工のフライパンに油大さじ2を入れ、中火から強火で油が揺らめくまで熱する。",
+        "角切りにした大根もちを重ならないように一層に並べ、触らずに4から5分焼き、底面が黄金色でカリッとするまで焼く。",
+        "木べらで裏返し、さらに3から4分焼く。"
+      ]
+    },
+    {
+      "title": "にんにくと調味料を加える",
+      "icons": [
+        "img/ingredients/garlic.svg",
+        "img/ingredients/oil.svg",
+        "img/ingredients/kecap-manis.svg",
+        "img/tools/pan.svg"
+      ],
+      "points": [
+        "フライパンの端に具材を寄せ、空いたところに残りの大さじ1の油とにんにくを入れます。",
+        "30秒ほど炒めて香りが立ってきたら、具材と混ぜ合わせます。",
+        "火を中火にし、ケチャップマニスとうす口醤油を加えて、具材全体に絡むまで1分ほど混ぜます。"
+      ]
+    },
+    {
+      "title": "卵を流し入れて炒める",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/ingredients/spring-onion.svg"
+      ],
+      "points": [
+        "溶きほぐした卵を具材の上に均等に流し入れ、混ぜずに約1分おいて固めます。",
+        "その後、へらで卵を崩しながら1分から2分ほど炒め、卵に火が通ってケーキにからんだら、上から小ねぎを散らし、熱いうちに出します。"
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "ケーキが柔らかすぎて切れず、型の中で崩れてしまう",
+      "solution": "冷やす時間が足りなかったか、蒸し器から早く出しすぎた可能性があります。竹串を刺して何もついてこなくなるまで蒸し、冷やす時間は規定どおり、一晩でも構いません。"
+    },
+    {
+      "problem": "角切りにしたものが鍋に張り付き、返すとちぎれる",
+      "solution": "原因は、鍋が十分に熱くなっていないか、角切りを早く動かしすぎたことです。入れる前に油がゆらめいて光るまで熱してください。角切りが自然にはがれるまで待ってから返してください。"
+    },
+    {
+      "problem": "ソースが焦げて苦くなる",
+      "solution": "ケチャップマニスは甘く、強火だとすぐに焦げるので、加える前に火を中火に落としてください。角切りのものを動かし続けてください。"
+    },
+    {
+      "problem": "熱した大根に生地が触れるとだまになる",
+      "solution": "まず火を弱火にしてから、生地を注ぐあいだは絶えずかき混ぜてください。"
+    }
+  ]
+}

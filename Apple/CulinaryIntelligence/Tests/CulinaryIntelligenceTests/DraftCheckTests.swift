@@ -143,14 +143,14 @@ struct DraftCheckTests {
         #expect(Self.failures(long) == [.stepTimes])
     }
 
-    /// The sample recipes, written out as cookbook text, are what a good draft looks like, so
-    /// none should fail a check on what it says. They run longer than Gemma is asked to write,
-    /// so the section counts are not checked.
+    /// The recipes the app once shipped as samples, written out as cookbook text, are what a
+    /// good draft looks like, so none should fail a check on what it says. They run longer than
+    /// Gemma is asked to write, so the section counts are not checked.
     @Test(arguments: ["egg-fried-rice", "butter-toast", "kimchi-fried-rice", "spaghetti-carbonara", "garlic-fried-rice", "seafood-curry", "french-toast"])
     func sampleRecipesPass(_ name: String) throws {
         let url = URL(filePath: #filePath)
-            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-            .appending(path: "Plates/SampleRecipes/en-US.lproj/\(name).json")
+            .deletingLastPathComponent().deletingLastPathComponent()
+            .appending(path: "Fixtures/SampleRecipes/en-US.lproj/\(name).json")
         let recipe = try JSONDecoder().decode(Recipe.self, from: Data(contentsOf: url))
         var lines = [recipe.title, "", "Total Time: \(recipe.time.replacingOccurrences(of: "min", with: "minutes"))", "Serves: \(recipe.serves)", "", "Ingredients:"]
         let sections = [recipe.ingredients.supermarket, recipe.ingredients.general].compactMap { $0 }.flatMap { $0 }

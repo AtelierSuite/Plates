@@ -1,0 +1,300 @@
+{
+  "id": "curry-laksa",
+  "title": "Curry Laksa",
+  "time": "70 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "fresh red chilies",
+        "icon": "img/ingredients/chili.svg",
+        "amount": "3 to 4"
+      },
+      {
+        "item": "shallots",
+        "icon": "img/ingredients/shallot.svg",
+        "amount": "4"
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "4 cloves"
+      },
+      {
+        "item": "fresh ginger",
+        "icon": "img/ingredients/ginger.svg",
+        "amount": "1 piece, about 2 inches long"
+      },
+      {
+        "item": "lemongrass",
+        "icon": "img/ingredients/lemongrass.svg",
+        "amount": "2 stalks"
+      },
+      {
+        "item": "chicken thighs",
+        "icon": "img/ingredients/chicken-thigh.svg",
+        "amount": "1 1/2 lb",
+        "note": "Buy boneless, skinless thighs."
+      },
+      {
+        "item": "raw shrimp",
+        "icon": "img/ingredients/shrimp.svg",
+        "amount": "12 oz"
+      },
+      {
+        "item": "eggs",
+        "icon": "img/ingredients/egg.svg",
+        "amount": "4"
+      },
+      {
+        "item": "bean sprouts",
+        "icon": "img/ingredients/bean-sprouts.svg",
+        "amount": "2 cups"
+      },
+      {
+        "item": "fresh cilantro",
+        "icon": "img/ingredients/coriander.svg",
+        "amount": "1 small bunch"
+      },
+      {
+        "item": "limes",
+        "icon": "img/ingredients/lime.svg",
+        "amount": "2"
+      }
+    ],
+    "general": [
+      {
+        "item": "ground coriander",
+        "icon": "img/ingredients/coriander.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "ground cumin",
+        "icon": "img/ingredients/cumin.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "ground turmeric",
+        "icon": "img/ingredients/turmeric.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "vegetable oil",
+        "icon": "img/ingredients/oil.svg",
+        "amount": "3 tablespoons"
+      },
+      {
+        "item": "chicken stock",
+        "icon": "img/ingredients/bouillon.svg",
+        "amount": "4 cups"
+      },
+      {
+        "item": "coconut milk",
+        "icon": "img/ingredients/coconut-milk.svg",
+        "amount": "2 cans (13.5 oz each)"
+      },
+      {
+        "item": "fish sauce",
+        "icon": "img/ingredients/fish-sauce.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "brown sugar",
+        "icon": "img/ingredients/brown-sugar.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "rice vermicelli noodles",
+        "icon": "img/ingredients/rice-noodles.svg",
+        "amount": "8 oz"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Blender",
+      "icon": "img/tools/blender.svg",
+      "required": true,
+      "note": "A food processor can be used in its place."
+    },
+    {
+      "name": "Saucepan",
+      "icon": "img/tools/saucepan.svg",
+      "required": true,
+      "note": "Use a small saucepan, which is the size the eggs need."
+    },
+    {
+      "name": "Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true
+    },
+    {
+      "name": "Pot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Use a large, heavy pot so the paste and broth cook evenly."
+    },
+    {
+      "name": "Slotted spoon",
+      "icon": "img/tools/slotted-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "Colander",
+      "icon": "img/tools/colander.svg",
+      "required": true
+    },
+    {
+      "name": "Wooden spoon",
+      "icon": "img/tools/wooden-spoon.svg",
+      "required": true
+    },
+    {
+      "name": "Ladle",
+      "icon": "img/tools/ladle.svg",
+      "required": true
+    },
+    {
+      "name": "Serving bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Four deep serving bowls are listed in the recipe, so any bowls of similar depth will do."
+    }
+  ],
+  "steps": [
+    {
+      "title": "Prep the aromatics and chicken",
+      "icons": [
+        "img/ingredients/chili.svg",
+        "img/ingredients/shallot.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/ginger.svg",
+        "img/ingredients/lemongrass.svg",
+        "img/ingredients/chicken-thigh.svg"
+      ],
+      "points": [
+        "Prepare everything before you turn on the stove.",
+        "Cut off the tough tops and root ends of the lemongrass, peel away the dry outer layer, and slice the pale lower part thinly.",
+        "Roughly chop the chilies (remove the seeds for a milder soup), shallots, garlic, and peeled ginger.",
+        "Put these in the blender with the coriander, cumin, turmeric, 2 tablespoons of the oil, and 2 to 3 tablespoons of water, and blend to a smooth paste.",
+        "Cut the chicken into bite-sized pieces.",
+        "Rinse the bean sprouts, pick the cilantro leaves from the stems, and cut the limes into wedges."
+      ]
+    },
+    {
+      "title": "Boil and chill eggs",
+      "icons": [
+        "img/ingredients/egg.svg",
+        "img/tools/saucepan.svg",
+        "img/tools/slotted-spoon.svg",
+        "img/tools/wooden-spoon.svg"
+      ],
+      "points": [
+        "Bring the small saucepan of water to a boil over high heat.",
+        "Lower in the eggs with the slotted spoon, reduce to a steady simmer, and cook for 9 minutes.",
+        "Move them to the ice water for 5 minutes, then peel and halve them."
+      ]
+    },
+    {
+      "title": "Fry the paste",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/oil.svg",
+        "img/tools/pot.svg",
+        "img/tools/slotted-spoon.svg",
+        "img/tools/wooden-spoon.svg"
+      ],
+      "points": [
+        "Heat the remaining 1 tablespoon of oil in the large heavy pot over medium-low heat.",
+        "Add the paste and fry it for 8 to 10 minutes, stirring often with the wooden spoon, until it darkens, smells fragrant rather than raw, and the oil begins to separate from it."
+      ]
+    },
+    {
+      "title": "Simmer the chicken in coconut broth",
+      "icons": [
+        "img/ingredients/chicken-thigh.svg",
+        "img/ingredients/bouillon.svg",
+        "img/ingredients/coconut-milk.svg",
+        "img/ingredients/fish-sauce.svg",
+        "img/ingredients/brown-sugar.svg"
+      ],
+      "points": [
+        "Stir in the stock, coconut milk, fish sauce, and brown sugar.",
+        "Raise the heat to medium and bring to a gentle simmer, with small bubbles only.",
+        "Add the chicken and simmer for 15 minutes, until it is cooked through with no pink in the middle."
+      ]
+    },
+    {
+      "title": "Blanch sprouts and cook noodles",
+      "icons": [
+        "img/ingredients/chicken-thigh.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/bouillon.svg",
+        "img/ingredients/rice-noodles.svg",
+        "img/tools/bowl.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "While the chicken simmers, bring the medium pot of water to a boil over high heat.",
+        "Blanch the bean sprouts for 30 seconds and lift them out with the slotted spoon.",
+        "Add the noodles to the same water and cook according to the package, usually 3 to 5 minutes, until just tender.",
+        "Drain them in the colander, rinse briefly under warm water, and divide among the serving bowls."
+      ]
+    },
+    {
+      "title": "Simmer the shrimp",
+      "icons": [
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/lime.svg",
+        "img/ingredients/fish-sauce.svg"
+      ],
+      "points": [
+        "Add the shrimp to the broth and simmer for 2 to 3 minutes, until pink and curled.",
+        "Taste and add more fish sauce if it needs salt, or a squeeze from one lime wedge if it needs brightness."
+      ]
+    },
+    {
+      "title": "Assemble and serve the bowls",
+      "icons": [
+        "img/ingredients/chicken-thigh.svg",
+        "img/ingredients/shrimp.svg",
+        "img/ingredients/egg.svg",
+        "img/ingredients/bean-sprouts.svg",
+        "img/ingredients/coriander.svg",
+        "img/ingredients/lime.svg"
+      ],
+      "points": [
+        "Ladle the broth, chicken, and shrimp over the noodles.",
+        "Top each bowl with bean sprouts, two egg halves, and cilantro, and serve with the remaining lime wedges."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The broth tastes harsh or raw",
+      "solution": "The paste was not fried long enough. Next time keep it on medium-low until it darkens and the oil separates, which takes the full 8 to 10 minutes."
+    },
+    {
+      "problem": "The broth looks grainy or oily on top",
+      "solution": "The coconut milk boiled too hard and split. Keep it at a gentle simmer once the coconut milk goes in."
+    },
+    {
+      "problem": "The noodles turn soft and swollen",
+      "solution": "They sat in the broth too long. Cook them in their own pot and put them in the bowls only just before serving."
+    },
+    {
+      "problem": "The soup is too spicy",
+      "solution": "The chili seeds carry most of the heat. Seed the chilies next time, and for now stir in a little extra coconut milk or stock."
+    }
+  ]
+}

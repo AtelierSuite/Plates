@@ -1,0 +1,239 @@
+{
+  "id": "bak-kut-teh",
+  "title": "Bak Kut Teh",
+  "time": "150 min",
+  "serves": "4",
+  "ingredients": {
+    "supermarket": [
+      {
+        "item": "pork spare ribs",
+        "icon": "img/ingredients/spare-ribs.svg",
+        "amount": "2 lb",
+        "note": "Ask the butcher to cut the ribs into 2 to 3 inch pieces when you buy them."
+      },
+      {
+        "item": "garlic",
+        "icon": "img/ingredients/garlic.svg",
+        "amount": "2 whole heads"
+      },
+      {
+        "item": "red chillies",
+        "icon": "img/ingredients/anko.svg",
+        "amount": "2"
+      }
+    ],
+    "general": [
+      {
+        "item": "whole white peppercorns",
+        "icon": "img/ingredients/pepper.svg",
+        "amount": "2 tablespoons"
+      },
+      {
+        "item": "water",
+        "icon": "img/ingredients/water.svg",
+        "amount": "10 cups"
+      },
+      {
+        "item": "light soy sauce",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "1 tablespoon"
+      },
+      {
+        "item": "dark soy sauce",
+        "icon": "img/ingredients/dark-soy-sauce.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "sugar",
+        "icon": "img/ingredients/sugar.svg",
+        "amount": "1 teaspoon"
+      },
+      {
+        "item": "salt",
+        "icon": "img/ingredients/salt.svg",
+        "amount": "1 1/2 teaspoons"
+      },
+      {
+        "item": "light soy sauce",
+        "icon": "img/ingredients/soy-sauce.svg",
+        "amount": "4 tablespoons"
+      },
+      {
+        "item": "White rice",
+        "icon": "img/ingredients/rice.svg",
+        "amount": "to serve"
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "Chef knife",
+      "icon": "img/tools/knife.svg",
+      "required": true
+    },
+    {
+      "name": "Cutting board",
+      "icon": "img/tools/cutting-board.svg",
+      "required": true
+    },
+    {
+      "name": "Frying pan",
+      "icon": "img/tools/pan.svg",
+      "required": true
+    },
+    {
+      "name": "Mortar and pestle",
+      "icon": "img/tools/mortar-pestle.svg",
+      "required": true,
+      "note": "A zip-top bag and a rolling pin can stand in for cracking the peppercorns."
+    },
+    {
+      "name": "Cheesecloth",
+      "icon": "img/tools/pan.svg",
+      "required": true,
+      "note": "Kitchen string ties it closed, and a large tea infuser can be used instead."
+    },
+    {
+      "name": "Large pot",
+      "icon": "img/tools/pot.svg",
+      "required": true
+    },
+    {
+      "name": "Colander",
+      "icon": "img/tools/colander.svg",
+      "required": true,
+      "note": "A large sieve or a clean kitchen towel can be used to drain food instead."
+    },
+    {
+      "name": "Stockpot",
+      "icon": "img/tools/pot.svg",
+      "required": true,
+      "note": "Use a large one, since it holds the soup while it simmers."
+    },
+    {
+      "name": "Ladle",
+      "icon": "img/tools/ladle.svg",
+      "required": true
+    },
+    {
+      "name": "Dipping Bowl",
+      "icon": "img/tools/bowl.svg",
+      "required": true,
+      "note": "Four small bowls are listed, and any small dishes can stand in."
+    }
+  ],
+  "steps": [
+    {
+      "title": "Prep ribs, garlic and dipping bowls",
+      "icons": [
+        "img/ingredients/spare-ribs.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/anko.svg",
+        "img/ingredients/water.svg",
+        "img/ingredients/soy-sauce.svg",
+        "img/ingredients/dark-soy-sauce.svg"
+      ],
+      "points": [
+        "Rinse the ribs under cold water.",
+        "Rub off the loose papery outer skin from the garlic heads but leave them whole and unpeeled.",
+        "Slice the chillies into thin rings, divide them among the dipping bowls, and pour 1 tablespoon of the dipping soy sauce into each bowl."
+      ]
+    },
+    {
+      "title": "Toast and crack peppercorns",
+      "icons": [
+        "img/ingredients/pepper.svg",
+        "img/tools/pan.svg",
+        "img/tools/mortar-pestle.svg"
+      ],
+      "points": [
+        "Put the peppercorns in the small frying pan over medium-low heat.",
+        "Toast them for 2 to 3 minutes, shaking the pan, until fragrant.",
+        "Tip them onto a plate to cool, then crack them coarsely in the mortar.",
+        "Tie them in the cheesecloth or put them in the infuser."
+      ]
+    },
+    {
+      "title": "Blanch ribs",
+      "icons": [
+        "img/ingredients/spare-ribs.svg",
+        "img/ingredients/water.svg",
+        "img/tools/mortar-pestle.svg",
+        "img/tools/pot.svg",
+        "img/tools/colander.svg"
+      ],
+      "points": [
+        "Fill the large pot about two-thirds full of water and bring it to a boil over high heat.",
+        "Add the ribs and boil for 5 minutes, until grey foam rises to the surface.",
+        "Drain the ribs in the colander and rinse each piece under warm running water to wash off the foam."
+      ]
+    },
+    {
+      "title": "Simmer the ribs",
+      "icons": [
+        "img/ingredients/spare-ribs.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/pepper.svg",
+        "img/ingredients/water.svg",
+        "img/tools/mortar-pestle.svg",
+        "img/tools/pot.svg"
+      ],
+      "points": [
+        "Put the 10 cups of water, the blanched ribs, the garlic heads, and the pepper bag in the clean stockpot.",
+        "Bring to a boil over high heat, then turn the heat down to low so the soup barely bubbles.",
+        "Partly cover the pot and simmer for 1 1/2 hours, skimming off any foam or fat every 20 minutes, until the meat is tender and pulls away from the bone."
+      ]
+    },
+    {
+      "title": "Season the broth",
+      "icons": [
+        "img/ingredients/pepper.svg",
+        "img/ingredients/soy-sauce.svg",
+        "img/ingredients/dark-soy-sauce.svg",
+        "img/ingredients/sugar.svg",
+        "img/ingredients/salt.svg",
+        "img/tools/mortar-pestle.svg"
+      ],
+      "points": [
+        "Stir in the 1 tablespoon light soy sauce, the dark soy sauce, the sugar, and the salt.",
+        "Simmer for 10 more minutes.",
+        "Taste the broth and add more salt if it needs it.",
+        "Lift out the pepper bag and discard it."
+      ]
+    },
+    {
+      "title": "Serve the ribs",
+      "icons": [
+        "img/ingredients/spare-ribs.svg",
+        "img/ingredients/garlic.svg",
+        "img/ingredients/soy-sauce.svg",
+        "img/ingredients/dark-soy-sauce.svg",
+        "img/ingredients/rice.svg",
+        "img/tools/mortar-pestle.svg"
+      ],
+      "points": [
+        "Ladle the ribs and broth into bowls, adding a few garlic cloves to each.",
+        "Serve with rice and the chilli soy sauce for dipping the meat.",
+        "The soft garlic can be squeezed out of its skin and eaten with the rice."
+      ]
+    }
+  ],
+  "troubleshooting": [
+    {
+      "problem": "The broth is cloudy and has a scummy taste",
+      "solution": "The ribs were not blanched and rinsed, or the soup boiled hard. Always blanch the ribs in the separate pot and keep the stockpot at a gentle simmer."
+    },
+    {
+      "problem": "The soup is not peppery enough",
+      "solution": "Crack the peppercorns well after toasting, and leave the bag in for the full simmer."
+    },
+    {
+      "problem": "The meat is still tough after 1 1/2 hours",
+      "solution": "Ribs vary in thickness. Keep simmering and check every 15 minutes until a rib pulls apart easily."
+    },
+    {
+      "problem": "The broth tastes too salty",
+      "solution": "Too much water evaporated. Add hot water a little at a time until it tastes right, then bring it back to a simmer."
+    }
+  ]
+}
