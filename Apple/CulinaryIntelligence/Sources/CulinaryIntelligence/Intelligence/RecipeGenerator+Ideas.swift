@@ -177,7 +177,8 @@ extension RecipeGenerator {
         let written = try await cloud.ideate(
             instructions: Self.ideaInstructions(for: english),
             prompt: Self.ideaPrompt(for: english, kind: kind),
-            maximumTokens: Self.ideaTokenLimit
+            maximumTokens: Self.ideaTokenLimit,
+            temperature: Self.ideaTemperature
         )
         let lines = Self.ideaLines(in: written)
         guard lines.count >= 2 else { throw CloudError.noResponse }
@@ -200,6 +201,9 @@ extension RecipeGenerator {
 
     /// Enough for five lines and a little over.
     private static let ideaTokenLimit = 500
+
+    /// Gemma's temperature for ideas, kept high so the five differ from one another.
+    static let ideaTemperature = 0.7
 
     /// How many ideas are offered.
     static let ideaCount = 5

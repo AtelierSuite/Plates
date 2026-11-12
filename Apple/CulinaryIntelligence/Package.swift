@@ -21,7 +21,13 @@ let package = Package(
         ),
         .testTarget(
             name: "CulinaryIntelligenceTests",
-            dependencies: ["CulinaryIntelligence"]
+            dependencies: ["CulinaryIntelligence"],
+            swiftSettings: [
+                .defaultIsolation(MainActor.self),
+                .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+                .enableUpcomingFeature("InferIsolatedConformances"),
+                .enableUpcomingFeature("MemberImportVisibility"),
+            ]
         ),
     ],
     swiftLanguageModes: [.v5]

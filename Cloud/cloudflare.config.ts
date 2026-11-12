@@ -29,6 +29,7 @@ export default defineConfig(() => {
 				IDEATE_DAILY_LIMIT: text("IDEATE_DAILY_LIMIT"),
 				DECIDE_DAILY_LIMIT: text("DECIDE_DAILY_LIMIT"),
 				TOPPINGS_DAILY_LIMIT: text("TOPPINGS_DAILY_LIMIT"),
+				EDIT_DAILY_LIMIT: text("EDIT_DAILY_LIMIT"),
 				DEVICE: bindings.durableObject({
 					worker: name,
 					exportName: "Device",

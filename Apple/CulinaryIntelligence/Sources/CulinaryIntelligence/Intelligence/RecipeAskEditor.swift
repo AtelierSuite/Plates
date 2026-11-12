@@ -191,6 +191,13 @@ public struct EditProgress: Equatable, Sendable {
 /// time. The plan sees step titles only, so it cannot know which steps say "guanciale", and
 /// left to it a swap changed the shopping list and none of the method.
 ///
+/// Putting the new name in place of the old one keeps cues that only fit the old ingredient,
+/// such as chicken cooked "until no longer pink" after it became tofu. So for each ingredient
+/// swapped, Gemma is asked once, in English, what the swap changes in the method, and the
+/// answer is handed to each step rewrite that names the old ingredient. When PlatesCloud
+/// cannot be reached or today's edit limit is used up, the steps are followed through by name
+/// alone, as they were before.
+///
 /// There is no read through at the end. One was tried, checking the recipe against the request
 /// and making what it found the same way, and on the edit evals it met no more requests than
 /// going without, while undoing swaps the cook asked for, scaling a recipe a second time, and
@@ -217,6 +224,9 @@ public final class RecipeAskEditor {
 
     /// The plan and the changes on it.
     private let passes = ModelPasses()
+
+    /// Where Gemma says what a swap changes in the method.
+    private let cloud = PlatesCloud.shared
 
     /// Where the run reports how far along it is.
     private let observer: (any RunObserver)?
@@ -299,9 +309,14 @@ public final class RecipeAskEditor {
 
     // MARK: - Working out what to change
 
-    /// Asks what to change. A plan with nothing in it that can be carried out, which is a plan
-    /// pointing at lines the recipe does not have, is asked for once more before giving up.
+    /// Asks what to change. A plan is asked for once more when nothing in it can be carried
+    /// out, which is a plan pointing at lines the recipe does not have, or when it leaves out an
+    /// ingredient or tool the cook named. A plan that carried out part of a request and skipped
+    /// the rest used to be accepted. Of two plans, the one that reaches more of what was named
+    /// is kept, and the first when they reach as much.
     private func planEdits(for recipe: Recipe, request: String) async throws -> [PlannedEdit] {
+        let coverage = EditCoverage(request: request, ingredients: Self.ingredients(of: recipe), tools: recipe.tools)
+        var kept: (edits: [PlannedEdit], missed: Int)?
         for _ in 0..<2 {
             let plan = try await passes.respond(
                 GeneratedEditPlan.self,
@@ -310,9 +325,12 @@ public final class RecipeAskEditor {
                 tokenLimit: Self.planTokenLimit
             )
             let edits = Self.swapping(Self.readable(plan.edits, for: recipe), in: recipe, request: request)
-            if !edits.isEmpty { return edits }
+            guard !edits.isEmpty else { continue }
+            let missed = coverage.missed(by: edits, steps: recipe.steps).count
+            if missed == 0 { return edits }
+            if missed < kept?.missed ?? .max { kept = (edits, missed) }
         }
-        return []
+        return kept?.edits ?? []
     }
 
     /// A plan with its swaps made into swaps. Told to change a line to swap it, the model still
@@ -420,6 +438,9 @@ public final class RecipeAskEditor {
         var old: String
         /// What it was swapped for, or nil when it was taken out.
         var new: String?
+        /// What Gemma said the swap changes in the method, in English, or nil when it was not
+        /// asked or could not answer.
+        var method: String?
     }
 
     /// Carries out a plan against the numbering the plan was written against. Lines are
@@ -437,6 +458,7 @@ public final class RecipeAskEditor {
         var entries = Self.ingredientEntries(of: recipe)
         var dropped: Set<Int> = []
         var added: [String] = []
+        var swaps: [(change: Int, old: Ingredient, new: Ingredient)] = []
         for job in jobs(.changeIngredient) {
             let index = job.edit.line - 1
             let entry = try await run(job) {
@@ -444,6 +466,7 @@ public final class RecipeAskEditor {
             }
             if !Self.sameName(entry.ingredient.item, entries[index].ingredient.item) {
                 changes.append(ListChange(old: entries[index].ingredient.item, new: entry.ingredient.item))
+                swaps.append((changes.count - 1, entries[index].ingredient, entry.ingredient))
             }
             entries[index] = entry
         }
@@ -503,6 +526,19 @@ public final class RecipeAskEditor {
         }
         recipe.tools = tools
         progress.show(recipe)
+
+        // What each swapped ingredient changes in the method, asked once per swap whose old
+        // ingredient the method names.
+        for swap in swaps {
+            let change = changes[swap.change]
+            guard let new = change.new,
+                  original.steps.contains(where: { Step.mentions(change.old, in: Self.words(of: $0)) })
+            else { continue }
+            let row = progress.append([Self.text("Edit.Progress.Method", new.lowercased())]).first
+            progress.mark(row, .working)
+            changes[swap.change].method = await method(swapping: swap.old, for: swap.new, in: original)
+            progress.mark(row, .done)
+        }
 
         // Lines in the lists whose notes named what changed, such as pancetta "in place of the
         // guanciale".
@@ -824,6 +860,58 @@ public final class RecipeAskEditor {
         }.joined(separator: " ")
     }
 
+    // MARK: - What a swap changes
+
+    /// What using one ingredient in place of another changes in the method, as Gemma says it
+    /// in English, or nil when nothing changes. Nil too when PlatesCloud cannot be reached or
+    /// today's edit limit is used up, so the swap is followed through by name alone rather
+    /// than the edit failing.
+    private func method(swapping old: Ingredient, for new: Ingredient, in recipe: Recipe) async -> String? {
+        guard cloud.isConfigured, cloud.isAllowed,
+              let dish = await english(recipe.title),
+              let oldName = await englishName(of: old),
+              let newName = await englishName(of: new)
+        else { return nil }
+        let nothing = RecipeGenerator.english("Edit.Prompt.Method.Nothing")
+        guard let answer = try? await cloud.edit(
+            instructions: RecipeGenerator.english("Edit.Prompt.Method", nothing),
+            prompt: RecipeGenerator.english("Edit.Prompt.Method.Ask", dish, oldName.lowercased(), newName.lowercased()),
+            maximumTokens: Self.methodTokenLimit
+        ) else { return nil }
+        let method = answer.withoutLeakedSyntax.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !method.isEmpty,
+              !method.lowercased().hasPrefix(nothing.lowercased().trimmingCharacters(in: .punctuationCharacters))
+        else { return nil }
+        return method
+    }
+
+    /// An ingredient's name in English for Gemma: the name as written when it is already
+    /// English, the catalog's English name when the line is named for its catalog ingredient,
+    /// and otherwise the name translated on the device.
+    private func englishName(of ingredient: Ingredient) async -> String? {
+        if ingredient.item.allSatisfy(\.isASCII) { return ingredient.item }
+        if let asset = IconCatalog.iconName(for: ingredient.icon),
+           Self.sameName(IconCatalog.displayName(for: asset), ingredient.item) {
+            return IconCatalog.englishName(for: asset)
+        }
+        return await english(ingredient.item)
+    }
+
+    /// Text put into English before Gemma reads it, translated on the device when it is not
+    /// English already. Nil when the translation fails.
+    private func english(_ text: String) async -> String? {
+        let text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !text.allSatisfy(\.isASCII) else { return text }
+        let translated = try? await passes.run(instructions: RecipeGenerator.english("Generate.Prompt.Translate")) { session in
+            try await session.respond(
+                to: text,
+                options: GenerationOptions(maximumResponseTokens: RecipeGenerator.lineTokenLimit)
+            ).content
+        }
+        let english = translated?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return english.isEmpty ? nil : english
+    }
+
     // MARK: - One line at a time
 
     /// One ingredient, with the section it is listed in.
@@ -948,6 +1036,7 @@ public final class RecipeAskEditor {
             Self.summary(of: recipe),
             Self.listed(changes),
             Self.text("Edit.Prompt.Line.Step", String(index + 1), Self.words(of: step)),
+            Self.method(changes, in: step),
             Self.text("Edit.Prompt.Ask", instruction),
             Self.text("Edit.Prompt.Line.Step.Ask"),
         ])
@@ -1223,6 +1312,10 @@ public final class RecipeAskEditor {
     /// The most the plan may write. Six changes run to a few hundred tokens.
     private static let planTokenLimit = 1200
 
+    /// The most Gemma may write about a swap. Four short sentences run to about a hundred
+    /// tokens.
+    private static let methodTokenLimit = 300
+
     private static func text(_ key: String.LocalizationValue, _ arguments: CVarArg...) -> String {
         let format = String(culinary: key)
         return arguments.isEmpty ? format : String(format: format, arguments: arguments)
@@ -1285,6 +1378,16 @@ public final class RecipeAskEditor {
                 ?? text("Edit.Prompt.Changed.Removed", change.old.lowercased())
         }
         return text("Edit.Prompt.Changed", ModelPasses.joined(lines))
+    }
+
+    /// What the swaps this step names change in the method, as Gemma said it, for the step
+    /// rewrite to work from.
+    private static func method(_ changes: [ListChange], in step: Step) -> String {
+        changes.compactMap { change in
+            guard let new = change.new, let method = change.method,
+                  Step.mentions(change.old, in: words(of: step)) else { return nil }
+            return text("Edit.Prompt.Line.Step.Method", change.old.lowercased(), new.lowercased(), method)
+        }.joined(separator: "\n\n")
     }
 
     private static func line(for ingredient: Ingredient, withNote: Bool = true) -> String {
