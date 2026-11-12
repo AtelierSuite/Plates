@@ -2773,6 +2773,23 @@
         }
       }
     },
+    "Recipe.Edit.Undo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo Changes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変更を取り消す"
+          }
+        }
+      }
+    },
     "Recipe.List.Empty.Description" : {
       "extractionState" : "manual",
       "localizations" : {
