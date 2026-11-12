@@ -109,13 +109,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Opus 5.5 writes on your own Anthropic account, and Anthropic bills it for each request. The key is kept in this iPhone's Keychain and sent only to Anthropic, never to PlatesCloud."
+            "value" : "Claude Opus 5.5 writes on your own Anthropic account, and Anthropic bills it for each request. The key is kept in this iPhone's Keychain and is never sent to any server other than Anthropic's."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Opus 5.5は自分のAnthropicアカウントで動き、リクエストごとにAnthropicから請求されます。キーはこのiPhoneのキーチェーンに保存され、Anthropicにだけ送られます。PlatesCloudには送られません。"
+            "value" : "Claude Opus 5.5は自分のAnthropicアカウントで動き、リクエストごとにAnthropicから請求されます。キーはこのiPhoneのキーチェーンに保存され、Anthropic以外のサーバーには送られません。"
           }
         }
       }
@@ -279,13 +279,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The key stays in this iPhone's Keychain. Nothing is sent to PlatesCloud, and Anthropic bills your account for each request."
+            "value" : "The key stays in this iPhone's Keychain and is never sent to any server other than Anthropic's. Anthropic bills your account for each request."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "キーはこのiPhoneのキーチェーンに保存されます。PlatesCloudには何も送られず、リクエストごとにAnthropicからアカウントに請求されます。"
+            "value" : "キーはこのiPhoneのキーチェーンに保存され、Anthropic以外のサーバーには送られません。リクエストごとにAnthropicからアカウントに請求されます。"
           }
         }
       }
