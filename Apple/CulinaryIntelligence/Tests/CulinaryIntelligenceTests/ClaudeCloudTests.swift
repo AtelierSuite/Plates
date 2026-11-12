@@ -49,6 +49,20 @@ struct ClaudeCloudTests {
         #expect((body["output_config"] as? [String: String])?["effort"] == "low")
     }
 
+    @Test func endsACutOffAnswer() {
+        #expect(throws: CloudError.cutOff) {
+            try ClaudeCloud.text(inEvent: #"{"type":"message_delta","delta":{"stop_reason":"max_tokens"}}"#)
+        }
+    }
+
+    @Test func sendsTheExampleAsAnEarlierExchange() throws {
+        let data = ClaudeCloud.body(system: "S", example: (ask: "A", answer: "B"), prompt: "P", maximumTokens: 10)
+        let body = try #require(try JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let messages = try #require(body["messages"] as? [[String: String]])
+        #expect(messages.map { $0["role"] ?? "" } == ["user", "assistant", "user"])
+        #expect(messages.map { $0["content"] ?? "" } == ["A", "B", "P"])
+    }
+
     @Test func readsTheFirstNumber() {
         #expect(ClaudeCloud.firstNumber(in: "3") == 3)
         #expect(ClaudeCloud.firstNumber(in: "Idea 2.") == 2)
@@ -61,7 +75,7 @@ struct ClaudeCloudTests {
     @Test func streamsARecordedAnswer() async throws {
         try await withStub(status: 200, body: Self.recordedStream) {
             var text = ""
-            for try await piece in cloud.write(instructions: "S", prompt: "P", maximumTokens: 100) {
+            for try await piece in cloud.write(instructions: "S", example: nil, prompt: "P", maximumTokens: 100, temperature: 0.7) {
                 text += piece
             }
             #expect(text == "Egg Fried Rice\nServes 2")
@@ -94,7 +108,7 @@ struct ClaudeCloudTests {
         let failure = #"{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"}}"#
         try await withStub(status: 401, body: failure) {
             await #expect(throws: ClaudeError.badKey) {
-                for try await _ in cloud.write(instructions: "S", prompt: "P", maximumTokens: 10) {}
+                for try await _ in cloud.write(instructions: "S", example: nil, prompt: "P", maximumTokens: 10, temperature: 0.7) {}
             }
         }
     }
@@ -103,7 +117,7 @@ struct ClaudeCloudTests {
         let failure = #"{"type":"error","error":{"type":"rate_limit_error","message":"Number of request tokens has exceeded your per-minute rate limit"}}"#
         try await withStub(status: 429, body: failure) {
             await #expect(throws: ClaudeError.rateLimited) {
-                _ = try await cloud.ideate(instructions: "S", prompt: "P", maximumTokens: 10)
+                _ = try await cloud.ideate(instructions: "S", prompt: "P", maximumTokens: 10, temperature: 0.7)
             }
         }
     }
@@ -119,7 +133,7 @@ struct ClaudeCloudTests {
         """
         try await withStub(status: 200, body: refusal) {
             await #expect(throws: ClaudeError.refused) {
-                _ = try await cloud.ideate(instructions: "S", prompt: "P", maximumTokens: 10)
+                _ = try await cloud.ideate(instructions: "S", prompt: "P", maximumTokens: 10, temperature: 0.7)
             }
         }
     }
@@ -129,7 +143,7 @@ struct ClaudeCloudTests {
         let keyless = ClaudeCloud(key: { nil })
         #expect(!keyless.isConfigured)
         await #expect(throws: ClaudeError.noKey) {
-            _ = try await keyless.ideate(instructions: "S", prompt: "P", maximumTokens: 10)
+            _ = try await keyless.ideate(instructions: "S", prompt: "P", maximumTokens: 10, temperature: 0.7)
         }
     }
 
@@ -137,7 +151,7 @@ struct ClaudeCloudTests {
         UserDefaults.standard.set(false, forKey: PlatesCloud.allowedKey)
         defer { UserDefaults.standard.set(true, forKey: PlatesCloud.allowedKey) }
         await #expect(throws: CloudError.notAllowed) {
-            _ = try await cloud.ideate(instructions: "S", prompt: "P", maximumTokens: 10)
+            _ = try await cloud.ideate(instructions: "S", prompt: "P", maximumTokens: 10, temperature: 0.7)
         }
     }
 

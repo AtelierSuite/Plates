@@ -82,13 +82,34 @@ final class ClaudeCloud: RecipeWriting {
         LocalizedStringResource(culinary: "Generate.Unavailable.ClaudeKey")
     }
 
+    var isAllowed: Bool { UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) }
+
+    /// The cook's own key has no daily limit from us.
+    var writesRemaining: Int? { .max }
+
     // MARK: - Writing
 
-    func write(instructions: String, prompt: String, maximumTokens: Int) -> AsyncThrowingStream<String, Error> {
+    /// Opus 5.5 takes no sampling settings, so the temperature is left out.
+    func write(
+        instructions: String,
+        example: (ask: String, answer: String)?,
+        prompt: String,
+        maximumTokens: Int,
+        temperature: Double
+    ) -> AsyncThrowingStream<String, Error> {
+        stream(system: instructions, example: example, prompt: prompt, maximumTokens: maximumTokens)
+    }
+
+    private func stream(
+        system: String,
+        example: (ask: String, answer: String)? = nil,
+        prompt: String,
+        maximumTokens: Int
+    ) -> AsyncThrowingStream<String, Error> {
         AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    let bytes = try await self.send(system: instructions, prompt: prompt, maximumTokens: maximumTokens)
+                    let bytes = try await self.send(system: system, example: example, prompt: prompt, maximumTokens: maximumTokens)
                     for try await line in bytes.lines {
                         guard line.hasPrefix("data:") else { continue }
                         if let text = try Self.text(inEvent: String(line.dropFirst(5))) {
@@ -104,7 +125,11 @@ final class ClaudeCloud: RecipeWriting {
         }
     }
 
-    func ideate(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
+    func ideate(instructions: String, prompt: String, maximumTokens: Int, temperature: Double) async throws -> String {
+        try await answer(system: instructions, prompt: prompt, maximumTokens: maximumTokens)
+    }
+
+    func edit(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
         try await answer(system: instructions, prompt: prompt, maximumTokens: maximumTokens)
     }
 
@@ -194,7 +219,7 @@ final class ClaudeCloud: RecipeWriting {
     /// The whole answer to one request, streamed and put together.
     private func answer(system: String, prompt: String, maximumTokens: Int) async throws -> String {
         var text = ""
-        for try await piece in write(instructions: system, prompt: prompt, maximumTokens: maximumTokens) {
+        for try await piece in stream(system: system, prompt: prompt, maximumTokens: maximumTokens) {
             text += piece
         }
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -202,7 +227,12 @@ final class ClaudeCloud: RecipeWriting {
         return trimmed
     }
 
-    private func send(system: String, prompt: String, maximumTokens: Int) async throws -> URLSession.AsyncBytes {
+    private func send(
+        system: String,
+        example: (ask: String, answer: String)?,
+        prompt: String,
+        maximumTokens: Int
+    ) async throws -> URLSession.AsyncBytes {
         guard UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) else { throw CloudError.notAllowed }
         guard let key = key() else { throw ClaudeError.noKey }
         var request = URLRequest(url: Self.endpoint)
@@ -211,7 +241,7 @@ final class ClaudeCloud: RecipeWriting {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(key, forHTTPHeaderField: "x-api-key")
         request.setValue(Self.version, forHTTPHeaderField: "anthropic-version")
-        request.httpBody = Self.body(system: system, prompt: prompt, maximumTokens: maximumTokens)
+        request.httpBody = Self.body(system: system, example: example, prompt: prompt, maximumTokens: maximumTokens)
         let (bytes, response) = try await URLSession.shared.bytes(for: request)
         guard let http = response as? HTTPURLResponse else { throw CloudError.noResponse }
         guard http.statusCode == 200 else {
@@ -227,12 +257,23 @@ final class ClaudeCloud: RecipeWriting {
 
     /// No `temperature`: Opus 5.5 rejects sampling settings, and no `thinking`, which it cannot
     /// turn off. The effort sets how long it thinks.
-    nonisolated static func body(system: String, prompt: String, maximumTokens: Int) -> Data {
+    nonisolated static func body(
+        system: String,
+        example: (ask: String, answer: String)? = nil,
+        prompt: String,
+        maximumTokens: Int
+    ) -> Data {
+        var messages: [[String: String]] = []
+        if let example {
+            messages.append(["role": "user", "content": example.ask])
+            messages.append(["role": "assistant", "content": example.answer])
+        }
+        messages.append(["role": "user", "content": prompt])
         let object: [String: Any] = [
             "model": model,
             "max_tokens": maximumTokens + thinkingAllowance,
             "system": system,
-            "messages": [["role": "user", "content": prompt]],
+            "messages": messages,
             "output_config": ["effort": effort],
             "stream": true,
         ]
@@ -240,7 +281,8 @@ final class ClaudeCloud: RecipeWriting {
     }
 
     /// The text in one streamed event, if it carries any. Thinking deltas are passed over, a
-    /// refusal or an error event ends the stream with its error, and every other event is
+    /// refusal, an answer cut off at the token limit, or an error event ends the stream with its
+    /// error, and every other event is
     /// skipped.
     nonisolated static func text(inEvent payload: String) throws -> String? {
         guard let data = payload.trimmingCharacters(in: .whitespaces).data(using: .utf8),
@@ -251,8 +293,11 @@ final class ClaudeCloud: RecipeWriting {
             guard event.delta?.type == "text_delta", let text = event.delta?.text, !text.isEmpty else { return nil }
             return text
         case "message_delta":
-            if event.delta?.stopReason == "refusal" { throw ClaudeError.refused }
-            return nil
+            switch event.delta?.stopReason {
+            case "refusal": throw ClaudeError.refused
+            case "max_tokens": throw CloudError.cutOff
+            default: return nil
+            }
         case "error":
             throw ClaudeError.from(status: 0, type: event.error?.type, message: event.error?.message)
         default:

@@ -71,11 +71,29 @@ protocol RecipeWriting: AnyObject {
     /// Why requests cannot be sent, when they cannot.
     var unconfiguredReason: LocalizedStringResource { get }
 
-    /// The recipe, streamed back a piece at a time.
-    func write(instructions: String, prompt: String, maximumTokens: Int) -> AsyncThrowingStream<String, Error>
+    /// Whether the cook has allowed requests to leave the device.
+    var isAllowed: Bool { get }
+
+    /// How many recipes are left today after the last write, or nil before one has answered.
+    /// A provider with no daily limit answers `Int.max`, so a draft can be written again.
+    var writesRemaining: Int? { get }
+
+    /// The recipe, streamed back a piece at a time, after an example exchange when one is
+    /// given. An answer that ran out of tokens ends in `CloudError.cutOff`. A provider that
+    /// takes no sampling settings leaves the temperature out.
+    func write(
+        instructions: String,
+        example: (ask: String, answer: String)?,
+        prompt: String,
+        maximumTokens: Int,
+        temperature: Double
+    ) -> AsyncThrowingStream<String, Error>
 
     /// Dish ideas, whole.
-    func ideate(instructions: String, prompt: String, maximumTokens: Int) async throws -> String
+    func ideate(instructions: String, prompt: String, maximumTokens: Int, temperature: Double) async throws -> String
+
+    /// An answer to a question the recipe editor asks, whole.
+    func edit(instructions: String, prompt: String, maximumTokens: Int) async throws -> String
 
     /// Which of the ideas fits the cook's request best.
     func decide(
@@ -95,7 +113,12 @@ protocol RecipeWriting: AnyObject {
 }
 
 extension RecipeWriting {
-    func write(instructions: String, prompt: String) -> AsyncThrowingStream<String, Error> {
-        write(instructions: instructions, prompt: prompt, maximumTokens: 1400)
+    func write(
+        instructions: String,
+        example: (ask: String, answer: String)? = nil,
+        prompt: String,
+        temperature: Double
+    ) -> AsyncThrowingStream<String, Error> {
+        write(instructions: instructions, example: example, prompt: prompt, maximumTokens: 1400, temperature: temperature)
     }
 }

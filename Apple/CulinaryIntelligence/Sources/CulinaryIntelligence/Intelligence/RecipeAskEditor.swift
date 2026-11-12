@@ -226,7 +226,9 @@ public final class RecipeAskEditor {
     private let passes = ModelPasses()
 
     /// Where Gemma says what a swap changes in the method.
-    private let cloud = PlatesCloud.shared
+    /// Where a swap's effect on the method is asked: Gemma on PlatesCloud, or the provider the
+    /// cook brought their own key for.
+    private var cloud: any RecipeWriting { WriterProvider.current.service }
 
     /// Where the run reports how far along it is.
     private let observer: (any RunObserver)?
