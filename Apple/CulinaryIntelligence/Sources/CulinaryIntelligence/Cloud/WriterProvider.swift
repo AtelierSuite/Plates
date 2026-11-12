@@ -7,16 +7,22 @@ import Foundation
 public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
     case plates = "Plates"
     case claude = "Claude"
+    case openAI = "OpenAI"
 
     public var id: String { rawValue }
 
     /// Where the choice is kept, for views that follow it with `@AppStorage`.
     nonisolated public static let selectedKey = "Writer.Provider"
 
-    /// The provider the cook picked in the menu.
+    /// The providers the Recipe Writer page lists. GPT 6.1 Sol is left out until it has been
+    /// run against OpenAI and its own generation and edit evals.
+    public static let offered: [WriterProvider] = [.plates, .claude]
+
+    /// The provider the cook picked in the menu, or Plates when it is not offered.
     public static var current: WriterProvider {
         get {
-            UserDefaults.standard.string(forKey: selectedKey).flatMap(WriterProvider.init(rawValue:)) ?? .plates
+            let picked = UserDefaults.standard.string(forKey: selectedKey).flatMap(WriterProvider.init(rawValue:))
+            return picked.flatMap { offered.contains($0) ? $0 : nil } ?? .plates
         }
         set { UserDefaults.standard.set(newValue.rawValue, forKey: selectedKey) }
     }
@@ -25,6 +31,7 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .plates: LocalizedStringResource(culinary: "Writer.Provider.Plates")
         case .claude: LocalizedStringResource(culinary: "Writer.Provider.Claude")
+        case .openAI: LocalizedStringResource(culinary: "Writer.Provider.OpenAI")
         }
     }
 
@@ -58,6 +65,16 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .plates: Plates.shared
         case .claude: ClaudeCloud.shared
+        case .openAI: OpenAICloud.shared
+        }
+    }
+
+    /// The writer on the cook's own key, or nil for Plates.
+    var keyedWriter: (any KeyedWriter)? {
+        switch self {
+        case .plates: nil
+        case .claude: ClaudeCloud.shared
+        case .openAI: OpenAICloud.shared
         }
     }
 }

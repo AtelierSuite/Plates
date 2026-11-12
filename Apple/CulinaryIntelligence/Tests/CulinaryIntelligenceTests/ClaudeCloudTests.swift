@@ -66,7 +66,7 @@ struct ClaudeCloudTests {
     }
 
     @Test func sendsEachRoleToItsModel() throws {
-        let models: [(ClaudeRole, String)] = [
+        let models: [(WriterRole, String)] = [
             (.write, "claude-opus-5-5"), (.edit, "claude-opus-5-5"), (.draw, "claude-opus-5-5"),
             (.ideas, "claude-sonnet-5-5"), (.plan, "claude-sonnet-5-5"), (.parse, "claude-sonnet-5-5"),
             (.decide, "claude-haiku-5-5"), (.toppings, "claude-haiku-5-5"),
@@ -99,10 +99,10 @@ struct ClaudeCloudTests {
     }
 
     @Test func readsTheFirstNumber() {
-        #expect(ClaudeCloud.firstNumber(in: "3") == 3)
-        #expect(ClaudeCloud.firstNumber(in: "Idea 2.") == 2)
-        #expect(ClaudeCloud.firstNumber(in: "0.85") == 0.85)
-        #expect(ClaudeCloud.firstNumber(in: "none") == nil)
+        #expect(firstNumber(in: "3") == 3)
+        #expect(firstNumber(in: "Idea 2.") == 2)
+        #expect(firstNumber(in: "0.85") == 0.85)
+        #expect(firstNumber(in: "none") == nil)
     }
 
     // MARK: - Stubbed requests

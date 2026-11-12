@@ -137,114 +137,6 @@
         }
       }
     },
-    "Claude.Prompt.Decide": {
-      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
-      "extractionState": "manual",
-      "localizations": {
-        "en-US": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You help a home cook choose what to cook. Read the cook's request, what they have, and the numbered dish ideas, and pick the idea that best fits the request and the ingredients and tools they have. Answer with the idea's number alone."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "家庭で料理する人が、作るものを選ぶ手伝いをします。リクエスト、手元にあるもの、番号の付いた料理のアイディアを読み、リクエストと手元の材料・道具に最も合うものを選んでください。アイディアの番号だけを答えてください。"
-          }
-        }
-      }
-    },
-    "Claude.Prompt.Decide.Ask": {
-      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
-      "extractionState": "manual",
-      "localizations": {
-        "en-US": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Request: %1$@\nIngredients they have: %2$@\nTools they have: %3$@\n\nIdeas:\n%4$@"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "リクエスト: %1$@\n手元の材料: %2$@\n手元の道具: %3$@\n\nアイディア:\n%4$@"
-          }
-        }
-      }
-    },
-    "Claude.Prompt.DishIcon": {
-      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
-      "extractionState": "manual",
-      "localizations": {
-        "en-US": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You draw the icon for a recipe in a cooking app: the finished dish, seen from directly above, as one SVG. Answer with the SVG alone, with no code fence and no words before or after it.\n\nFile rules:\n- The root element is exactly <svg width=\"96\" height=\"96\" viewBox=\"0 0 96 96\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"...\">, with the dish's name in English as the label.\n- Use only defs, linearGradient, radialGradient, stop, g, path, circle, ellipse, rect, line and polygon. Never use filter, mask, clipPath, pattern, image, text, use, style, CSS classes, links, scripts or fill-rule. Cut a hole by drawing its path in the opposite direction.\n- Gradients use gradientUnits=\"userSpaceOnUse\" with explicit coordinates, live in defs at the top, and have short ids unique within the file. No comments, one element per line.\n\nComposition:\n- The vessel fills the canvas. A round plate or bowl is a circle of radius 46 around (48, 48), with its well at radius 37 for a plate and 40 for a bowl. A dish served in something else gets that instead: a board for pizza, a two handled pan for paella, a stone bowl for bibimbap, a clay pot for a stew, a loaf tin or a cake on a plate. Everything stays inside the 96 box.\n- The app's own white plate, which may be copied as it is:\n<defs><linearGradient id=\"vr\" x1=\"2\" y1=\"2\" x2=\"94\" y2=\"94\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#f5f2ed\"/><stop offset=\"0.5\" stop-color=\"#f0ece4\"/><stop offset=\"1\" stop-color=\"#d7cdb2\"/></linearGradient><radialGradient id=\"vw\" cx=\"57.25\" cy=\"59.1\" r=\"46.25\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#eee9e2\"/><stop offset=\"0.6\" stop-color=\"#e8e3d8\"/><stop offset=\"1\" stop-color=\"#d9d2ba\"/></radialGradient></defs><circle cx=\"48\" cy=\"48\" r=\"46\" fill=\"url(#vr)\"/><path d=\"M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8\" stroke=\"#ffffff\" stroke-opacity=\"0.55\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"48\" cy=\"48\" r=\"37\" fill=\"url(#vw)\"/><path d=\"M18.4 31.3A36 36 0 0 1 64.7 18.4\" stroke=\"#d9d2ba\" stroke-opacity=\"0.35\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/>\n- The food fills most of the well. Draw the dish the way it is recognised: a few large, well made shapes for what defines it, and only the garnish that tells it apart. The thing that names the dish is the largest shape and sits near the middle. Nothing that matters is smaller than about 6 units across, and nothing structural is thinner than about 2.5 units.\n- Pieces may sit on a soft contact shadow, a dark ellipse at opacity 0.15 to 0.25 a little down and to the right. Nothing outside the vessel casts a shadow. No background, ground plane or outlines.\n\nLight and colour, in the Fluent Color style:\n- Flat shapes with no outlines. Light comes from the top left. Every main shape runs from a lighter, warmer tint at the top left, through its base colour, to a deeper shade at the bottom right: a radialGradient centred at the upper left for round shapes, a diagonal linearGradient for flat ones.\n- One highlight on each main shape, at the upper left: a crisp white ellipse at opacity 0.5 to 0.85 for glossy things (yolk, sauce, broth, glazed meat), a soft one at 0.3 to 0.5 or none for matte things (bread, rice, fried coating).\n- Detail lines are a darker shade of their shape at opacity 0.4 to 0.6.\n- Colours to use where they fit, as tint, base, shade: leaf green #a6dc7e #5fa83f #3f8a2e; red #ff8a75 #ec4a3c #b3242b; orange #ffb25c #ff7a1f #d9520c; yellow #fff59a #ffd21f #e09a00; white food #ffffff #f1ece0 #cfc6b2; brown #d79a63 #a4693a #6e3d1c; dark sauce #7a5638 #3c2a1c #1e140c; dark metal #767d86 #4e545c #25282d; wood #d79c64 #b07440 #8a5530.\n- White foods keep their lightest stop at #f0f0f0 or above. Very dark things get a lighter tint at the top left so they stand apart on a dark background.\n\nAvoid: two dark dots under a curved highlight, which read as a face; thin curved strokes, which read as worms; a rosette of round dots, which reads as a flower; a rounded capsule, which reads as a sausage. The icon must read as its dish at 72 points, on white and on near black."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "料理アプリのレシピのアイコンを描きます。真上から見た完成した料理を、1つのSVGで描いてください。SVGだけを答え、コードブロックや前後の文は付けないでください。\n\nファイルの決まり:\n- ルート要素は <svg width=\"96\" height=\"96\" viewBox=\"0 0 96 96\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"...\"> とし、ラベルには料理名を英語で入れます。\n- 使ってよいのは defs、linearGradient、radialGradient、stop、g、path、circle、ellipse、rect、line、polygon だけです。filter、mask、clipPath、pattern、image、text、use、style、CSSクラス、リンク、スクリプト、fill-rule は使いません。穴は、パスを逆向きに描いて抜きます。\n- グラデーションは gradientUnits=\"userSpaceOnUse\" と明示した座標を使い、先頭の defs に置き、ファイル内で重ならない短いIDを付けます。コメントは書かず、1行に1要素とします。\n\n構図:\n- 器がキャンバスを満たします。丸い皿や鉢は (48, 48) を中心とする半径46の円で、内側のくぼみは皿なら半径37、鉢なら半径40です。ほかの器で出す料理はその器で描きます。ピザは板、パエリアは両手鍋、ビビンバは石鍋、煮込みは土鍋、パウンドケーキは型や皿です。すべて96の枠に収めます。\n- アプリの白い皿です。そのまま写してかまいません:\n<defs><linearGradient id=\"vr\" x1=\"2\" y1=\"2\" x2=\"94\" y2=\"94\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#f5f2ed\"/><stop offset=\"0.5\" stop-color=\"#f0ece4\"/><stop offset=\"1\" stop-color=\"#d7cdb2\"/></linearGradient><radialGradient id=\"vw\" cx=\"57.25\" cy=\"59.1\" r=\"46.25\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#eee9e2\"/><stop offset=\"0.6\" stop-color=\"#e8e3d8\"/><stop offset=\"1\" stop-color=\"#d9d2ba\"/></radialGradient></defs><circle cx=\"48\" cy=\"48\" r=\"46\" fill=\"url(#vr)\"/><path d=\"M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8\" stroke=\"#ffffff\" stroke-opacity=\"0.55\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"48\" cy=\"48\" r=\"37\" fill=\"url(#vw)\"/><path d=\"M18.4 31.3A36 36 0 0 1 64.7 18.4\" stroke=\"#d9d2ba\" stroke-opacity=\"0.35\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/>\n- 料理がくぼみの大部分を占めます。その料理だと分かる形で描きます。料理を決める部分は大きく丁寧な数個の形にし、飾りは見分けに必要なものだけにします。料理名になっているものがいちばん大きく、中央近くに置きます。大事なものは差し渡し約6より小さくせず、形を作る線は約2.5より細くしません。\n- 具の下には、右下に少しずらした不透明度0.15から0.25の暗い楕円で、柔らかい影を付けてもかまいません。器の外のものには影を付けません。背景、地面、輪郭線は描きません。\n\n光と色（Fluent Colorのスタイル）:\n- 輪郭線のない平らな形で描きます。光は左上から当たります。主な形はそれぞれ、左上の明るく暖かい色から基本の色を経て、右下の深い色へ変わります。丸い形は左上を中心にした radialGradient、平らな形は対角線の linearGradient を使います。\n- 主な形には左上にハイライトを1つ付けます。黄身、ソース、スープ、照りのある肉のようなつやのあるものには不透明度0.5から0.85のはっきりした白い楕円、パン、ご飯、揚げ衣のようなつやのないものには0.3から0.5の柔らかいものを付けるか、付けません。\n- 細部の線は、その形の深い色を不透明度0.4から0.6で使います。\n- 合う場合は次の色を、明るい色、基本の色、深い色の順で使います。葉の緑 #a6dc7e #5fa83f #3f8a2e、赤 #ff8a75 #ec4a3c #b3242b、オレンジ #ffb25c #ff7a1f #d9520c、黄 #fff59a #ffd21f #e09a00、白い食べ物 #ffffff #f1ece0 #cfc6b2、茶 #d79a63 #a4693a #6e3d1c、濃いソース #7a5638 #3c2a1c #1e140c、黒い金属 #767d86 #4e545c #25282d、木 #d79c64 #b07440 #8a5530。\n- 白い食べ物のいちばん明るい色は #f0f0f0 以上にします。とても暗いものは、暗い背景から見分けられるよう、左上を明るくします。\n\n避けること: 曲がったハイライトの下に暗い点が2つあると顔に見えます。細く曲がった線は虫に見えます。丸い点を花のように並べると花に見えます。角の丸いカプセル形はソーセージに見えます。アイコンは、白と黒に近い背景のどちらでも、72ポイントで料理だと分かるようにします。"
-          }
-        }
-      }
-    },
-    "Claude.Prompt.DishIcon.Ask": {
-      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
-      "extractionState": "manual",
-      "localizations": {
-        "en-US": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dish: %1$@\n\nIngredients:\n%2$@\n\nHow it is finished and served:\n%3$@"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "料理: %1$@\n\n材料:\n%2$@\n\n仕上げと盛り付け:\n%3$@"
-          }
-        }
-      }
-    },
-    "Claude.Prompt.Toppings": {
-      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
-      "extractionState": "manual",
-      "localizations": {
-        "en-US": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You read recipes to draw an icon of the finished dish. You are given a dish, its method, and one ingredient line. Say how likely it is that the ingredient can be seen on top of the finished dish as it is served, as pieces, flecks, or a sprinkle that a person would notice. Answer with one number from 0 to 1 alone, where 0 means it cannot be seen and 1 means it clearly can."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "完成した料理のアイコンを描くために、レシピを読みます。料理、作り方、材料1行が渡されます。その材料が、盛り付けた料理の上に、具や散らしたもの、振りかけたものとして見える確からしさを答えてください。0から1までの数字1つだけで答えてください。0は見えない、1ははっきり見えるという意味です。"
-          }
-        }
-      }
-    },
-    "Claude.Prompt.Toppings.Ask": {
-      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
-      "extractionState": "manual",
-      "localizations": {
-        "en-US": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dish: %1$@\n\nMethod:\n%2$@\n\nIngredient: %3$@"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "料理: %1$@\n\n作り方:\n%2$@\n\n材料: %3$@"
-          }
-        }
-      }
-    },
     "Cloud.Error.CutOff": {
       "extractionState": "manual",
       "localizations": {
@@ -2253,6 +2145,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apple Intelligenceがモデルをダウンロードしています。しばらくしてからお試しください。"
+          }
+        }
+      }
+    },
+    "Generate.Unavailable.OpenAIKey": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add your OpenAI API key in the menu to write recipes with GPT."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPTでレシピを書くには、メニューからOpenAIのAPIキーを追加してください。"
           }
         }
       }
@@ -10774,6 +10683,142 @@
         }
       }
     },
+    "OpenAI.Error.BadKey": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAI did not accept your API key. Check it in the menu, or enter a new one."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAIがAPIキーを受け付けませんでした。メニューでキーを確かめるか、新しいキーを入力してください。"
+          }
+        }
+      }
+    },
+    "OpenAI.Error.NoCredit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your OpenAI account has no credit left, or has reached its spend limit. Check billing on OpenAI Platform and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAIアカウントのクレジットが残っていないか、利用額の上限に達しました。OpenAI Platformで請求情報を確かめてから、もう一度お試しください。"
+          }
+        }
+      }
+    },
+    "OpenAI.Error.NoKey": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add your OpenAI API key in the menu before writing with GPT."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPTで書く前に、メニューからOpenAIのAPIキーを追加してください。"
+          }
+        }
+      }
+    },
+    "OpenAI.Error.NotPermitted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This API key cannot use GPT 6.1 Sol. Check the key's project on OpenAI Platform."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このAPIキーではGPT 6.1 Solを使えません。OpenAI Platformでキーのプロジェクトを確かめてください。"
+          }
+        }
+      }
+    },
+    "OpenAI.Error.Overloaded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAI is busy right now. Try again in a few minutes."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAIが混み合っています。数分後にもう一度お試しください。"
+          }
+        }
+      }
+    },
+    "OpenAI.Error.RateLimited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your OpenAI account has sent too many requests for now. Wait a minute and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAIアカウントのリクエスト数が上限に達しました。少し待ってから、もう一度お試しください。"
+          }
+        }
+      }
+    },
+    "OpenAI.Error.Refused": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPT declined to write this. Try asking in other words."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPTはこのリクエストに答えませんでした。言い方を変えてお試しください。"
+          }
+        }
+      }
+    },
+    "OpenAI.Error.Server": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAI could not be reached: %1$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenAIに接続できませんでした: %1$@"
+          }
+        }
+      }
+    },
     "Signature.Prompt.Sort": {
       "comment": "Given to Apple Intelligence in English whatever language the app is read in, so its answer can be matched to the catalog. The Japanese value is kept for completeness and is not sent.",
       "extractionState": "manual",
@@ -12325,6 +12370,114 @@
         }
       }
     },
+    "Writer.Prompt.Decide": {
+      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You help a home cook choose what to cook. Read the cook's request, what they have, and the numbered dish ideas, and pick the idea that best fits the request and the ingredients and tools they have. Answer with the idea's number alone."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "家庭で料理する人が、作るものを選ぶ手伝いをします。リクエスト、手元にあるもの、番号の付いた料理のアイディアを読み、リクエストと手元の材料・道具に最も合うものを選んでください。アイディアの番号だけを答えてください。"
+          }
+        }
+      }
+    },
+    "Writer.Prompt.Decide.Ask": {
+      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request: %1$@\nIngredients they have: %2$@\nTools they have: %3$@\n\nIdeas:\n%4$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リクエスト: %1$@\n手元の材料: %2$@\n手元の道具: %3$@\n\nアイディア:\n%4$@"
+          }
+        }
+      }
+    },
+    "Writer.Prompt.DishIcon": {
+      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You draw the icon for a recipe in a cooking app: the finished dish, seen from directly above, as one SVG. Answer with the SVG alone, with no code fence and no words before or after it.\n\nFile rules:\n- The root element is exactly <svg width=\"96\" height=\"96\" viewBox=\"0 0 96 96\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"...\">, with the dish's name in English as the label.\n- Use only defs, linearGradient, radialGradient, stop, g, path, circle, ellipse, rect, line and polygon. Never use filter, mask, clipPath, pattern, image, text, use, style, CSS classes, links, scripts or fill-rule. Cut a hole by drawing its path in the opposite direction.\n- Gradients use gradientUnits=\"userSpaceOnUse\" with explicit coordinates, live in defs at the top, and have short ids unique within the file. No comments, one element per line.\n\nComposition:\n- The vessel fills the canvas. A round plate or bowl is a circle of radius 46 around (48, 48), with its well at radius 37 for a plate and 40 for a bowl. A dish served in something else gets that instead: a board for pizza, a two handled pan for paella, a stone bowl for bibimbap, a clay pot for a stew, a loaf tin or a cake on a plate. Everything stays inside the 96 box.\n- The app's own white plate, which may be copied as it is:\n<defs><linearGradient id=\"vr\" x1=\"2\" y1=\"2\" x2=\"94\" y2=\"94\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#f5f2ed\"/><stop offset=\"0.5\" stop-color=\"#f0ece4\"/><stop offset=\"1\" stop-color=\"#d7cdb2\"/></linearGradient><radialGradient id=\"vw\" cx=\"57.25\" cy=\"59.1\" r=\"46.25\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#eee9e2\"/><stop offset=\"0.6\" stop-color=\"#e8e3d8\"/><stop offset=\"1\" stop-color=\"#d9d2ba\"/></radialGradient></defs><circle cx=\"48\" cy=\"48\" r=\"46\" fill=\"url(#vr)\"/><path d=\"M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8\" stroke=\"#ffffff\" stroke-opacity=\"0.55\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"48\" cy=\"48\" r=\"37\" fill=\"url(#vw)\"/><path d=\"M18.4 31.3A36 36 0 0 1 64.7 18.4\" stroke=\"#d9d2ba\" stroke-opacity=\"0.35\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/>\n- The food fills most of the well. Draw the dish the way it is recognised: a few large, well made shapes for what defines it, and only the garnish that tells it apart. The thing that names the dish is the largest shape and sits near the middle. Nothing that matters is smaller than about 6 units across, and nothing structural is thinner than about 2.5 units.\n- Pieces may sit on a soft contact shadow, a dark ellipse at opacity 0.15 to 0.25 a little down and to the right. Nothing outside the vessel casts a shadow. No background, ground plane or outlines.\n\nLight and colour, in the Fluent Color style:\n- Flat shapes with no outlines. Light comes from the top left. Every main shape runs from a lighter, warmer tint at the top left, through its base colour, to a deeper shade at the bottom right: a radialGradient centred at the upper left for round shapes, a diagonal linearGradient for flat ones.\n- One highlight on each main shape, at the upper left: a crisp white ellipse at opacity 0.5 to 0.85 for glossy things (yolk, sauce, broth, glazed meat), a soft one at 0.3 to 0.5 or none for matte things (bread, rice, fried coating).\n- Detail lines are a darker shade of their shape at opacity 0.4 to 0.6.\n- Colours to use where they fit, as tint, base, shade: leaf green #a6dc7e #5fa83f #3f8a2e; red #ff8a75 #ec4a3c #b3242b; orange #ffb25c #ff7a1f #d9520c; yellow #fff59a #ffd21f #e09a00; white food #ffffff #f1ece0 #cfc6b2; brown #d79a63 #a4693a #6e3d1c; dark sauce #7a5638 #3c2a1c #1e140c; dark metal #767d86 #4e545c #25282d; wood #d79c64 #b07440 #8a5530.\n- White foods keep their lightest stop at #f0f0f0 or above. Very dark things get a lighter tint at the top left so they stand apart on a dark background.\n\nAvoid: two dark dots under a curved highlight, which read as a face; thin curved strokes, which read as worms; a rosette of round dots, which reads as a flower; a rounded capsule, which reads as a sausage. The icon must read as its dish at 72 points, on white and on near black."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "料理アプリのレシピのアイコンを描きます。真上から見た完成した料理を、1つのSVGで描いてください。SVGだけを答え、コードブロックや前後の文は付けないでください。\n\nファイルの決まり:\n- ルート要素は <svg width=\"96\" height=\"96\" viewBox=\"0 0 96 96\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"...\"> とし、ラベルには料理名を英語で入れます。\n- 使ってよいのは defs、linearGradient、radialGradient、stop、g、path、circle、ellipse、rect、line、polygon だけです。filter、mask、clipPath、pattern、image、text、use、style、CSSクラス、リンク、スクリプト、fill-rule は使いません。穴は、パスを逆向きに描いて抜きます。\n- グラデーションは gradientUnits=\"userSpaceOnUse\" と明示した座標を使い、先頭の defs に置き、ファイル内で重ならない短いIDを付けます。コメントは書かず、1行に1要素とします。\n\n構図:\n- 器がキャンバスを満たします。丸い皿や鉢は (48, 48) を中心とする半径46の円で、内側のくぼみは皿なら半径37、鉢なら半径40です。ほかの器で出す料理はその器で描きます。ピザは板、パエリアは両手鍋、ビビンバは石鍋、煮込みは土鍋、パウンドケーキは型や皿です。すべて96の枠に収めます。\n- アプリの白い皿です。そのまま写してかまいません:\n<defs><linearGradient id=\"vr\" x1=\"2\" y1=\"2\" x2=\"94\" y2=\"94\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#f5f2ed\"/><stop offset=\"0.5\" stop-color=\"#f0ece4\"/><stop offset=\"1\" stop-color=\"#d7cdb2\"/></linearGradient><radialGradient id=\"vw\" cx=\"57.25\" cy=\"59.1\" r=\"46.25\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#eee9e2\"/><stop offset=\"0.6\" stop-color=\"#e8e3d8\"/><stop offset=\"1\" stop-color=\"#d9d2ba\"/></radialGradient></defs><circle cx=\"48\" cy=\"48\" r=\"46\" fill=\"url(#vr)\"/><path d=\"M15.8 59.3A44.4 44.4 0 0 1 59.3 15.8\" stroke=\"#ffffff\" stroke-opacity=\"0.55\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"48\" cy=\"48\" r=\"37\" fill=\"url(#vw)\"/><path d=\"M18.4 31.3A36 36 0 0 1 64.7 18.4\" stroke=\"#d9d2ba\" stroke-opacity=\"0.35\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/>\n- 料理がくぼみの大部分を占めます。その料理だと分かる形で描きます。料理を決める部分は大きく丁寧な数個の形にし、飾りは見分けに必要なものだけにします。料理名になっているものがいちばん大きく、中央近くに置きます。大事なものは差し渡し約6より小さくせず、形を作る線は約2.5より細くしません。\n- 具の下には、右下に少しずらした不透明度0.15から0.25の暗い楕円で、柔らかい影を付けてもかまいません。器の外のものには影を付けません。背景、地面、輪郭線は描きません。\n\n光と色（Fluent Colorのスタイル）:\n- 輪郭線のない平らな形で描きます。光は左上から当たります。主な形はそれぞれ、左上の明るく暖かい色から基本の色を経て、右下の深い色へ変わります。丸い形は左上を中心にした radialGradient、平らな形は対角線の linearGradient を使います。\n- 主な形には左上にハイライトを1つ付けます。黄身、ソース、スープ、照りのある肉のようなつやのあるものには不透明度0.5から0.85のはっきりした白い楕円、パン、ご飯、揚げ衣のようなつやのないものには0.3から0.5の柔らかいものを付けるか、付けません。\n- 細部の線は、その形の深い色を不透明度0.4から0.6で使います。\n- 合う場合は次の色を、明るい色、基本の色、深い色の順で使います。葉の緑 #a6dc7e #5fa83f #3f8a2e、赤 #ff8a75 #ec4a3c #b3242b、オレンジ #ffb25c #ff7a1f #d9520c、黄 #fff59a #ffd21f #e09a00、白い食べ物 #ffffff #f1ece0 #cfc6b2、茶 #d79a63 #a4693a #6e3d1c、濃いソース #7a5638 #3c2a1c #1e140c、黒い金属 #767d86 #4e545c #25282d、木 #d79c64 #b07440 #8a5530。\n- 白い食べ物のいちばん明るい色は #f0f0f0 以上にします。とても暗いものは、暗い背景から見分けられるよう、左上を明るくします。\n\n避けること: 曲がったハイライトの下に暗い点が2つあると顔に見えます。細く曲がった線は虫に見えます。丸い点を花のように並べると花に見えます。角の丸いカプセル形はソーセージに見えます。アイコンは、白と黒に近い背景のどちらでも、72ポイントで料理だと分かるようにします。"
+          }
+        }
+      }
+    },
+    "Writer.Prompt.DishIcon.Ask": {
+      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dish: %1$@\n\nIngredients:\n%2$@\n\nHow it is finished and served:\n%3$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "料理: %1$@\n\n材料:\n%2$@\n\n仕上げと盛り付け:\n%3$@"
+          }
+        }
+      }
+    },
+    "Writer.Prompt.Toppings": {
+      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You read recipes to draw an icon of the finished dish. You are given a dish, its method, and one ingredient line. Say how likely it is that the ingredient can be seen on top of the finished dish as it is served, as pieces, flecks, or a sprinkle that a person would notice. Answer with one number from 0 to 1 alone, where 0 means it cannot be seen and 1 means it clearly can."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成した料理のアイコンを描くために、レシピを読みます。料理、作り方、材料1行が渡されます。その材料が、盛り付けた料理の上に、具や散らしたもの、振りかけたものとして見える確からしさを答えてください。0から1までの数字1つだけで答えてください。0は見えない、1ははっきり見えるという意味です。"
+          }
+        }
+      }
+    },
+    "Writer.Prompt.Toppings.Ask": {
+      "comment": "Given to Claude, which is always asked in English whatever language the app is read in. The Japanese value is kept for completeness and is not sent.",
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dish: %1$@\n\nMethod:\n%2$@\n\nIngredient: %3$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "料理: %1$@\n\n作り方:\n%2$@\n\n材料: %3$@"
+          }
+        }
+      }
+    },
     "Writer.Provider.Claude": {
       "extractionState": "manual",
       "localizations": {
@@ -12338,6 +12491,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claude"
+          }
+        }
+      }
+    },
+    "Writer.Provider.OpenAI": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPT"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPT"
           }
         }
       }

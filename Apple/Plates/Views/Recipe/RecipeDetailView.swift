@@ -30,7 +30,7 @@ struct RecipeDetailView: View {
     /// The recipe as it was before the last asked for change, kept while the recipe is still as
     /// that change left it, so the change can be undone.
     @State private var undo: RevisionUndo?
-    /// Whether the dish is being drawn again, which takes a while when Claude draws it.
+    /// Whether the dish is being drawn again, which takes a while when the writer draws it.
     @State private var isRedrawing = false
     @State private var redrawError: String?
     /// Asking for changes is left out when the cook writes their recipes by hand.

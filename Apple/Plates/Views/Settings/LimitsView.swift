@@ -15,7 +15,7 @@ struct LimitsView: View {
         NavigationStack {
             List {
                 if provider.needsKey {
-                    Text("Limits.Claude")
+                    Text(provider.limits)
                 } else if let limits {
                     Section {
                         row("Limits.Write", "Limits.Write.Detail", limits.write)

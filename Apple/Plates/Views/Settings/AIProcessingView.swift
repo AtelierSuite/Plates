@@ -9,41 +9,24 @@ struct AIProcessingView: View {
     @AppStorage(Plates.allowedKey) private var isAllowed = false
     @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .plates
 
-    static let cloudflarePolicy = URL(string: "https://www.cloudflare.com/privacypolicy/")!
-    static let anthropicPolicy = URL(string: "https://www.anthropic.com/legal/privacy")!
-
     var body: some View {
         NavigationStack {
             List {
                 Section {
                     Toggle("AIProcessing.Allow", isOn: $isAllowed)
                 } footer: {
-                    Text(footer)
+                    Text(provider.processingFooter(isAllowed: isAllowed))
                 }
 
                 Section {
-                    switch provider {
-                    case .plates:
-                        row("text.page", "Consent.Gemma", "Consent.Gemma.Description")
-                        row("dice", "Consent.Clef", "Consent.Clef.Description")
-                    case .claude:
-                        row("text.page", "Consent.Claude", "Consent.Claude.Description")
-                        row("key", "Consent.Claude.Key", "Consent.Claude.Key.Description")
+                    ForEach(provider.consentRows, id: \.icon) { item in
+                        row(item.icon, item.title, item.description)
                     }
-                    row(
-                        "lock.shield",
-                        "Consent.Private",
-                        provider == .claude ? "Consent.Private.Description.Claude" : "Consent.Private.Description"
-                    )
+                    row("lock.shield", "Consent.Private", provider.privateDescription)
                 }
 
                 Section {
-                    switch provider {
-                    case .plates:
-                        Link("Consent.Policy.Cloudflare", destination: Self.cloudflarePolicy)
-                    case .claude:
-                        Link("Consent.Policy.Anthropic", destination: Self.anthropicPolicy)
-                    }
+                    Link(provider.policyName, destination: provider.policy)
                 }
             }
             .navigationTitle("AIProcessing.Title")
@@ -53,15 +36,6 @@ struct AIProcessingView: View {
                     Button(role: .close) { dismiss() }
                 }
             }
-        }
-    }
-
-    private var footer: LocalizedStringKey {
-        switch (provider, isAllowed) {
-        case (.plates, true): "AIProcessing.Footer.On"
-        case (.plates, false): "AIProcessing.Footer.Off"
-        case (.claude, true): "AIProcessing.Footer.On.Claude"
-        case (.claude, false): "AIProcessing.Footer.Off.Claude"
         }
     }
 

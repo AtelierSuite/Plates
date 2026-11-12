@@ -2,15 +2,16 @@ import Foundation
 import UIKit
 import WebKit
 
-/// A dish icon Claude draws for a recipe, when Claude writes on the cook's own key. It is asked
+/// A dish icon the writer draws for a recipe, when Claude or GPT 6.1 Sol writes on the cook's
+/// own key. It is asked
 /// for an SVG in the style of the hand drawn signature icons, the drawing is checked in code, and
 /// it is rendered once into a PNG the app keeps beside the recipe file. It stands in for the dish
 /// made from parts and for a signature icon alike.
 public enum DishDrawing {
-    /// Whether a recipe's icon is drawn by Claude: Claude is the writer, a key is saved, and the
-    /// cook allowed requests to leave the device.
+    /// Whether a recipe's icon is drawn: the writer runs on the cook's own key, the key is
+    /// saved, and the cook allowed requests to leave the device.
     public static var isAvailable: Bool {
-        WriterProvider.current == .claude && WriterProvider.claude.hasKey
+        WriterProvider.current.needsKey && WriterProvider.current.hasKey
             && UserDefaults.standard.bool(forKey: Plates.allowedKey)
     }
 
@@ -18,10 +19,11 @@ public enum DishDrawing {
     /// the largest place the icon is shown.
     static let side: CGFloat = 240
 
-    /// Asks Claude for the dish and renders it, ready to write out as a PNG.
+    /// Asks the writer for the dish and renders it, ready to write out as a PNG.
     @MainActor
     public static func draw(for recipe: Recipe) async throws -> Data {
-        let answer = try await ClaudeCloud.shared.drawDish(
+        guard let writer = WriterProvider.current.keyedWriter else { throw CloudError.noResponse }
+        let answer = try await writer.drawDish(
             title: recipe.title,
             ingredients: ((recipe.ingredients.supermarket ?? []) + (recipe.ingredients.general ?? []) + (recipe.ingredients.optional ?? [])).map { [$0.amount, $0.item].filter { !$0.isEmpty }.joined(separator: " ") },
             finish: recipe.steps.last.map { ([$0.title] + $0.points).joined(separator: "\n") } ?? ""
@@ -44,7 +46,7 @@ public enum DishDrawing {
         "ellipse", "rect", "line", "polygon", "polyline", "title", "desc",
     ]
 
-    /// The SVG in Claude's answer, or nil when it is not one a dish icon may be: not well formed,
+    /// The SVG in the writer's answer, or nil when it is not one a dish icon may be: not well formed,
     /// too large, or using anything that could reach outside the drawing, such as a script, an
     /// image, a link, or an event attribute.
     nonisolated static func sanitized(_ answer: String) -> String? {

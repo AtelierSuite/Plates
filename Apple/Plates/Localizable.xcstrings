@@ -52,6 +52,23 @@
         }
       }
     },
+    "AIProcessing.Footer.Off.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipes are written by hand, and nothing is sent to GPT."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピは自分で書きます。GPTには何も送られません。"
+          }
+        }
+      }
+    },
     "AIProcessing.Footer.On" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -82,6 +99,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Platesがレシピを生成し、以下の情報をAnthropicのClaudeに送ります。"
+          }
+        }
+      }
+    },
+    "AIProcessing.Footer.On.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plates generates recipes, and sends what is listed below to GPT at OpenAI."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platesがレシピを生成し、以下の情報をOpenAIのGPTに送ります。"
           }
         }
       }
@@ -184,6 +218,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "まだキーが保存されていません。保存するまでは、Platesでレシピを書きます。"
+          }
+        }
+      }
+    },
+    "APIKey.OpenAI.Footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPT runs on your own OpenAI account, and OpenAI bills it for each request. The key is kept in this iPhone's Keychain and is never sent to any server other than OpenAI's."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPTは自分のOpenAIアカウントで動き、リクエストごとにOpenAIから請求されます。キーはこのiPhoneのキーチェーンに保存され、OpenAI以外のサーバーには送られません。"
+          }
+        }
+      }
+    },
+    "APIKey.OpenAI.Get" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get a New Key from OpenAI Platform"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAI Platformで新しいキーを発行"
+          }
+        }
+      }
+    },
+    "APIKey.OpenAI.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAI API Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAIのAPIキー"
           }
         }
       }
@@ -375,6 +460,74 @@
         }
       }
     },
+    "Consent.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPT Writes Recipes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPTがレシピを書きます"
+          }
+        }
+      }
+    },
+    "Consent.OpenAI.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your request, the ingredients and tools you pick, and each recipe's lines go to GPT at OpenAI, under your own account, to be written, sorted, and translated. A page you share to Plates goes there too."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リクエスト、選んだ材料・道具、レシピの各行が、自分のアカウントでOpenAIのGPTに送られ、書く、整理する、翻訳するのに使われます。Platesに共有したページも送られます。"
+          }
+        }
+      }
+    },
+    "Consent.OpenAI.Key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Key Goes Only to OpenAI"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーはOpenAIにだけ送られます"
+          }
+        }
+      }
+    },
+    "Consent.OpenAI.Key.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The key stays in this iPhone's Keychain and is never sent to any server other than OpenAI's. OpenAI bills your account for each request."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーはこのiPhoneのキーチェーンに保存され、OpenAI以外のサーバーには送られません。リクエストごとにOpenAIからアカウントに請求されます。"
+          }
+        }
+      }
+    },
     "Consent.Policy.Anthropic" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -405,6 +558,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cloudflareのプライバシーポリシー"
+          }
+        }
+      }
+    },
+    "Consent.Policy.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAI Privacy Policy"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAIのプライバシーポリシー"
           }
         }
       }
@@ -456,6 +626,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "名前や位置情報は送られません。リクエストとAnthropicアカウントを結び付けるのはキーだけです。レシピはiPhoneまたはiCloud Driveにファイルとして残ります。"
+          }
+        }
+      }
+    },
+    "Consent.Private.Description.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No name or location is sent, and only the key ties a request to your OpenAI account. Plates asks OpenAI not to store responses. Recipes stay as files on your iPhone or in iCloud Drive."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前や位置情報は送られません。リクエストとOpenAIアカウントを結び付けるのはキーだけです。PlatesはOpenAIに応答を保存しないよう求めます。レシピはiPhoneまたはiCloud Driveにファイルとして残ります。"
           }
         }
       }
@@ -1599,6 +1786,23 @@
         }
       }
     },
+    "Limits.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPT runs on your own OpenAI account, so Plates' daily limits do not apply. OpenAI's rate limits and your account's credit do."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPTは自分のOpenAIアカウントで動くため、Platesの1日の上限はありません。OpenAIのレート制限とアカウントのクレジットが適用されます。"
+          }
+        }
+      }
+    },
     "Limits.Remaining" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1986,6 +2190,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Platesは、iPhoneの外で自分のAnthropicアカウントで動くClaudeを使って、レシピを書いて整理します。必要な情報をClaudeに送ることを許可してください。"
+          }
+        }
+      }
+    },
+    "Onboarding.Consent.Description.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plates writes and sorts recipes with GPT, which runs outside your iPhone on your own OpenAI account. Allow Plates to send it what it needs."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platesは、iPhoneの外で自分のOpenAIアカウントで動くGPTを使って、レシピを書いて整理します。必要な情報をGPTに送ることを許可してください。"
           }
         }
       }
@@ -3602,6 +3823,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Claudeが、自分のAnthropicアカウントですべての手順を行います。Platesによる1日の上限はありません。Opus 5.5はレシピを書き、変更し、アイコンを描きます。Sonnet 5.5はアイディアを出し、リクエストの内容を考え、共有したページを読みます。Haiku 5.5はアイディアを選び、各行を整理し、翻訳します。Apple Intelligenceは必要ありません。"
+          }
+        }
+      }
+    },
+    "Writer.Footer.OpenAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPT 6.1 Sol does every step on your own OpenAI account, with no daily limit from Plates. It writes, edits, suggests ideas, sorts lines, translates, and draws icons. Apple Intelligence is not needed."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPT 6.1 Solが、自分のOpenAIアカウントですべての手順を行います。Platesによる1日の上限はありません。レシピを書き、変更し、アイディアを出し、各行を整理し、翻訳し、アイコンを描きます。Apple Intelligenceは必要ありません。"
           }
         }
       }

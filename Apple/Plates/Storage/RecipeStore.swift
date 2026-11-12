@@ -151,7 +151,7 @@ final class RecipeStore {
     /// without a dish, from the share extension or the samples, has one worked out before it is
     /// written, and Clef's answer replaces it once it comes back, the way a generated recipe's
     /// dish is asked.
-    /// A new recipe is drawn by Claude as well when Claude writes, unless it is a sample.
+    /// A new recipe is drawn as well when Claude or GPT writes, unless it is a sample.
     @discardableResult
     func save(_ recipe: Recipe, isNew: Bool = false, drawsDish: Bool = true) -> Bool {
         guard let directory else { return false }
@@ -177,9 +177,9 @@ final class RecipeStore {
         return recipe
     }
 
-    /// Has Claude draw a recipe's dish, when Claude writes, and keeps the drawing beside the
-    /// recipe. A recipe with no ingredients yet, as one started by hand, is left to be redrawn
-    /// once it has some. A drawing that fails leaves the dish made from parts.
+    /// Has the writer draw a recipe's dish, when it runs on the cook's key, and keeps the drawing
+    /// beside the recipe. A recipe with no ingredients yet, as one started by hand, is left to be
+    /// redrawn once it has some. A drawing that fails leaves the dish made from parts.
     func drawDish(for recipe: Recipe) {
         guard DishDrawing.isAvailable, let directory, !recipe.ingredients.isEmpty else { return }
         Task {
@@ -188,7 +188,7 @@ final class RecipeStore {
         }
     }
 
-    /// Redraws a recipe's dish the way the writer draws it: Claude draws it again, or the
+    /// Redraws a recipe's dish the way the writer draws it: the writer draws it again, or the
     /// drawing is taken away and the dish is worked out from its parts.
     func redrawDish(for recipe: Recipe) async throws -> Recipe {
         guard let directory else { return recipe }

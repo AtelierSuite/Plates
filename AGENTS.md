@@ -87,6 +87,24 @@ shows on a dish, sorts lines, and translates. Every role runs at medium effort.
 - Held to the picks, Opus wrote a soup when asked for fried bee hoon with no oil among them,
   and said so at the top of the recipe.
 
+## GPT 6.1 Sol
+
+GPT is built but not offered: `WriterProvider.offered` leaves it out of the Recipe Writer
+page, and `WriterProvider.current` reads a stored GPT choice as Plates, until it has run
+against OpenAI and its own evals. Once offered, a cook can pick GPT instead and run it on their
+own OpenAI key. It takes every role Claude
+takes, through `KeyedWriter`, so picking, the dish icon questions, drawing, and the passes are
+asked of both the same way. Each client only sends a request and reads its stream.
+
+- `OpenAICloud` calls the Responses API with `gpt-6.1-sol` for every role, at medium effort, with
+  `store` off and no `temperature` or `top_p`. `max_output_tokens` counts reasoning, so each
+  request gets 25,000 on top of its answer's limit, as OpenAI's reasoning guide asks.
+- A pass's schema goes in `text.format` as strict JSON Schema when every property is required,
+  and loose when one is not, since strict mode will not take an optional property.
+- It has not run against OpenAI yet. The client is held to OpenAI's documentation by
+  `OpenAICloudTests`, and the lessons above, from Gemma, Apple Intelligence, and Claude, hold
+  for it until its own generation and edit evals say otherwise.
+
 ## Model lessons
 
 Gemma writes on Cloudflare and Apple Intelligence sorts on the device. Each rule below came out
@@ -169,8 +187,8 @@ comment.
 
 ### Drawn by Claude
 
-When Claude writes on the cook's own key, it draws each new recipe's dish as an SVG to the
-signature dish rules, and on Redraw. `DishDrawing` checks the SVG in code and renders it to
+When Claude or GPT 6.1 Sol writes on the cook's own key, it draws each new recipe's dish as an
+SVG to the signature dish rules, and on Redraw. `DishDrawing` checks the SVG in code and renders it to
 `<id>.png` beside the recipe's `<id>.json`, which older builds ignore. The drawing stands in for
 the dish made from parts and for a signature icon alike. Samples are not drawn on the device: each one ships with the drawing
 Opus made of it in the drawing eval, in `Apple/Plates/SampleRecipes/Drawings`, copied in beside
