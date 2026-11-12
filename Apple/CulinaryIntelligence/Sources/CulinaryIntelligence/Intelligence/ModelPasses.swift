@@ -19,8 +19,8 @@ enum IntelligenceError: LocalizedError {
 /// The model, the cloud a pass falls back to, and the time the app asks for to finish a pass
 /// once it is off screen. Writing a recipe and rewriting one both run their passes through one
 /// of these, so availability, the fallback, and the background time are written down once.
-/// While Claude writes on the cook's own key, every pass goes to Claude instead, to the model
-/// its role calls for, and Apple Intelligence is not needed.
+/// While Claude or GPT 6.1 Sol writes on the cook's own key, every pass goes to it instead, and
+/// Apple Intelligence is not needed.
 @MainActor
 final class ModelPasses {
     private let model = SystemLanguageModel.default
@@ -34,22 +34,22 @@ final class ModelPasses {
     /// land.
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
-    /// Claude, when it writes on a key the cook saved and the cook allowed requests to leave
-    /// the device. Nil sends every pass to Apple Intelligence.
-    var claude: ClaudeCloud? {
-        let cloud = ClaudeCloud.shared
-        return WriterProvider.current == .claude && cloud.isConfigured && cloud.isAllowed ? cloud : nil
+    /// The writer on the cook's own key, when it has a key saved and the cook allowed requests
+    /// to leave the device. Nil sends every pass to Apple Intelligence.
+    var keyed: (any KeyedWriter)? {
+        guard let writer = WriterProvider.current.keyedWriter, writer.isConfigured, writer.isAllowed else { return nil }
+        return writer
     }
 
-    /// The role a sorting pass goes to Claude under: sorting what was written, or reading a
-    /// page the cook shared.
-    var sortingRole: ClaudeRole = .sort
+    /// The role a sorting pass is sent under: sorting what was written, or reading a page the
+    /// cook shared.
+    var sortingRole: WriterRole = .sort
 
-    var isAvailable: Bool { claude != nil || model.availability == .available }
+    var isAvailable: Bool { keyed != nil || model.availability == .available }
 
     /// Why Apple Intelligence cannot run here, in words a cook can act on, or nil when it can.
     var unavailableReason: LocalizedStringResource? {
-        if claude != nil { return nil }
+        if keyed != nil { return nil }
         return switch model.availability {
         case .available:
             nil
@@ -91,20 +91,20 @@ final class ModelPasses {
     /// One answer in a session of its own, held to a response length. A pass that fails is
     /// tried again, waiting longer each time. The usual failure is the system holding back a
     /// run that has gone on in the background, which clears after a short wait.
-    /// With Claude, the pass's own schema holds the answer, and the role picks the model:
-    /// sorting when none is given.
+    /// On the cook's own key, the pass's own schema holds the answer, and the role says what the
+    /// pass is for: sorting when none is given.
     func respond<Content: Generable>(
         _ type: Content.Type,
         to prompt: String,
         instructions: String,
         tokenLimit: Int,
-        role: ClaudeRole? = nil,
+        role: WriterRole? = nil,
         greedy: Bool = false,
         retries: Bool = true
     ) async throws -> Content {
         try await retrying(retries) {
-            if let claude {
-                let json = try await claude.structured(
+            if let keyed {
+                let json = try await keyed.structured(
                     role ?? sortingRole,
                     system: instructions,
                     prompt: prompt,
@@ -129,10 +129,10 @@ final class ModelPasses {
         schema: GenerationSchema,
         instructions: String,
         tokenLimit: Int,
-        role: ClaudeRole? = nil
+        role: WriterRole? = nil
     ) async throws -> GeneratedContent {
-        if let claude {
-            let json = try await claude.structured(
+        if let keyed {
+            let json = try await keyed.structured(
                 role ?? sortingRole,
                 system: instructions,
                 prompt: prompt,
@@ -151,9 +151,9 @@ final class ModelPasses {
     }
 
     /// One answer in plain text, such as a translation.
-    func respondText(to prompt: String, instructions: String, tokenLimit: Int, role: ClaudeRole) async throws -> String {
-        if let claude {
-            return try await claude.plain(role, system: instructions, prompt: prompt, maximumTokens: tokenLimit)
+    func respondText(to prompt: String, instructions: String, tokenLimit: Int, role: WriterRole) async throws -> String {
+        if let keyed {
+            return try await keyed.plain(role, system: instructions, prompt: prompt, maximumTokens: tokenLimit)
         }
         return try await run(instructions: instructions) { session in
             try await session.respond(
@@ -164,7 +164,7 @@ final class ModelPasses {
     }
 
     /// Runs a pass, and runs it again when it fails, waiting longer each time. An answer from
-    /// Anthropic about the key, the account, or the request is not tried again.
+    /// the provider about the key, the account, or the request is not tried again.
     private func retrying<Value>(_ retries: Bool, _ pass: () async throws -> Value) async throws -> Value {
         var waits: [Duration] = retries ? [.seconds(1), .seconds(4), .seconds(10)] : []
         while true {
@@ -172,7 +172,7 @@ final class ModelPasses {
                 return try await pass()
             } catch is CancellationError {
                 throw CancellationError()
-            } catch let error as ClaudeError {
+            } catch let error as any WriterAccountError {
                 throw error
             } catch CloudError.notAllowed {
                 throw CloudError.notAllowed
@@ -183,7 +183,7 @@ final class ModelPasses {
         }
     }
 
-    /// A pass's schema as the JSON Schema Claude's structured outputs take. The keywords they
+    /// A pass's schema as the JSON Schema structured outputs take. The keywords they
     /// do not take, such as array lengths and FoundationModels' own property order, are left out.
     nonisolated static func jsonSchema(_ schema: GenerationSchema) throws -> [String: Any] {
         let object = try JSONSerialization.jsonObject(with: JSONEncoder().encode(schema))

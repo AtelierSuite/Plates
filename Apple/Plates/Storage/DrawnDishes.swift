@@ -2,7 +2,7 @@ import Foundation
 import Observation
 import UIKit
 
-/// The dish icons Claude drew, kept as `<id>.png` beside each recipe's `<id>.json`. The file sits
+/// The dish icons the writer drew, kept as `<id>.png` beside each recipe's `<id>.json`. The file sits
 /// in the same folder, so it travels through iCloud Drive with the recipe, and builds that only
 /// read the JSON leave it alone.
 @MainActor

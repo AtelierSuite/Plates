@@ -1,7 +1,7 @@
 import Foundation
 
 /// What the Anthropic API answered when it did not write, in words a cook can act on.
-public enum ClaudeError: LocalizedError, Equatable {
+public enum ClaudeError: WriterAccountError, Equatable {
     /// No key has been entered for Claude.
     case noKey
     /// Anthropic did not accept the key.
@@ -47,15 +47,11 @@ public enum ClaudeError: LocalizedError, Equatable {
     }
 }
 
-/// What a request to Claude is for, which sets the model that answers it. Opus writes, edits,
-/// and draws; Sonnet offers ideas, plans a request, and reads a shared page; Haiku picks, says
-/// what shows on a dish, sorts lines, and translates.
-enum ClaudeRole: Sendable {
-    case write, edit, draw
-    case ideas, plan, parse
-    case decide, toppings, sort, translate
-
-    var model: String {
+extension WriterRole {
+    /// The Claude model a role goes to. Opus writes, edits, and draws; Sonnet offers ideas, plans
+    /// a request, and reads a shared page; Haiku picks, says what shows on a dish, sorts lines,
+    /// and translates.
+    var claudeModel: String {
         switch self {
         case .write, .edit, .draw: "claude-opus-5-5"
         case .ideas, .plan, .parse: "claude-sonnet-5-5"
@@ -65,12 +61,11 @@ enum ClaudeRole: Sendable {
 }
 
 /// Claude on the cook's own Anthropic account, with each request sent to the model its role
-/// calls for. Requests go from the device straight to the Messages API with the cook's key, so
-/// neither App Attest nor PlatesCloud's daily limits apply. It is given the same English
-/// instructions and prompts as Gemma, and its answers are read the same way. While Claude
-/// writes, the passes Apple Intelligence runs on the device are sent here too.
+/// calls for, through the Messages API. It is given the same English instructions and prompts
+/// as Gemma, and its answers are read the same way. While Claude writes, the passes Apple
+/// Intelligence runs on the device are sent here too.
 @MainActor
-final class ClaudeCloud: RecipeWriting {
+final class ClaudeCloud: KeyedWriter {
     static let shared = ClaudeCloud()
 
     private static let endpoint = URL(string: "https://api.anthropic.com/v1/messages")!
@@ -81,10 +76,6 @@ final class ClaudeCloud: RecipeWriting {
     /// allowance of 2,048 on 4 of 24 recipes.
     static let thinkingAllowance = 6000
     static let effort = "medium"
-
-    /// How many dish icon questions are in flight at once, to stay inside a new account's rate
-    /// limits.
-    private static let toppingsAtOnce = 3
 
     /// Where the cook's key is read from, the Keychain everywhere but in tests.
     private let key: () -> String?
@@ -99,187 +90,30 @@ final class ClaudeCloud: RecipeWriting {
         LocalizedStringResource(culinary: "Generate.Unavailable.ClaudeKey")
     }
 
-    var isAllowed: Bool { UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) }
-
-    /// The cook's own key has no daily limit from us.
-    var writesRemaining: Int? { .max }
-
-    // MARK: - Writing
-
-    /// Opus 5.5 takes no sampling settings, so the temperature is left out.
-    func write(
-        instructions: String,
+    func stream(
+        _ role: WriterRole,
+        system: String,
         example: (ask: String, answer: String)?,
         prompt: String,
         maximumTokens: Int,
-        temperature: Double
+        schema: [String: Any]?
     ) -> AsyncThrowingStream<String, Error> {
-        stream(.write, system: instructions, example: example, prompt: prompt, maximumTokens: maximumTokens)
-    }
-
-    private func stream(
-        _ role: ClaudeRole,
-        system: String,
-        example: (ask: String, answer: String)? = nil,
-        prompt: String,
-        maximumTokens: Int,
-        schema: [String: Any]? = nil
-    ) -> AsyncThrowingStream<String, Error> {
-        AsyncThrowingStream { continuation in
-            let task = Task {
-                do {
-                    let bytes = try await self.send(
-                        role,
-                        system: system,
-                        example: example,
-                        prompt: prompt,
-                        maximumTokens: maximumTokens,
-                        schema: schema
-                    )
-                    for try await line in bytes.lines {
-                        guard line.hasPrefix("data:") else { continue }
-                        if let text = try Self.text(inEvent: String(line.dropFirst(5))) {
-                            continuation.yield(text)
-                        }
-                    }
-                    continuation.finish()
-                } catch {
-                    continuation.finish(throwing: error)
-                }
-            }
-            continuation.onTermination = { _ in task.cancel() }
-        }
-    }
-
-    func ideate(instructions: String, prompt: String, maximumTokens: Int, temperature: Double) async throws -> String {
-        try await answer(.ideas, system: instructions, prompt: prompt, maximumTokens: maximumTokens)
-    }
-
-    func edit(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
-        try await answer(.edit, system: instructions, prompt: prompt, maximumTokens: maximumTokens)
-    }
-
-    // MARK: - Passes
-
-    /// A pass Apple Intelligence would otherwise run, answered as JSON that holds to the pass's
-    /// own schema.
-    func structured(
-        _ role: ClaudeRole,
-        system: String,
-        prompt: String,
-        schema: [String: Any],
-        maximumTokens: Int
-    ) async throws -> String {
-        try await answer(role, system: system, prompt: prompt, maximumTokens: maximumTokens, schema: schema)
-    }
-
-    /// A pass that answers in plain text, such as a translation.
-    func plain(_ role: ClaudeRole, system: String, prompt: String, maximumTokens: Int) async throws -> String {
-        try await answer(role, system: system, prompt: prompt, maximumTokens: maximumTokens)
-    }
-
-    // MARK: - Deciding
-
-    func decide(
-        requestID: String,
-        request: String,
-        ingredients: [String],
-        tools: [String],
-        ideas: [(title: String, summary: String)]
-    ) async throws -> CloudPick {
-        let none = Self.english("Generate.Prompt.Plan.None")
-        let separator = Self.english("Generate.Prompt.Separator")
-        let listed = ideas.enumerated().map { index, idea in
-            idea.summary.isEmpty ? "\(index + 1). \(idea.title)" : "\(index + 1). \(idea.title): \(idea.summary)"
-        }
-        let prompt = Self.english(
-            "Claude.Prompt.Decide.Ask",
-            request,
-            ingredients.isEmpty ? none : ingredients.joined(separator: separator),
-            tools.isEmpty ? none : tools.joined(separator: separator),
-            listed.joined(separator: "\n")
-        )
-        let answer = try await answer(.decide, system: Self.english("Claude.Prompt.Decide"), prompt: prompt, maximumTokens: 16)
-        guard let number = Self.firstNumber(in: answer), number == number.rounded(),
-              ideas.indices.contains(Int(number) - 1)
-        else { throw CloudError.noResponse }
-        return CloudPick(index: Int(number) - 1, remaining: nil)
-    }
-
-    func decisionsRemaining() async -> Int? { nil }
-
-    // MARK: - Dish icons
-
-    /// One question per line, as Clef is asked, a few at a time.
-    func toppings(dish: String, steps: [(title: String, points: [String])], ingredients: [String]) async throws -> [Double] {
-        let method = steps.map { step in
-            ([step.title] + step.points.map { "- \($0)" }).joined(separator: "\n")
-        }.joined(separator: "\n\n")
-        let system = Self.english("Claude.Prompt.Toppings")
-        return try await withThrowingTaskGroup(of: (Int, Double).self) { group in
-            var answers = Array(repeating: 0.0, count: ingredients.count)
-            var next = 0
-            func ask(_ index: Int) {
-                let prompt = Self.english("Claude.Prompt.Toppings.Ask", dish, method, ingredients[index])
-                group.addTask {
-                    let answer = try await self.answer(.toppings, system: system, prompt: prompt, maximumTokens: 16)
-                    guard let value = Self.firstNumber(in: answer) else { throw CloudError.noResponse }
-                    return (index, min(max(value, 0), 1))
-                }
-            }
-            while next < min(Self.toppingsAtOnce, ingredients.count) {
-                ask(next)
-                next += 1
-            }
-            while let (index, value) = try await group.next() {
-                answers[index] = value
-                if next < ingredients.count {
-                    ask(next)
-                    next += 1
-                }
-            }
-            return answers
-        }
-    }
-
-    // MARK: - Drawing
-
-    /// Room for a dish icon's SVG, which runs to a few thousand tokens.
-    static let drawingTokens = 6000
-
-    /// Claude's drawing of the dish as an SVG, from its title, its ingredient lines, and the
-    /// last step, which says how it is served.
-    func drawDish(title: String, ingredients: [String], finish: String) async throws -> String {
-        let prompt = Self.english(
-            "Claude.Prompt.DishIcon.Ask",
-            title,
-            ingredients.map { "- \($0)" }.joined(separator: "\n"),
-            finish
-        )
-        return try await answer(.draw, system: Self.english("Claude.Prompt.DishIcon"), prompt: prompt, maximumTokens: Self.drawingTokens)
+        streamedText {
+            try await self.send(
+                role,
+                system: system,
+                example: example,
+                prompt: prompt,
+                maximumTokens: maximumTokens,
+                schema: schema
+            )
+        } text: { try Self.text(inEvent: $0) }
     }
 
     // MARK: - Requests
 
-    /// The whole answer to one request, streamed and put together.
-    private func answer(
-        _ role: ClaudeRole,
-        system: String,
-        prompt: String,
-        maximumTokens: Int,
-        schema: [String: Any]? = nil
-    ) async throws -> String {
-        var text = ""
-        for try await piece in stream(role, system: system, prompt: prompt, maximumTokens: maximumTokens, schema: schema) {
-            text += piece
-        }
-        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { throw CloudError.noResponse }
-        return trimmed
-    }
-
     private func send(
-        _ role: ClaudeRole,
+        _ role: WriterRole,
         system: String,
         example: (ask: String, answer: String)?,
         prompt: String,
@@ -319,7 +153,7 @@ final class ClaudeCloud: RecipeWriting {
     /// off. The effort, medium for every role, sets how long each one thinks. A schema, when a
     /// pass has one, holds the answer to it.
     nonisolated static func body(
-        _ role: ClaudeRole,
+        _ role: WriterRole,
         system: String,
         example: (ask: String, answer: String)? = nil,
         prompt: String,
@@ -337,7 +171,7 @@ final class ClaudeCloud: RecipeWriting {
             output["format"] = ["type": "json_schema", "schema": schema]
         }
         let object: [String: Any] = [
-            "model": role.model,
+            "model": role.claudeModel,
             "max_tokens": maximumTokens + thinkingAllowance,
             "system": system,
             "messages": messages,
@@ -369,16 +203,6 @@ final class ClaudeCloud: RecipeWriting {
         default:
             return nil
         }
-    }
-
-    nonisolated static func firstNumber(in text: String) -> Double? {
-        guard let range = text.range(of: #"\d+(?:\.\d+)?"#, options: .regularExpression) else { return nil }
-        return Double(text[range])
-    }
-
-    nonisolated private static func english(_ key: String.LocalizationValue, _ arguments: CVarArg...) -> String {
-        let format = String(culinaryEnglish: key)
-        return arguments.isEmpty ? format : String(format: format, arguments: arguments)
     }
 
     nonisolated private struct StreamEvent: Decodable {

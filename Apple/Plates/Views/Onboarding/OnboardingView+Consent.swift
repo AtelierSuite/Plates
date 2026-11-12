@@ -9,59 +9,23 @@ extension OnboardingView {
             stepHeader(
                 icon: "hand.raised",
                 title: "Onboarding.Consent.Title",
-                description: provider == .claude
-                    ? "Onboarding.Consent.Description.Claude"
-                    : "Onboarding.Consent.Description"
+                description: provider.onboardingDescription
             )
 
             VStack(alignment: .leading, spacing: 24) {
-                switch provider {
-                case .platesCloud:
-                    featureRow(
-                        icon: "text.page",
-                        title: "Consent.Gemma",
-                        description: "Consent.Gemma.Description",
-                        spacing: 8
-                    )
-                    featureRow(
-                        icon: "dice",
-                        title: "Consent.Clef",
-                        description: "Consent.Clef.Description",
-                        spacing: 8
-                    )
-                case .claude:
-                    featureRow(
-                        icon: "text.page",
-                        title: "Consent.Claude",
-                        description: "Consent.Claude.Description",
-                        spacing: 8
-                    )
-                    featureRow(
-                        icon: "key",
-                        title: "Consent.Claude.Key",
-                        description: "Consent.Claude.Key.Description",
-                        spacing: 8
-                    )
+                ForEach(provider.consentRows, id: \.icon) { item in
+                    featureRow(icon: item.icon, title: item.title, description: item.description, spacing: 8)
                 }
                 featureRow(
                     icon: "lock.shield",
                     title: "Consent.Private",
-                    description: provider == .claude
-                        ? "Consent.Private.Description.Claude"
-                        : "Consent.Private.Description",
+                    description: provider.privateDescription,
                     spacing: 8
                 )
             }
 
-            VStack(alignment: .leading, spacing: 12) {
-                switch provider {
-                case .platesCloud:
-                    Link("Consent.Policy.Cloudflare", destination: AIProcessingView.cloudflarePolicy)
-                case .claude:
-                    Link("Consent.Policy.Anthropic", destination: AIProcessingView.anthropicPolicy)
-                }
-            }
-            .font(.subheadline)
+            Link(provider.policyName, destination: provider.policy)
+                .font(.subheadline)
 
             Text("Onboarding.Consent.Footer")
                 .font(.footnote)
