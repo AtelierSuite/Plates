@@ -919,13 +919,13 @@ public final class RecipeGenerator {
 
     /// The serving count as the figures in it: "Makes 4 servings" is "4", and "Serves 4 to 6" is
     /// "4 to 6".
+    /// The serving count, or a range when the two figures are joined as one. Opus has written
+    /// "Serves: 2, with about 1 1/2 cups of kaya left over", which is two servings and not two to
+    /// one, so a second figure counts only when "to", a dash, "or", or a Japanese range mark joins it.
     static func serves(from written: String) -> String {
-        let figures = written.matches(of: #/\d+/#).map { String(written[$0.range]) }
-        switch figures.count {
-        case 0: return ""
-        case 1: return figures[0]
-        default: return figures[0] + " to " + figures[1]
-        }
+        guard let match = written.firstMatch(of: #/(\d+)(?:\s*(?:to|-|–|or|〜|～|から)\s*(\d+))?/#) else { return "" }
+        guard let upper = match.output.2 else { return String(match.output.1) }
+        return match.output.1 + " to " + upper
     }
 
     /// A step's text cut into its sentences, with any sentence said twice kept once.
