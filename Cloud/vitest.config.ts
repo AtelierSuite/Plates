@@ -16,6 +16,7 @@ export default defineConfig({
           IDEATE_DAILY_LIMIT: "2",
           DECIDE_DAILY_LIMIT: "2",
           TOPPINGS_DAILY_LIMIT: "2",
+          EDIT_DAILY_LIMIT: "2",
           CHALLENGE_SECRET: "test-secret",
         },
       },

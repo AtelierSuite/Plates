@@ -113,6 +113,30 @@ describe("writing", () => {
     expect(text.trim().endsWith("data: [DONE]")).toBe(true);
   });
 
+  it("passes on Gemma's finish reason", async () => {
+    const phone = await Phone.create();
+    const cut = async () => ({ choices: [{ message: { content: "Egg" }, finish_reason: "length" }] });
+    const counted = async () => ({ response: "Egg", usage: { completion_tokens: 1400 } });
+    const whole = async () => ({ response: "Egg Fried Rice", usage: { completion_tokens: 12 } });
+    const reason = async (run: () => Promise<object>) =>
+      ((await (await phone.post("/v1/chat/completions", chat, { ai: { run } })).json()) as { choices: { finish_reason: string }[] }).choices[0].finish_reason;
+    expect(await reason(cut)).toBe("length");
+    expect(await reason(counted)).toBe("length");
+    expect(await reason(whole)).toBe("stop");
+  });
+
+  it("ends a stream with Gemma's finish reason", async () => {
+    const phone = await Phone.create();
+    const reason = async (...events: object[]) => {
+      const text = await (await phone.post("/v1/chat/completions", { ...chat, stream: true }, { ai: { run: async () => sse(...events) } })).text();
+      const chunks = text.split("\n\n").filter((line) => line.startsWith("data: {")).map((line) => JSON.parse(line.slice(6)));
+      return chunks[chunks.length - 1].choices[0].finish_reason;
+    };
+    expect(await reason({ choices: [{ delta: { content: "Egg" }, finish_reason: null }] }, { choices: [{ delta: {}, finish_reason: "length" }] })).toBe("length");
+    expect(await reason({ response: "Egg" }, { response: "", usage: { completion_tokens: 1400 } })).toBe("length");
+    expect(await reason({ choices: [{ delta: { content: "Egg Fried Rice" } }] })).toBe("stop");
+  });
+
   it("stops at the daily limit and gives back a failed write", async () => {
     const phone = await Phone.create();
     const broken = { run: async () => { throw new Error("gemma is down"); } };
@@ -146,6 +170,7 @@ describe("writing", () => {
     expect((await phone.post("/v1/chat/completions", chat)).status).toBe(429);
     expect(await (await phone.post("/v1/limits", {})).json()).toEqual({
       write: { limit: 5, remaining: 0 }, ideate: { limit: 2, remaining: 2 }, decide: { limit: 2, remaining: 2 }, toppings: { limit: 2, remaining: 2 },
+      edit: { limit: 2, remaining: 2 },
     });
   });
 
@@ -245,6 +270,64 @@ describe("toppings", () => {
     const phone = await Phone.create();
     expect((await phone.post("/v1/toppings", { ...dish, ingredients: [] })).status).toBe(400);
     expect((await phone.post("/v1/toppings", { ...dish, steps: [] })).status).toBe(400);
+  });
+});
+
+describe("editing", () => {
+  it("asks Gemma, counts edits apart from recipes, and keeps them short", async () => {
+    const phone = await Phone.create();
+    const run = vi.fn(async () => ({ choices: [{ message: { content: "Press the tofu and fry it until golden." } }] }));
+    expect((await phone.post("/v1/edit", { ...chat, max_tokens: 500 })).status).toBe(400);
+    const response = await phone.post("/v1/edit", { ...chat, max_tokens: 300 }, { ai: { run } });
+    const body = (await response.json()) as { choices: { message: { content: string } }[] };
+    expect(body.choices[0].message.content).toBe("Press the tofu and fry it until golden.");
+    expect(response.headers.get("X-Plates-Remaining")).toBe("1");
+    expect(run).toHaveBeenCalledWith("@cf/google/gemma-4-26b-a4b-it", {
+      messages: chat.messages, max_tokens: 300, temperature: 0.7, stream: false, chat_template_kwargs: { enable_thinking: false },
+    });
+    expect((await phone.post("/v1/chat/completions", chat)).headers.get("X-Plates-Remaining")).toBe("2");
+    expect((await phone.post("/v1/ideate", chat)).headers.get("X-Plates-Remaining")).toBe("1");
+  });
+
+  it("gives back a failed edit and stops at the limit", async () => {
+    const phone = await Phone.create();
+    const broken = { run: async () => { throw new Error("gemma is down"); } };
+    expect((await phone.post("/v1/edit", chat, { ai: broken })).status).toBe(502);
+    for (let i = 0; i < 2; i++) expect((await phone.post("/v1/edit", chat)).status).toBe(200);
+    const over = await phone.post("/v1/edit", chat);
+    expect(over.status).toBe(429);
+    expect(over.headers.get("X-Plates-Remaining")).toBe("0");
+    expect(await (await phone.post("/v1/limits", {})).json()).toMatchObject({ edit: { limit: 2, remaining: 0 }, write: { limit: 3, remaining: 3 } });
+  });
+
+  it("uses an edit limit set in the device's storage", async () => {
+    const phone = await Phone.create();
+    await runInDurableObject(phone.stub(), (_, state) => {
+      state.storage.sql.exec("INSERT INTO limits (kind, daily) VALUES ('edit', 0)");
+    });
+    expect((await phone.post("/v1/edit", chat)).status).toBe(429);
+  });
+
+  it("leaves edits out, and the other limits as they were, until the edit limit is set", async () => {
+    const phone = await Phone.create();
+    const unset = { ...env, EDIT_DAILY_LIMIT: "", AI: { run: async () => ({ response: "" }) } } as Env;
+    const post = async (path: string, payload: unknown) => {
+      const body = new TextEncoder().encode(JSON.stringify(payload));
+      return worker.fetch(new Request(`https://plates.test${path}`, {
+        method: "POST",
+        body,
+        headers: {
+          "X-Plates-Key-Id": base64Encode(phone.keyId),
+          "X-Plates-Assertion": await phone.assertion(body),
+          "X-Plates-UTC-Offset": "540",
+        },
+      }), unset);
+    };
+    expect((await post("/v1/edit", chat)).status).toBe(503);
+    expect(await (await post("/v1/limits", {})).json()).toEqual({
+      write: { limit: 3, remaining: 3 }, ideate: { limit: 2, remaining: 2 }, decide: { limit: 2, remaining: 2 }, toppings: { limit: 2, remaining: 2 },
+    });
+    expect((await post("/v1/chat/completions", chat)).status).toBe(200);
   });
 });
 

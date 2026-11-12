@@ -27,8 +27,18 @@ struct RecipeDetailView: View {
     @State private var editor = RecipeAskEditor(observer: GenerationActivity.edit)
     @State private var revision = ""
     @State private var revisionError: String?
+    /// The recipe as it was before the last asked for change, kept while the recipe is still as
+    /// that change left it, so the change can be undone.
+    @State private var undo: RevisionUndo?
     /// Asking for changes is left out when the cook writes their recipes by hand.
     @AppStorage(PlatesCloud.allowedKey) private var isGenerationAllowed = false
+
+    /// One asked for change: the recipe before it, after it, and what the cook asked.
+    private struct RevisionUndo {
+        let before: Recipe
+        let after: Recipe
+        let request: String
+    }
 
     /// The three things about a recipe that are edited in an alert rather than a sheet.
     private enum Field {
@@ -69,6 +79,13 @@ struct RecipeDetailView: View {
         .navigationBarTitleDisplayMode(.large)
         .animation(.default, value: isEditing)
         .toolbar {
+            if store != nil, undo != nil {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Recipe.Edit.Undo", systemImage: "arrow.uturn.backward", action: undoRevision)
+                        .disabled(isRevising)
+                }
+            }
+
             if store != nil {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -136,6 +153,8 @@ struct RecipeDetailView: View {
         // A pass can take a while, and the screen is not touched while it runs, so it is held
         // awake rather than locking part way through.
         .onChange(of: isRevising) { UIApplication.shared.isIdleTimerDisabled = isRevising }
+        // Any other change to the recipe ends the chance to undo the asked for one.
+        .onChange(of: recipe) { if recipe != undo?.after { undo = nil } }
         // Covering the page with cooking mode can count as leaving it, and cooking mode keeps
         // the screen awake itself, so it is left alone then.
         // The inventory is changed from the popover and from the main screen, so it is read
@@ -683,7 +702,9 @@ struct RecipeDetailView: View {
         guard canRevise else { return }
         let ask = trimmedRevision
         Task {
-            if let revised = await editor.revise(recipe, request: ask) {
+            let before = recipe
+            if let revised = await editor.revise(before, request: ask) {
+                undo = RevisionUndo(before: before, after: revised, request: ask)
                 recipe = revised
                 revision = ""
                 save()
@@ -691,6 +712,16 @@ struct RecipeDetailView: View {
                 revisionError = message
             }
         }
+    }
+
+    /// Puts the recipe back as it was before the last asked for change, with the request back in
+    /// the field so it can be asked again in other words.
+    private func undoRevision() {
+        guard let undo else { return }
+        self.undo = nil
+        recipe = undo.before
+        revision = undo.request
+        save()
     }
 
     /// Every edit goes straight to the file, so leaving the editor is never the thing that
