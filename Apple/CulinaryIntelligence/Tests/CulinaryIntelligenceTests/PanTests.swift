@@ -3,10 +3,10 @@ import Testing
 @testable import CulinaryIntelligence
 
 struct PanTests {
+    /// The samples the app shipped before the Singaporean ones, kept as fixtures.
     private static let samples = URL(filePath: #filePath)
-        .deletingLastPathComponent()
-        .appending(path: "../../../Plates/SampleRecipes")
-        .standardized
+        .deletingLastPathComponent().deletingLastPathComponent()
+        .appending(path: "Fixtures/SampleRecipes")
 
     private func sample(_ name: String, _ language: String = "en-US") throws -> Recipe {
         let url = Self.samples.appending(path: "\(language).lproj/\(name).json")
