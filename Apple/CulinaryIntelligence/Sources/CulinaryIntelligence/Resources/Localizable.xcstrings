@@ -24,13 +24,13 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your Anthropic account has no credit left. Add credit in the Anthropic Console and try again."
+            "value": "Your Anthropic account has no credit left. Add credit on Claude Platform and try again."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anthropicアカウントのクレジットが残っていません。Anthropic Consoleでクレジットを追加してから、もう一度お試しください。"
+            "value": "Anthropicアカウントのクレジットが残っていません。Claude Platformでクレジットを追加してから、もう一度お試しください。"
           }
         }
       }
@@ -58,13 +58,13 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "This API key cannot use Claude Opus 5.5. Check the key's workspace in the Anthropic Console."
+            "value": "This API key cannot use Claude Opus 5.5. Check the key's workspace on Claude Platform."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "このAPIキーではClaude Opus 5.5を使えません。Anthropic Consoleでキーのワークスペースを確かめてください。"
+            "value": "このAPIキーではClaude Opus 5.5を使えません。Claude Platformでキーのワークスペースを確かめてください。"
           }
         }
       }

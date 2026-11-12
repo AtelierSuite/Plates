@@ -126,13 +126,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Get a Key from the Anthropic Console"
+            "value" : "Get a New Key from Claude Platform"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anthropic Consoleでキーを取得"
+            "value" : "Claude Platformで新しいキーを発行"
           }
         }
       }

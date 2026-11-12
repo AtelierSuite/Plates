@@ -11,7 +11,8 @@ struct APIKeyView: View {
     @State private var key = ""
     @State private var hasKey = false
 
-    static let anthropicConsole = URL(string: "https://console.anthropic.com/settings/keys")!
+    /// Where a new key is issued, on Claude Platform.
+    static let claudePlatformKeys = URL(string: "https://platform.claude.com/settings/keys")!
 
     var body: some View {
         NavigationStack {
@@ -31,7 +32,9 @@ struct APIKeyView: View {
                 }
 
                 Section {
-                    Link(getKeyTitle, destination: console)
+                    Link(destination: console) {
+                        Label(getKeyTitle, systemImage: "arrow.up.forward.app")
+                    }
                 }
 
                 if hasKey {
@@ -66,5 +69,5 @@ struct APIKeyView: View {
     private var title: LocalizedStringKey { "APIKey.Claude.Title" }
     private var footer: LocalizedStringKey { "APIKey.Claude.Footer" }
     private var getKeyTitle: LocalizedStringKey { "APIKey.Claude.Get" }
-    private var console: URL { Self.anthropicConsole }
+    private var console: URL { Self.claudePlatformKeys }
 }
