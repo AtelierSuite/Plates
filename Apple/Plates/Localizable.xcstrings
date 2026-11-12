@@ -109,13 +109,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Opus 5.5 writes on your own Anthropic account, and Anthropic bills it for each request. The key is kept in this iPhone's Keychain and is never sent to any server other than Anthropic's."
+            "value" : "Claude runs on your own Anthropic account, and Anthropic bills it for each request. The key is kept in this iPhone's Keychain and is never sent to any server other than Anthropic's."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Opus 5.5は自分のAnthropicアカウントで動き、リクエストごとにAnthropicから請求されます。キーはこのiPhoneのキーチェーンに保存され、Anthropic以外のサーバーには送られません。"
+            "value" : "Claudeは自分のAnthropicアカウントで動き、リクエストごとにAnthropicから請求されます。キーはこのiPhoneのキーチェーンに保存され、Anthropic以外のサーバーには送られません。"
           }
         }
       }
@@ -167,6 +167,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "APIキー"
+          }
+        }
+      }
+    },
+    "APIKey.Missing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No key is saved yet. Recipes are written with PlatesCloud until one is."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだキーが保存されていません。保存するまでは、PlatesCloudでレシピを書きます。"
           }
         }
       }
@@ -245,13 +262,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your request and the ingredients and tools you pick go to Claude Opus 5.5 at Anthropic, under your own account. Decide for Me and recipe icons send the recipe there too."
+            "value" : "Your request, the ingredients and tools you pick, and each recipe's lines go to Claude at Anthropic, under your own account, to be written, sorted, and translated. A page you share to Plates goes there too."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "リクエストと選んだ材料・道具が、自分のアカウントでAnthropicのClaude Opus 5.5に送られます。おまかせとレシピのアイコンでは、レシピも送られます。"
+            "value" : "リクエスト、選んだ材料・道具、レシピの各行が、自分のアカウントでAnthropicのClaudeに送られ、書く、整理する、翻訳するのに使われます。Platesに共有したページも送られます。"
           }
         }
       }
@@ -1418,13 +1435,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Opus 5.5 runs on your own Anthropic account, so PlatesCloud's daily limits do not apply. Anthropic's rate limits and your account's credit do."
+            "value" : "Claude runs on your own Anthropic account, so PlatesCloud's daily limits do not apply. Anthropic's rate limits and your account's credit do."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Opus 5.5は自分のAnthropicアカウントで動くため、PlatesCloudの1日の上限はありません。Anthropicのレート制限とアカウントのクレジットが適用されます。"
+            "value" : "Claudeは自分のAnthropicアカウントで動くため、PlatesCloudの1日の上限はありません。Anthropicのレート制限とアカウントのクレジットが適用されます。"
           }
         }
       }
@@ -1680,23 +1697,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サンプルレシピを追加"
-          }
-        }
-      }
-    },
-    "Menu.APIKey.Claude" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en-US" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anthropic API Key"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "AnthropicのAPIキー"
           }
         }
       }
@@ -1979,13 +1979,13 @@
         "en-US" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Plates writes recipes with Claude Opus 5.5, which runs outside your iPhone on your own Anthropic account. Allow Plates to send it what it needs."
+            "value" : "Plates writes and sorts recipes with Claude, which runs outside your iPhone on your own Anthropic account. Allow Plates to send it what it needs."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Platesは、iPhoneの外で、自分のAnthropicアカウントで動くClaude Opus 5.5を使ってレシピを書きます。必要な情報をClaudeに送ることを許可してください。"
+            "value" : "Platesは、iPhoneの外で自分のAnthropicアカウントで動くClaudeを使って、レシピを書いて整理します。必要な情報をClaudeに送ることを許可してください。"
           }
         }
       }
@@ -3585,6 +3585,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "調理器具"
+          }
+        }
+      }
+    },
+    "Writer.Footer.Claude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude does every step on your own Anthropic account, with no daily limit from Plates. Opus 5.5 writes, edits, and draws icons. Sonnet 5.5 suggests ideas, plans requests, and reads pages you share. Haiku 5.5 picks ideas, sorts lines, and translates. Apple Intelligence is not needed."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claudeが、自分のAnthropicアカウントですべての手順を行います。Platesによる1日の上限はありません。Opus 5.5はレシピを書き、変更し、アイコンを描きます。Sonnet 5.5はアイディアを出し、リクエストの内容を考え、共有したページを読みます。Haiku 5.5はアイディアを選び、各行を整理し、翻訳します。Apple Intelligenceは必要ありません。"
+          }
+        }
+      }
+    },
+    "Writer.Footer.PlatesCloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gemma on PlatesCloud writes recipes and ideas, within a daily limit. Apple Intelligence sorts and translates them on this iPhone."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PlatesCloudのGemmaが、1日の上限の範囲でレシピとアイディアを書きます。Apple Intelligenceが、このiPhoneの中でそれらを整理して翻訳します。"
           }
         }
       }

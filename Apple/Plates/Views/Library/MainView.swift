@@ -41,9 +41,7 @@ struct MainView: View {
     @State private var isShowingAIProcessing = false
     /// Who writes: PlatesCloud, or a provider on the cook's own key.
     @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
-    /// The provider whose key is being entered, picked in the menu or asked for when the cook
-    /// picks a provider with no key yet.
-    @State private var keyEntry: WriterProvider?
+    @State private var isShowingWriter = false
     @State private var path = NavigationPath()
     /// The title a recipe written by hand starts with, once the recipe sheet is gone.
     @State private var byHandTitle: String?
@@ -115,8 +113,8 @@ struct MainView: View {
         .sheet(isPresented: $isShowingAIProcessing, onDismiss: openNextImport) {
             AIProcessingView()
         }
-        .sheet(item: $keyEntry, onDismiss: keyEntryDismissed) { provider in
-            APIKeyView(provider: provider)
+        .sheet(isPresented: $isShowingWriter, onDismiss: writerDismissed) {
+            RecipeWriterView()
         }
         .onAppear {
             store.importSharedRecipes()
@@ -206,27 +204,17 @@ struct MainView: View {
         isShowingLimits = false
         isShowingInventory = false
         isShowingAIProcessing = false
-        keyEntry = nil
+        isShowingWriter = false
         openNextImport()
     }
 
-    /// A provider left with no key, as when the cook closes the key sheet without saving or
-    /// removes the key, goes back to PlatesCloud, so a recipe can still be written.
-    private func keyEntryDismissed() {
+    /// A provider left with no key, as when the cook picks Claude and closes the page without
+    /// saving one, or removes the key, goes back to PlatesCloud, so a recipe can still be written.
+    private func writerDismissed() {
         if provider.needsKey, !provider.hasKey {
             provider = .platesCloud
         }
         openNextImport()
-    }
-
-    /// Picking a provider that needs a key with none saved asks for one straight away.
-    private var providerSelection: Binding<WriterProvider> {
-        Binding(get: { provider }, set: { picked in
-            provider = picked
-            if picked.needsKey, !picked.hasKey {
-                keyEntry = picked
-            }
-        })
     }
 
     /// Opens the next shared web page once nothing else is on screen, so a page shared while
@@ -234,7 +222,7 @@ struct MainView: View {
     /// asked for by URL goes first.
     private func openNextImport() {
         guard sharedImport == nil, generation == nil, !isOnboarding, !isShowingLimits,
-              !isShowingInventory, !isShowingAIProcessing, keyEntry == nil else { return }
+              !isShowingInventory, !isShowingAIProcessing, !isShowingWriter else { return }
         if isOnboardingRequested {
             isOnboardingRequested = false
             isOnboarding = true
@@ -285,20 +273,14 @@ struct MainView: View {
                 }
 
                 if isGenerationAllowed {
-                    Picker(selection: providerSelection) {
-                        ForEach(WriterProvider.allCases) { provider in
-                            Text(provider.name).tag(provider)
-                        }
+                    Button {
+                        isShowingWriter = true
                     } label: {
-                        Label("Menu.Writer", systemImage: "pencil.and.scribble")
-                    }
-                    .pickerStyle(.menu)
-
-                    if provider.needsKey {
-                        Button {
-                            keyEntry = provider
-                        } label: {
-                            Label("Menu.APIKey.Claude", systemImage: "key")
+                        Label {
+                            Text("Menu.Writer")
+                            Text(provider.name)
+                        } icon: {
+                            Image(systemName: "pencil.and.scribble")
                         }
                     }
                 }
