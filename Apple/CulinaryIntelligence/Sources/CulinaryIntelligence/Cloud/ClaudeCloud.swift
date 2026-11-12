@@ -47,23 +47,40 @@ public enum ClaudeError: LocalizedError, Equatable {
     }
 }
 
-/// Claude Opus 5.5 on the cook's own Anthropic account. Requests go from the device straight to
-/// the Messages API with the cook's key, so neither App Attest nor PlatesCloud's daily limits
-/// apply. It is given the same English instructions and prompts as Gemma, and its answers are
-/// read the same way.
+/// What a request to Claude is for, which sets the model that answers it. Opus writes, edits,
+/// and draws; Sonnet offers ideas, plans a request, and reads a shared page; Haiku picks, says
+/// what shows on a dish, sorts lines, and translates.
+enum ClaudeRole: Sendable {
+    case write, edit, draw
+    case ideas, plan, parse
+    case decide, toppings, sort, translate
+
+    var model: String {
+        switch self {
+        case .write, .edit, .draw: "claude-opus-5-5"
+        case .ideas, .plan, .parse: "claude-sonnet-5-5"
+        case .decide, .toppings, .sort, .translate: "claude-haiku-5-5"
+        }
+    }
+}
+
+/// Claude on the cook's own Anthropic account, with each request sent to the model its role
+/// calls for. Requests go from the device straight to the Messages API with the cook's key, so
+/// neither App Attest nor PlatesCloud's daily limits apply. It is given the same English
+/// instructions and prompts as Gemma, and its answers are read the same way. While Claude
+/// writes, the passes Apple Intelligence runs on the device are sent here too.
 @MainActor
 final class ClaudeCloud: RecipeWriting {
     static let shared = ClaudeCloud()
 
-    static let model = "claude-opus-5-5"
     private static let endpoint = URL(string: "https://api.anthropic.com/v1/messages")!
     private static let version = "2026-10-21"
 
-    /// Opus 5.5 always thinks, and its thinking counts against `max_tokens`, so every request is
-    /// given this much on top of the limit its answer has. Thinking is kept short with a low
-    /// effort.
-    static let thinkingAllowance = 2048
-    static let effort = "low"
+    /// Every model thinks, and its thinking counts against `max_tokens`, so every request is
+    /// given this much on top of the limit its answer has. At medium effort Opus ran past an
+    /// allowance of 2,048 on 4 of 24 recipes.
+    static let thinkingAllowance = 6000
+    static let effort = "medium"
 
     /// How many dish icon questions are in flight at once, to stay inside a new account's rate
     /// limits.
@@ -97,19 +114,28 @@ final class ClaudeCloud: RecipeWriting {
         maximumTokens: Int,
         temperature: Double
     ) -> AsyncThrowingStream<String, Error> {
-        stream(system: instructions, example: example, prompt: prompt, maximumTokens: maximumTokens)
+        stream(.write, system: instructions, example: example, prompt: prompt, maximumTokens: maximumTokens)
     }
 
     private func stream(
+        _ role: ClaudeRole,
         system: String,
         example: (ask: String, answer: String)? = nil,
         prompt: String,
-        maximumTokens: Int
+        maximumTokens: Int,
+        schema: [String: Any]? = nil
     ) -> AsyncThrowingStream<String, Error> {
         AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    let bytes = try await self.send(system: system, example: example, prompt: prompt, maximumTokens: maximumTokens)
+                    let bytes = try await self.send(
+                        role,
+                        system: system,
+                        example: example,
+                        prompt: prompt,
+                        maximumTokens: maximumTokens,
+                        schema: schema
+                    )
                     for try await line in bytes.lines {
                         guard line.hasPrefix("data:") else { continue }
                         if let text = try Self.text(inEvent: String(line.dropFirst(5))) {
@@ -126,11 +152,30 @@ final class ClaudeCloud: RecipeWriting {
     }
 
     func ideate(instructions: String, prompt: String, maximumTokens: Int, temperature: Double) async throws -> String {
-        try await answer(system: instructions, prompt: prompt, maximumTokens: maximumTokens)
+        try await answer(.ideas, system: instructions, prompt: prompt, maximumTokens: maximumTokens)
     }
 
     func edit(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
-        try await answer(system: instructions, prompt: prompt, maximumTokens: maximumTokens)
+        try await answer(.edit, system: instructions, prompt: prompt, maximumTokens: maximumTokens)
+    }
+
+    // MARK: - Passes
+
+    /// A pass Apple Intelligence would otherwise run, answered as JSON that holds to the pass's
+    /// own schema.
+    func structured(
+        _ role: ClaudeRole,
+        system: String,
+        prompt: String,
+        schema: [String: Any],
+        maximumTokens: Int
+    ) async throws -> String {
+        try await answer(role, system: system, prompt: prompt, maximumTokens: maximumTokens, schema: schema)
+    }
+
+    /// A pass that answers in plain text, such as a translation.
+    func plain(_ role: ClaudeRole, system: String, prompt: String, maximumTokens: Int) async throws -> String {
+        try await answer(role, system: system, prompt: prompt, maximumTokens: maximumTokens)
     }
 
     // MARK: - Deciding
@@ -154,7 +199,7 @@ final class ClaudeCloud: RecipeWriting {
             tools.isEmpty ? none : tools.joined(separator: separator),
             listed.joined(separator: "\n")
         )
-        let answer = try await answer(system: Self.english("Claude.Prompt.Decide"), prompt: prompt, maximumTokens: 16)
+        let answer = try await answer(.decide, system: Self.english("Claude.Prompt.Decide"), prompt: prompt, maximumTokens: 16)
         guard let number = Self.firstNumber(in: answer), number == number.rounded(),
               ideas.indices.contains(Int(number) - 1)
         else { throw CloudError.noResponse }
@@ -177,7 +222,7 @@ final class ClaudeCloud: RecipeWriting {
             func ask(_ index: Int) {
                 let prompt = Self.english("Claude.Prompt.Toppings.Ask", dish, method, ingredients[index])
                 group.addTask {
-                    let answer = try await self.answer(system: system, prompt: prompt, maximumTokens: 16)
+                    let answer = try await self.answer(.toppings, system: system, prompt: prompt, maximumTokens: 16)
                     guard let value = Self.firstNumber(in: answer) else { throw CloudError.noResponse }
                     return (index, min(max(value, 0), 1))
                 }
@@ -211,15 +256,21 @@ final class ClaudeCloud: RecipeWriting {
             ingredients.map { "- \($0)" }.joined(separator: "\n"),
             finish
         )
-        return try await answer(system: Self.english("Claude.Prompt.DishIcon"), prompt: prompt, maximumTokens: Self.drawingTokens)
+        return try await answer(.draw, system: Self.english("Claude.Prompt.DishIcon"), prompt: prompt, maximumTokens: Self.drawingTokens)
     }
 
     // MARK: - Requests
 
     /// The whole answer to one request, streamed and put together.
-    private func answer(system: String, prompt: String, maximumTokens: Int) async throws -> String {
+    private func answer(
+        _ role: ClaudeRole,
+        system: String,
+        prompt: String,
+        maximumTokens: Int,
+        schema: [String: Any]? = nil
+    ) async throws -> String {
         var text = ""
-        for try await piece in stream(system: system, prompt: prompt, maximumTokens: maximumTokens) {
+        for try await piece in stream(role, system: system, prompt: prompt, maximumTokens: maximumTokens, schema: schema) {
             text += piece
         }
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -228,10 +279,12 @@ final class ClaudeCloud: RecipeWriting {
     }
 
     private func send(
+        _ role: ClaudeRole,
         system: String,
         example: (ask: String, answer: String)?,
         prompt: String,
-        maximumTokens: Int
+        maximumTokens: Int,
+        schema: [String: Any]?
     ) async throws -> URLSession.AsyncBytes {
         guard UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) else { throw CloudError.notAllowed }
         guard let key = key() else { throw ClaudeError.noKey }
@@ -241,7 +294,14 @@ final class ClaudeCloud: RecipeWriting {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(key, forHTTPHeaderField: "x-api-key")
         request.setValue(Self.version, forHTTPHeaderField: "anthropic-version")
-        request.httpBody = Self.body(system: system, example: example, prompt: prompt, maximumTokens: maximumTokens)
+        request.httpBody = Self.body(
+            role,
+            system: system,
+            example: example,
+            prompt: prompt,
+            maximumTokens: maximumTokens,
+            schema: schema
+        )
         let (bytes, response) = try await URLSession.shared.bytes(for: request)
         guard let http = response as? HTTPURLResponse else { throw CloudError.noResponse }
         guard http.statusCode == 200 else {
@@ -255,13 +315,16 @@ final class ClaudeCloud: RecipeWriting {
 
     // MARK: - Bodies
 
-    /// No `temperature`: Opus 5.5 rejects sampling settings, and no `thinking`, which it cannot
-    /// turn off. The effort sets how long it thinks.
+    /// No `temperature`, which these models reject, and no `thinking`, which Opus cannot turn
+    /// off. The effort, medium for every role, sets how long each one thinks. A schema, when a
+    /// pass has one, holds the answer to it.
     nonisolated static func body(
+        _ role: ClaudeRole,
         system: String,
         example: (ask: String, answer: String)? = nil,
         prompt: String,
-        maximumTokens: Int
+        maximumTokens: Int,
+        schema: [String: Any]? = nil
     ) -> Data {
         var messages: [[String: String]] = []
         if let example {
@@ -269,12 +332,16 @@ final class ClaudeCloud: RecipeWriting {
             messages.append(["role": "assistant", "content": example.answer])
         }
         messages.append(["role": "user", "content": prompt])
+        var output: [String: Any] = ["effort": effort]
+        if let schema {
+            output["format"] = ["type": "json_schema", "schema": schema]
+        }
         let object: [String: Any] = [
-            "model": model,
+            "model": role.model,
             "max_tokens": maximumTokens + thinkingAllowance,
             "system": system,
             "messages": messages,
-            "output_config": ["effort": effort],
+            "output_config": output,
             "stream": true,
         ]
         return (try? JSONSerialization.data(withJSONObject: object)) ?? Data()
@@ -282,8 +349,7 @@ final class ClaudeCloud: RecipeWriting {
 
     /// The text in one streamed event, if it carries any. Thinking deltas are passed over, a
     /// refusal, an answer cut off at the token limit, or an error event ends the stream with its
-    /// error, and every other event is
-    /// skipped.
+    /// error, and every other event is skipped.
     nonisolated static func text(inEvent payload: String) throws -> String? {
         guard let data = payload.trimmingCharacters(in: .whitespaces).data(using: .utf8),
               let event = try? JSONDecoder().decode(StreamEvent.self, from: data)

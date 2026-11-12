@@ -68,6 +68,19 @@ only runs with `PLATES_EVAL=1`. The command is in the test's comment.
 - The local Worker needs its daily limits set high enough for every run, such as
   `WRITE_DAILY_LIMIT=500` and `TOPPINGS_DAILY_LIMIT=500` in the environment of `npm run dev`.
 
+## Claude
+
+A cook can pick Claude as the writer in the Recipe Writer page and run it on their own Anthropic
+key. While Claude writes, every pass goes to Claude instead of PlatesCloud and Apple
+Intelligence, and `ClaudeRole` picks the model: Opus 5.5 writes, edits, and draws icons, Sonnet
+5.5 offers ideas, plans a request, and reads a shared page, and Haiku 5.5 picks an idea, says what
+shows on a dish, sorts lines, and translates. Every role runs at medium effort.
+
+- `ModelPasses` sends a pass to Claude with its `@Generable` schema as JSON Schema in
+  `output_config.format`, and reads the answer back through `GeneratedContent(json:)`.
+- The lessons below came from Gemma and the on-device model. They hold for Claude until its own
+  evals say otherwise.
+
 ## Model lessons
 
 Gemma writes on Cloudflare and Apple Intelligence sorts on the device. Each rule below came out

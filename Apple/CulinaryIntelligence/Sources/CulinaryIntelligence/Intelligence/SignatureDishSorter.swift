@@ -41,13 +41,15 @@ extension SignatureDish {
         let lines = [recipe.ingredients.supermarket, recipe.ingredients.general, recipe.ingredients.optional]
         let icons = Set(lines.compactMap { $0 }.joined().compactMap { IconCatalog.iconName(for: $0.icon) })
         do {
-            let sorted = try await passes.run(instructions: String(culinaryEnglish: "Signature.Prompt.Sort")) { session in
-                try await session.respond(
-                    to: prompt(for: recipe),
-                    generating: SignatureSortAnswer.self,
-                    options: GenerationOptions(sampling: .greedy, maximumResponseTokens: sortTokenLimit)
-                ).content
-            }
+            let sorted = try await passes.respond(
+                SignatureSortAnswer.self,
+                to: prompt(for: recipe),
+                instructions: String(culinaryEnglish: "Signature.Prompt.Sort"),
+                tokenLimit: sortTokenLimit,
+                role: .decide,
+                greedy: true,
+                retries: false
+            )
             let id = decided(candidates: candidates, form: sorted.form, cuisine: sorted.cuisine, icons: icons, title: recipe.title)
             return SignatureDecision(title: recipe.title, id: id)
         } catch is CancellationError {

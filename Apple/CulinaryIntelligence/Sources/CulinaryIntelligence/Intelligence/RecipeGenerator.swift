@@ -371,12 +371,12 @@ public final class RecipeGenerator {
         let words = request.trimmedDescription
         guard !words.allSatisfy(\.isASCII) else { return request }
         do {
-            let english = try await writer.run(instructions: Self.english("Generate.Prompt.Translate")) { session in
-                try await session.respond(
-                    to: words,
-                    options: GenerationOptions(maximumResponseTokens: Self.lineTokenLimit)
-                ).content
-            }
+            let english = try await writer.respondText(
+                to: words,
+                instructions: Self.english("Generate.Prompt.Translate"),
+                tokenLimit: Self.lineTokenLimit,
+                role: .translate
+            )
             let translated = english.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !translated.isEmpty else { return request }
             var asked = request
@@ -662,12 +662,13 @@ public final class RecipeGenerator {
 
     /// One line sorted in a session of its own. A line cannot be left out without the recipe
     /// being wrong, so a pass that fails is tried again.
-    func sortLine<Content: Generable>(_ type: Content.Type, _ prompt: String) async throws -> Content {
+    func sortLine<Content: Generable>(_ type: Content.Type, _ prompt: String, role: ClaudeRole? = nil) async throws -> Content {
         try await passes.respond(
             type,
             to: prompt,
             instructions: Self.structureInstructions,
-            tokenLimit: Self.lineTokenLimit
+            tokenLimit: Self.lineTokenLimit,
+            role: role
         )
     }
 
@@ -701,13 +702,12 @@ public final class RecipeGenerator {
             "",
             Self.text("Generate.Prompt.Structure.Shopping.Ask"),
         ].joined(separator: "\n")
-        let content = try await passes.run(instructions: Self.structureInstructions) { session in
-            try await session.respond(
-                to: prompt,
-                schema: schema,
-                options: GenerationOptions(maximumResponseTokens: Self.wholeTokenLimit)
-            ).content
-        }
+        let content = try await passes.respond(
+            to: prompt,
+            schema: schema,
+            instructions: Self.structureInstructions,
+            tokenLimit: Self.wholeTokenLimit
+        )
         return (
             try content.value([GeneratedContent].self, forProperty: "ingredients").map(StructuredIngredient.init),
             try content.value([GeneratedContent].self, forProperty: "tools").map(GeneratedTool.init)
@@ -732,13 +732,12 @@ public final class RecipeGenerator {
             "",
             Self.text("Generate.Prompt.Structure.Method.Ask"),
         ].joined(separator: "\n")
-        let content = try await passes.run(instructions: Self.structureInstructions) { session in
-            try await session.respond(
-                to: prompt,
-                schema: schema,
-                options: GenerationOptions(maximumResponseTokens: Self.wholeTokenLimit)
-            ).content
-        }
+        let content = try await passes.respond(
+            to: prompt,
+            schema: schema,
+            instructions: Self.structureInstructions,
+            tokenLimit: Self.wholeTokenLimit
+        )
         let steps = try content.value([GeneratedContent].self, forProperty: "steps")
             .map(StructuredStep.init)
             .map { (title: $0.title.withoutLeakedSyntax, points: Self.sentences(in: $0.text.withoutLeakedSyntax)) }

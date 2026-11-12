@@ -58,13 +58,13 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "This API key cannot use Claude Opus 5.5. Check the key's workspace on Claude Platform."
+            "value": "This API key cannot use the Claude models Plates asks for. Check the key's workspace on Claude Platform."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "このAPIキーではClaude Opus 5.5を使えません。Claude Platformでキーのワークスペースを確かめてください。"
+            "value": "このAPIキーでは、Platesが使うClaudeのモデルを使えません。Claude Platformでキーのワークスペースを確かめてください。"
           }
         }
       }
@@ -12246,13 +12246,13 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "Claude Opus 5.5"
+            "value": "Claude"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Claude Opus 5.5"
+            "value": "Claude"
           }
         }
       }

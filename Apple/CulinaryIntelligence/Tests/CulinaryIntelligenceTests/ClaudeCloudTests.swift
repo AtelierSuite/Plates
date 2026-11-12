@@ -1,4 +1,5 @@
 import Foundation
+import FoundationModels
 import Testing
 @testable import CulinaryIntelligence
 
@@ -38,7 +39,7 @@ struct ClaudeCloudTests {
     }
 
     @Test func sendsNoSamplingOrThinkingSettings() throws {
-        let data = ClaudeCloud.body(system: "S", prompt: "P", maximumTokens: 1400)
+        let data = ClaudeCloud.body(.write, system: "S", prompt: "P", maximumTokens: 1400)
         let body = try #require(try JSONSerialization.jsonObject(with: data) as? [String: Any])
         #expect(body["model"] as? String == "claude-opus-5-5")
         #expect(body["max_tokens"] as? Int == 1400 + ClaudeCloud.thinkingAllowance)
@@ -46,7 +47,8 @@ struct ClaudeCloudTests {
         #expect(body["stream"] as? Bool == true)
         #expect(body["temperature"] == nil)
         #expect(body["thinking"] == nil)
-        #expect((body["output_config"] as? [String: String])?["effort"] == "low")
+        #expect((body["output_config"] as? [String: Any])?["effort"] as? String == "medium")
+        #expect((body["output_config"] as? [String: Any])?["format"] == nil)
     }
 
     @Test func endsACutOffAnswer() {
@@ -56,11 +58,44 @@ struct ClaudeCloudTests {
     }
 
     @Test func sendsTheExampleAsAnEarlierExchange() throws {
-        let data = ClaudeCloud.body(system: "S", example: (ask: "A", answer: "B"), prompt: "P", maximumTokens: 10)
+        let data = ClaudeCloud.body(.write, system: "S", example: (ask: "A", answer: "B"), prompt: "P", maximumTokens: 10)
         let body = try #require(try JSONSerialization.jsonObject(with: data) as? [String: Any])
         let messages = try #require(body["messages"] as? [[String: String]])
         #expect(messages.map { $0["role"] ?? "" } == ["user", "assistant", "user"])
         #expect(messages.map { $0["content"] ?? "" } == ["A", "B", "P"])
+    }
+
+    @Test func sendsEachRoleToItsModel() throws {
+        let models: [(ClaudeRole, String)] = [
+            (.write, "claude-opus-5-5"), (.edit, "claude-opus-5-5"), (.draw, "claude-opus-5-5"),
+            (.ideas, "claude-sonnet-5-5"), (.plan, "claude-sonnet-5-5"), (.parse, "claude-sonnet-5-5"),
+            (.decide, "claude-haiku-5-5"), (.toppings, "claude-haiku-5-5"),
+            (.sort, "claude-haiku-5-5"), (.translate, "claude-haiku-5-5"),
+        ]
+        for (role, model) in models {
+            let body = try #require(try JSONSerialization.jsonObject(
+                with: ClaudeCloud.body(role, system: "S", prompt: "P", maximumTokens: 10)
+            ) as? [String: Any])
+            #expect(body["model"] as? String == model)
+            #expect((body["output_config"] as? [String: Any])?["effort"] as? String == "medium")
+        }
+    }
+
+    @Test func holdsAPassToItsSchema() throws {
+        let schema = try ModelPasses.jsonSchema(StructuredIngredient.generationSchema)
+        #expect(schema["x-order"] == nil)
+        #expect(schema["additionalProperties"] as? Bool == false)
+        let properties = try #require(schema["properties"] as? [String: Any])
+        #expect(Set(properties.keys) == ["item", "section", "icon", "amount", "note"])
+        let data = ClaudeCloud.body(.sort, system: "S", prompt: "P", maximumTokens: 10, schema: schema)
+        let body = try #require(try JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let format = try #require((body["output_config"] as? [String: Any])?["format"] as? [String: Any])
+        #expect(format["type"] as? String == "json_schema")
+        #expect((format["schema"] as? [String: Any])?["title"] as? String == "StructuredIngredient")
+
+        let json = #"{"item":"eggs","section":"fresh","icon":"egg","amount":"3","note":""}"#
+        let ingredient = try StructuredIngredient(GeneratedContent(json: json))
+        #expect(ingredient.item == "eggs" && ingredient.amount == "3")
     }
 
     @Test func readsTheFirstNumber() {

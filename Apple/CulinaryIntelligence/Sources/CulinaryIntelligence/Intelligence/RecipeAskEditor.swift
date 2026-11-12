@@ -225,7 +225,6 @@ public final class RecipeAskEditor {
     /// The plan and the changes on it.
     private let passes = ModelPasses()
 
-    /// Where Gemma says what a swap changes in the method.
     /// Where a swap's effect on the method is asked: Gemma on PlatesCloud, or the provider the
     /// cook brought their own key for.
     private var cloud: any RecipeWriting { WriterProvider.current.service }
@@ -324,7 +323,8 @@ public final class RecipeAskEditor {
                 GeneratedEditPlan.self,
                 to: Self.planPrompt(for: recipe, request: request),
                 instructions: Self.text("Edit.Prompt.Plan"),
-                tokenLimit: Self.planTokenLimit
+                tokenLimit: Self.planTokenLimit,
+                role: .edit
             )
             let edits = Self.swapping(Self.readable(plan.edits, for: recipe), in: recipe, request: request)
             guard !edits.isEmpty else { continue }
@@ -904,12 +904,12 @@ public final class RecipeAskEditor {
     private func english(_ text: String) async -> String? {
         let text = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.allSatisfy(\.isASCII) else { return text }
-        let translated = try? await passes.run(instructions: RecipeGenerator.english("Generate.Prompt.Translate")) { session in
-            try await session.respond(
-                to: text,
-                options: GenerationOptions(maximumResponseTokens: RecipeGenerator.lineTokenLimit)
-            ).content
-        }
+        let translated = try? await passes.respondText(
+            to: text,
+            instructions: RecipeGenerator.english("Generate.Prompt.Translate"),
+            tokenLimit: RecipeGenerator.lineTokenLimit,
+            role: .translate
+        )
         let english = translated?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         return english.isEmpty ? nil : english
     }
@@ -1169,7 +1169,8 @@ public final class RecipeAskEditor {
             type,
             to: prompt.filter { !$0.isEmpty }.joined(separator: "\n\n"),
             instructions: Self.text("Edit.Prompt.Line"),
-            tokenLimit: RecipeGenerator.lineTokenLimit
+            tokenLimit: RecipeGenerator.lineTokenLimit,
+            role: .edit
         )
     }
 
