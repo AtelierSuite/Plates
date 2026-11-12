@@ -556,6 +556,19 @@ public final class RecipeGenerator {
                 if !Self.readsInEnglish, Self.leavesEnglish(step.title + " " + step.text) {
                     step = (try? await sortLine(StructuredStep.self, prompt)) ?? step
                 }
+                // Haiku has given a step its title and left its text empty, and a step with no
+                // text is dropped. Asked again it is usually whole. When it is still empty, the
+                // step is kept as it was written rather than lost.
+                if Self.isEmpty(step) {
+                    step = (try? await sortLine(StructuredStep.self, prompt)) ?? step
+                }
+                if Self.isEmpty(step) {
+                    let written = Measures.forReader(line)
+                    step.text = written
+                    if step.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        step.title = Self.sentences(in: written).first ?? written
+                    }
+                }
                 steps.append((step.title.withoutLeakedSyntax, Self.sentences(in: step.text.withoutLeakedSyntax)))
                 progress.outline.append(step.title.withoutLeakedSyntax)
                 progress.stepCount = steps.count
@@ -1067,6 +1080,11 @@ public final class RecipeGenerator {
                 Troubleshooting(problem: $0.problem.withoutLeakedSyntax, solution: $0.solution.withoutLeakedSyntax)
             }
         )
+    }
+
+    private static func isEmpty(_ step: StructuredStep) -> Bool {
+        step.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            || step.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     /// Drops a step that is the step above it written out again. A step that only shares a

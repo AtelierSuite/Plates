@@ -80,6 +80,10 @@ shows on a dish, sorts lines, and translates. Every role runs at medium effort.
   `output_config.format`, and reads the answer back through `GeneratedContent(json:)`.
 - The lessons below came from Gemma and the on-device model. They hold for Claude until its own
   evals say otherwise.
+- Sorting a step, Haiku gave 2 of 154 steps a title and an empty text, and a step with no text
+  is dropped. The pass is asked again, and a step still empty is kept as it was written.
+- Held to the picks, Opus wrote a soup when asked for fried bee hoon with no oil among them,
+  and said so at the top of the recipe.
 
 ## Model lessons
 
