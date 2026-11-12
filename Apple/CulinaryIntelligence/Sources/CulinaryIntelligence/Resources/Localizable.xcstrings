@@ -137,6 +137,23 @@
         }
       }
     },
+    "Edit.Plan.Serves": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make it for %1$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@人分にする"
+          }
+        }
+      }
+    },
     "Edit.Progress.Applying": {
       "extractionState": "manual",
       "localizations": {

@@ -315,6 +315,12 @@ public final class RecipeAskEditor {
     /// the rest used to be accepted. Of two plans, the one that reaches more of what was named
     /// is kept, and the first when they reach as much.
     private func planEdits(for recipe: Recipe, request: String) async throws -> [PlannedEdit] {
+        // Asked for "6人分にしてください" and nothing else, the plan rewrote three troubleshooting
+        // notes, renamed a step, and changed the time. A request that only gives a count is
+        // planned in code.
+        if Self.asksOnlyForServings(request), let asked = Self.askedServings(in: request, of: recipe) {
+            return [PlannedEdit(target: .serves, title: Self.text("Edit.Plan.Serves", asked), instruction: request, line: 0)]
+        }
         let coverage = EditCoverage(request: request, ingredients: Self.ingredients(of: recipe), tools: recipe.tools)
         var kept: (edits: [PlannedEdit], missed: Int)?
         for _ in 0..<2 {
@@ -324,7 +330,11 @@ public final class RecipeAskEditor {
                 instructions: Self.text("Edit.Prompt.Plan"),
                 tokenLimit: Self.planTokenLimit
             )
-            let edits = Self.swapping(Self.readable(plan.edits, for: recipe), in: recipe, request: request)
+            let edits = Self.servingsFiled(
+                Self.swapping(Self.readable(plan.edits, for: recipe), in: recipe, request: request),
+                in: recipe,
+                request: request
+            )
             guard !edits.isEmpty else { continue }
             let missed = coverage.missed(by: edits, steps: recipe.steps).count
             if missed == 0 { return edits }
@@ -332,6 +342,90 @@ public final class RecipeAskEditor {
         }
         return kept?.edits ?? []
     }
+
+    /// A plan with the serving count the cook asked for filed as one. Asked for "6人分にしてくだ
+    /// さい", the plan filed it as a change to a troubleshooting note. A count written in the
+    /// request is read in code, any change that only says it again is dropped, and the count is
+    /// planned once, as a serving count.
+    private static func servingsFiled(_ plan: [PlannedEdit], in recipe: Recipe, request: String) -> [PlannedEdit] {
+        guard let asked = askedServings(in: request, of: recipe) else { return plan }
+        let restating = plan.filter { edit in
+            edit.target == .serves || askedServings(in: edit.title + " " + edit.instruction) == asked
+        }
+        let title = (restating.first { $0.target == .serves } ?? restating.first)?.title
+            ?? text("Edit.Plan.Serves", asked)
+        return [PlannedEdit(target: .serves, title: title, instruction: request, line: 0)]
+            + plan.filter { !restating.contains($0) }
+    }
+
+    /// The serving count a request writes out, such as "6人分にして", "4人前", "serves 6", or
+    /// "for 6 people", when it is not the count the recipe already has. A count in words, such
+    /// as "make it for four", is left to the model.
+    static func askedServings(in request: String, of recipe: Recipe) -> String? {
+        guard let asked = askedServings(in: request), let new = Recipe.servings(in: asked),
+              let old = Recipe.servings(in: recipe.serves), abs(new - old) > 0.001 else { return nil }
+        return asked
+    }
+
+    static func askedServings(in request: String) -> String? {
+        let text = halfwidth(request)
+        for pattern in counts {
+            guard let match = text.firstMatch(of: pattern) else { continue }
+            return String(match.1).map { kanji[$0] ?? String($0) }.joined()
+        }
+        return nil
+    }
+
+    /// Whether a request asks for a serving count and nothing else: "6人分にしてください" or
+    /// "Scale it to 8 servings", but not "6人分にして、豚肉を鶏肉に".
+    static func asksOnlyForServings(_ request: String) -> Bool {
+        var rest = halfwidth(request).lowercased()
+        let before = rest
+        for pattern in counts { rest.replace(pattern, with: " ") }
+        guard rest != before else { return false }
+        if rest.contains(where: { $0.isASCII && $0.isLetter }) {
+            return rest.split(whereSeparator: { !$0.isLetter }).allSatisfy { englishFiller.contains(String($0)) }
+        }
+        for filler in japaneseFiller {
+            rest = rest.replacingOccurrences(of: filler, with: "")
+        }
+        return rest.allSatisfy { !$0.isLetter && !$0.isNumber }
+    }
+
+    /// The text with full width figures, such as "６", written as ASCII ones. Only the figures:
+    /// the transform for the whole text turns katakana half width too.
+    private static func halfwidth(_ text: String) -> String {
+        String(text.unicodeScalars.map { scalar in
+            (0xFF10...0xFF19).contains(scalar.value) ? Character(UnicodeScalar(scalar.value - 0xFF10 + 0x30)!) : Character(scalar)
+        })
+    }
+
+    /// The ways a request writes a serving count, with the count as the first capture.
+    private static let counts = [
+        #/([0-9]+|[一二三四五六七八九十])\s*(?:人分|人前|名分|人用)/#,
+        #/([0-9]+)\s*(?:servings?|portions?|people|persons)\b/#.ignoresCase(),
+        #/\bserves?\s+([0-9]+)\b/#.ignoresCase(),
+    ]
+
+    private static let kanji: [Character: String] = [
+        "一": "1", "二": "2", "三": "3", "四": "4", "五": "5",
+        "六": "6", "七": "7", "八": "8", "九": "9", "十": "10",
+    ]
+
+    /// The words around a serving count that ask for nothing more.
+    private static let englishFiller: Set<String> = [
+        "make", "it", "this", "the", "recipe", "scale", "scaled", "change", "adjust", "to", "for",
+        "please", "serve", "serves", "up", "down", "so", "that", "can", "you", "could", "i", "want",
+        "need", "instead", "of", "amounts", "quantities",
+    ]
+
+    /// The same in Japanese, longest first so a phrase goes before the particle inside it.
+    private static let japaneseFiller = [
+        "お願いします", "にしたいです", "で作りたい", "にしてください", "に変えてください", "に変更してください",
+        "に直してください", "にしてほしい", "にしたい", "にして", "にする", "に変えて", "に変更して",
+        "に直して", "で作って", "で作る", "ください", "お願い", "の分量", "の材料", "分量", "材料",
+        "レシピを", "レシピ", "これを", "この", "に", "で", "を", "の",
+    ]
 
     /// A plan with its swaps made into swaps. Told to change a line to swap it, the model still
     /// adds the new thing and leaves the old one listed, or adds one and drops the other. An
@@ -1125,14 +1219,24 @@ public final class RecipeAskEditor {
             Self.text("Edit.Prompt.Line.Time.Now", method(recipe)),
             Self.text("Edit.Prompt.Line.Time.Ask", original.time),
         ])
-        let time = RecipeGenerator.time(from: written.time)
-        return time.isEmpty ? recipe.time : time
+        guard let minutes = Recipe.minutes(in: RecipeGenerator.time(from: written.time)) else { return recipe.time }
+        return Self.time(minutes, writtenLike: original.time)
+    }
+
+    /// A time written the way the recipe writes its own. A Japanese recipe's "25分" came back
+    /// from an edit as "25 min".
+    static func time(_ minutes: Int, writtenLike original: String) -> String {
+        guard original.contains("分") || original.contains("時間") else { return "\(minutes) min" }
+        let hours = minutes / 60, rest = minutes % 60
+        guard hours > 0 else { return "\(rest)分" }
+        return rest == 0 ? "\(hours)時間" : "\(hours)時間\(rest)分"
     }
 
     /// The serving count the cook asked for, or nil when they did not ask for another. Only the
     /// count is the pass's to say. Every amount is scaled to it in code, since a model asked to
     /// double a list gets the arithmetic wrong, and rewrites the lines while it is at it.
     private func servings(of recipe: Recipe, request: String) async throws -> String? {
+        if let asked = Self.askedServings(in: request, of: recipe) { return asked }
         let written = try await line(GeneratedServes.self, [
             Self.text("Edit.Prompt.Line.Serves", recipe.serves),
             Self.text("Edit.Prompt.Request", request),
