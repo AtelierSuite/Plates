@@ -247,9 +247,10 @@ final class RecipeStore {
 
     /// Copies the recipes bundled with the app into the current folder, but only into an empty
     /// one. The samples ship in every language the app is written in, so the reader's language is
-    /// the one that gets copied over.
+    /// the one that gets copied over. Each sample's dish was drawn once by Claude, and the drawing
+    /// is copied in beside it, so it shows whoever writes.
     func addSampleRecipes() {
-        guard recipes.isEmpty else { return }
+        guard recipes.isEmpty, let directory else { return }
         let language = Bundle.main.preferredLocalizations.first ?? "en-US"
         let urls = Bundle.main.urls(
             forResourcesWithExtension: "json",
@@ -259,7 +260,11 @@ final class RecipeStore {
         for url in urls {
             guard let data = try? Data(contentsOf: url),
                   let recipe = try? decoder.decode(Recipe.self, from: data) else { continue }
-            save(recipe, isNew: true, drawsDish: false)
+            guard save(recipe, isNew: true, drawsDish: false) else { continue }
+            if let drawing = Bundle.main.url(forResource: recipe.id, withExtension: "png"),
+               let data = try? Data(contentsOf: drawing) {
+                DrawnDishes.shared.store(data, for: recipe.id, in: directory)
+            }
         }
     }
 

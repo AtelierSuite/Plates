@@ -168,7 +168,9 @@ comment.
 When Claude writes on the cook's own key, it draws each new recipe's dish as an SVG to the
 signature dish rules, and on Redraw. `DishDrawing` checks the SVG in code and renders it to
 `<id>.png` beside the recipe's `<id>.json`, which older builds ignore. The drawing stands in for
-the dish made from parts and for a signature icon alike. Samples are not drawn.
+the dish made from parts and for a signature icon alike. Samples are not drawn on the device: each one ships with the drawing
+Opus made of it in the drawing eval, in `Apple/Plates/SampleRecipes/Drawings`, copied in beside
+the sample.
 
 ### Dish icons
 
