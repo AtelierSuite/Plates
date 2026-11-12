@@ -31,7 +31,8 @@ extension Bundle {
         .flatMap(Bundle.init(path:)) ?? .module
 
     /// The package's Japanese strings on their own, for reading a name the way a cook writing
-    /// in Japanese would, whatever language the app is read in.
+    /// in Japanese would, and for lines code writes into a Japanese recipe, whatever language
+    /// the app is read in.
     nonisolated static let japaneseModule: Bundle = Bundle.module
         .path(forResource: "ja", ofType: "lproj")
         .flatMap(Bundle.init(path:)) ?? .module

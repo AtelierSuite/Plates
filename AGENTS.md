@@ -130,6 +130,10 @@ of the evals, so do not undo one without running them again.
 - An edit changes one line per pass. Asked to write a list back with one change, the model
   dropped lines, moved them between sections, and lost their notes. Lines are dropped and
   serving counts scaled in code.
+- A serving count written in the request ("6人分", "8 servings") is read in code. Asked for
+  "6人分にしてください", the plan filed it as a troubleshooting note, or rewrote three notes, a
+  step title, and the time. A request that gives a count and nothing else is never planned by
+  the model.
 - The edit plan points at lines by label (I3, T1, S2, N4), and the label decides the list.
   Numbered from 1 per list, it filed a step change as an ingredient change.
 - The edit plan sees step titles only, so code follows a swap or a removal into every step,
