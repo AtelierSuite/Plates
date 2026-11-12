@@ -208,7 +208,7 @@ struct MainView: View {
         openNextImport()
     }
 
-    /// A provider left with no key, as when the cook picks Claude and closes the page without
+    /// A provider left with no key, as when the cook picks Claude or GPT and closes the page without
     /// saving one, or removes the key, goes back to PlatesCloud, so a recipe can still be written.
     private func writerDismissed() {
         if provider.needsKey, !provider.hasKey {

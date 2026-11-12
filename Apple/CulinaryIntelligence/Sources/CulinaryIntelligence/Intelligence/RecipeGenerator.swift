@@ -675,7 +675,7 @@ public final class RecipeGenerator {
 
     /// One line sorted in a session of its own. A line cannot be left out without the recipe
     /// being wrong, so a pass that fails is tried again.
-    func sortLine<Content: Generable>(_ type: Content.Type, _ prompt: String, role: ClaudeRole? = nil) async throws -> Content {
+    func sortLine<Content: Generable>(_ type: Content.Type, _ prompt: String, role: WriterRole? = nil) async throws -> Content {
         try await passes.respond(
             type,
             to: prompt,

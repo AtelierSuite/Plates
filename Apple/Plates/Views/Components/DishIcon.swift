@@ -1,8 +1,8 @@
 import CulinaryIntelligence
 import SwiftUI
 
-/// The finished dish seen from above. A dish Claude drew is shown as it drew it. A dish with a
-/// signature icon of its own is drawn from that.
+/// The finished dish seen from above. A dish the writer drew is shown as it was drawn. A dish
+/// with a signature icon of its own is drawn from that.
 /// Any other is put together from the drawn parts in the asset catalog: the vessel, the food it
 /// is built on, and what goes on top. Pieces cast a small shadow, and a piece whose colours would
 /// vanish into what it lands on is drawn with an outline.
