@@ -14,10 +14,15 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
     /// Where the choice is kept, for views that follow it with `@AppStorage`.
     nonisolated public static let selectedKey = "Writer.Provider"
 
-    /// The provider the cook picked in the menu.
+    /// The providers the Recipe Writer page lists. GPT 6.1 Sol is left out until it has been
+    /// run against OpenAI and its own generation and edit evals.
+    public static let offered: [WriterProvider] = [.platesCloud, .claude]
+
+    /// The provider the cook picked in the menu, or PlatesCloud when it is not offered.
     public static var current: WriterProvider {
         get {
-            UserDefaults.standard.string(forKey: selectedKey).flatMap(WriterProvider.init(rawValue:)) ?? .platesCloud
+            let picked = UserDefaults.standard.string(forKey: selectedKey).flatMap(WriterProvider.init(rawValue:))
+            return picked.flatMap { offered.contains($0) ? $0 : nil } ?? .platesCloud
         }
         set { UserDefaults.standard.set(newValue.rawValue, forKey: selectedKey) }
     }

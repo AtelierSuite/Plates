@@ -2,8 +2,8 @@ import CulinaryIntelligence
 import SwiftUI
 
 /// Who writes the recipes, picked at the top, with whatever that writer needs in the sections
-/// below it. Claude and GPT 6.1 Sol need the cook's own key, which goes straight into the
-/// Keychain and is never shown again.
+/// below it. Claude needs the cook's own key, which goes straight into the Keychain and is never
+/// shown again.
 struct RecipeWriterView: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -17,7 +17,7 @@ struct RecipeWriterView: View {
             Form {
                 Section {
                     Picker("Menu.Writer", selection: $provider) {
-                        ForEach(WriterProvider.allCases) { provider in
+                        ForEach(WriterProvider.offered) { provider in
                             Text(provider.name).tag(provider)
                         }
                     }

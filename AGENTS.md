@@ -89,7 +89,10 @@ shows on a dish, sorts lines, and translates. Every role runs at medium effort.
 
 ## GPT 6.1 Sol
 
-A cook can pick GPT instead and run it on their own OpenAI key. It takes every role Claude
+GPT is built but not offered: `WriterProvider.offered` leaves it out of the Recipe Writer
+page, and `WriterProvider.current` reads a stored GPT choice as PlatesCloud, until it has run
+against OpenAI and its own evals. Once offered, a cook can pick GPT instead and run it on their
+own OpenAI key. It takes every role Claude
 takes, through `KeyedWriter`, so picking, the dish icon questions, drawing, and the passes are
 asked of both the same way. Each client only sends a request and reads its stream.
 
