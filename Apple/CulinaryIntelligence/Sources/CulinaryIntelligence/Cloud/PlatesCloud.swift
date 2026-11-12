@@ -14,6 +14,8 @@ public enum CloudError: LocalizedError, Equatable {
     case limitReached
     case server(Int, String?)
     case noResponse
+    /// Gemma ran out of tokens before it finished the recipe.
+    case cutOff
 
     public var errorDescription: String? {
         switch self {
@@ -25,6 +27,7 @@ public enum CloudError: LocalizedError, Equatable {
             String(format: String(culinary: "Cloud.Error.Server"),
                    message ?? HTTPURLResponse.localizedString(forStatusCode: code))
         case .noResponse: String(culinary: "Cloud.Error.NoResponse")
+        case .cutOff: String(culinary: "Cloud.Error.CutOff")
         }
     }
 }
@@ -40,6 +43,9 @@ public struct CloudLimits: Decodable, Equatable, Sendable {
     public let ideate: Allowance
     public let decide: Allowance
     public let toppings: Allowance
+    /// Questions Gemma answers for the recipe editor. Nil from a Worker that does not count
+    /// them yet.
+    public let edit: Allowance?
 }
 
 /// The idea Clef picked, and how many more picks are left today.
@@ -61,10 +67,11 @@ public final class PlatesCloud {
     private static let keyAccount = "AppAttestKeyID"
 
     /// A debug build in Simulator, where App Attest does not run, talks to `npm run dev` in
-    /// Cloud/ unsigned. The Worker only allows that on localhost with `SKIP_APP_ATTEST`.
+    /// Cloud/ unsigned. The Worker only allows that on localhost with `SKIP_APP_ATTEST`. The
+    /// generation eval can point it at another port with `PLATES_CLOUD_URL`.
     #if DEBUG && targetEnvironment(simulator)
     private static let skipsAppAttest = true
-    private static let fallbackURL = "http://localhost:8787"
+    private static let fallbackURL = ProcessInfo.processInfo.environment["PLATES_CLOUD_URL"] ?? "http://localhost:8787"
     #else
     private static let skipsAppAttest = false
     private static let fallbackURL = ""
@@ -96,7 +103,8 @@ public final class PlatesCloud {
     /// nil before it has answered one.
     private(set) var writesRemaining: Int?
 
-    /// Gemma's answer streamed back a piece at a time.
+    /// Gemma's answer streamed back a piece at a time. An answer that ran out of tokens ends
+    /// in `CloudError.cutOff`, as it would otherwise look finished and be missing its last steps.
     func write(instructions: String, prompt: String, maximumTokens: Int = 1400) -> AsyncThrowingStream<String, Error> {
         let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: true)
         writesRemaining = nil
@@ -105,16 +113,21 @@ public final class PlatesCloud {
                 do {
                     let (bytes, response) = try await self.send("/v1/chat/completions", body: body)
                     self.writesRemaining = response.value(forHTTPHeaderField: "X-Plates-Remaining").flatMap { Int($0) }
+                    var reason: String?
                     for try await line in bytes.lines {
                         guard line.hasPrefix("data:") else { continue }
                         let payload = line.dropFirst(5).trimmingCharacters(in: .whitespaces)
                         guard payload != "[DONE]",
                               let data = payload.data(using: .utf8),
                               let chunk = try? JSONDecoder().decode(Chunk.self, from: data),
-                              let text = chunk.choices.first?.delta.content, !text.isEmpty
+                              let choice = chunk.choices.first
                         else { continue }
-                        continuation.yield(text)
+                        reason = choice.finishReason ?? reason
+                        if let text = choice.delta.content, !text.isEmpty {
+                            continuation.yield(text)
+                        }
                     }
+                    if reason == "length" { throw CloudError.cutOff }
                     continuation.finish()
                 } catch {
                     continuation.finish(throwing: error)
@@ -129,6 +142,18 @@ public final class PlatesCloud {
     func ideate(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
         let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: false)
         let data = try await Self.collect(try await send("/v1/ideate", body: body).0)
+        guard let answer = try? JSONDecoder().decode(Completion.self, from: data),
+              let text = answer.choices.first?.message.content else { throw CloudError.noResponse }
+        return text
+    }
+
+    // MARK: - Editing
+
+    /// Gemma's answer to a question the recipe editor asks, whole. Counted against a daily
+    /// limit of its own.
+    func edit(instructions: String, prompt: String, maximumTokens: Int) async throws -> String {
+        let body = Self.chat(instructions: instructions, prompt: prompt, maximumTokens: maximumTokens, stream: false)
+        let data = try await Self.collect(try await send("/v1/edit", body: body).0)
         guard let answer = try? JSONDecoder().decode(Completion.self, from: data),
               let text = answer.choices.first?.message.content else { throw CloudError.noResponse }
         return text
@@ -288,7 +313,15 @@ public final class PlatesCloud {
     }
 
     private struct Chunk: Decodable {
-        struct Choice: Decodable { let delta: Delta }
+        struct Choice: Decodable {
+            let delta: Delta
+            let finishReason: String?
+
+            enum CodingKeys: String, CodingKey {
+                case delta
+                case finishReason = "finish_reason"
+            }
+        }
         struct Delta: Decodable { let content: String? }
         let choices: [Choice]
     }

@@ -1225,6 +1225,40 @@
         }
       }
     },
+    "Limits.Edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipe Editing"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピ編集"
+          }
+        }
+      }
+    },
+    "Limits.Edit.Detail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Working out what swapping an ingredient changes in the method."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "材料を替えたときに、作り方のどこが変わるかを調べます。"
+          }
+        }
+      }
+    },
     "Limits.Footer" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2786,6 +2820,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "道具"
+          }
+        }
+      }
+    },
+    "Recipe.Edit.Undo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo Changes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変更を取り消す"
           }
         }
       }

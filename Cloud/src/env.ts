@@ -14,6 +14,7 @@ export interface Env {
   IDEATE_DAILY_LIMIT: string;
   DECIDE_DAILY_LIMIT: string;
   TOPPINGS_DAILY_LIMIT: string;
+  EDIT_DAILY_LIMIT?: string;
   CHALLENGE_SECRET?: string;
   SKIP_APP_ATTEST?: string;
 }
@@ -23,7 +24,8 @@ export function appId(env: Env): string | null {
   return `${env.APPLE_TEAM_ID}.${env.APP_BUNDLE_ID}`;
 }
 
-export function limit(value: string): number | null {
+export function limit(value: string | undefined): number | null {
+  if (value === undefined) return null;
   const parsed = Number(value);
   return value !== "" && Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : null;
 }
