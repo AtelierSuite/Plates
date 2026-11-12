@@ -116,6 +116,21 @@ of the evals, so do not undo one without running them again.
   75 lines, and 0.6 kept 63. The title and the last step only decide when the Worker cannot be
   reached.
 
+## Edit eval
+
+`EditEvalTests` in the package's tests runs the fixed requests in `EditEvalRequests` through the
+real `RecipeAskEditor` on the sample recipes, and writes what each run did to JSON: the plan,
+whether every check on the request passed, and which lines changed that the request did not call
+for. It only runs with `PLATES_EVAL=1`, in Simulator, with no Worker. The command is in the test's
+comment.
+
+- It is an eval: it sends every request to Apple Intelligence. Measure an editing change against
+  a baseline from it, in both languages, before and after.
+- Run it with `-testLanguage ja -testRegion JP` for the Japanese requests, so the package reads
+  its Japanese catalog and the `ja.lproj` samples.
+- Keep the requests real, as a cook would ask. Change the set only with a new baseline.
+  `EditEvalHarnessTests` fails a check the sample already passes, since it measures nothing.
+
 ## Icons
 
 - Asset catalog items are Pascal cased, including the SVG inside: `SpringOnion.imageset/SpringOnion.svg`.
