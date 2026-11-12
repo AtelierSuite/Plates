@@ -187,7 +187,7 @@ struct OpenAICloudTests {
     }
 
     @Test func needsAKey() async throws {
-        UserDefaults.standard.set(true, forKey: PlatesCloud.allowedKey)
+        UserDefaults.standard.set(true, forKey: Plates.allowedKey)
         let keyless = OpenAICloud(key: { nil })
         #expect(!keyless.isConfigured)
         await #expect(throws: OpenAIError.noKey) {
@@ -196,8 +196,8 @@ struct OpenAICloudTests {
     }
 
     @Test func waitsForConsent() async throws {
-        UserDefaults.standard.set(false, forKey: PlatesCloud.allowedKey)
-        defer { UserDefaults.standard.set(true, forKey: PlatesCloud.allowedKey) }
+        UserDefaults.standard.set(false, forKey: Plates.allowedKey)
+        defer { UserDefaults.standard.set(true, forKey: Plates.allowedKey) }
         await #expect(throws: CloudError.notAllowed) {
             _ = try await cloud.ideate(instructions: "S", prompt: "P", maximumTokens: 10, temperature: 0.7)
         }
@@ -244,7 +244,7 @@ struct OpenAICloudTests {
     }
 
     private func withStub(status: Int, body: String, _ run: () async throws -> Void) async throws {
-        UserDefaults.standard.set(true, forKey: PlatesCloud.allowedKey)
+        UserDefaults.standard.set(true, forKey: Plates.allowedKey)
         StubProtocol.status = status
         StubProtocol.body = Data(body.utf8)
         URLProtocol.registerClass(StubProtocol.self)

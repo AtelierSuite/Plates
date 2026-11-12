@@ -12512,19 +12512,19 @@
         }
       }
     },
-    "Writer.Provider.PlatesCloud": {
+    "Writer.Provider.Plates": {
       "extractionState": "manual",
       "localizations": {
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "PlatesCloud"
+            "value": "Plates"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "PlatesCloud"
+            "value": "Plates"
           }
         }
       }

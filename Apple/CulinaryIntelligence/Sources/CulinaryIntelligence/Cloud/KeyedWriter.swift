@@ -13,7 +13,7 @@ enum WriterRole: Sendable {
 nonisolated protocol WriterAccountError: LocalizedError {}
 
 /// A writer on the cook's own key, such as Claude or GPT 6.1 Sol. Requests go from the device
-/// straight to the provider, so neither App Attest nor PlatesCloud's daily limits apply. Each one
+/// straight to the provider, so neither App Attest nor Plates' daily limits apply. Each one
 /// only streams an answer to a request; picking, the dish icon questions, drawing, and the passes
 /// Apple Intelligence would otherwise run are asked the same way of all of them.
 @MainActor
@@ -38,7 +38,7 @@ nonisolated private let toppingsAtOnce = 3
 nonisolated let drawingTokens = 6000
 
 extension KeyedWriter {
-    var isAllowed: Bool { UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) }
+    var isAllowed: Bool { UserDefaults.standard.bool(forKey: Plates.allowedKey) }
 
     /// The cook's own key has no daily limit from us.
     var writesRemaining: Int? { .max }

@@ -1,4 +1,4 @@
-# PlatesCloud
+# Plates
 
 The server side of Plates: one Cloudflare Worker that writes recipes with Gemma 4 on Workers AI and, when the cook taps Decide for me, asks Cloudflare's Clef-flash on Workers AI to pick one of the recipe ideas. Clef-flash also says which seasonings and garnishes can be seen on a finished dish, for its icon. Every call is signed with App Attest, and each device has a Durable Object that holds its key, its assertion counter, and its daily counts.
 

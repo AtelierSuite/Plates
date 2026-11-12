@@ -6,8 +6,8 @@ import SwiftUI
 struct AIProcessingView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @AppStorage(PlatesCloud.allowedKey) private var isAllowed = false
-    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+    @AppStorage(Plates.allowedKey) private var isAllowed = false
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .plates
 
     var body: some View {
         NavigationStack {

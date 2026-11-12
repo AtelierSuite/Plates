@@ -12,7 +12,7 @@ public enum DishDrawing {
     /// saved, and the cook allowed requests to leave the device.
     public static var isAvailable: Bool {
         WriterProvider.current.needsKey && WriterProvider.current.hasKey
-            && UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey)
+            && UserDefaults.standard.bool(forKey: Plates.allowedKey)
     }
 
     /// The side of the rendered PNG, in points. It is rendered at the screen's scale, enough for

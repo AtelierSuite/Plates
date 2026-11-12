@@ -194,7 +194,7 @@ public struct EditProgress: Equatable, Sendable {
 /// Putting the new name in place of the old one keeps cues that only fit the old ingredient,
 /// such as chicken cooked "until no longer pink" after it became tofu. So for each ingredient
 /// swapped, Gemma is asked once, in English, what the swap changes in the method, and the
-/// answer is handed to each step rewrite that names the old ingredient. When PlatesCloud
+/// answer is handed to each step rewrite that names the old ingredient. When Plates
 /// cannot be reached or today's edit limit is used up, the steps are followed through by name
 /// alone, as they were before.
 ///
@@ -225,7 +225,7 @@ public final class RecipeAskEditor {
     /// The plan and the changes on it.
     private let passes = ModelPasses()
 
-    /// Where a swap's effect on the method is asked: Gemma on PlatesCloud, or the provider the
+    /// Where a swap's effect on the method is asked: Gemma on Plates, or the provider the
     /// cook brought their own key for.
     private var cloud: any RecipeWriting { WriterProvider.current.service }
 
@@ -960,7 +960,7 @@ public final class RecipeAskEditor {
     // MARK: - What a swap changes
 
     /// What using one ingredient in place of another changes in the method, as Gemma says it
-    /// in English, or nil when nothing changes. Nil too when PlatesCloud cannot be reached or
+    /// in English, or nil when nothing changes. Nil too when Plates cannot be reached or
     /// today's edit limit is used up, so the swap is followed through by name alone rather
     /// than the edit failing.
     private func method(swapping old: Ingredient, for new: Ingredient, in recipe: Recipe) async -> String? {

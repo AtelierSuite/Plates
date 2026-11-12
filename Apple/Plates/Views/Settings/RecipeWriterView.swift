@@ -7,7 +7,7 @@ import SwiftUI
 struct RecipeWriterView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .platesCloud
+    @AppStorage(WriterProvider.selectedKey) private var provider: WriterProvider = .plates
 
     @State private var key = ""
     @State private var hasKey = false

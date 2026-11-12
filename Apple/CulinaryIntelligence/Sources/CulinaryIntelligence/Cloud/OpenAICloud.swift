@@ -121,7 +121,7 @@ final class OpenAICloud: KeyedWriter {
         maximumTokens: Int,
         schema: [String: Any]?
     ) async throws -> URLSession.AsyncBytes {
-        guard UserDefaults.standard.bool(forKey: PlatesCloud.allowedKey) else { throw CloudError.notAllowed }
+        guard UserDefaults.standard.bool(forKey: Plates.allowedKey) else { throw CloudError.notAllowed }
         guard let key = key() else { throw OpenAIError.noKey }
         var request = URLRequest(url: Self.endpoint)
         request.httpMethod = "POST"

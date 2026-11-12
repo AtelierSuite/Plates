@@ -1,11 +1,11 @@
 import Foundation
 
 /// Where a recipe is written, ideas are offered and picked, and a dish is asked what can be seen
-/// on it. PlatesCloud is the default. Any other provider runs on the cook's own API key, which is
-/// kept in the Keychain and sent from the device straight to that provider, never to PlatesCloud.
+/// on it. Plates is the default. Any other provider runs on the cook's own API key, which is
+/// kept in the Keychain and sent from the device straight to that provider, never to Plates.
 /// Apple Intelligence sorts on the device whichever one writes.
 public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
-    case platesCloud = "PlatesCloud"
+    case plates = "Plates"
     case claude = "Claude"
     case openAI = "OpenAI"
 
@@ -16,27 +16,27 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
 
     /// The providers the Recipe Writer page lists. GPT 6.1 Sol is left out until it has been
     /// run against OpenAI and its own generation and edit evals.
-    public static let offered: [WriterProvider] = [.platesCloud, .claude]
+    public static let offered: [WriterProvider] = [.plates, .claude]
 
-    /// The provider the cook picked in the menu, or PlatesCloud when it is not offered.
+    /// The provider the cook picked in the menu, or Plates when it is not offered.
     public static var current: WriterProvider {
         get {
             let picked = UserDefaults.standard.string(forKey: selectedKey).flatMap(WriterProvider.init(rawValue:))
-            return picked.flatMap { offered.contains($0) ? $0 : nil } ?? .platesCloud
+            return picked.flatMap { offered.contains($0) ? $0 : nil } ?? .plates
         }
         set { UserDefaults.standard.set(newValue.rawValue, forKey: selectedKey) }
     }
 
     public var name: LocalizedStringResource {
         switch self {
-        case .platesCloud: LocalizedStringResource(culinary: "Writer.Provider.PlatesCloud")
+        case .plates: LocalizedStringResource(culinary: "Writer.Provider.Plates")
         case .claude: LocalizedStringResource(culinary: "Writer.Provider.Claude")
         case .openAI: LocalizedStringResource(culinary: "Writer.Provider.OpenAI")
         }
     }
 
-    /// Whether the provider runs on a key the cook brings, with no daily limits from PlatesCloud.
-    public var needsKey: Bool { self != .platesCloud }
+    /// Whether the provider runs on a key the cook brings, with no daily limits from Plates.
+    public var needsKey: Bool { self != .plates }
 
     // MARK: - Key
 
@@ -63,16 +63,16 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
 
     var service: any RecipeWriting {
         switch self {
-        case .platesCloud: PlatesCloud.shared
+        case .plates: Plates.shared
         case .claude: ClaudeCloud.shared
         case .openAI: OpenAICloud.shared
         }
     }
 
-    /// The writer on the cook's own key, or nil for PlatesCloud.
+    /// The writer on the cook's own key, or nil for Plates.
     var keyedWriter: (any KeyedWriter)? {
         switch self {
-        case .platesCloud: nil
+        case .plates: nil
         case .claude: ClaudeCloud.shared
         case .openAI: OpenAICloud.shared
         }
@@ -82,7 +82,7 @@ public enum WriterProvider: String, CaseIterable, Identifiable, Sendable {
 /// The calls a run makes on whoever writes, so the passes never know which provider answers.
 @MainActor
 protocol RecipeWriting: AnyObject {
-    /// Whether requests can be sent at all: an address for PlatesCloud, a key for the others.
+    /// Whether requests can be sent at all: an address for Plates, a key for the others.
     var isConfigured: Bool { get }
 
     /// Why requests cannot be sent, when they cannot.
