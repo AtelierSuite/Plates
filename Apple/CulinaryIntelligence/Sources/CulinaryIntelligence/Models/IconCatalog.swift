@@ -1427,6 +1427,19 @@ public nonisolated enum IconCatalog {
         name(for: asset, String(culinaryEnglish: String.LocalizationValue(nameKey(for: asset))))
     }
 
+    /// Every name the catalog gives an asset, in English and in Japanese, whatever the reader's
+    /// language, so a cook's request is read the same way in either. Empty for a name the
+    /// catalog does not carry.
+    static func names(for asset: String) -> [String] {
+        guard ingredientSet.contains(asset) || toolSet.contains(asset) else { return [] }
+        let key = String.LocalizationValue(nameKey(for: asset))
+        let names = [
+            name(for: asset, String(culinaryEnglish: key)),
+            name(for: asset, String(localized: key, bundle: .japaneseModule)),
+        ]
+        return names[0] == names[1] ? [names[0]] : names
+    }
+
     /// A looked up name, or the asset's own name when the catalog has no entry for it.
     private static func name(for asset: String, _ localized: String) -> String {
         let key = nameKey(for: asset)
@@ -1450,6 +1463,8 @@ public nonisolated enum IconCatalog {
         .reduce(into: [:]) { table, asset in table[asset] = normalized(displayName(for: asset)) }
 
     private static let ingredientSet = Set(ingredients)
+
+    private static let toolSet = Set(tools)
 
     /// The localized ingredient names, mapped back onto their assets, so a name the model
     /// wrote in the reader's language is found the same way an English one is.
