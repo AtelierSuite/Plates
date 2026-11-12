@@ -137,6 +137,23 @@
         }
       }
     },
+    "Edit.Plan.Serves": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make it for %1$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@人分にする"
+          }
+        }
+      }
+    },
     "Edit.Progress.Applying": {
       "extractionState": "manual",
       "localizations": {
@@ -1037,6 +1054,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@。%2$@"
+          }
+        }
+      }
+    },
+    "Edit.Scale.Step.Batches": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From here on, cook in %1$@ batches so the pan is not crowded."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ここからは%1$@回に分けて作り、詰め込みすぎないようにします。"
+          }
+        }
+      }
+    },
+    "Edit.Scale.Tool.Batches": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serves %1$@ instead of %2$@: cook in %3$@ batches."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@人分ではなく%1$@人分なら、%3$@回に分けて作ります。"
+          }
+        }
+      }
+    },
+    "Edit.Scale.Tool.Size": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serves %1$@ instead of %2$@: use one about %3$@ cm across."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@人分ではなく%1$@人分なら、%3$@cmほどのものを使います。"
+          }
+        }
+      }
+    },
+    "Edit.Scale.Tool.SizeAndBatches": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serves %1$@ instead of %2$@: use one about %3$@ cm across and cook in %4$@ batches."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@人分ではなく%1$@人分なら、%3$@cmほどのものを使い、%4$@回に分けて作ります。"
           }
         }
       }
