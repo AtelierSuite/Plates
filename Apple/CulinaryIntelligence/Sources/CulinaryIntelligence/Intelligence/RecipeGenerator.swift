@@ -393,7 +393,11 @@ public final class RecipeGenerator {
     private func write(_ request: GenerationRequest) async throws -> String {
         progress.stage = .write
         var written = ""
-        let stream = cloud.write(instructions: Self.writeInstructions(for: request), prompt: Self.prompt(for: request))
+        let stream = cloud.write(
+            instructions: Self.writeInstructions(for: request),
+            prompt: Self.prompt(for: request),
+            temperature: Self.writeTemperature
+        )
         for try await piece in stream {
             written += piece
             trace?.draft = written
@@ -671,6 +675,10 @@ public final class RecipeGenerator {
     /// window and is taken for a request too large for the device. With one, it fails like any
     /// other pass and is tried again.
     static let lineTokenLimit = 600
+
+    /// Gemma's temperature for the recipe write. It is the 0.7 the Kitchen screening used until
+    /// the generation evals settle on a lower value, where one recipe has to come out right.
+    static let writeTemperature = 0.7
 
     /// The same limit for a section sorted from the whole text, which writes every line of it.
     private static let wholeTokenLimit = 2400
