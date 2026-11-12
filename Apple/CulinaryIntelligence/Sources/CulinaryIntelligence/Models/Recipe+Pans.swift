@@ -14,6 +14,10 @@ extension Recipe {
     /// Lines written by an earlier change are taken out first, and a size is always worked out
     /// from the count the note was written for, so going back to that count gives the recipe
     /// back as it was.
+    ///
+    /// A pan whose note already speaks of a serving count in other words is left alone: an
+    /// older build's model may have reworded the line while changing the pan, and a second line
+    /// beside it would contradict the first. A step that already cooks in batches gets no point.
     public mutating func resizePans(to serves: String) {
         guard let target = Recipe.servings(in: serves) else { return }
         let language = writtenLanguage
@@ -21,6 +25,7 @@ extension Recipe {
         for index in tools.indices {
             guard let vessel = tools[index].vessel else { continue }
             let (note, writtenFor) = Self.withoutSizeLine(tools[index].note)
+            if writtenFor == nil, let note, Self.mentionsServings(note) { continue }
             let base = writtenFor ?? self.serves
             guard let count = Recipe.servings(in: base) else { continue }
             let size = note.flatMap(Self.centimeters)
@@ -32,7 +37,7 @@ extension Recipe {
             tools[index].note = Self.appending(line, to: note)
             guard fit.batches > 1, let step = firstStep(using: tools[index]) else { continue }
             let point = PanLine.batches.written(in: language, String(fit.batches))
-            if !steps[step].points.contains(point) {
+            if !steps[step].points.contains(where: Self.mentionsBatches) {
                 steps[step].points.append(point)
             }
         }
@@ -71,6 +76,18 @@ extension Recipe {
             return (trimmed.isEmpty ? nil : trimmed, found.arguments[2])
         }
         return (note, nil)
+    }
+
+    /// Whether a note gives a serving count, as a size line reworded by hand or by a model
+    /// would: "For 6 servings, a 30 cm pan" or "6人分なら30cmのフライパン". A count has a
+    /// figure, so the wok's "cook one portion at a time" and "一人分ずつ" are not one.
+    static func mentionsServings(_ text: String) -> Bool {
+        text.contains(#/(?i)[0-9]+\s*(servings?|people|persons|人分|人前)|\bserves?\s+[0-9]+/#)
+    }
+
+    /// Whether a step already says to cook in batches: "Fry it in two batches" or "2回に分けて".
+    static func mentionsBatches(_ text: String) -> Bool {
+        text.contains(#/(?i)\bbatch(es)?\b|回に分けて|数回に分け/#)
     }
 
     /// The size a note gives in centimeters: "About 24 cm." or "24cmほど。".

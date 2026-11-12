@@ -99,6 +99,33 @@ struct PanTests {
         #expect(recipe.steps.flatMap(\.points).filter { $0.contains("batches") }.count == 1)
     }
 
+    @Test(arguments: [
+        "About 24 cm. For 6 servings, use a 30 cm pan and fry it in two batches.",
+        "24cmほど。6人分なら30cmのフライパンで2回に分けて炒めます。",
+    ])
+    func leavesALineSomeoneReworded(_ note: String) throws {
+        var recipe = try sample("kimchi-fried-rice")
+        recipe.serves = "6"
+        recipe.tools[0].note = note
+        let rescaled = scaled(recipe, to: "4")
+        #expect(rescaled.tools[0].note == note)
+        #expect(rescaled.steps == recipe.steps)
+    }
+
+    @Test func addsNoPointToAStepThatAlreadyBatches() throws {
+        var recipe = try sample("kimchi-fried-rice")
+        recipe.steps[3].points.append("With more than two servings, cook the pork in batches.")
+        let rescaled = scaled(recipe, to: "6")
+        #expect(rescaled.steps[3] == recipe.steps[3])
+        #expect(rescaled.tools[0].note?.hasSuffix("cook in 2 batches.") == true)
+    }
+
+    @Test func wokNotesAboutOnePortionAreNotACount() {
+        #expect(!Recipe.mentionsServings("A 24 cm frying pan works. It holds less heat, so cook one portion at a time."))
+        #expect(!Recipe.mentionsServings("24cmのフライパンでも作れます。一人分ずつ炒めます。"))
+        #expect(Recipe.mentionsServings("Serves 6: a 30 cm pan."))
+    }
+
     @Test func readsSizesInBothLanguages() {
         #expect(Recipe.centimeters(in: "About 24 cm.") == 24)
         #expect(Recipe.centimeters(in: "24cmほど。") == 24)
